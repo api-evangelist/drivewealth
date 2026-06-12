@@ -1,0 +1,35 @@
+{
+  "description": "Example: Create a new DriveWealth cash brokerage account for an investor.",
+  "operation": "POST /accounts",
+  "request": {
+    "headers": {
+      "Content-Type": "application/json",
+      "dw-auth-token": "eyJhbGciOiJSUzI1NiJ9..."
+    },
+    "body": {
+      "userID": "cc07c845-1b36-41c1-9f08-e5e0d5fd9d74",
+      "accountType": "LIVE",
+      "tradingType": "CASH",
+      "currency": "USD",
+      "nickname": "My Investment Account",
+      "commissionID": "3af4d3d3-4d3a-4d3d-4d3d-4d3d4d3d4d3d"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "dw-account-id~1a2b3c4d-5e6f-7890-abcd-ef1234567890",
+      "accountNo": "DWBG000001",
+      "accountType": "CASH",
+      "accountStatus": "OPEN",
+      "nickname": "My Investment Account",
+      "currency": "USD",
+      "userID": "cc07c845-1b36-41c1-9f08-e5e0d5fd9d74",
+      "tradingType": "CASH",
+      "goodFaithViolations": 0,
+      "patternDayTrades": 0,
+      "openedWhen": "2024-01-15T14:30:00.000Z",
+      "updatedWhen": "2024-01-15T14:30:00.000Z"
+    }
+  }
+}

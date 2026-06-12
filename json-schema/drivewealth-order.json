@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.drivewealth.com/schemas/order",
+  "title": "DriveWealth Order",
+  "description": "A trade order submitted through the DriveWealth REST API representing a buy or sell instruction for a financial instrument on behalf of an investor account.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique DriveWealth order identifier.",
+      "pattern": "^[0-9a-fA-F-]{36}$"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account identifier against which this order is placed.",
+      "pattern": "^[0-9a-fA-F-]{36}$"
+    },
+    "userID": {
+      "type": "string",
+      "description": "User identifier associated with the account placing the order.",
+      "pattern": "^[0-9a-fA-F-]{36}$"
+    },
+    "instrumentID": {
+      "type": "string",
+      "description": "DriveWealth unique identifier for the financial instrument being traded.",
+      "pattern": "^[0-9a-fA-F-]{36}$"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "Ticker symbol of the instrument (e.g., AAPL, SPY)."
+    },
+    "side": {
+      "type": "string",
+      "description": "Direction of the trade.",
+      "enum": ["B", "S"]
+    },
+    "orderType": {
+      "type": "string",
+      "description": "Type of order instruction.",
+      "enum": ["MARKET", "LIMIT", "STOP", "STOP_LIMIT"]
+    },
+    "quantity": {
+      "type": ["number", "null"],
+      "description": "Number of shares to trade (null for dollar-amount orders).",
+      "minimum": 0
+    },
+    "amount": {
+      "type": ["number", "null"],
+      "description": "Dollar amount to trade (null for share-quantity orders). Supports fractional shares.",
+      "minimum": 0
+    },
+    "limitPrice": {
+      "type": ["number", "null"],
+      "description": "Limit price for LIMIT and STOP_LIMIT orders.",
+      "minimum": 0
+    },
+    "stopPrice": {
+      "type": ["number", "null"],
+      "description": "Stop trigger price for STOP and STOP_LIMIT orders.",
+      "minimum": 0
+    },
+    "timeInForce": {
+      "type": "string",
+      "description": "Duration the order remains active.",
+      "enum": ["DAY", "GTC", "IOC", "FOK"]
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the order.",
+      "enum": [
+        "PENDING",
+        "WORKING",
+        "PARTIAL",
+        "FILLED",
+        "CANCELED",
+        "REJECTED",
+        "EXPIRED"
+      ]
+    },
+    "filledQuantity": {
+      "type": ["number", "null"],
+      "description": "Total shares filled for this order.",
+      "minimum": 0
+    },
+    "avgPrice": {
+      "type": ["number", "null"],
+      "description": "Average execution price of filled shares.",
+      "minimum": 0
+    },
+    "commission": {
+      "type": ["number", "null"],
+      "description": "Commission charged for this order.",
+      "minimum": 0
+    },
+    "fees": {
+      "type": ["number", "null"],
+      "description": "Regulatory and exchange fees assessed for this order.",
+      "minimum": 0
+    },
+    "externalOrderID": {
+      "type": "string",
+      "description": "Partner-assigned order identifier for idempotency and reconciliation."
+    },
+    "createdWhen": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the order was created."
+    },
+    "executedWhen": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the order was fully executed."
+    },
+    "updatedWhen": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the last order status update."
+    }
+  },
+  "required": ["id", "accountID", "instrumentID", "side", "orderType", "timeInForce", "status"],
+  "additionalProperties": true
+}

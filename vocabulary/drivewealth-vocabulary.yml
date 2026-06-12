@@ -1,0 +1,228 @@
+vocabulary:
+  name: DriveWealth API Vocabulary
+  description: >
+    Domain vocabulary for the DriveWealth Brokerage-as-a-Service REST API,
+    covering accounts, orders, funding, portfolio management, instruments,
+    compliance, and reporting for embedded investing applications.
+  version: "1.0"
+  provider: drivewealth
+  source: https://github.com/DriveWealth/dw-openapi
+
+  domains:
+    - id: accounts
+      label: Accounts
+      description: Brokerage account lifecycle — creation, updates, and retrieval of investor accounts.
+      terms:
+        - id: accountID
+          label: Account ID
+          description: Unique identifier for a DriveWealth brokerage account.
+        - id: AccountReq
+          label: Account Request
+          description: Payload for creating a new brokerage account.
+        - id: AccountRes
+          label: Account Response
+          description: Brokerage account data returned from the API.
+        - id: AccountDetailRes
+          label: Account Detail Response
+          description: Extended account information including balances and status.
+        - id: UpdateAcctReq
+          label: Update Account Request
+          description: Payload for modifying an existing brokerage account.
+
+    - id: orders
+      label: Orders
+      description: Trade order placement, retrieval, cancellation, and history.
+      terms:
+        - id: order
+          label: Order
+          description: A request to buy or sell a financial instrument on behalf of an investor.
+        - id: OrderHistoryRes
+          label: Order History Response
+          description: List of historical orders associated with an account.
+        - id: sideAbbreviated
+          label: Side (Abbreviated)
+          description: Abbreviated order side indicator (B for Buy, S for Sell).
+
+    - id: funds
+      label: Funds
+      description: Managed fund objects representing pools of capital in portfolio management.
+      terms:
+        - id: fundsRequest
+          label: Funds Request
+          description: Payload to create or update a managed fund.
+        - id: fundsResponse
+          label: Funds Response
+          description: Managed fund data returned from the API.
+        - id: clientFundID
+          label: Client Fund ID
+          description: Partner-assigned identifier for a managed fund.
+
+    - id: portfolios
+      label: Portfolios
+      description: Portfolio definitions, holdings, and triggers for automated rebalancing.
+      terms:
+        - id: portfolioReq
+          label: Portfolio Request
+          description: Payload for creating or updating a managed portfolio.
+        - id: portfolioRes
+          label: Portfolio Response
+          description: Managed portfolio data returned from the API.
+        - id: portfolioReqHoldings
+          label: Portfolio Request Holdings
+          description: Target holdings object within a portfolio request.
+        - id: portfolioTriggers
+          label: Portfolio Triggers
+          description: Conditions that trigger automated rebalancing of a portfolio.
+        - id: clientPortfolioID
+          label: Client Portfolio ID
+          description: Partner-assigned identifier for a managed portfolio.
+
+    - id: autopilot
+      label: AutoPilot
+      description: Automated portfolio rebalancing runs initiated by the partner.
+      terms:
+        - id: autopilotReq
+          label: AutoPilot Request
+          description: Payload to initiate an automated rebalancing run.
+        - id: autopilotRes
+          label: AutoPilot Response
+          description: AutoPilot run status and metadata returned from the API.
+        - id: runStatusRes
+          label: Run Status Response
+          description: Status of an ongoing or completed AutoPilot rebalancing run.
+
+    - id: instruments
+      label: Instruments
+      description: Financial instruments — equities, ETFs, mutual funds, options, and fixed income.
+      terms:
+        - id: instrumentID
+          label: Instrument ID
+          description: DriveWealth unique identifier for a tradable financial instrument.
+        - id: instrumentSymbol
+          label: Instrument Symbol
+          description: Ticker symbol of a financial instrument (e.g., AAPL, SPY).
+
+    - id: funding
+      label: Funding
+      description: Deposits, withdrawals, linked bank accounts, and virtual bank accounts.
+      terms:
+        - id: VirtualAccountRes
+          label: Virtual Account Response
+          description: Virtual bank account details used for ACH deposit routing.
+        - id: MoneyDetailsRes
+          label: Money Details Response
+          description: Cash balance and buying power summary for an account.
+
+    - id: allocations
+      label: Trade Allocations
+      description: Managed account trade allocation instructions and results.
+      terms:
+        - id: AllocationRequest
+          label: Allocation Request
+          description: Payload for submitting a trade allocation across managed accounts.
+        - id: AllocationResponse
+          label: Allocation Response
+          description: Result of a trade allocation operation.
+        - id: allocation
+          label: Allocation
+          description: A single trade allocation record.
+        - id: allocationDetailObject
+          label: Allocation Detail Object
+          description: Granular details of a single allocation within an allocation batch.
+
+    - id: users
+      label: Users
+      description: Investor user profiles, KYC data, and authentication.
+      terms:
+        - id: managedAccountsUserID
+          label: Managed Accounts User ID
+          description: Identifier linking a user to their managed accounts.
+        - id: riaID
+          label: RIA ID
+          description: Registered Investment Advisor identifier associated with a user.
+
+    - id: compliance
+      label: Compliance
+      description: KYC/AML disclosures, violations, escheatment, and risk controls.
+      terms:
+        - id: ViolationListRes
+          label: Violation List Response
+          description: List of regulatory violations associated with an account.
+        - id: ViolationDetailsRes
+          label: Violation Details Response
+          description: Detailed information about a specific compliance violation.
+        - id: MarginRes
+          label: Margin Response
+          description: Margin eligibility and balance information for an account.
+
+    - id: reporting
+      label: Reporting
+      description: Statements, tax documents, trade confirmations, and performance reports.
+      terms:
+        - id: StatementListRes
+          label: Statement List Response
+          description: List of account statements available for download.
+        - id: ListTaxDocsRes
+          label: Tax Documents List Response
+          description: Available tax documents (1099s, etc.) for an account.
+        - id: ListTradeConfirmsRes
+          label: Trade Confirms List Response
+          description: Trade confirmation documents for completed orders.
+        - id: SummaryRes
+          label: Summary Response
+          description: Account summary including balances, positions, and cash.
+        - id: PerformanceRes
+          label: Performance Response
+          description: Portfolio performance metrics and returns for an account.
+
+    - id: positions
+      label: Positions
+      description: Current holdings and open position data for brokerage accounts.
+      terms:
+        - id: PositionsRes
+          label: Positions Response
+          description: List of open positions held within a brokerage account.
+        - id: holdingsObject
+          label: Holdings Object
+          description: A single holding record within a positions or portfolio response.
+
+    - id: beneficiaries
+      label: Beneficiaries
+      description: Designated beneficiary management for brokerage accounts.
+      terms:
+        - id: BeneficiaryReq
+          label: Beneficiary Request
+          description: Payload for adding or updating a beneficiary on an account.
+        - id: BeneficiaryRes
+          label: Beneficiary Response
+          description: Beneficiary data returned for an account.
+
+    - id: commissions
+      label: Commission Schedules
+      description: Fee and commission schedule definitions applied to accounts.
+      terms:
+        - id: CommissionsRes
+          label: Commissions Response
+          description: List of commission schedules applicable to an account.
+        - id: CommissionObject
+          label: Commission Object
+          description: A single commission schedule entry.
+
+    - id: settlements
+      label: Settlements
+      description: Trade settlement status and related financial settlement data.
+      terms:
+        - id: PortfolioStatusRes
+          label: Portfolio Status Response
+          description: Settlement and rebalancing status of a managed portfolio.
+
+    - id: market-data
+      label: Market Data
+      description: Real-time and historical quotes, charts, depth-of-book, and instrument data.
+      terms:
+        - id: fees
+          label: Fees
+          description: Fee details associated with a trade or allocation.
+        - id: triggersObject
+          label: Triggers Object
+          description: Trigger conditions associated with a fund or portfolio rebalance.

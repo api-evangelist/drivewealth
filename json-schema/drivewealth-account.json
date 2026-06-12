@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.drivewealth.com/schemas/account",
+  "title": "DriveWealth Account",
+  "description": "A DriveWealth brokerage account representing an investor's trading account, including identification, status, balances, and associated metadata.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique DriveWealth account identifier (UUID format).",
+      "pattern": "^[0-9a-fA-F-]{36}$"
+    },
+    "accountNo": {
+      "type": "string",
+      "description": "Human-readable account number assigned at account opening."
+    },
+    "accountType": {
+      "type": "string",
+      "description": "Type of brokerage account.",
+      "enum": ["CASH", "MARGIN", "IRA_TRADITIONAL", "IRA_ROTH", "IRA_SEP"]
+    },
+    "accountStatus": {
+      "type": "string",
+      "description": "Current lifecycle status of the account.",
+      "enum": ["OPEN", "CLOSED", "SUSPENDED", "PENDING", "RESTRICTED"]
+    },
+    "nickname": {
+      "type": "string",
+      "description": "Partner-assigned display name for the account."
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 currency code for the account base currency.",
+      "default": "USD",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "userID": {
+      "type": "string",
+      "description": "Identifier of the user who owns this account.",
+      "pattern": "^[0-9a-fA-F-]{36}$"
+    },
+    "riaID": {
+      "type": "string",
+      "description": "Registered Investment Advisor identifier linked to this account, if applicable."
+    },
+    "riaProductID": {
+      "type": "string",
+      "description": "RIA product associated with this account."
+    },
+    "goodFaithViolations": {
+      "type": "integer",
+      "description": "Number of good faith violations on the account.",
+      "minimum": 0
+    },
+    "patternDayTrades": {
+      "type": "integer",
+      "description": "Number of pattern day trades in the rolling 5-day window.",
+      "minimum": 0
+    },
+    "tradingType": {
+      "type": "string",
+      "description": "Trading eligibility type for the account.",
+      "enum": ["FULL", "FRACTIONAL", "BOTH"]
+    },
+    "openedWhen": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the account was opened."
+    },
+    "closedWhen": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the account was closed, null if still open."
+    },
+    "updatedWhen": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the last account update."
+    }
+  },
+  "required": ["id", "accountNo", "accountType", "accountStatus", "currency", "userID"],
+  "additionalProperties": true
+}

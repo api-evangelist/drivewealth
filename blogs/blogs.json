@@ -1,0 +1,9 @@
+{
+  "blog": {
+    "url": "https://drivewealth.com/news/",
+    "rssURL": null,
+    "rssFound": false,
+    "note": "DriveWealth news page does not expose an RSS/Atom feed. Content must be scraped from https://drivewealth.com/news/ directly.",
+    "lastChecked": "2026-06-12"
+  }
+}

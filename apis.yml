@@ -50,6 +50,8 @@ apis:
         url: https://developer.drivewealth.com/apis/docs/opening-accounts
       - type: OpenAPI
         url: https://github.com/DriveWealth/dw-openapi
+      - type: OpenAPI
+        url: openapi/drivewealth-rest-openapi.yml
 
   - name: DriveWealth FIX API
     description: >
@@ -90,6 +92,24 @@ common:
     url: rate-limits/drivewealth-rate-limits.yml
   - type: FinOps
     url: finops/drivewealth-finops.yml
+  - type: Vocabulary
+    url: vocabulary/drivewealth-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/drivewealth-context.jsonld
+  - type: JSONSchema
+    url: json-schema/drivewealth-account.json
+  - type: JSONSchema
+    url: json-schema/drivewealth-order.json
+  - type: JSONSchema
+    url: json-schema/drivewealth-instrument.json
+  - type: Example
+    url: examples/drivewealth-create-account-example.json
+  - type: Example
+    url: examples/drivewealth-place-order-example.json
+  - type: Example
+    url: examples/drivewealth-deposit-example.json
+  - type: Blogs
+    url: blogs/blogs.json
 
 maintainers:
   - FN: Kin Lane

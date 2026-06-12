@@ -1,0 +1,24 @@
+{
+  "description": "Example: Retrieve virtual bank account deposit instructions for ACH funding.",
+  "operation": "GET /accounts/{accountID}/funding/deposit-instructions",
+  "request": {
+    "headers": {
+      "dw-auth-token": "eyJhbGciOiJSUzI1NiJ9..."
+    },
+    "pathParams": {
+      "accountID": "dw-account-id~1a2b3c4d-5e6f-7890-abcd-ef1234567890"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "id": "dw-account-id~1a2b3c4d-5e6f-7890-abcd-ef1234567890",
+      "bankName": "Coastal Community Bank",
+      "accountType": "CHECKING",
+      "accountNumber": "00012345678",
+      "routingNumber": "125108405",
+      "depositInstructions": "Wire or ACH to this account to fund your DriveWealth account. Include your DriveWealth account number DWBG000001 in the memo field.",
+      "memo": "DWBG000001"
+    }
+  }
+}

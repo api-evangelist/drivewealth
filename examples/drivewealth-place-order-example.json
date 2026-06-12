@@ -1,0 +1,40 @@
+{
+  "description": "Example: Place a fractional share market buy order for $10 of Apple stock.",
+  "operation": "POST /orders",
+  "request": {
+    "headers": {
+      "Content-Type": "application/json",
+      "dw-auth-token": "eyJhbGciOiJSUzI1NiJ9..."
+    },
+    "body": {
+      "accountID": "dw-account-id~1a2b3c4d-5e6f-7890-abcd-ef1234567890",
+      "orderType": "MARKET",
+      "side": "B",
+      "instrumentID": "a67422af-8504-43df-9e63-7361eb0bd99e",
+      "amount": 10.00,
+      "comment": "Buy $10 of AAPL"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "id": "dw-order~9a8b7c6d-5e4f-3210-fedc-ba9876543210",
+      "accountID": "dw-account-id~1a2b3c4d-5e6f-7890-abcd-ef1234567890",
+      "userID": "cc07c845-1b36-41c1-9f08-e5e0d5fd9d74",
+      "instrumentID": "a67422af-8504-43df-9e63-7361eb0bd99e",
+      "symbol": "AAPL",
+      "side": "B",
+      "orderType": "MARKET",
+      "amount": 10.00,
+      "quantity": null,
+      "status": "PENDING",
+      "filledQuantity": null,
+      "avgPrice": null,
+      "commission": 0,
+      "fees": null,
+      "timeInForce": "DAY",
+      "createdWhen": "2024-01-15T15:00:00.000Z",
+      "updatedWhen": "2024-01-15T15:00:00.000Z"
+    }
+  }
+}

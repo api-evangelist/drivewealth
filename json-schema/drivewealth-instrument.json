@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.drivewealth.com/schemas/instrument",
+  "title": "DriveWealth Instrument",
+  "description": "A tradable financial instrument available through DriveWealth including US equities, ETFs, mutual funds, options, and fixed income securities.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "DriveWealth unique identifier for this instrument (UUID format).",
+      "pattern": "^[0-9a-fA-F-]{36}$"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "Primary ticker symbol for the instrument on its listing exchange."
+    },
+    "name": {
+      "type": "string",
+      "description": "Full name of the financial instrument or issuing company."
+    },
+    "type": {
+      "type": "string",
+      "description": "Asset class category.",
+      "enum": ["EQUITY", "ETF", "MUTUAL_FUND", "OPTION", "FIXED_INCOME", "ADR", "REIT"]
+    },
+    "exchange": {
+      "type": "string",
+      "description": "Primary listing exchange (e.g., NYSE, NASDAQ, NYSEARCA)."
+    },
+    "isin": {
+      "type": "string",
+      "description": "International Securities Identification Number.",
+      "pattern": "^[A-Z]{2}[0-9A-Z]{10}$"
+    },
+    "cusip": {
+      "type": "string",
+      "description": "CUSIP identifier for US and Canadian securities.",
+      "pattern": "^[0-9A-Z]{9}$"
+    },
+    "sector": {
+      "type": ["string", "null"],
+      "description": "GICS sector classification for equity instruments."
+    },
+    "industry": {
+      "type": ["string", "null"],
+      "description": "GICS industry group within the sector."
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 currency code for the instrument's trading currency.",
+      "default": "USD",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "fractionalEnabled": {
+      "type": "boolean",
+      "description": "Whether fractional share trading is available for this instrument."
+    },
+    "fractionalMinAmount": {
+      "type": ["number", "null"],
+      "description": "Minimum dollar amount for fractional share orders.",
+      "minimum": 0
+    },
+    "marginEnabled": {
+      "type": "boolean",
+      "description": "Whether the instrument is eligible for margin trading."
+    },
+    "orderTypes": {
+      "type": "array",
+      "description": "Order types supported for this instrument.",
+      "items": {
+        "type": "string",
+        "enum": ["MARKET", "LIMIT", "STOP", "STOP_LIMIT"]
+      }
+    },
+    "status": {
+      "type": "string",
+      "description": "Trading availability status for the instrument.",
+      "enum": ["ACTIVE", "HALTED", "SUSPENDED", "DELISTED"]
+    },
+    "closePrice": {
+      "type": ["number", "null"],
+      "description": "Most recent closing price.",
+      "minimum": 0
+    },
+    "priceUpdatedWhen": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the last price update."
+    }
+  },
+  "required": ["id", "symbol", "name", "type", "exchange", "currency"],
+  "additionalProperties": true
+}
