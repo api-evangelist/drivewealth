@@ -1,0 +1,76 @@
+name: DriveWealth FinOps
+description: >
+  FinOps Framework 1.0 FOCUS-aligned cost and financial operations metadata for
+  DriveWealth's Brokerage-as-a-Service API platform. DriveWealth uses a custom
+  enterprise partnership pricing model; costs are negotiated based on trading volume,
+  account count, asset classes, and geography rather than a published per-unit rate card.
+specificationVersion: "1.0"
+
+provider:
+  name: DriveWealth
+  url: https://drivewealth.com
+  billingContact: https://drivewealth.com/contact/
+  pricingModel: enterprise-negotiated
+  billingCycle: custom
+  currency: USD
+
+costDimensions:
+  - name: Trading Volume
+    description: >
+      Costs are partially driven by the number and value of trades executed through
+      the platform. High-volume partners typically negotiate lower per-trade rates.
+    unit: per-trade
+    rateType: negotiated
+
+  - name: Account Count
+    description: >
+      Pricing may scale with the number of active brokerage accounts opened and
+      maintained on the DriveWealth platform on behalf of a partner's customers.
+    unit: per-account
+    rateType: negotiated
+
+  - name: Asset Class Access
+    description: >
+      Access to additional asset classes (options, fixed income, mutual funds, alternatives)
+      may carry incremental licensing or data costs beyond equities/ETF trading.
+    unit: per-asset-class
+    rateType: negotiated
+
+  - name: Data and Market Data Fees
+    description: >
+      Real-time quotes, charts, and market data access may incur separate data licensing
+      fees depending on the partner agreement and data providers used.
+    unit: per-feed
+    rateType: negotiated
+
+  - name: Regulatory and Compliance Costs
+    description: >
+      KYC/AML verification, tax document generation, and regulatory reporting services
+      may carry per-event or per-account costs depending on usage volume.
+    unit: per-event
+    rateType: negotiated
+
+environments:
+  - name: Sandbox / UAT
+    description: Production-replica testing environment available at no charge during integration.
+    cost: free
+    notes: Available to all prospective partners prior to production agreement execution.
+
+  - name: Production
+    description: Live brokerage infrastructure with full regulatory coverage.
+    cost: custom
+    notes: Governed by signed partnership agreement; contact sales for pricing.
+
+focusAlignment:
+  version: "1.0"
+  chargeType: Usage
+  billedCurrency: USD
+  listUnitPrice: not-published
+  contractedUnitPrice: negotiated
+  effectiveCost: negotiated
+  billingAccountId: partner-specific
+  resourceType: BrokerageAPI
+  serviceName: DriveWealth Brokerage-as-a-Service
+  serviceCategory: Financial Services / API Platform
+  publisher: DriveWealth Technologies
+  region: US, SG, EU (Lithuania)

@@ -1,0 +1,45 @@
+name: DriveWealth Rate Limits
+description: >
+  DriveWealth imposes rate limits on its REST API to protect platform stability and ensure
+  fair usage across all partners. Sandbox and production environments have different rate
+  limits. Certain high-latency or low-throughput endpoints have additional specific limits.
+  Detailed production rate limits are available in the developer documentation after
+  completing a partnership agreement.
+specificationVersion: "0.1"
+url: https://developer.drivewealth.com/apis/reference/rate-limits
+
+rateLimits:
+  - name: Sandbox Rate Limit
+    description: >
+      The sandbox/UAT environment enforces a limit of 5 requests per second to simulate
+      realistic production constraints during integration development and testing.
+    environment: sandbox
+    requests: 5
+    period: second
+    scope: global
+
+  - name: Production Rate Limit
+    description: >
+      Production rate limits are higher than sandbox and are determined as part of the
+      partner agreement. Specific high-latency or low-throughput endpoints may have
+      additional lower limits regardless of overall rate limit thresholds.
+    environment: production
+    requests: custom
+    period: second
+    scope: global
+    notes: >
+      Contact DriveWealth partner support for specific production rate limit details.
+      Some endpoints that are high latency or low throughput have additional endpoint-level
+      limits that are lower than the global rate limit.
+
+  - name: Endpoint-Specific Limits
+    description: >
+      Certain API endpoints that are high latency, low throughput, or otherwise not
+      intended for frequent calls have additional rate limits applied at the endpoint level.
+    environment: both
+    requests: varies
+    period: second
+    scope: endpoint
+    notes: >
+      Refer to individual endpoint documentation in the API reference for endpoint-level
+      rate limit details. These apply in addition to the global rate limits.

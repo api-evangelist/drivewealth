@@ -1,0 +1,96 @@
+aid: drivewealth
+name: DriveWealth
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/drivewealth/refs/heads/main/apis.yml
+created: 2026-06-12
+modified: 2026-06-12
+specificationVersion: "0.19"
+description: >
+  DriveWealth is a global B2B financial technology platform providing Brokerage-as-a-Service
+  via a REST API, enabling fintechs, banks, broker-dealers, asset managers, and consumer brands
+  to embed investing and trading experiences into their applications. The platform supports
+  US equities, ETFs, mutual funds, fixed income, options, and fractional share trading starting
+  at $1. DriveWealth powers account opening, KYC/AML compliance, portfolio management,
+  order execution, funding operations, and reporting for 100+ partners worldwide. A FIX API
+  is also available alongside the primary REST API for institutional connectivity.
+tags:
+  - Brokerage-as-a-Service
+  - Embedded Investing
+  - Fractional Shares
+  - Trading
+  - Fintech
+  - Equities
+  - ETFs
+  - Options
+  - Fixed Income
+  - Mutual Funds
+  - Portfolio Management
+  - Account Opening
+  - KYC
+  - Financial Services
+
+apis:
+  - name: DriveWealth REST API
+    description: >
+      Primary REST API providing brokerage-as-a-service capabilities including account
+      opening, user management, order execution, funding, portfolio management, reporting,
+      and compliance for embedded investing applications.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://developer.drivewealth.com/apis/reference/introduction
+    baseURL: https://api.drivewealth.net
+    tags:
+      - REST
+      - Brokerage
+      - Trading
+      - Account Management
+      - Fractional Shares
+    properties:
+      - type: Documentation
+        url: https://developer.drivewealth.com/apis/docs/opening-accounts
+      - type: OpenAPI
+        url: https://github.com/DriveWealth/dw-openapi
+
+  - name: DriveWealth FIX API
+    description: >
+      Financial Information Exchange (FIX) protocol API for institutional-grade
+      connectivity to DriveWealth's trading infrastructure.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://developer.drivewealth.com/
+    baseURL: https://fix.drivewealth.net
+    tags:
+      - FIX
+      - Institutional
+      - Trading
+      - Financial Protocol
+    properties:
+      - type: Documentation
+        url: https://developer.drivewealth.com/
+
+common:
+  - type: Website
+    url: https://drivewealth.com
+  - type: Documentation
+    url: https://developer.drivewealth.com/
+  - type: GitHubOrganization
+    url: https://github.com/DriveWealth
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/drivewealth/
+  - type: X
+    url: https://twitter.com/DriveWealth
+  - type: Blog
+    url: https://drivewealth.com/news/
+  - type: Pricing
+    url: https://drivewealth.com/contact/
+  - type: StatusPage
+    url: https://status.drivewealth.com/
+  - type: Plans
+    url: plans/drivewealth-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/drivewealth-rate-limits.yml
+  - type: FinOps
+    url: finops/drivewealth-finops.yml
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

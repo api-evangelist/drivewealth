@@ -1,0 +1,52 @@
+name: DriveWealth Plans and Pricing
+description: >
+  DriveWealth operates a B2B enterprise model and does not publish fixed public pricing tiers.
+  Access to the platform is through a partnership agreement. Interested parties must contact
+  DriveWealth's sales team to obtain custom pricing based on trading volume, number of accounts,
+  geography, and the specific API products required. A sandbox/UAT environment is available
+  for testing before entering a production partnership agreement.
+specificationVersion: "0.1"
+
+plans:
+  - name: Sandbox / UAT
+    description: >
+      A production-replica sandbox environment available for integration development and testing.
+      Allows testing of all core REST API capabilities including account creation, order simulation,
+      funding, and reporting without live funds.
+    url: https://developer.drivewealth.com/
+    isFree: true
+    rateLimits:
+      - requests: 5
+        period: second
+    features:
+      - REST API access (sandbox endpoints)
+      - Simulated trading and order execution
+      - Account opening and KYC testing
+      - Funding deposit and redemption simulation
+      - Portfolio management endpoints
+      - Full OpenAPI spec available via GitHub
+
+  - name: Production Partner
+    description: >
+      Custom enterprise partnership agreement for production access to DriveWealth's
+      brokerage-as-a-service platform. Pricing is negotiated based on trading volume,
+      account count, asset classes enabled, and geographic regions. Includes access to
+      the REST API, optional FIX API, and dedicated support.
+    url: https://drivewealth.com/contact/
+    isFree: false
+    contact: https://drivewealth.com/contact/
+    features:
+      - Full REST API production access
+      - FIX API (institutional connectivity)
+      - US equities and ETF trading
+      - Fractional share trading
+      - Options trading
+      - Fixed income instruments
+      - Mutual funds (6,000+)
+      - Account opening and KYC/AML
+      - Funding and withdrawals (ACAT, wire, ACH)
+      - Portfolio management and Autopilot rebalancing
+      - Block trading
+      - Dividend reinvestment
+      - Tax documentation generation (W-9, W-8BEN)
+      - Dedicated onboarding and support
