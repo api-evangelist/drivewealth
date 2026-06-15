@@ -5,5 +5,17 @@
     "rssFound": false,
     "note": "DriveWealth news page does not expose an RSS/Atom feed. Content must be scraped from https://drivewealth.com/news/ directly.",
     "lastChecked": "2026-06-12"
-  }
+  },
+  "repo": "drivewealth",
+  "feeds": [
+    {
+      "source": "https://twitter.com/DriveWealth",
+      "feed_url": "https://twitter.com/DriveWealth",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-14T20:42:17Z"
 }
