@@ -1,7 +1,7 @@
 aid: drivewealth
 name: DriveWealth
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/drivewealth/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
@@ -36,7 +36,7 @@ apis:
       Primary REST API providing brokerage-as-a-service capabilities including account
       opening, user management, order execution, funding, portfolio management, reporting,
       and compliance for embedded investing applications.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.drivewealth.com/apis/reference/introduction
     baseURL: https://api.drivewealth.net
     tags:
@@ -57,7 +57,7 @@ apis:
     description: >
       Financial Information Exchange (FIX) protocol API for institutional-grade
       connectivity to DriveWealth's trading infrastructure.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.drivewealth.com/
     baseURL: https://fix.drivewealth.net
     tags:
