@@ -102,13 +102,13 @@ common:
     url: json-schema/drivewealth-order.json
   - type: JSONSchema
     url: json-schema/drivewealth-instrument.json
-  - type: Example
+  - type: Examples
     url: examples/drivewealth-create-account-example.json
-  - type: Example
+  - type: Examples
     url: examples/drivewealth-place-order-example.json
-  - type: Example
+  - type: Examples
     url: examples/drivewealth-deposit-example.json
-  - type: Blogs
+  - type: Blog
     url: blogs/blogs.json
 
 maintainers:
