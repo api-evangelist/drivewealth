@@ -1,0 +1,28 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/drivewealth-rest-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/drivewealth-rest-openapi.yml
+- name: dwAppKey
+  type: apiKey
+  in: header
+  parameter: dw-client-app-key
+  sources:
+  - openapi/drivewealth-rest-openapi.yml
+- name: sessionToken
+  type: apiKey
+  in: header
+  parameter: dw-auth-token
+  sources:
+  - openapi/drivewealth-rest-openapi.yml

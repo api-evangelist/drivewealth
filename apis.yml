@@ -70,6 +70,10 @@ apis:
         url: https://developer.drivewealth.com/
 
 common:
+  - type: DomainSecurity
+    url: security/drivewealth-domain-security.yml
+  - type: Authentication
+    url: authentication/drivewealth-authentication.yml
   - type: Website
     url: https://drivewealth.com
   - type: Documentation
