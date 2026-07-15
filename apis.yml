@@ -70,6 +70,8 @@ apis:
         url: https://developer.drivewealth.com/
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/drivewealth-agentic-access.yml
   - type: DomainSecurity
     url: security/drivewealth-domain-security.yml
   - type: Authentication
