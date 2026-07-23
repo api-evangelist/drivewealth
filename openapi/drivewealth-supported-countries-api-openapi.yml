@@ -1,0 +1,104 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Supported Countries API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Supported Countries
+  x-displayName: Supported Countries
+paths:
+  /countries:
+    get:
+      tags:
+      - Supported Countries
+      summary: List Supported Countries
+      description: Retrieves a list of allowed countries for which users can be onboard from.
+      parameters:
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+        required: true
+        example: ACTIVE
+        description: Filters on the returned countries list has inactive or active countries inside it.
+      responses:
+        '200':
+          description: Retrieving a list of Supported Countries was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOfAllowedCountries'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    ListOfAllowedCountry:
+      type: object
+      properties:
+        id:
+          type: string
+          example: ALA
+          description: The abbreviated identifier of a country.
+        name:
+          type: string
+          example: Aland Islands
+          description: The full name of the country
+        code2:
+          type: string
+          example: AX
+          description: An alternative abbreviated identifier of a country.
+        code3:
+          type: string
+          example: ALA
+          description: An alternative abbreviated identifier of a country.
+        active:
+          type: boolean
+          example: true
+          description: True, if a user can be onboarded from this country.
+        expatsAllowed:
+          type: boolean
+          example: false
+          description: True, if a user who resides outside of their country can be onboarded from the listed country.
+        foreignTINNotRequired:
+          type: boolean
+          example: false
+          description: True, if a user's tax identifier is NOT required during onboarding.
+        fpslProhibited:
+          type: boolean
+          example: false
+        supportDomicile:
+          type: boolean
+          example: false
+        taxTreatyCountry:
+          type: boolean
+          example: false
+          description: True, if the country has a tax treaty with the United States.
+    ListOfAllowedCountries:
+      type: array
+      description: A list of allowed countries.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/ListOfAllowedCountry'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

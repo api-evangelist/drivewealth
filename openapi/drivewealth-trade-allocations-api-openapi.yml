@@ -1,0 +1,386 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Trade Allocations API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Trade Allocations
+  x-displayName: Trade Allocations
+paths:
+  /managed/allocations:
+    post:
+      tags:
+      - Trade Allocations
+      summary: Create Trade Allocation
+      description: Create a Trade Allocation.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllocationRequest'
+        required: true
+      responses:
+        '200':
+          description: Creating a Trade Allocation was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocationResponse'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /managed/allocations/{allocationID}:
+    get:
+      tags:
+      - Trade Allocations
+      parameters:
+      - in: path
+        name: allocationID
+        schema:
+          type: string
+        required: true
+        example: JL.allocation.SomeRIACompany.9d6def3b-14d7-4934-8a64-57d443e67ce6
+        description: The unique identifier returned when a Trade Allocation request is made.
+      summary: Retrieve Trade Allocation
+      description: Retrieves Trade Allocation by allocationID.
+      responses:
+        '200':
+          description: Retrieving Trade Allocation by allocationID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocationDetails'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /users/{userID}/managed/allocations:
+    get:
+      tags:
+      - Trade Allocations
+      summary: List Trade Allocations by Advisor
+      description: Fetches a list of an User's allocations.
+      parameters:
+      - in: path
+        name: userID
+        schema:
+          $ref: '#/components/schemas/userID'
+        required: true
+        example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+        description: The User's unique identifier.
+      responses:
+        '200':
+          description: Fetching A List Of A User's Allocation was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Allocations'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    unallocatedNotional:
+      type: number
+      example: 5320
+      description: The notional value of the shares that have not been allocated to sub accounts.
+    allocationStatus:
+      type: string
+      example: NEW
+      description: The current status of the lot of allocation.
+      enum:
+      - NEW
+      - ACCEPTED
+      - PART_COMPLETE
+      - COMPLETED
+      - REJECTED
+    note:
+      type: string
+      example: Hey! Welcome to DriveWealth Developer Docs!
+      description: A way to store a message/comment on the this object.
+    AllocationRequest:
+      type: object
+      required:
+      - userID
+      - orders
+      properties:
+        userID:
+          type: string
+          example: 66304da9-3h6f-2234-935f-ac6b7933d706
+          description: The unique identifier of the registered investment advisors account.
+        clientListID:
+          $ref: '#/components/schemas/clientListID'
+        note:
+          $ref: '#/components/schemas/allocationNote'
+        orders:
+          type: array
+          description: An array of objects that hold the specific order and allocation details.
+          required:
+          - orderID
+          - allocations
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/order'
+    Allocations:
+      type: array
+      description: A list of a User's sub account allocations.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/Allocation'
+    allocationsRequested:
+      type: number
+      example: 500
+      description: The amount of sub account allocations passed to the system.
+      minimum: 1
+      maximum: 10000
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    Allocation:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/allocationID'
+        clientListID:
+          $ref: '#/components/schemas/note'
+        status:
+          $ref: '#/components/schemas/allocationStatus'
+        allocationsRequested:
+          $ref: '#/components/schemas/allocationsRequested'
+        allocationsCompleted:
+          $ref: '#/components/schemas/allocationsCompleted'
+        unallocatedNotional:
+          $ref: '#/components/schemas/unallocatedNotional'
+        unallocatedQuantity:
+          $ref: '#/components/schemas/unallocatedQuantity'
+        comment:
+          type: string
+          example: All allocated and accounted for. 1::1::0 client note[empty], . timeMs=667 ratePerSec=1.50 msPerItem=667.00
+          description: A custom comment generated by DriveWealth.
+        createdWhen:
+          type: string
+          example: '2022-12-22T16:04:46.724Z'
+          description: The date and time of the allocation creation.
+    allocationNote:
+      type: string
+      example: Allocating via api allocation test
+      description: A note for the type of allocation happening.
+    allocationID:
+      type: string
+      example: JF.allocation.TendiesTradingCo.e61f512a-ed9c-4047-9ccf-224a5864158d
+      description: The unique identifier that identifies the lot of the allocation.
+    unallocatedQuantity:
+      type: number
+      example: 302
+      description: The remaining amount of shares that have not been allocated to the sub accounts.
+    sideAbbreviated:
+      type: string
+      example: B
+      description: The side of the order.
+      enum:
+      - B
+      - S
+      - BUY_OPEN
+      - BUY_CLOSE
+      - SELL_OPEN
+      - SELL_CLOSE
+    allocationDetailObject:
+      type: object
+      description: Contains details for a user associated with an allocation.
+      properties:
+        accountID:
+          type: string
+          example: 743a1018-e292-449c-a43f-58d657990db0.1671689261882
+          description: The account identifier for an end user associated with an allocation.
+        accountNo:
+          type: string
+          example: ZYXC000008
+          description: The account number of an end user associated with an allocation.
+        status:
+          type: string
+          example: FILLED
+          description: The status of the allocation.
+          enum:
+          - NEW
+          - FILLED
+          - REJECTED
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        side:
+          $ref: '#/components/schemas/sideAbbreviated'
+        clientComment:
+          type: string
+          example: Foo test allocation
+          description: A note for the type of allocation happening.
+        qtyRequested:
+          type: number
+          example: 10
+          description: Quantity of shares requested to allocate to a users account.
+        qtyAllocated:
+          type: number
+          example: 10
+          description: Quantity of shares allocated to a users account.
+        avgPx:
+          type: number
+          example: 126.52
+          description: The average price of the security being allocated.
+        fees:
+          $ref: '#/components/schemas/fees'
+    clientListID:
+      type: string
+      example: SUMS_CUSTOM_ALLOCATION_TEST
+      description: An advisor created identifier for a specific allocation.
+    order:
+      type: object
+      properties:
+        orderID:
+          type: string
+          example: JL.562f3719-7c8f-50ee-b234-db7775715a99
+          description: The orderID of a filled order being used in an allocation.
+        allocations:
+          type: array
+          description: An array that holds relevant information about how and where to distribute securities from a recent order.
+          required:
+          - accountID
+          - accountNo
+          - qty
+          - useClientFunds
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/allocation'
+    allocationsCompleted:
+      type: number
+      example: 25
+      description: The amount of completed sub account allocations.
+      minimum: 1
+      maximum: 10000
+    instrumentSymbol:
+      type: string
+      nullable: true
+      example: MS
+      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
+    allocation:
+      type: object
+      properties:
+        accountID:
+          type: string
+          example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+          description: The unique account identifier of the end user receiving an allocation.
+        accountNo:
+          type: string
+          example: ZYXC000008
+          description: The account number of the end user receiving an allocation.
+        qty:
+          type: string
+          example: '27'
+          description: The number of shares allocated to a users account.
+        useClientFunds:
+          type: boolean
+          example: true
+          description: True, if allocations should use client funds.
+        comment:
+          type: string
+          example: Suds boapi test to 1st
+          description: A note created by the RIA upon creating an allocation.
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    AllocationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: JL.allocation.SomeRIACompany.9d6def3b-14d7-4934-8a64-57d443e67ce6
+          description: The unique allocation identifier associated to a specific allocation.
+    fees:
+      type: object
+      description: The fees associated with an allocation.
+      properties:
+        total:
+          type: number
+          example: '0'
+          description: The sum of all fees.
+        sec:
+          type: number
+          example: '0'
+          description: The Securities and Exchange Commission Fee.
+        taf:
+          type: number
+          example: '0'
+          description: The Trading Activity Fees.
+        commission:
+          type: number
+          example: '0'
+          description: The commissions for the allocation
+        other:
+          type: number
+          example: '0'
+          description: Any miscellaneous fees associated with the allocation.
+    AllocationDetails:
+      type: object
+      properties:
+        id:
+          type: string
+          example: JL.allocation.SomeRIACompany.9d6def3b-14d7-4934-8a64-57d443e67ce6
+          description: The unique allocationID associated with a specific allocation.
+        status:
+          type: string
+          example: COMPLETE
+          description: Overall status of an allocation.
+          enum:
+          - NEW
+          - ACCEPTED
+          - PART_COMPLETE
+          - COMPLETE
+          - REJECTED
+        clientListID:
+          $ref: '#/components/schemas/clientListID'
+        accountID:
+          type: string
+          example: 66304da9-3d6f-4253-935f-ac6b7933d701.1619201263789
+          description: The account identifier for the RIA master trading account.
+        accountNo:
+          type: string
+          example: ZYXB000008
+          description: The account number for the RIA master trading account.
+        createdWhen:
+          type: string
+          example: '2022-12-22T16:04:46.724Z'
+          description: Date and time of allocation creation.
+        allocations:
+          type: array
+          description: An array of allocation objects that hold details of the allocation.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/allocationDetailObject'
+        comment:
+          type: string
+          example: All allocated and accounted for. 1::1::0 client note[allocating via bo api 1st allocation test]. timeMs=423 ratePerSec=2.36 msPerItem=423.00
+          description: A note created by the RIA upon creating an allocation.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

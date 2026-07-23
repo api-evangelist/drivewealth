@@ -1,0 +1,173 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Auth API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Auth
+  x-displayName: Auth
+paths:
+  /auth:
+    post:
+      tags:
+      - Auth
+      summary: Create Authentication Token
+      description: Creates an authentication token for an implementer to utilize for subsequent API requests.
+      deprecated: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAuthTokenReq'
+      responses:
+        '200':
+          description: Creating Authentication Token was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAuthToken'
+      security: []
+  /auth/tokens:
+    post:
+      tags:
+      - Auth
+      summary: Create Session Token
+      description: Creates a session token for an implementer to utilize for subsequent API requests.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSessTokenReq'
+      responses:
+        '200':
+          description: Creating Session Token was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSessToken'
+      security: []
+components:
+  schemas:
+    CreateSessToken:
+      type: object
+      properties:
+        token_type:
+          type: string
+          example: Bearer
+          description: The type of token that was generated.
+          enum:
+          - Bearer
+        expires_in:
+          type: string
+          example: '3600'
+          description: The length of time in seconds for which the session token is valid.
+        access_token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+          description: The session token.
+        scope:
+          type: string
+          example: all_trading
+          description: The scope of permission set for the JSON Web Token (JWT).
+    CreateAuthTokenReq:
+      type: object
+      required:
+      - username
+      - password
+      - appTypeID
+      properties:
+        username:
+          type: string
+          example: bo.sample.api
+          description: The B2B (business to business) back office username.
+        password:
+          type: string
+          example: 188ff5b0-8f13-4676-8bb2-305b9e08a3ba
+          description: The B2B (business to business) back office password.
+        appTypeID:
+          type: number
+          example: 4
+          description: The version type identifier.
+    CreateSessTokenReq:
+      type: object
+      required:
+      - clientID
+      - clientSecret
+      properties:
+        clientID:
+          type: string
+          example: 0oafccTendies67BTx113
+          description: The identifier of the client accessing the DriveWealth system.
+        clientSecret:
+          type: string
+          example: 8WfNzC4oTendiesTradingCompanyPuQNwg7BPByWqQOj
+          description: The secret of the client accessing the DriveWealth system.
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    CreateAuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          example: bo.sample.api
+          description: The B2B (business to business) back office username.
+        authToken:
+          type: string
+          example: acb33c99-3a6f-4494-85bf-8dae70977552.2018-07-26T14:45:47.391Z
+          description: The B2B (business to business) back office session token.
+        expiresAt:
+          type: string
+          example: '2022-12-28T01:09:33.714Z'
+          description: The date and time the session token expires.
+        security:
+          type: object
+          properties:
+            description:
+              type: string
+              example: Partner Principal
+              description: A custom description that describes the permission set.
+            permissionSet:
+              type: array
+              description: A list of the permissions the back office permissions assigned.
+              example:
+              - ACCOUNTS_CREATE_LIVE
+              - ACCOUNTS_CREATE_MANAGED
+              - ACCOUNTS_CREATE_MARGIN
+              - ACCOUNTS_CREATE_PRACTICE
+              - ACCOUNTS_CREATE_RIA_MANAGED
+              - ACCOUNTS_EDIT
+            permissionID:
+              type: string
+              example: 4380ee75-5acd-f5af-4347-04146bb3f61a
+              description: A unique identifier for the permission set.
+        userID:
+          $ref: '#/components/schemas/userID'
+        firstName:
+          type: string
+          example: Tendies Trading Company
+          description: The Firm Name.
+        lastName:
+          type: string
+          example: LLC
+          description: The Firm Type.
+        parentIBID:
+          $ref: '#/components/schemas/userID'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

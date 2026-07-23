@@ -1,0 +1,648 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Exchanges API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Exchanges
+  x-displayName: Exchanges
+paths:
+  /exchanges:
+    post:
+      tags:
+      - Exchanges
+      summary: Create Instrument Exchange
+      description: Creates an Instrument Exchange. The ability to sale of a held instrument and purchase of another.
+      responses:
+        '200':
+          description: Creating an Exchange was Successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: 'The specific id of the exchange.  '
+                  exchangeNo:
+                    type: string
+                    description: The specific exchange number
+                required:
+                - id
+                - exchangeNo
+              examples:
+                Example 1:
+                  value:
+                    id: IC.0e352bb7-9869-4233-9861-1173544efedd
+                    exchangeNo: ICDU023727
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountNo:
+                  $ref: '#/components/schemas/accountNo'
+                sellSymbol:
+                  type: string
+                  description: This will be the ticker of the mutual fund you will be liquidating.
+                  example: VTSMX
+                buySymbol:
+                  type: string
+                  description: This will be the ticker of the mutual fund you will be purchasing with the proceeds of the liquidation.
+                  example: VTSAX
+                amountCash:
+                  type: number
+                  description: This is the total notional amount you exchange from the sellSymbol to the buySymbol. This field is populated if quantity is null
+                  example: '100.00'
+                quantity:
+                  type: number
+                  description: This is the total quantity being sold of the sellSymbol. The proceeds, less any fees, will be used to purchase the buySymbol. This field is only required if amountCash is null.
+                  example: 100.503
+              required:
+              - accountNo
+              - sellSymbol
+              - buySymbol
+              - amountCash
+              - quantity
+            examples:
+              Example 1:
+                value:
+                  accountNo: DWPH000003
+                  sellSymbol: VTSMX
+                  buySymbol: VTSAX
+                  amountCash: 100
+                  quantity: 10
+        description: ''
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+    patch:
+      tags:
+      - Exchanges
+      summary: Update Instrument Exchange
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the Exchange
+                  exchangeNo:
+                    type: string
+                    description: A human-readable number that represents the Exchange
+                required:
+                - id
+                - exchangeNo
+              examples:
+                Example 1:
+                  value:
+                    id: IC.0e352bb7-9869-4233-9861-1173544efedd
+                    exchangeNo: ICDU023727
+      description: Updates an Instrument Exchange.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                method:
+                  type: string
+                  example: CANCEL
+              required:
+              - method
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /exchanges/{exchangeIdentifier}:
+    parameters:
+    - schema:
+        type: string
+      name: exchangeIdentifier
+      in: path
+      required: true
+      description: The Exchange ID (id) or Exchange Number (exchangeNo)
+    get:
+      tags:
+      - Exchanges
+      summary: Retrieve Exchange
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The specific id of the exchange
+                  exchangeNo:
+                    type: string
+                    description: The specific exchange number
+                  status:
+                    type: string
+                    description: The state of the exchange.
+                    enum:
+                    - NEW
+                    - FILLED
+                    - REJECTED
+                    - PENDING_CANCEL
+                    - CANCELED
+                    - FILLED
+                  sellSymbol:
+                    type: string
+                    description: This will be the ticker of the mutual fund you will be liquidating
+                  sellOrderId:
+                    type: string
+                    description: The order ID corresponding to the sell transaction
+                  sellOrderNo:
+                    type: string
+                    description: The order number corresponding to the sell transaction
+                  buySymbol:
+                    type: string
+                    description: This will be the ticker of the mutual fund you will be purchasing with the proceeds of the liquidation
+                  buyOrderId:
+                    type: string
+                    description: The order ID corresponding to the buy transaction
+                  buyOrderNo:
+                    type: string
+                    description: The order number corresponding to the buy transaction
+                  sellAveragePrice:
+                    type: number
+                    description: The price the sell order was filled at
+                  sellCumulativeQuantity:
+                    type: number
+                    description: The total quantity the sell was for
+                  buyAveragePrice:
+                    type: number
+                    description: The price the buy order was filled at
+                  buyCumulativeQuantity:
+                    type: number
+                    description: The total quantity the buy was for
+                  amountCash:
+                    type: number
+                    description: This is the total notional amount you exchange from the sellSymbol to the buySymbol. This field is populated if quantity is null.
+                  fees:
+                    type: number
+                    description: The total fees for both the buy and sell order of the exchange
+                  orderExpires:
+                    type: string
+                    description: The date the exchange expires
+                  createdBy:
+                    type: string
+                    description: The user that created the exchange
+                  userID:
+                    type: string
+                    description: The id of the user by whom the exchange was placed
+                  accountID:
+                    type: string
+                    description: The account id of the user where the exchange was placed
+                  accountNo:
+                    type: string
+                    description: The account number of the user where the exchange was placed
+                  created:
+                    type: string
+                    description: The time the exchange was created
+                  cancelledWhen:
+                    type: string
+                    description: The date and time the exchange was cancelled
+                  cancelledBy:
+                    type: string
+                    description: The user that cancelled the exchange.
+                  rejectedWhen:
+                    type: string
+                    description: The timestamp when the exchange was rejected.
+                  rejectedReason:
+                    type: string
+                    description: Reason exchange was rejected
+                required:
+                - id
+                - exchangeNo
+                - status
+                - sellSymbol
+                - sellOrderId
+                - sellOrderNo
+                - buySymbol
+                - buyOrderId
+                - buyOrderNo
+                - sellAveragePrice
+                - sellCumulativeQuantity
+                - buyAveragePrice
+                - buyCumulativeQuantity
+                - amountCash
+                - fees
+                - orderExpires
+                - createdBy
+                - userID
+                - accountID
+                - accountNo
+                - created
+              examples:
+                Getting Exchange information by ID:
+                  value:
+                    id: GC.f7590a52-75c7-4f3a-92c7-6b03e02dc44f
+                    exchangeNo: ICDU023727
+                    status: FILLED
+                    sellSymbol: VTSMX
+                    sellOrderId: GC.f7590a52-75c7-4f3a-92c7-6b03e02d111
+                    sellOrderNo: EFXM000103
+                    buySymbol: VTSAX
+                    buyOrderId: GC.f7590a52-75c7-4f3a-92c7-6b03e02d222
+                    buyOrderNo: EFXM001102
+                    sellAveragePrice: 10
+                    sellCumulativeQuantity: 100
+                    buyAveragePrice: 50
+                    buyCumulativeQuantity: 20
+                    amountCash: 1000
+                    fees: 0
+                    orderExpires: '2019-03-29T20:00:00.000Z'
+                    createdBy: b25f0d36-b4e4-41f8-b3d9-9249e46402cd
+                    userID: b25f0d36-b4e4-41f8-b3d9-9249e46402cd
+                    accountID: b25f0d36-b4e4-41f8-b3d9-9249e46402cd.1403540676095
+                    accountNo: DWZR000001
+                    created: '2019-03-28T22:40:03.240Z'
+      description: 'To retrieve specific exchange details the exchange endpoint can be used. In addition the underlying buy and sell trades, which make up the exchange order, will be available through the existing get order endpoint. '
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /accounts/{accountID}/summary/exchanges:
+    parameters:
+    - schema:
+        type: string
+      name: accountID
+      in: path
+      required: true
+      description: The account id of the user where the order was placed
+    get:
+      tags:
+      - Exchanges
+      summary: List Account Instrument Exchanges.
+      responses:
+        '200':
+          description: Retrieving a list of Account Instrument Exchanges by accountID was Successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountID:
+                    type: string
+                    description: The account id of the user where the order was placed
+                  accountNo:
+                    type: string
+                    description: 'The account number of the user where the order was placed
+
+
+                      '
+                  tradingType:
+                    type: string
+                    example: CASH
+                  updated:
+                    type: string
+                  exchanges:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: 'The specific id of the exchange. '
+                        exchangeNo:
+                          type: string
+                          description: The specific exchange number
+                        status:
+                          type: string
+                          description: The state of the exchange.
+                          enum:
+                          - NEW
+                          - FILLED
+                          - REJECTED
+                          - PENDING_CANCEL
+                          - CANCELED
+                          - FILLED
+                        sellSymbol:
+                          type: string
+                          description: This will be the ticker of the mutual fund you will be liquidating.
+                        sellOrderId:
+                          type: string
+                          description: The order ID corresponding to the sell transaction.
+                        sellOrderNo:
+                          type: string
+                          description: The order number corresponding to the sell transaction.
+                        buySymbol:
+                          type: string
+                          description: This will be the ticker of the mutual fund you will be purchasing with the proceeds of the liquidation.
+                        buyOrderId:
+                          type: string
+                          description: The order ID corresponding to the buy transaction.
+                        buyOrderNo:
+                          type: string
+                          description: The order number corresponding to the buy transaction.
+                        sellAveragePrice:
+                          type: number
+                          description: The price the sell order was filled at.
+                        sellCumulativeQuantity:
+                          type: number
+                          description: The total quantity the sell was for.
+                        buyCumulativeQuantity:
+                          type: number
+                          description: The total quantity the buy was for.
+                        buyAveragePrice:
+                          type: number
+                          description: The price the buy order was filled at.
+                        amountCash:
+                          type: number
+                          description: This is the total notional amount you exchange from the sellSymbol to the buySymbol.
+                        fees:
+                          type: number
+                          description: The total fees for both the buy and sell order of the exchange.
+                        orderExpires:
+                          type: string
+                          description: The timestamp the exchange expires.
+                        createdBy:
+                          type: string
+                          description: Who the orders were created by
+                        userID:
+                          $ref: '#/components/schemas/userID'
+                        accountID:
+                          $ref: '#/components/schemas/accountID'
+                        accountNo:
+                          $ref: '#/components/schemas/accountNo'
+                        created:
+                          type: string
+                          description: The time the order was created
+                      required:
+                      - id
+                      - exchangeNo
+                      - status
+                      - sellSymbol
+                      - sellOrderId
+                      - sellOrderNo
+                      - buySymbol
+                      - buyOrderId
+                      - buyOrderNo
+                      - sellAveragePrice
+                      - sellCumulativeQuantity
+                      - buyCumulativeQuantity
+                      - buyAveragePrice
+                      - amountCash
+                      - fees
+                      - orderExpires
+                      - createdBy
+                      - userID
+                      - accountID
+                      - accountNo
+                      - created
+                required:
+                - accountID
+                - accountNo
+                - tradingType
+                - updated
+                - exchanges
+              examples:
+                Getting all pending exchange:
+                  value:
+                    accountID: b25f0d36-b4e4-41f8-b3d9-9249e46402cd.1403540676095
+                    accountNo: DWBG000052
+                    tradingType: CASH
+                    updated: '2021-04-23T18:41:32.440Z'
+                    exchanges:
+                    - id: GC.f7590a52-75c7-4f3a-92c7-6b03e02dc11f
+                      exchangeNo: ICDU023727
+                      status: NEW
+                      sellSymbol: VTSMX
+                      sellOrderId: GC.f7590a52-75c7-4f3a-92c7-6b03e02d112
+                      sellOrderNo: EFXM000203
+                      buySymbol: VTSAX
+                      buyOrderId: GC.f7590a52-75c7-4f3a-92c7-6b03e02d223
+                      buyOrderNo: EFXM002102
+                      amountCash: 0
+                      sellAveragePrice: 0
+                      sellCumulativeQuantity: 0
+                      buyAveragePrice: 0
+                      buyCumulativeQuantity: 0
+                      fees: 0
+                      orderExpires: '2019-03-29T20:00:00.000Z'
+                      createdBy: b25f0d36-b4e4-41f8-b3d9-9249e46402cd
+                      userID: b25f0d36-b4e4-41f8-b3d9-9249e46402cd
+                      accountID: b25f0d36-b4e4-41f8-b3d9-9249e46402cd.1403540676095
+                      accountNo: DWZR000001
+                      created: '2019-03-28T22:40:03.240Z'
+      description: Retrives a list of Account Instrument Exchanges by accountID.
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /accounts/{accountID}/reports/exchange-history:
+    parameters:
+    - schema:
+        type: string
+      name: accountID
+      in: path
+      required: true
+      description: The account id of the user where the order was placed
+    get:
+      tags:
+      - Exchanges
+      summary: Retrieve Account Instrument Exchange History
+      description: Retrieves a list of Account Instrument Exchange History by accountID.
+      responses:
+        '200':
+          description: Retrieving Account Instrument Exchange History was Successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountID:
+                    type: string
+                    description: The account id of the user where the order was placed
+                  accountNo:
+                    type: string
+                    description: The account number of the user where the order was placed
+                  tradingType:
+                    type: string
+                  updated:
+                    type: string
+                  exchanges:
+                    type: array
+                    items:
+                      oneOf:
+                      - $ref: '#/components/schemas/Exchange'
+                required:
+                - accountID
+                - accountNo
+                - tradingType
+                - updated
+                - exchanges
+              examples:
+                Exchanges:
+                  value:
+                    accountID: b25f0d36-b4e4-41f8-b3d9-9249e46402cd.1403540676095
+                    accountNo: DWBG000052
+                    tradingType: CASH
+                    updated: '2021-04-23T18:41:32.440Z'
+                    exchanges:
+                    - id: GC.f7590a52-75c7-4f3a-92c7-6b03e02dc11f
+                      exchangeNo: ICDU023727
+                      status: FILLED
+                      sellSymbol: VTSMX
+                      sellOrderId: GC.f7590a52-75c7-4f3a-92c7-6b03e02d112
+                      sellOrderNo: EFXM000203
+                      buySymbol: VTSAX
+                      buyOrderId: GC.f7590a52-75c7-4f3a-92c7-6b03e02d223
+                      buyOrderNo: EFXM002102
+                      amountCash: 1000
+                      sellAveragePrice: 10
+                      sellCumulativeQuantity: 100
+                      buyAveragePrice: 50
+                      buyCumulativeQuantity: 20
+                      fees: 0
+                      orderExpires: '2019-03-29T20:00:00.000Z'
+                      createdBy: b25f0d36-b4e4-41f8-b3d9-9249e46402cd
+                      userID: b25f0d36-b4e4-41f8-b3d9-9249e46402cd
+                      accountID: b25f0d36-b4e4-41f8-b3d9-9249e46402cd.1403540676095
+                      accountNo: DWZR000001
+                      created: '2019-03-28T22:40:03.240Z'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    Exchange:
+      type: object
+      required:
+      - id
+      - exchangeNo
+      - status
+      - sellSymbol
+      - sellOrderId
+      - sellOrderNo
+      - buySymbol
+      - buyOrderId
+      - buyOrderNo
+      - sellAveragePrice
+      - sellCumulativeQuantity
+      - buyAveragePrice
+      - buyCumulativeQuantity
+      - amountCash
+      - fees
+      - createdBy
+      - userID
+      - accountID
+      - accountNo
+      - created
+      - orderExpires
+      properties:
+        id:
+          type: string
+          description: The specific id of the exchange
+        exchangeNo:
+          type: string
+          description: The specific exchange number
+        status:
+          type: string
+          description: The state of the exchange.
+          enum:
+          - NEW
+          - FILLED
+          - REJECTED
+          - PENDING_CANCEL
+          - CANCELED
+          - FILLED
+        sellSymbol:
+          type: string
+          description: This will be the ticker of the mutual fund you will be liquidating
+        sellOrderId:
+          type: string
+          description: The order ID corresponding to the sell transaction
+        sellOrderNo:
+          type: string
+          description: The order number corresponding to the sell transaction
+        buySymbol:
+          type: string
+          description: This will be the ticker of the mutual fund you will be purchasing with the proceeds of the liquidation
+        buyOrderId:
+          type: string
+          description: The order ID corresponding to the buy transaction
+        buyOrderNo:
+          type: string
+          description: The order number corresponding to the buy transaction
+        sellAveragePrice:
+          type: number
+          description: The price the sell order was filled at.
+        sellCumulativeQuantity:
+          type: number
+          description: The total quantity the sell was for.
+        buyAveragePrice:
+          type: number
+          description: The price the buy order was filled at.
+        buyCumulativeQuantity:
+          type: number
+          description: The total quantity the buy was for.
+        amountCash:
+          type: integer
+          description: This is the total notional amount you exchange from the sellSymbol to the buySymbol.
+        fees:
+          type: integer
+          description: The total fees for both the buy and sell order of the exchange.
+        createdBy:
+          type: string
+          description: The user, who created the order.
+        userID:
+          $ref: '#/components/schemas/userID'
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        created:
+          type: string
+          example: '2019-03-29T20:00:00.000Z'
+          description: The timestamp the order was created.
+        orderExpires:
+          type: string
+          example: '2019-03-29T20:00:00.000Z'
+          description: The timestamp the exchange expires.
+    accountNo:
+      type: string
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

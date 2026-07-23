@@ -1,0 +1,2266 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Users API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Users
+  x-displayName: Users
+paths:
+  /users:
+    post:
+      tags:
+      - Users
+      summary: Create User
+      description: Creates a User.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsersReq'
+      responses:
+        '200':
+          description: Creating a User was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+              examples: {}
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /users/{userID}:
+    get:
+      tags:
+      - Users
+      summary: Retrieve User
+      description: Retrieves a User details by userID.
+      parameters:
+      - in: path
+        name: userID
+        schema:
+          type: string
+        required: true
+        example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+        description: Unique ID of the User to fetch.
+      responses:
+        '200':
+          description: Retrieving a User was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FetchUserResponse'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+    patch:
+      tags:
+      - Users
+      summary: Update User
+      description: Updates a User details by userID.
+      parameters:
+      - in: path
+        name: userID
+        schema:
+          type: string
+        required: true
+        example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+        description: Unique ID of the User to update.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Documents'
+      responses:
+        '200':
+          description: Fetching a User is Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserObject'
+              examples:
+                User Creation:
+                  value:
+                    id: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+                    ackSignedWhen: '2022-12-11T22:28:21.666Z'
+                    addressLine1: 15 Exchange Place
+                    addressLine2: Suite 1000
+                    city: Jersey City
+                    countryID: USA
+                    displayName: JSmith
+                    dob: 2000-12-3
+                    email: jj@drivewealth.dev
+                    firstName: Justin
+                    gender:
+                      name: MALE
+                    languageID: en_US
+                    lastname: Smith
+                    parentIBID:
+                      id: 80f9b672-120d-4b73-9cc9-42fb3262c4b9
+                      name: Tendies Trading Company
+                    phone: '18004612680'
+                    referralCode: 71J000
+                    stateProvince: NJ
+                    wlpID: TTC
+                    zipPostalCode: '94105'
+                    idNo: '****-4444'
+                    status:
+                      name: PENDING
+                      description: User is pending approval.
+                    userType:
+                      name: INDIVIDUAL_TRADER
+                      description: Individual Trader
+                    usCitizen: true
+                    updatedWhen: '2022-12-11T22:28:21.810Z'
+                    brandAmbassador: false
+                    employerBusiness: FINANCE
+                    employementStatus:
+                      name: EMPLOYED
+                      description: Employed
+                    citizenship: US
+                    createdWhen: '2022-12-11T22:28:21.810Z'
+                    marginDefault: 0
+                    maritalStatus:
+                      name: SINGLE
+                      description: Single
+                    ackCustomerAgreement: true
+                    ackFindersFee: false
+                    ackFixedIncomeAgreement: true
+                    ackForeignFindersFee: false
+                    ackJointCustomerAgreement: true
+                    ackJointFindersFee: false
+                    ackJointForeignFindersFee: false
+                    ackJointMarketData: false
+                    ackMarketData: false
+                    ackExtendedHoursAgreement: false
+                    ackOptionsAgreement: true
+                    dependents: 0
+                    termsOfUse: true
+                    director: false
+                    employerCompany: DriveWealth LLC
+                    employerCompanyID: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+                    employerCompanyStartDate: '2014-09-29'
+                    employerCompanyEndDate: '2022-12-25'
+                    employerIsBroker: true
+                    employmentPosition: ENGINEER
+                    employmentYears: 0
+                    jointEmployerIsBroker: false
+                    investmentObjectives:
+                      name: FREQUENT
+                      description: Frequent trader, depending on the market
+                    investmentExperience:
+                      name: YRS_10_
+                      description: 10+ yrs
+                    politicallyExposed: false
+                    riskTolerance: HIGH
+                    userNoteQty: 0
+                    validTaxForm: false
+                    taxTreatyWithUS: true
+                    avatarURL: https://secure.gravatar.com/avatar/2076105f6efe7c11e285add95f514b9a.jpg
+                    annualIncomeRange: $0 - $24,999
+                    ackDisclosureRule14b: true
+                    ackJointDisclosureRule14b: false
+                    networthLiquidRange: $0 - $24,999
+                    networthTotalRange: $0 - $24,999
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /users/{userID}/kyc-status:
+    get:
+      tags:
+      - Users
+      summary: Retrieve KYC
+      description: Retrives a User KYC by userID.
+      parameters:
+      - in: path
+        name: userID
+        schema:
+          type: string
+        required: true
+        example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+        description: Unique ID of the User to fetch their profile & kyc status.
+      responses:
+        '200':
+          description: Fetching User's Profile Details & KYC is Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FetchUserKYCResponse'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    email:
+      type: string
+      example: jj@drivewealth.dev
+      description: The user's email address.
+    Identification_Info_Optional:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          example: IDENTIFICATION_INFO
+        data:
+          type: object
+          properties:
+            value:
+              type: string
+              example: '1223334444'
+              description: The User's national identification number or tax identification number.
+            type:
+              type: string
+              example: SSN
+              description: The type of national identification number.
+              enum:
+              - SSN
+              - EIN
+              - FTIN
+              - FTNLO
+            citizenship:
+              type: string
+              example: USA
+              description: The country where the User has citizenship.
+            usTaxPayer:
+              type: boolean
+              example: true
+              description: True, the User is a United States tax payer.
+    Disclosures_Optional:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          example: DISCLOSURES
+        data:
+          type: object
+          properties:
+            extendedHoursAgreement:
+              type: boolean
+              example: false
+              description: The User accepts DriveWealth's Extended Hours Agreement.
+            termsOfUse:
+              type: boolean
+              example: true
+              description: The User accepts DriveWealth's Terms of Use.
+            customerAgreement:
+              type: boolean
+              example: true
+              description: "The User accepts DriveWealth's Customer Agreement. \n\n*⚠ Only for opening regular brokerage accounts.*"
+            iraAgreement:
+              type: boolean
+              example: false
+              description: "The User accepts DriveWealth's Individual Retirement Account (IRA) Agreement. \n\n*⚠ Only for opening IRA accounts.*"
+            marginAgreement:
+              type: boolean
+              example: false
+              description: "The User accepts DriveWealth's Margin Agreement. \n\n*⚠ Only for opening Margin (leveraged) accounts.*"
+            cryptoAgreements:
+              type: boolean
+              example: false
+              description: "The User accepts DriveWealth's Digital Assets Agreement. \n\n*⚠ Only for opening Digital Assets accounts.*"
+            marketDataAgreement:
+              type: boolean
+              example: true
+              description: The User accepts DriveWealth's Market Data Agreement.
+            optionsAgreement:
+              type: boolean
+              example: true
+              description: True, if the User accepts DriveWealth's Options trading Agreement.
+            rule14b:
+              type: boolean
+              example: true
+              description: The User accepts DriveWealth's Rule 14b1(c).
+            foreignFindersFee:
+              type: boolean
+              example: false
+            finderFee:
+              type: boolean
+              example: false
+            privacyPolicy:
+              type: boolean
+              example: true
+              description: The User accepts DriveWealth's Privacy Policy.
+            dataSharing:
+              type: boolean
+              example: true
+              description: The User accepts DriveWealth's Data Sharing Policy.
+            signedBy:
+              type: string
+              example: Justin Smith
+              description: The User's digital signature (full name).
+    firstName:
+      type: string
+      example: Justin
+      description: The first name of the user.
+    userTaxIDLastFour:
+      type: string
+      example: '****-4444'
+      description: The user's last 4 digits of their national identification number or tax identification number.
+    Address_Info:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          description: The type of data object.
+          example: ADDRESS_INFO
+          enum:
+          - BASIC_INFO
+          - IDENTIFICATION_INFO
+          - TAX_INFO
+          - PERSONAL_INFO
+          - ADDRESS_INFO
+          - EMPLOYMENT_INFO
+          - INVESTOR_PROFILE_INFO
+          - DISCLOSURES
+          - MARGIN_DISCLOSURE
+          - CUSTODIAN_INFO
+          - DIRECTOR_INFO
+          - INSTITUTIONAL_INFO
+          - TRUST_INFO
+        data:
+          type: object
+          required:
+          - street1
+          - city
+          - province
+          - postalCode
+          - country
+          properties:
+            street1:
+              $ref: '#/components/schemas/userStreet1'
+            street2:
+              $ref: '#/components/schemas/userStreet2'
+            city:
+              $ref: '#/components/schemas/userCity'
+            province:
+              $ref: '#/components/schemas/userProvince'
+            postalCode:
+              $ref: '#/components/schemas/userPostalCode'
+            country:
+              $ref: '#/components/schemas/userCountry'
+    userStatus:
+      type: string
+      example: PENDING
+      description: The user's current status.
+      enum:
+      - PENDING
+      - APPROVED
+    userTaxIDType:
+      type: string
+      example: SSN
+      description: The type of national identification number or tax identification number.
+      enum:
+      - SSN
+      - EIN
+      - FTIN
+      - FTNLO
+      - '*'
+    Personal_Info:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          description: The type of data object.
+          example: PERSONAL_INFO
+          enum:
+          - BASIC_INFO
+          - IDENTIFICATION_INFO
+          - TAX_INFO
+          - PERSONAL_INFO
+          - ADDRESS_INFO
+          - EMPLOYMENT_INFO
+          - INVESTOR_PROFILE_INFO
+          - DISCLOSURES
+          - MARGIN_DISCLOSURE
+          - CUSTODIAN_INFO
+          - DIRECTOR_INFO
+          - INSTITUTIONAL_INFO
+          - TRUST_INFO
+        data:
+          type: object
+          required:
+          - birthDay
+          - birthMonth
+          - birthYear
+          - politicallyExposedNames
+          properties:
+            birthDay:
+              type: number
+              example: 3
+              description: The User's born day.
+            birthMonth:
+              type: number
+              example: 12
+              description: The User's born month.
+            birthYear:
+              type: number
+              example: 2000
+              description: The User's born year.
+            politicallyExposedNames:
+              type: string
+              example: Nancy Pelosi
+              description: The names of the people whom are political exposes, separated by a comma.
+            irsBackupWithholdings:
+              type: boolean
+              example: false
+              description: True, if the type of account will be a retirement account.
+            gender:
+              type: string
+              example: Male
+              description: The gender of the User.
+              enum:
+              - Male
+              - Female
+            martial:
+              $ref: '#/components/schemas/userMartialStatus'
+    KYC_Verification_Info:
+      type: object
+      properties:
+        type:
+          type: string
+          example: KYC_VERIFICATION_INFO
+        data:
+          type: object
+          properties:
+            verification:
+              type: string
+              example: APPROVED
+              enum:
+              - APPROVED
+              - FAILED
+            verificationIDType:
+              type: string
+              example: DRIVER_LICENSE
+              enum:
+              - DRIVER_LICENSE
+              - NATIONAL_ID
+              - RESIDENCE_PERMIT
+              - PASSPORT
+              - VISA
+              - TAX_ID
+              - VOTER_ID
+              - WORK_PERMIT
+              - TRUST
+              - TRUST_CORP
+              - CORPORATE
+            verificationFullName:
+              type: string
+              example: Justin Smith
+              description: The name of the customer that was passed during the KYC verification.
+            verificationTimestamp:
+              type: string
+              example: '2022-12-22T16:04:46.724Z'
+              description: The ISO 8601 timestamp of when the KYC verification was completed by the partner.
+            verificationTransactionID:
+              type: string
+              example: ''
+              description: A unique identifier passed to reference the KYC verification was completed by the partner.
+            customField1:
+              example: customFieldValue1
+            customField2:
+              example: customFieldValue2
+            customField3:
+              example: customFieldValue3
+            customField4:
+              example: customFieldValue4
+            customField5:
+              example: customFieldValue5
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    phoneNumber:
+      type: string
+      example: '18004612680'
+      description: The phone number of the user.
+    investmenetsSuitability:
+      type: object
+      properties:
+        experience:
+          type: string
+          example: LIMITED
+          description: Trading experience level.
+          enum:
+          - LIMITED
+          - NONE
+          - GOOD
+          - EXCELLENT
+        years:
+          type: string
+          example: YRS_10_PLUS
+          description: Number of years equity trading experience.
+          enum:
+          - YRS_1_2
+          - YRS_3_5
+          - YRS_6_9
+          - YRS_10_PLUS
+        tradesPerYear:
+          type: string
+          example: YRS_10_14
+          description: Total number of trades per year.
+          enum:
+          - YRS_0_9
+          - YRS_10_14
+          - YRS_15_24
+          - YRS_25_74
+          - YRS_75_PLUS
+        averageTradeSize:
+          type: string
+          example: AVG_0_9999
+          description: Average per trade size.
+          enum:
+          - AVG_0_9999
+          - AVG_10000_24999
+          - AVG_5000_PLUS
+    AccountsRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8b8ba3fd-74dc-45dc-b2dc-7de683bd713c.1556222995391
+          description: The User's unqiue account identifier.
+        accountNo:
+          type: string
+          example: DWBG000052
+          description: The User's unqiue account number, that is human readable.
+        nickname:
+          type: string
+          example: Justin's Self Directed Account
+        accountStatus:
+          type: object
+          properties:
+            name:
+              type: string
+              example: PENDING
+              description: The status of the User's account.
+            description:
+              type: string
+              example: Pending
+              description: A custom description about status of the User's account.
+        accountType:
+          type: string
+          example: LIVE
+          description: The type of account that has been created.
+        accountManagementType:
+          type: string
+          example: SELF
+          description: The type of account who has trading authority.
+          enum:
+          - SELF
+          - ADVISORY
+          - RIA_MANAGED
+          - CUSTODIAL
+          - CUSTODIAL_MANAGED
+          - RESERVED
+          - HSA_SELF
+          - HSA_ADVISORY
+          - HSA_RIA_MANAGED
+        tradingType:
+          type: string
+          example: CASH
+          description: The type of trading ocurring in the account.
+          enum:
+          - CASH
+          - MARGIN
+          - CRYPTO
+        leverage:
+          type: number
+          example: 1
+          description: The leverage that is applied to the User's account.
+    Tax_Info:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          description: The type of data object.
+          example: TAX_INFO
+          enum:
+          - BASIC_INFO
+          - IDENTIFICATION_INFO
+          - TAX_INFO
+          - PERSONAL_INFO
+          - ADDRESS_INFO
+          - EMPLOYMENT_INFO
+          - INVESTOR_PROFILE_INFO
+          - DISCLOSURES
+          - MARGIN_DISCLOSURE
+          - CUSTODIAN_INFO
+          - DIRECTOR_INFO
+          - INSTITUTIONAL_INFO
+          - TRUST_INFO
+        data:
+          type: object
+          required:
+          - taxTreatyWithUS
+          properties:
+            taxTreatyWithUS:
+              type: boolean
+              example: true
+              description: True, if the User's country has a tax treaty with the United States.
+    Basic_Info_Optional:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          example: BASIC_INFO
+        data:
+          type: object
+          properties:
+            firstName:
+              type: string
+              example: Justin
+              description: The first name of the User.
+            lastName:
+              type: string
+              example: Smith
+              description: The last (family) name of the User.
+            country:
+              type: string
+              example: USA
+              description: The country where the User is residing.
+            phone:
+              type: string
+              example: '18004612680'
+              description: The phone number of the User.
+            emailAddress:
+              type: string
+              example: jj@drivewealth.dev
+              description: The email address of the User.
+            language:
+              type: string
+              example: en_US
+              enum:
+              - en_US
+              - zh_CN
+              - es_ES
+              - pt_BR
+              description: The lanaguage the User read/speaks.
+    FetchUserResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/UserObject'
+    userTaxID:
+      type: string
+      example: '1223334444'
+      description: The user's national identification number or tax identification number.
+    Disclosures:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          example: DISCLOSURES
+        data:
+          type: object
+          required:
+          - termsOfUse
+          - marketDataAgreement
+          - rule14b
+          - privacyPolicy
+          - dataSharing
+          properties:
+            extendedHoursAgreement:
+              type: boolean
+              example: false
+              description: True, if the User accepts DriveWealth's Extended Hours Agreement.
+            termsOfUse:
+              type: boolean
+              example: true
+              description: True, if the User accepts DriveWealth's Terms of Use.
+            customerAgreement:
+              type: boolean
+              example: true
+              description: True, if the User accepts DriveWealth's Customer Agreement. *⚠ Only for opening regular brokerage accounts.*
+            iraAgreement:
+              type: boolean
+              example: false
+              description: True, if the User accepts DriveWealth's Individual Retirement Account (IRA) Agreement. *⚠ Only for opening IRA accounts.*
+            marginAgreement:
+              type: boolean
+              example: false
+              description: True, if the User accepts DriveWealth's Margin Agreement. *⚠ Only for opening Margin (leveraged) accounts.*
+            cryptoAgreements:
+              type: boolean
+              example: false
+              description: True, if the User accepts DriveWealth's Digital Assets Agreement.
+            marketDataAgreement:
+              type: boolean
+              example: true
+              description: True, if the User accepts DriveWealth's Market Data Agreement.
+            optionsAgreement:
+              type: boolean
+              example: true
+              description: True, if the User accepts DriveWealth's Options trading Agreement.
+            rule14b:
+              type: boolean
+              example: true
+              description: True, if the User accepts DriveWealth's Rule 14b1(c).
+            finderFee:
+              type: boolean
+              example: false
+              description: True, if the User accepts DriveWealth Finder's Fee Disclosure. *⚠ Only required for foreign finder relationships.*
+            privacyPolicy:
+              type: boolean
+              example: true
+              description: True, if the User accepts DriveWealth's Privacy Policy.
+            dataSharing:
+              type: boolean
+              example: true
+              description: True, if the User accepts DriveWealth's Data Sharing Policy.
+            signedBy:
+              type: string
+              example: Justin Smith
+              description: The User's digital signature (full name).
+    userCity:
+      type: string
+      example: Jersey City
+      description: The user's current city, where they live.
+    Identification_Info:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          description: The type of data object.
+          example: IDENTIFICATION_INFO
+          enum:
+          - BASIC_INFO
+          - IDENTIFICATION_INFO
+          - TAX_INFO
+          - PERSONAL_INFO
+          - ADDRESS_INFO
+          - EMPLOYMENT_INFO
+          - INVESTOR_PROFILE_INFO
+          - DISCLOSURES
+          - MARGIN_DISCLOSURE
+          - CUSTODIAN_INFO
+          - DIRECTOR_INFO
+          - INSTITUTIONAL_INFO
+          - TRUST_INFO
+        data:
+          type: object
+          required:
+          - value
+          - type
+          - citizenship
+          - usTaxPayer
+          properties:
+            value:
+              $ref: '#/components/schemas/userTaxID'
+            type:
+              $ref: '#/components/schemas/userTaxIDType'
+            citizenship:
+              $ref: '#/components/schemas/userCountry'
+              description: The country where the User has citizenship.
+            usTaxPayer:
+              type: boolean
+              example: true
+              description: True, the User is a United States tax payer.
+    Investor_Profile_Info_Optional:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          example: INVESTOR_PROFILE_INFO
+        data:
+          type: object
+          properties:
+            investmentExperience:
+              type: string
+              example: YRS_10_
+              description: The User's current investment expertise.
+              enum:
+              - NONE
+              - YRS_1_2
+              - YRS_3_5
+              - YRS_5_10
+              - YRS_10_
+            annualIncome:
+              type: number
+              example: 1000000
+              description: The User's current annalized income over one year.
+            networthTotal:
+              type: number
+              example: 2500000
+              description: The user's current networth. This calculation is the User's assets - liabilities.
+            riskTolerance:
+              type: string
+              example: HIGH
+              description: The User's risk ceiling.
+              enum:
+              - LOW
+              - MODERATE
+              - SPECULATION
+              - HIGH
+            investmentObjectives:
+              type: string
+              example: LONG_TERM
+              description: The User's current investment objectives.
+              enum:
+              - LONG_TERM
+              - INFREQUENT
+              - FREQUENT
+              - ACTIVE_DAILY
+              - NEW
+            networthLiquid:
+              type: number
+              example: 300000
+              description: The user's liquid net worth. The amount of cash or near cash equivalents of the User's net worth.
+            dependents:
+              type: number
+              example: '4'
+              description: Total number of dependents the account holder has.
+            suitabilityEquities:
+              $ref: '#/components/schemas/investmenetsSuitability'
+              description: An object containing required fields for options approval
+            suitabilityOptions:
+              $ref: '#/components/schemas/investmenetsSuitability'
+              description: An object containing required fields for options approval
+    userProvince:
+      type: string
+      example: NJ
+      description: The user's current state/province/territory, where they live.
+    Employment_Info:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          example: EMPLOYMENT_INFO
+        data:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+              example: EMPLOYED
+              description: The User current employment status.
+              enum:
+              - EMPLOYED
+              - RETIRED
+              - STUDENT
+              - UNEMPLOYED
+              - SELF_EMPLOYED
+            company:
+              type: string
+              example: DriveWealth LLC
+              description: "The User's current employer name. \n\n *⚠️ Only required when status equal to EMPLOYED or SELF_EMPLOYED*"
+            companyID:
+              type: string
+              example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+              description: "A unique identifier created for each Institution or entity on DriveWealth's platform. \n\n *⚠️ Required when 'company' is not provided*"
+            from:
+              type: string
+              example: '2014-09-29'
+              description: The User's start date at the employment.
+            to:
+              type: string
+              example: '2022-12-25'
+              description: The User's end date at the employment.
+            type:
+              type: string
+              example: FINANCE
+              description: "The User's current employer type. \n\n *⚠️ Only required when status equal to EMPLOYED or SELF_EMPLOYED*"
+              enum:
+              - AGRICULTURE
+              - MINING
+              - UTILITIES
+              - CONSTRUCTION
+              - MANUFACTURING
+              - WHOLESALE
+              - RETAIL
+              - TRANSPORT
+              - INFORMATION
+              - FINANCE
+              - REAL_ESTATE
+              - PROFESSIONAL
+              - MANAGEMENT
+              - EDUCATION
+              - HEALTH
+              - ART
+              - FOOD
+              - PUBLIC
+              - WASTE
+            position:
+              type: string
+              example: ENGINEER
+              description: " The User's current role at the employment. \n\n *⚠️ Only required when status equal to EMPLOYED or SELF_EMPLOYED*"
+              enum:
+              - ACCOUNTANT
+              - ACTUARY
+              - ADJUSTER
+              - ADMINISTRATOR
+              - ADVERTISER
+              - AGENT
+              - ATC
+              - AMBASSADOR
+              - ANALYST
+              - APPRAISER
+              - ARCHITECT
+              - ARTIST
+              - ASSISTANT
+              - ATHLETE
+              - ATTENDANT
+              - ATTORNEY
+              - AUCTIONEER
+              - AUDITOR
+              - BARBER
+              - BROKER
+              - BUSINESS_EXEC
+              - BUSINESS_OWNER
+              - CAREGIVER
+              - CARPENTER
+              - CASHIER
+              - CHEF
+              - CHIROPRACTOR
+              - CIVIL
+              - CLERGY
+              - CLERK
+              - COMPLIANCE
+              - CONSULTANT
+              - CONTRACTOR
+              - COUNSELOR
+              - CUSTOMER_SERVICE
+              - DEALER
+              - DEVELOPER
+              - DISTRIBUTOR
+              - DOCTOR
+              - DRIVER
+              - ENGINEER
+              - EXAMINER
+              - EXTERMINATOR
+              - FACTORY
+              - FARMER
+              - FINANCIAL
+              - FISHERMAN
+              - FLIGHT
+              - HR
+              - IMPEX
+              - INSPECTOR
+              - INTERN
+              - INVESTMENT
+              - INVESTOR
+              - IT
+              - JANITOR
+              - JEWELER
+              - LABORER
+              - LANDSCAPER
+              - LENDING
+              - MANAGER
+              - MECHANIC
+              - MILITARY
+              - MORTICIAN
+              - NURSE
+              - NUTRITIONIST
+              - OFFICE
+              - PHARMACIST
+              - PHYSICAL
+              - PILOT
+              - POLICE
+              - POLITICIAN
+              - PM
+              - REP
+              - RESEARCHER
+              - SAILOR
+              - SALES
+              - SCIENTIST
+              - SEAMSTRESS
+              - SECURITY
+              - SOCIAL
+              - TEACHER
+              - TECHNICIAN
+              - TELLER
+              - TRADESPERSON
+              - TRAINER
+              - TRANSPORTER
+              - UNDERWRITER
+              - WRITER
+            broker:
+              type: boolean
+              example: true
+              description: "True, if the User's current employer is broker. \n\n *⚠️ Only required when status equal to EMPLOYED or SELF_EMPLOYED*"
+            directorOf:
+              type: string
+              example: AAPL, SQ
+              description: The company name, ticker of the company; if the user is a director or owns more than 10% of a publicly traded company.
+    CustodianInfo:
+      type: object
+      properties:
+        type:
+          type: string
+          example: CUSTODIAN_INFO
+        data:
+          type: object
+          properties:
+            userID:
+              $ref: '#/components/schemas/userID'
+    userMartialStatus:
+      type: string
+      example: SINGLE
+      description: The marital status of the user.
+      enum:
+      - SINGLE
+      - DIVORCED
+      - MARRIED
+      - WIDOWED
+      - PARTNER
+    userStreet1:
+      type: string
+      example: 15 Exchange Place
+      description: The user's current street address, where they live.
+    Basic_Info:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          description: The type of data object.
+          example: BASIC_INFO
+          enum:
+          - BASIC_INFO
+          - IDENTIFICATION_INFO
+          - TAX_INFO
+          - PERSONAL_INFO
+          - ADDRESS_INFO
+          - EMPLOYMENT_INFO
+          - INVESTOR_PROFILE_INFO
+          - DISCLOSURES
+          - MARGIN_DISCLOSURE
+          - CUSTODIAN_INFO
+          - DIRECTOR_INFO
+          - INSTITUTIONAL_INFO
+          - TRUST_INFO
+        data:
+          type: object
+          required:
+          - firstName
+          - lastName
+          - country
+          - phone
+          - emailAddress
+          - language
+          properties:
+            firstName:
+              $ref: '#/components/schemas/firstName'
+            lastName:
+              $ref: '#/components/schemas/lastName'
+            country:
+              type: string
+              example: USA
+              description: The country where the User is residing.
+            phone:
+              $ref: '#/components/schemas/phoneNumber'
+            emailAddress:
+              $ref: '#/components/schemas/email'
+            language:
+              $ref: '#/components/schemas/language'
+    MarginDisclosure:
+      type: object
+      properties:
+        type:
+          type: string
+          example: MARGIN_DISCLOSURE
+        data:
+          type: object
+          properties:
+            marginAgreement:
+              type: boolean
+              example: true
+              description: A User's acceptance of DriveWealth's Margin Agreement.
+    UserObject:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/userID'
+        ackSignedWhen:
+          type: string
+          example: '2022-12-11T22:28:21.666Z'
+          description: The date and time the User signed the digital documents.
+        addressLine1:
+          $ref: '#/components/schemas/userStreet1'
+        addressLine2:
+          $ref: '#/components/schemas/userStreet2'
+        city:
+          $ref: '#/components/schemas/userCity'
+        countryID:
+          $ref: '#/components/schemas/userCountry'
+        displayName:
+          type: string
+          example: JSmith
+          description: The User's display name. *By default this is firstName inital followed by last name.*
+        dob:
+          type: string
+          example: 2000-12-3
+          description: The User's date of birth in this format YYYY-MM-DD
+        email:
+          $ref: '#/components/schemas/email'
+        firstName:
+          $ref: '#/components/schemas/firstName'
+        gender:
+          type: object
+          properties:
+            name:
+              type: string
+              example: MALE
+              enum:
+              - MALE
+              - FEMALE
+          description: The description of the User's gender.
+        languageID:
+          $ref: '#/components/schemas/language'
+        lastname:
+          $ref: '#/components/schemas/lastName'
+        parentIBID:
+          type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/parentIBID'
+            name:
+              $ref: '#/components/schemas/firmName'
+        phone:
+          $ref: '#/components/schemas/phoneNumber'
+        referralCode:
+          type: string
+          example: 71J000
+          description: The assiocated referral program assiocated to the User.
+        stateProvince:
+          $ref: '#/components/schemas/userProvince'
+        wlpID:
+          $ref: '#/components/schemas/wlpID'
+        zipPostalCode:
+          type: string
+          example: 7302
+          description: The User's current postal code (zip code).
+        idNo:
+          $ref: '#/components/schemas/userTaxIDLastFour'
+        status:
+          type: object
+          properties:
+            name:
+              type: string
+              example: PENDING
+              description: The user's current know your User (KYC) status.
+              enum:
+              - PENDING
+              - APPROVED
+            description:
+              type: string
+              example: User is pending approval.
+              description: A custom description of the User's status.
+        userType:
+          type: object
+          properties:
+            name:
+              type: string
+              example: INDIVIDUAL_TRADER
+              description: The name that describes the type of User.
+              enum:
+              - INDIVIDUAL_TRADER
+              - CUSTODIAL
+            description:
+              type: string
+              example: Individual Trader
+              description: A custom description of the User type.
+        usCitizen:
+          type: boolean
+          example: true
+          description: True, if a the User is a United States Citizen
+        updatedWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The updatedWhen is the last date and time the User was updated.
+        brandAmbassador:
+          type: boolean
+          example: false
+        employerBusiness:
+          type: string
+          example: FINANCE
+          description: The User's current employer type.
+        employementStatus:
+          type: object
+          properties:
+            name:
+              type: string
+              example: EMPLOYED
+              description: The User's current employement status.
+            description:
+              type: string
+              example: Employed
+              description: A description of the employement status.
+        citizenship:
+          $ref: '#/components/schemas/userCountry'
+        createdWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The createdWhen is the date and time the User was created.
+        marginDefault:
+          type: number
+          example: 0
+        maritalStatus:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/userMartialStatus'
+            description:
+              type: string
+              example: Single
+              description: A description of the martial status of the User.
+        ackCustomerAgreement:
+          type: boolean
+          example: true
+          description: True, if the User accepted DriveWealth's Customer Agreement.
+        ackFixedIncomeAgreement:
+          type: boolean
+          example: false
+          description: True, if the User accepted DriveWealth's Fixed Income Agreement.
+        ackFindersFee:
+          type: boolean
+          example: false
+          description: True, if the User accepted DriveWealth's Finders Fee Agreement.
+        ackForeignFindersFee:
+          type: boolean
+          example: false
+          description: True, if the User accepted DriveWealth's Foreign Finders Fee Agreement.
+        ackJointCustomerAgreement:
+          type: boolean
+          example: true
+          description: True, if the User accepted DriveWealth's Customer Agreement.
+        ackJointFindersFee:
+          type: boolean
+          example: false
+          description: True, if the User has accepted a Joint Finder's Fee Agreement with DriveWealth & the partner.
+        ackJointForeignFindersFee:
+          type: boolean
+          example: false
+          description: True, if the User has accepted a Joint Foreign Finder's Fee Agreement with DriveWealth & the partner.
+        ackJointMarketData:
+          type: boolean
+          example: false
+          description: True, if the User has accepted a Joint Market Data Agreement with DriveWealth & the partner.
+        ackMarketData:
+          type: boolean
+          example: false
+          description: True, if the User has accepted DriveWealth's Market Data Agreement.
+        ackExtendedHoursAgreement:
+          type: boolean
+          example: false
+          description: True, if the User has accepted DriveWealth's Extended Hours Agreement.
+        ackOptionsAgreement:
+          type: boolean
+          example: true
+          description: True, if the User accepts DriveWealth's Options trading Agreement.
+        dependents:
+          type: number
+          example: 0
+          description: The amount of children or dependents assiocated with the User.
+        termsOfUse:
+          type: boolean
+          example: true
+          description: True, if the User has accepted DriveWealth's Terms of Use Agreement.
+        badPasswordCount:
+          type: boolean
+          example: 0
+        director:
+          type: boolean
+          example: false
+          description: True, if the User is a director at a public traded company or owns 10% or more of a public company.
+        employerCompany:
+          type: string
+          example: DriveWealth LLC
+          description: The name of the User's employer.
+        employerCompanyID:
+          type: string
+          example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+          description: "A unique identifier created for each Institution or entity on DriveWealth's platform. \n\n *⚠️ Required when 'company' is not provided*"
+        employerCompanyStartDate:
+          type: string
+          example: '2014-09-29'
+          description: The User's start date at the employment.
+        employerCompanyEndDate:
+          type: string
+          example: '2022-12-25'
+          description: The User's end date at the employment.
+        employerIsBroker:
+          type: boolean
+          example: true
+          description: True, if the User's employer is a brokerage firm.
+        employmentPosition:
+          type: string
+          example: ENGINEER
+          description: The User's current employment job type.
+        employmentYears:
+          type: number
+          example: 0
+          description: The amount of years the User has been employed with the employer.
+        jointEmployerIsBroker:
+          type: boolean
+          example: false
+        investmentObjectives:
+          type: object
+          properties:
+            name:
+              type: string
+              example: FREQUENT
+              description: The User's current investment objectives.
+            description:
+              type: string
+              example: Frequent trader, depending on the market
+              description: A custom description of the investment objective.
+        investmentExperience:
+          type: object
+          properties:
+            name:
+              type: string
+              example: YRS_10_
+              description: The User's current investment expertise.
+            description:
+              type: string
+              example: 10+ yrs
+              description: A custom description of investment expertise.
+        politicallyExposed:
+          type: boolean
+          example: false
+          description: True, if the User is politically exposed to another person.
+        riskTolerance:
+          type: string
+          example: HIGH
+          description: The User's risk ceiling.
+          enum:
+          - LOW
+          - MODERATE
+          - SPECULATION
+          - HIGH
+        userNoteQty:
+          type: number
+          example: 0
+          description: Total number of notes on the user.
+        validTaxForm:
+          type: boolean
+          example: true
+          description: True, if the user has verified/updated tax information.
+        taxTreatyWithUS:
+          type: boolean
+          example: true
+          description: True, if the User's country has a tax treaty with the United States.
+        avatarURL:
+          type: string
+          example: https://secure.gravatar.com/avatar/2076105f6efe7c11e285add95f514b9a.jpg
+          description: The User's avatar.
+        annualIncomeRange:
+          type: string
+          example: $0 - $24,999
+          description: The User's annual income range, in dollar form.
+          enum:
+          - Unknown
+          - $0 - $24,999
+          - $25,000 - $49,999
+          - $50,000 - $99,999
+          - $100,000 - $199,999
+          - $200,000 - $499,999
+          - $500,000 - $999,999
+          - $1,000,000 - $4,999,999
+          - $5,000,000 - $9,999,999
+          - $10,000,000+
+        ackDisclosureRule14b:
+          type: boolean
+          example: true
+          description: True, if the User has accepted DriveWealth's Rule 14b Agreement.
+        ackJointDisclosureRule14b:
+          type: boolean
+          example: false
+          description: True, if the User has accepted a Joint Rule 14b Agreement with DriveWealth & the parnter.
+        networthLiquidRange:
+          type: string
+          example: $0 - $24,999
+          description: 'The user''s liquid net worth range. The amount of cash or near cash equivalents of the User''s net worth. '
+          enum:
+          - Unknown
+          - $0 - $4,999
+          - $5,000 - $24,999
+          - $25,000 - $49,999
+          - $50,000 - $99,999
+          - $100,000 - $199,999
+          - $200,000 - $499,999
+          - $500,000 - $999,999
+          - $1,000,000 - $4,999,999
+          - $5,000,000 - $9,999,999
+          - $10,000,000+
+        networthTotalRange:
+          type: string
+          example: $0 - $24,999
+          description: The User's net total net worth range.
+          enum:
+          - Unknown
+          - $0 - $4,999
+          - $5,000 - $24,999
+          - $25,000 - $49,999
+          - $50,000 - $99,999
+          - $100,000 - $199,999
+          - $200,000 - $499,999
+          - $500,000 - $999,999
+          - $1,000,000 - $4,999,999
+          - $5,000,000 - $9,999,999
+          - $10,000,000+
+        investmentEquitiesExperience:
+          type: string
+          example: LIMITED
+          description: Trading experience level.
+          enum:
+          - LIMITED
+          - NONE
+          - GOOD
+          - EXCELLENT
+        investmentEquitiesYears:
+          type: string
+          example: YRS_10_PLUS
+          description: Number of years equity trading experience.
+          enum:
+          - YRS_1_2
+          - YRS_3_5
+          - YRS_6_9
+          - YRS_10_PLUS
+        investmentEquitiesTradesPerYear:
+          type: string
+          example: YRS_10_14
+          description: Total number of trades per year.
+          enum:
+          - YRS_0_9
+          - YRS_10_14
+          - YRS_15_24
+          - YRS_25_74
+          - YRS_75_PLUS
+        investmentEquitiesAverageTradeSize:
+          type: string
+          example: AVG_0_9999
+          description: 'Average per trade size '
+          enum:
+          - AVG_0_9999
+          - AVG_10000_24999
+          - AVG_5000_PLUS
+        investmentOptionsExperience:
+          type: string
+          example: LIMITED
+          description: Trading experience level.
+          enum:
+          - LIMITED
+          - NONE
+          - GOOD
+          - EXCELLENT
+        investmentOptionsYears:
+          type: string
+          example: YRS_10_PLUS
+          description: Number of years equity trading experience.
+          enum:
+          - YRS_1_2
+          - YRS_3_5
+          - YRS_6_9
+          - YRS_10_PLUS
+        investmentOptionsTradesPerYear:
+          type: string
+          example: YRS_10_14
+          description: Total number of trades per year.
+          enum:
+          - YRS_0_9
+          - YRS_10_14
+          - YRS_15_24
+          - YRS_25_74
+          - YRS_75_PLUS
+        investmentOptionsAverageTradeSize:
+          type: string
+          example: AVG_0_9999
+          description: A unique identifier for the Deposit.
+          enum:
+          - AVG_0_9999
+          - AVG_10000_24999
+          - AVG_5000_PLUS
+    Documents:
+      type: object
+      properties:
+        documents:
+          type: array
+          description: The personal identifiable information & digital signatures that will be updated.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/Basic_Info_Optional'
+            - $ref: '#/components/schemas/Identification_Info_Optional'
+            - $ref: '#/components/schemas/Tax_Info_Optional'
+            - $ref: '#/components/schemas/Personal_Info_Optional'
+            - $ref: '#/components/schemas/Address_Info_Optional'
+            - $ref: '#/components/schemas/Employment_Info_Optional'
+            - $ref: '#/components/schemas/Investor_Profile_Info_Optional'
+            - $ref: '#/components/schemas/Disclosures_Optional'
+    Tax_Info_Optional:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          example: TAX_INFO
+        data:
+          type: object
+          properties:
+            taxTreatyWithUS:
+              type: boolean
+              example: true
+              description: True, if the User's country has a tax treaty with the United States.
+    UserResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/userID'
+        userType:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/userType'
+            description:
+              type: string
+              example: Individual Trader
+              description: A custom description of the User type.
+        status:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/userStatus'
+            description:
+              type: string
+              example: User is pending approval.
+              description: A custom description of the User's status.
+        parentIBID:
+          type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/parentIBID'
+            name:
+              $ref: '#/components/schemas/firmName'
+        documents:
+          type: array
+          description: The personal identifiable information & digital signatures.
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/Basic_Info'
+            - $ref: '#/components/schemas/Identification_Info'
+            - $ref: '#/components/schemas/Tax_Info'
+            - $ref: '#/components/schemas/Personal_Info'
+            - $ref: '#/components/schemas/Address_Info'
+            - $ref: '#/components/schemas/Employment_Info'
+            - $ref: '#/components/schemas/Investor_Profile_Info'
+            - $ref: '#/components/schemas/Disclosures'
+        wlpID:
+          $ref: '#/components/schemas/wlpID'
+        referralCode:
+          type: string
+          example: 71J000
+          description: The associated referral program associated to the User.
+        createdWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The createdWhen is the date and time the User was created.
+        updatedWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The updatedWhen is the last date and time the User was updated.
+    firmName:
+      type: string
+      example: Tendies Trading Company
+      description: The firm name.
+    userCountry:
+      type: string
+      example: USA
+      description: The user's country.
+    UsersReq:
+      required:
+      - userType
+      - documents
+      type: object
+      properties:
+        userType:
+          $ref: '#/components/schemas/userType'
+        wlpID:
+          type: string
+          example: TTCC
+          description: "The wlpID is a deep backoffice ID that identifies each partner from each other. \n\n *⚠️ Only require to pass if your existing partner before **10/1/22**. "
+          deprecated: true
+        parentIBID:
+          type: string
+          example: 95c98ed5-e29e-4d55-90bf-8898fcf6af85
+          description: "The parentIBID is a identifier that identifies a partners different business segments. \n\n *⚠️ Only require to pass if your existing partner before **10/1/22**."
+          deprecated: true
+        documents:
+          type: array
+          description: The personal identifiable information & digital signatures.
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/Basic_Info'
+            - $ref: '#/components/schemas/Identification_Info'
+            - $ref: '#/components/schemas/Tax_Info'
+            - $ref: '#/components/schemas/Personal_Info'
+            - $ref: '#/components/schemas/Address_Info'
+            - $ref: '#/components/schemas/KYC_Verification_Info'
+            - $ref: '#/components/schemas/Employment_Info'
+            - $ref: '#/components/schemas/Investor_Profile_Info'
+            - $ref: '#/components/schemas/Disclosures'
+            - $ref: '#/components/schemas/MarginDisclosure'
+            - $ref: '#/components/schemas/CustodianInfo'
+            - $ref: '#/components/schemas/Director_Info'
+            - $ref: '#/components/schemas/Institutional_Info'
+            - $ref: '#/components/schemas/Trust_Info'
+        metadata:
+          type: object
+          example:
+            myCustomKey: myCustomValue
+          description: The metadata object allows for creating a maximum of 5 keys (max 36 characters) and each value cannot exceed more than 128 bytes.
+    Institutional_Info:
+      type: object
+      properties:
+        type:
+          type: string
+          example: INSTITUTIONAL_INFO
+        data:
+          type: object
+          properties:
+            physicalAddressLine1:
+              type: string
+              example: 15 Exchange Place
+              description: The physical street address where the institution is located.
+            physicalAddressLine2:
+              type: string
+              example: Unit 1100
+            physicalCity:
+              type: string
+              example: Jersey City
+              description: The institutuion physical city.
+            physicalStateProvince:
+              type: string
+              example: New Jersey
+              description: The institutuion physical state or province.
+            physicalZipPostalCode:
+              type: string
+              example: '07302'
+              description: The institutuion physical postal or zip code.
+            physicalCountryID:
+              type: string
+              example: USA
+              description: The institutuion physical country of origin.
+            companyOrganizedAs:
+              type: string
+              example: LLC
+              description: The institutuion orginizational structure.
+              enum:
+              - NON_CORP
+              - INC
+              - CLUB
+              - LLC
+              - LLLP
+              - LLP
+              - LP
+              - PARTNERSHIP
+              - SOLE_PROPRIETOR
+            usaBranch:
+              type: boolean
+              example: true
+              description: True, if the institutuion is registered in side of the United States.
+            foreignBank:
+              type: boolean
+              example: false
+              description: True, if the institution is a foreign bank.
+            foreignFinancialInstitution:
+              type: boolean
+              example: false
+              description: True, if the institution is maintained for a foreign finanical institution.
+            directorCount:
+              type: number
+              example: '15'
+              description: The number of directors to be added to institutional account.
+    FetchUserKYCResponse:
+      type: object
+      properties:
+        userID:
+          $ref: '#/components/schemas/userID'
+        firstName:
+          $ref: '#/components/schemas/firstName'
+        lastName:
+          $ref: '#/components/schemas/lastName'
+        identity:
+          type: object
+          properties:
+            number:
+              $ref: '#/components/schemas/userTaxIDLastFour'
+            dob:
+              type: string
+              example: '2000-12-03'
+              description: The User's date of birth in this format YYYY-MM-DD
+        accounts:
+          type: array
+          description: A list of all the User's accounts.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/AccountsRequest'
+        kyc:
+          type: object
+          properties:
+            status:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: KYC_INFO_REQUIRED
+                  description: The current kyc status of the User.
+                  enum:
+                  - KYC_NOT_READY
+                  - KYC_READY
+                  - KYC_PROCESSING
+                  - KYC_APPROVED
+                  - KYC_INFO_REQUIRED
+                  - KYC_DOC_REQUIRED
+                  - KYC_MANUAL_REVIEW
+                  - KYC_DENIED
+                code:
+                  type: string
+                  example: K102
+                description:
+                  type: string
+                  example: User's PII not matched. Please revisit user's PII Info.
+                  description: A custom description about the User's KYC status.
+            approved:
+              type: object
+              properties:
+                timestamp:
+                  type: string
+                  example: '2022-12-12T21:13:12.391Z'
+                  description: The date and time the User's KYC was approved.
+                approvedBy:
+                  type: string
+                  example: 0ef9ef36-3720-4b76-a938-dac4501a7f95
+                  description: The identifier of the backoffice user that approved the User's KYC.
+            accepted:
+              type: object
+              properties:
+                acceptedBy:
+                  type: string
+                  example: SYSTEM PRINCIPAL APPROVER
+                  description: The name of the role who approved the User's kyc.
+                timeStamp:
+                  type: string
+                  example: '2022-12-12T21:13:12.391Z'
+                  description: The date and time the role who approved the User's kyc.
+        status:
+          type: object
+          properties:
+            name:
+              type: string
+              example: APPROVED
+              description: The User's current status.
+              enum:
+              - PENDING
+              - APPROVED
+            description:
+              type: string
+              example: User approved.
+              description: A custom description of the User's status.
+        partnerID:
+          type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/parentIBID'
+            name:
+              $ref: '#/components/schemas/firmName'
+        documents:
+          type: array
+          example: []
+          items: {}
+          description: Please call the user's endpoint to get the User's documents.
+    parentIBID:
+      type: string
+      example: 80f9b672-120d-4b73-9cc9-42fb3262c4b9
+      description: The unique identifier of the firm.
+    Address_Info_Optional:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          example: ADDRESS_INFO
+        data:
+          type: object
+          properties:
+            street1:
+              type: string
+              example: 15 Exchange Place
+              description: The User's current street address, where they live.
+            street2:
+              type: string
+              example: Suite 1000
+              description: The User's additional details of an address i.e. an apartment number.
+            city:
+              type: string
+              example: Jersey City
+              description: The User's current city, where they live.
+            province:
+              type: string
+              example: NJ
+              description: The User's current state/province/territory, where they live.
+            postalCode:
+              type: string
+              example: 7302
+              description: The User's current postal code (zip code).
+            country:
+              type: string
+              example: USA
+              description: The User's current country, where they live.
+    Employment_Info_Optional:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          example: EMPLOYMENT_INFO
+        data:
+          type: object
+          properties:
+            status:
+              type: string
+              example: EMPLOYED
+              description: The User's current employment status.
+              enum:
+              - EMPLOYED
+              - RETIRED
+              - STUDENT
+              - UNEMPLOYED
+              - SELF_EMPLOYED
+            company:
+              type: string
+              example: DriveWealth LLC
+              description: "The User's current employer name. \n\n *⚠️ Only required when status equal to EMPLOYED or SELF_EMPLOYED*"
+            companyID:
+              type: string
+              example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+              description: "A unique identifier created for each Institution or entity on DriveWealth's platform. \n\n *⚠️ Required when 'company' is not provided*"
+            from:
+              type: string
+              example: '2014-09-29'
+              description: The User's start date at the employment.
+            to:
+              type: string
+              example: '2022-12-25'
+              description: The User's end date at the employment.
+            type:
+              type: string
+              example: FINANCE
+              description: "The User's current employer type. \n\n *⚠️ Only required when status equal to EMPLOYED or SELF_EMPLOYED*"
+              enum:
+              - AGRICULTURE
+              - MINING
+              - UTILITIES
+              - CONSTRUCTION
+              - MANUFACTURING
+              - WHOLESALE
+              - RETAIL
+              - TRANSPORT
+              - INFORMATION
+              - FINANCE
+              - REAL_ESTATE
+              - PROFESSIONAL
+              - MANAGEMENT
+              - EDUCATION
+              - HEALTH
+              - ART
+              - FOOD
+              - PUBLIC
+              - WASTE
+            position:
+              type: string
+              example: ENGINEER
+              description: ' The User''s current role at the employment. *⚠️ Only required when staus equal to EMPLOYED or SELF_EMPLOYED*'
+              enum:
+              - ACCOUNTANT
+              - ACTUARY
+              - ADJUSTER
+              - ADMINISTRATOR
+              - ADVERTISER
+              - AGENT
+              - ATC
+              - AMBASSADOR
+              - ANALYST
+              - APPRAISER
+              - ARCHITECT
+              - ARTIST
+              - ASSISTANT
+              - ATHLETE
+              - ATTENDANT
+              - ATTORNEY
+              - AUCTIONEER
+              - AUDITOR
+              - BARBER
+              - BROKER
+              - BUSINESS_EXEC
+              - BUSINESS_OWNER
+              - CAREGIVER
+              - CARPENTER
+              - CASHIER
+              - CHEF
+              - CHIROPRACTOR
+              - CIVIL
+              - CLERGY
+              - CLERK
+              - COMPLIANCE
+              - CONSULTANT
+              - CONTRACTOR
+              - COUNSELOR
+              - CUSTOMER_SERVICE
+              - DEALER
+              - DEVELOPER
+              - DISTRIBUTOR
+              - DOCTOR
+              - DRIVER
+              - ENGINEER
+              - EXAMINER
+              - EXTERMINATOR
+              - FACTORY
+              - FARMER
+              - FINANCIAL
+              - FISHERMAN
+              - FLIGHT
+              - HR
+              - IMPEX
+              - INSPECTOR
+              - INTERN
+              - INVESTMENT
+              - INVESTOR
+              - IT
+              - JANITOR
+              - JEWELER
+              - LABORER
+              - LANDSCAPER
+              - LENDING
+              - MANAGER
+              - MECHANIC
+              - MILITARY
+              - MORTICIAN
+              - NURSE
+              - NUTRITIONIST
+              - OFFICE
+              - PHARMACIST
+              - PHYSICAL
+              - PILOT
+              - POLICE
+              - POLITICIAN
+              - PM
+              - REP
+              - RESEARCHER
+              - SAILOR
+              - SALES
+              - SCIENTIST
+              - SEAMSTRESS
+              - SECURITY
+              - SOCIAL
+              - TEACHER
+              - TECHNICIAN
+              - TELLER
+              - TRADESPERSON
+              - TRAINER
+              - TRANSPORTER
+              - UNDERWRITER
+              - WRITER
+            broker:
+              type: boolean
+              example: true
+              description: True, if the User's current employer is broker.*⚠️ Only required when staus equal to EMPLOYED or SELF_EMPLOYED*
+            directorOf:
+              type: string
+              example: Apple Inc, AAPL
+              description: The company name, ticker of the company; if the user is a director or owns more than 10% of a publicly traded company.
+    directors:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Chief Innovation Officer
+          description: The title of the director.
+        controlContact:
+          type: boolean
+          example: true
+          description: True, if the director has control over the account.
+        institutionalID:
+          type: string
+          example: fa1336af-02a3-2a82-d1a8-ccf11ecea398
+          description: The unique identifier of the institution director should assioacted with..
+    Investor_Profile_Info:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          example: INVESTOR_PROFILE_INFO
+        data:
+          type: object
+          required:
+          - investmentExperience
+          - annualIncome
+          - networthTotal
+          - riskTolerance
+          - investmentObjectives
+          - networthLiquid
+          properties:
+            investmentExperience:
+              type: string
+              example: YRS_10_
+              description: The User's current investment expertise.
+              enum:
+              - NONE
+              - YRS_1_2
+              - YRS_3_5
+              - YRS_5_10
+              - YRS_10_
+            annualIncome:
+              type: number
+              example: 1000000
+              description: The User's current annalized income over one year.
+            networthTotal:
+              type: number
+              example: 2500000
+              description: The user's current networth. This calculation is the User's assets - liabilities.
+            riskTolerance:
+              type: string
+              example: HIGH
+              description: The User's risk ceiling.
+              enum:
+              - LOW
+              - MODERATE
+              - SPECULATION
+              - HIGH
+            investmentObjectives:
+              type: string
+              example: LONG_TERM
+              description: The User's current investment objectives.
+              enum:
+              - LONG_TERM
+              - INFREQUENT
+              - FREQUENT
+              - ACTIVE_DAILY
+              - NEW
+            networthLiquid:
+              type: number
+              example: 300000
+              description: The user's liquid net worth. The amount of cash or near cash equivalents of the User's net worth.
+            dependents:
+              type: number
+              example: '4'
+              description: Total number of dependents the account holder has.
+            suitabilityEquities:
+              $ref: '#/components/schemas/investmenetsSuitability'
+              description: An object containing required fields for options approval
+            suitabilityOptions:
+              $ref: '#/components/schemas/investmenetsSuitability'
+              description: An object containing required fields for options approval
+    Director_Info:
+      type: object
+      properties:
+        type:
+          type: string
+          example: DIRECTOR_INFO
+        data:
+          type: object
+          properties:
+            directorList:
+              type: array
+              oneOf:
+              - $ref: '#/components/schemas/directors'
+    Trust_Info:
+      type: object
+      properties:
+        type:
+          type: string
+          example: TRUST_INFO
+        data:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Justin's Trust
+              description: The name of the trust.
+            dateEstablished:
+              type: string
+              example: '2014-09-29'
+              description: The inception date of the trust.
+            stateEstablished:
+              type: string
+              example: NJ
+              description: The state or province where the trust was established.
+            street1:
+              type: string
+              example: 15 Exchange Place
+              description: The physical street address where the institution is located.
+            street2:
+              type: string
+              example: Unit 1100
+            city:
+              type: string
+              example: NJ
+              description: The institutuion physical city.
+            province:
+              type: string
+              example: New Jersey
+              description: The institutuion physical state or province.
+            postalCode:
+              type: string
+              example: '07302'
+              description: The institutuion physical postal or zip code.
+            primaryTrusteeAuthority:
+              type: string
+              example: TRUSTEE_ONLY
+              description: The permissions the primary trustee has over the trust.
+              enum:
+              - TRUSTEE_ONLY
+              - TRUSTEE_AND_GRANTOR
+              - MODIFY_TRUSTEES
+              - MODIFY_TRUST
+            tin:
+              type: string
+              example: '123456789'
+              description: The tax identification number of the trust.
+    Personal_Info_Optional:
+      type: object
+      required:
+      - type
+      - data
+      properties:
+        type:
+          type: string
+          example: PERSONAL_INFO
+        data:
+          type: object
+          properties:
+            birthDay:
+              type: number
+              example: 3
+              description: The User's born day.
+            birthMonth:
+              type: number
+              example: 12
+              description: The User's born month.
+            birthYear:
+              type: number
+              example: 2000
+              description: The User's born year.
+            politicallyExposedNames:
+              type: string
+              example: Nancy Pelosi
+              description: The names of the people whom are politicaly exposes, separated by a comma.
+            irsBackupWithholdings:
+              type: boolean
+              example: false
+              description: True, if the type of account will be a retirement account.
+            gender:
+              type: string
+              example: Male
+              description: The gender of the User.
+              enum:
+              - Male
+              - Female
+            martial:
+              type: string
+              example: SINGLE
+              description: The marital status of the User.
+              enum:
+              - SINGLE
+              - DIVORCED
+              - MARRIED
+              - WIDOWED
+              - PARTNER
+    userPostalCode:
+      type: string
+      example: 7302
+      description: The user's current postal code (zip code), where they live.
+    userType:
+      type: string
+      example: INDIVIDUAL_TRADER
+      description: The type of user being onboarded.
+      enum:
+      - INDIVIDUAL_TRADER
+      - CUSTODIAL
+    lastName:
+      type: string
+      example: Smith
+      description: The last (family) name of the user.
+    userStreet2:
+      type: string
+      example: Suite 1000
+      description: The user's additional details of an address i.e. an apartment number.
+    language:
+      type: string
+      example: en_US
+      enum:
+      - en_US
+      - zh_CN
+      - es_ES
+      - pt_BR
+      description: The language the user read/speaks.
+    wlpID:
+      type: string
+      example: TTC
+      description: The wlpID is a deep backoffice ID that identifies each partner from each other.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

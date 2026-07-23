@@ -1,0 +1,2423 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Instruments API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Instruments
+  x-displayName: Instruments
+paths:
+  /instruments:
+    get:
+      tags:
+      - Instruments
+      parameters:
+      - in: query
+        name: status
+        schema:
+          type: string
+        required: false
+        example: ACTIVE
+        description: The instrument status; to filter by.
+      - in: query
+        name: isOptionsEnabled
+        schema:
+          type: boolean
+        required: false
+        example: true
+        description: The ability to trade options for this instrument; to filter by.
+      summary: List Instruments
+      description: Retrives a list of Instruments.
+      responses:
+        '200':
+          description: Retrieving a list of Instruments was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instruments'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /instruments/{symbolOrInstrumentID}:
+    get:
+      tags:
+      - Instruments
+      parameters:
+      - in: path
+        name: symbolOrInstrumentID
+        schema:
+          type: string
+        required: true
+        example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+        description: A unique ID created by DriveWealth to identify a specific Equity Instrument or Option Instrument, also accept the market symbols like Ticker for Equities and OSI for Options.
+      - in: query
+        name: options
+        schema:
+          type: string
+        required: false
+        example: Fundamentals
+        description: This query parameter will add an additional property; `fundamentalDataModel` to the response object for an Equity Instrument only. This data consists of financial data model specs for a specific Instrument.
+      summary: Retrieve Instrument
+      description: Retrieves an Instrument details by symbol or instrumentID.
+      responses:
+        '200':
+          description: Fetching Instrument details was successful.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/EquityInstrumentDetails'
+                - $ref: '#/components/schemas/OptionInstrumentDetails'
+                - $ref: '#/components/schemas/MutualFundInstrumentDetails'
+                - $ref: '#/components/schemas/DebtInstrumentDetails'
+                discriminator:
+                  propertyName: instrumentType
+                  mapping:
+                    EQUITY: '#/components/schemas/EquityInstrumentDetails'
+                    OPTION: '#/components/schemas/OptionInstrumentDetails'
+                    MUTUAL_FUND: '#/components/schemas/MutualFundInstrumentDetails'
+                    DEBT: '#/components/schemas/DebtInstrumentDetails'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /instruments/{symbolOrInstrumentID}/options:
+    get:
+      tags:
+      - Instruments
+      parameters:
+      - in: path
+        name: symbolOrInstrumentID
+        schema:
+          type: string
+        required: true
+        example: AAPL
+        description: Symbol or instrumentID of the underlying equity security
+      - in: query
+        name: expirationDate
+        schema:
+          type: string
+        required: true
+        example: '2022-05-15'
+        description: The expiration date of the option security; to filter by.
+      - in: query
+        name: page
+        schema:
+          type: integer
+        required: false
+        example: 1
+      - in: query
+        name: pageSize
+        schema:
+          type: integer
+        required: false
+        example: 20
+        description: The number of option instruments to be returned per page.
+      - in: query
+        name: sortOrder
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+        required: false
+        example: asc
+        description: The sorting order of option instruments.
+      - in: query
+        name: noOfStrikes
+        schema:
+          type: integer
+        required: false
+        example: 5
+        description: The number of option instruments to be returned above and below market price.
+      - in: query
+        name: minStrikePrice
+        schema:
+          type: integer
+        required: false
+        example: 20
+        description: The option instruments to be returned above the strike price.
+      - in: query
+        name: maxStrikePrice
+        schema:
+          type: integer
+        required: false
+        example: 100
+        description: The option instruments to be returned below the strike price.
+      - in: query
+        name: optionType
+        schema:
+          type: string
+          enum:
+          - CALL
+          - PUT
+        required: false
+        example: CALL
+        description: The type of option instruments to be returned.
+      - in: query
+        name: id
+        schema:
+          type: string
+        required: false
+        example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+        description: The instrument ID of the option security.
+      - in: query
+        name: filterBy
+        schema:
+          type: string
+        required: false
+        example: expirationDate
+        description: The expiration dates for the given underlying security; to filter by.
+      summary: Retrieve Instrument Options Chain
+      description: Retrieves an Instrument Options Chain by symbol or instrumentID.
+      responses:
+        '200':
+          description: Retrieving an Instrument Options Chain by symbol or instrumentID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionsList'
+              examples:
+                Options Chain:
+                  value:
+                    symbol: AAPL
+                    options:
+                    - optionsData:
+                        rootSymbol: AAPL
+                        rootId: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+                        expirationDate: '2018-09-18'
+                        optionType: PUT
+                        strikePrice: 16.5
+                        deliverable: 100
+                        multiplier: 100
+                      id: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+                      symbol: AAPL220517P00016000
+                      type: OPTION
+                      name: Apple Computer September 9 $16.00 Put
+                      exchange: NYQ
+                      orderSizeMax: 20000
+                      orderSizeMin: 1
+                      orderSizeStep: 1
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /instruments/{symbolOrInstrumentID}/options/expiration-dates:
+    get:
+      tags:
+      - Instruments
+      parameters:
+      - in: path
+        name: symbolOrInstrumentID
+        schema:
+          type: string
+        required: true
+        example: AAPL
+        description: Symbol or instrumentID of the underlying equity security.
+      summary: Retrieve Instrument Option Expiration
+      description: Retrieve an Instrument Option Expiration details by symbol or instrumentID.
+      responses:
+        '200':
+          description: Retrieving an Instrument Option Expiration details by symbol or instrumentID was Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpirationDateList'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /instruments/filter:
+    post:
+      tags:
+      - Instruments
+      summary: Search Instruments
+      description: Searches Instruments based on the filter criteria provided.
+      operationId: filterInstruments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterCriteria'
+            examples:
+              InBetweenOperatorSample:
+                value:
+                - field: spRating
+                  operator: '><'
+                  value1: A
+                  value2: AAA
+              MultipleFiltersSample:
+                value:
+                - field: couponRate
+                  operator: '><'
+                  value1: '3.14'
+                  value2: '6'
+                - field: maturityDate
+                  operator: '><'
+                  value1: '2023-08-24'
+                  value2: '2025-02-12'
+                - field: maturityDate
+                  operator: '><'
+                  value1: '2028-01-24'
+                  value2: '2032-04-25'
+      responses:
+        '200':
+          description: Searching Instruments by filter criteria was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instruments'
+              examples:
+                InstrumentsFilterSuccess:
+                  value:
+                  - id: 2dd415f4-16f0-4df9-9a33-610f1531cb55
+                    name: Amazon.com, Inc. 1.5% 2030-06-03
+                    instrumentType: DEBT
+                    status: ACTIVE
+                    payFrequency: SEMI_ANNUALLY
+                    couponRate: 1.5
+                    maturityDate: '2030-06-03'
+                    spRating: AA
+                    bondType: CORPORATE_BOND
+                    domicileCountry: US
+                    ISIN: US023135BS49
+                    CUSIP: 023135BS4
+                  - id: f8e3a175-5dfc-4d9b-bd1a-7db0e8b48703
+                    name: Amazon.com, Inc. 3.8% 2024-12-05
+                    instrumentType: DEBT
+                    status: ACTIVE
+                    payFrequency: SEMI_ANNUALLY
+                    couponRate: 3.8
+                    maturityDate: '2024-12-05'
+                    spRating: AA
+                    bondType: CORPORATE_BOND
+                    domicileCountry: US
+                    ISIN: US023135AN60
+                    CUSIP: 023135AN6
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    MaturityDate:
+      description: The date on which the principal amount of the debt instrument becomes due.
+      type: string
+      format: date
+      example: '2022-05-10'
+      readOnly: true
+    askPrice:
+      type: number
+      example: 85.14
+      description: The current price sellers are prepared to sell a security.
+    Instruments:
+      type: array
+      items:
+        anyOf:
+        - $ref: '#/components/schemas/InstrumentInList'
+        - $ref: '#/components/schemas/DebtInstrumentDetails'
+    CouponRate:
+      description: The annual rate of interest currently applicable to the instrument.
+      type: number
+      format: double
+      example: 0.05
+      readOnly: true
+    bidPrice:
+      type: number
+      example: 86.12
+      description: The current price buyers are prepared to pay for a security.
+    FilterCriteria:
+      description: The filter criteria, Criterion with different field names are ANDed. Criterion with same field names are ORed.
+      type: array
+      items:
+        $ref: '#/components/schemas/FilterCriterion'
+    fundamentalDataModel:
+      type: object
+      nullable: true
+      properties:
+        id:
+          $ref: '#/components/schemas/instrumentID'
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        openPrice:
+          $ref: '#/components/schemas/openPrice'
+        bidPrice:
+          $ref: '#/components/schemas/bidPrice'
+        askPrice:
+          $ref: '#/components/schemas/askPrice'
+        lowPrice:
+          $ref: '#/components/schemas/lowPrice'
+        highPrice:
+          $ref: '#/components/schemas/highPrice'
+        fiftyTwoWeekLowPrice:
+          type: number
+          example: 72.05
+          description: The lowest price of the instrument in the past 52 weeks.
+        fiftyTwoWeekHighPrice:
+          type: number
+          example: 109.73
+          description: The highest price of the instrument in the past 52 weeks.
+        cumulativeVolume:
+          type: number
+          example: 3970567
+          description: Cumulative Volume is a running total of daily trade volume. This measures the cumulative inflow and outflow of trading volume for the instrument. Measured in quantity of shares.
+        marketCap:
+          type: number
+          example: 148374700000
+          description: The total market cap of the instrument measured in USD.
+        peRatio:
+          type: number
+          example: 12.7434
+          description: The Price-earnings ratio for the instrument.
+        dividendYield:
+          type: number
+          example: 3.5312
+          description: The percentage of a company's share price that is payed out in dividends each year.
+        earningsPerShare:
+          type: number
+          example: 6.889
+          description: The earnings per share of the instrument measured in USD. EPS is company's profit divided by the outstanding shares of its common stock.
+        dividend:
+          type: number
+          example: 3.1
+          description: The annual dividend amount paid out per share measured in USD.
+        sharesOutstanding:
+          type: number
+          example: 1307993346
+          description: The total shares outstanding for the instrument. Shares outstanding are all the shares of an instrument that have been authorized, issued and purchased by investors.
+        timeLastUpdate:
+          type: string
+          example: '18:28:00'
+          description: The last time the instruments data was updated.
+        bookValuePerShare:
+          type: string
+          example: '59.49634'
+          description: The book value per share of the instrument measured in USD. The BVPS is the ratio of equity available to common shareholders divided by the number of outstanding shares.
+        cashFlowPerShare:
+          type: string
+          example: '10.40132'
+          description: The cash flow per share measured in USD. Cash flow per share is the after-tax earnings plus depreciation on a per-share basis that functions as a measure of a firm's financial strength.
+        operatingIncome:
+          type: string
+          example: '19668000000'
+          description: The operating income of an instrument measured in USD. Operating income is an accounting figure that measures the amount of profit realized from a business's operations after deducting operating expenses such as wages, depreciation, and cost of goods sold.
+        pbRatio:
+          type: string
+          example: '1.61196'
+          description: The Price-to-Book ratio of the instrument measured USD per share. The Price-to-Bok ratio measures the market valuation of an Instrument relative to its book  value.
+        volumeMovingAverage10Day:
+          type: number
+          example: 7791905
+          description: The volume moving average of the last 10 days for the instrument measured in quantity of shares.
+        volumeMovingAverage25Day:
+          type: number
+          example: 6768708
+          description: The volume moving average of the last 25 days for the instrument measured in quantity of shares.
+        volumeMovingAverage50Day:
+          type: number
+          example: 7307176
+          description: The volume moving average of the last 50 days for the instrument measured in quantity of shares.
+        priceMovingAverage50Day:
+          type: number
+          example: 85.3034
+          description: The price moving average of the last 50 days for the instrument measured in (USD) per share.
+        priceMovingAverage150Day:
+          type: number
+          example: 83.6295
+          description: The price moving average of the last 150 days for the instrument measured in (USD) per share.
+        priceMovingAverage200Day:
+          type: number
+          example: 84.3036
+          description: The price moving average of the last 200 days for the instrument measured in (USD) per share.
+        roe:
+          type: string
+          example: '0.15315'
+          description: Return on equity of the instrument measured as a fraction, multiply by 100 to get percentage value. ROE is a measure of financial performance calculated by dividing net income by shareholders' equity.
+        percentchangeWTD:
+          type: number
+          example: 2.31
+          description: The percentage change between the most recent market closing price and the closing price at the week start.
+        percentchangeMTD:
+          type: number
+          example: 2.3
+          description: The price percentage change for the instrument Month to Date.
+        percentchangeYTD:
+          type: number
+          example: 10.11
+          description: The price percentage change for the instrument Year to Date.
+        percentchange4week:
+          type: number
+          example: 21.22
+          description: The price percentage change for the instrument in last 4 Weeks.
+        percentchange13week:
+          type: number
+          example: 6.67
+          description: The price percentage change for the instrument in last 13 Weeks.
+        percentchange26week:
+          type: number
+          example: 8.26
+          description: The price percentage change for the instrument in last 26 Weeks.
+        percentchange52week:
+          type: number
+          example: 12.1
+          description: The price percentage change for the instrument in last 52 Weeks.
+        percentchange5day:
+          type: number
+          example: 10.11
+          description: The 5 Day Price Percent Change is the percentage change in the company's stock price over the last 5 tradable (business) days.
+        percentchangeYTDrelsnp:
+          type: number
+          example: 9.11
+          description: The percentage change in price since the close of the last trading day of the previous year as compared to the change in price of the S&P 500 during that same period.
+        percentchange5weekrelsnp:
+          type: number
+          example: 16.62
+          description: The percentage change in price over the last four weeks as compared to the change in price of the S&P 500 during that same period
+        percentchange13weekrelsnp:
+          type: number
+          example: 5.67
+          description: The percentage change in price over the last thirteen weeks as compared to the change in price of the S&P 500 during that same period
+        percentchange26weekrelsnp:
+          type: number
+          example: 2.66
+          description: The percentage change in price over the last twenty six weeks as compared to the change in price of the S&P 500 during that same period.
+        percentchange52weekrelsnp:
+          type: number
+          example: 11.12
+          description: The percentage change in price over the last fifty two weeks as compared to the change in price of the S&P 500 during that same period.
+    SpRating:
+      description: The long term S&P Rating of the issuer.
+      type: string
+      example: AAA
+      readOnly: true
+    instrumentStatus:
+      type: string
+      example: ACTIVE
+      description: The current status of the instrument.
+      enum:
+      - ACTIVE
+      - INACTIVE
+      - CLOSE_ONLY
+      - HALTED
+    DenominationAmounts:
+      description: A set of amounts that represent denomination amounts for the security
+      properties:
+        incrementAmount:
+          description: The increment amount for the security.
+          readOnly: true
+          type: number
+          format: double
+        incrementAmountSecondary:
+          description: The secondary increment amount for the security.
+          readOnly: true
+          type: number
+          format: double
+        minimumAmount:
+          description: ' The minimum denomination amount for the security.'
+          readOnly: true
+          type: number
+          format: double
+    ExpirationDateList:
+      type: object
+      properties:
+        symbol:
+          type: string
+          example: AAPL
+          description: The Symbol of the underlying equity security.
+        expiration:
+          type: array
+          example:
+          - '2022-05-10'
+          - '2022-05-11'
+          description: The date the Option Contract will expire.
+          items:
+            type: string
+    SpRatingDate:
+      description: The date on which the S&P Rating was last updated.
+      type: string
+      format: date
+      example: '2018-05-10'
+      readOnly: true
+    PayFrequency:
+      description: The anticipated frequency of scheduled interest payments under the Bonds.
+      type: string
+      enum:
+      - ANNUALLY
+      - SEMI_ANNUALLY
+      - QUARTERLY
+      - MONTHLY
+      - WEEKLY
+      - DAILY
+      - EVERY_X_DAYS
+      - EVERY_X_MONTHS
+      - EVERY_X_WEEKS
+      - EVERY_X_YEARS
+      - AT_MATURITY
+      - SINGLE_DATE
+      - SINGLE_INTEREST_PAYMENT
+      - FLEXIBLE
+      - NOT_APPLICABLE
+      example: SEMI_ANNUALLY
+      readOnly: true
+    BondType:
+      description: The type of bond.
+      type: string
+      enum:
+      - OTHER
+      - CORPORATE_BOND
+      - GOVERNMENT/AGENCY_BOND
+      - US_MUNICIPAL_BOND
+      - COLLATERALIZED_MORTGAGE_OBLIGATION/ASSET-BACKED_SECURITY
+      - MORTGAGE-BACKED_SECURITY
+      - MONEY_MARKET
+      - COMMON_EQUITY
+      - PREFERRED_EQUITY
+      - RIGHT
+      - WARRANT
+      - OPTION
+      - FUTURE
+      - SWAP
+      - CURRENCY
+      - COMMODITY
+      - INDEX
+      - MUTUAL_FUND/UNIT_INVESTMENT_TRUST
+      - MONEY_MARKET_FUND
+      - EXCHANGE_TRADED_FUND
+      - HYBRID
+      - NON-US_MORTGAGE-BACKED_SECURITY
+      - COMPOSITE_UNIT
+      - DEBT/EQUITY_HYBRID
+      - STRATEGY
+      - OVER-THE-COUNTER_(OTC)
+      - BANK_LOAN
+      - MBS_GENERIC
+      example: CORPORATE_BOND
+      readOnly: true
+    EquityInstrumentDetails:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/InstrumentBase'
+      - $ref: '#/components/schemas/InstrumentsProperties'
+    indexMembers:
+      type: string
+      description: The index members of the instrument.
+      example: S&P 500
+      enum:
+      - TR Equity United States Index
+      - S&P 600 Small Cap
+      - S&P 500
+      - S&P 400 Mid Cap
+      - NASDAQ 100 Index
+      - Dow Transportation
+      - Toronto SE 300 Composite Index
+      - Dow Industry
+      - TR Equity Israel Index
+      - Safrica-JSE-FTSE-AllShare-Index
+      - Shanghai SE Composite Index
+      - Dow Utility
+      - SX All Share PI Market Index
+      - OSL All-share Index
+      - CAC 40 Index
+      - DAX Index
+      - Swiss Market Index
+      - FTSE 100 Index
+      - FTSE All Share Index
+      - Denmark-OMX-Copenhagen-All-Share-Index
+      - ASE Main General Index
+    OptionsList:
+      type: object
+      properties:
+        symbol:
+          type: string
+          example: AAPL220517P00016000
+          description: Option OSI symbol
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionInstrumentDetails'
+    Issuer:
+      description: The entity name (in the XML/Web Service) or organization_id (in the Database) of the insurer who has been contracted to provide payments to bondholders in the event of a default by the issuer. In the Database, the entity name can be looked up by using the organization_id in conjunction with the Organization_Master.primary_name field'
+      type: object
+      properties:
+        primaryName:
+          description: A field containing the root symbol assigned by an exchange to the derivative product.
+          type: string
+          example: Coca Cola Corp
+          readOnly: true
+        country:
+          $ref: '#/components/schemas/country'
+        domicileCountry:
+          $ref: '#/components/schemas/country'
+    instrumentType:
+      type: string
+      example: EQUITY
+      description: The classification of the instrument.
+      enum:
+      - EQUITY
+      - ALTERNATIVE_ASSET
+      - MUTUAL_FUND
+      - DEBT
+      - OPTION
+      - CRYPTO
+    InstrumentsProperties:
+      type: object
+      properties:
+        reutersPrimaryRic:
+          type: string
+          example: MS
+          description: Reuters instrument code, or RIC, is a ticker-like code similar to the ticker symbol of a security.
+        description:
+          type: string
+          example: 'Morgan Stanley is a global financial services company. The Company, through its subsidiaries, provides a range of investment banking, securities, wealth management and investment management services. Its segments include Institutional Securities, Wealth Management and Investment Management. Its Institutional Securities segment provides investment banking, sales and trading, and other services to corporations, governments, financial institutions and high net worth clients. Its Wealth Management segment provides financial services and solutions to individual investors and small-to-medium sized businesses and institutions covering: brokerage and investment advisory services; financial and wealth planning services; workplace services; annuity and insurance products; residential real estate loans and other lending products; banking; and retirement plan services. Its Investment Management segment provides a range of investment strategies and products to a diverse group of clients.'
+          description: A comprehensive description of the Instrument in English.
+        marketTier:
+          type: string
+          example: Q
+          enum:
+          - Q
+          - G
+        sector:
+          type: string
+          example: Financial Services
+          description: The categorization of the sector pertaining to the Instrument.
+          enum:
+          - Services
+          - Industrials
+          - Energy
+          - Technology
+          - Healthcare
+          - Financial
+          - Consumer Cyclical
+          - Real Estate
+          - Capital Goods
+          - Utilities
+          - Consumer Defensive
+          - Basic Materials
+          - Financial Services
+          - Transportation
+          - Communication Services
+        industry:
+          type: string
+          example: Retail (Apparel)
+          description: The categorization of the industry pertaining to the Instrument.
+          enum:
+          - Retail (Apparel)
+          - Coal
+          - Scientific & Technical Instr.
+          - Biotechnology & Drugs
+          - Business Services
+          - Medical Equipment & Supplies
+          - Oil & Gas Operations
+          - Electronic Instr. & Controls
+          - Misc. Financial Services
+          - Software & Programming
+          - Real Estate Operations
+          - Aerospace & Defense
+          - Water Utilities
+          - Food Processing
+          - Computer Services
+          - Semiconductors
+          - Auto & Truck Parts
+          - Investment Services
+          - Misc. Transportation
+          - Construction - Raw Materials
+          - Airline
+          - Construction Services
+          - Recreational Activities
+          - Schools
+          - Consumer Financial Services
+          - Money Center Banks
+          - Retail (Specialty)
+          - Misc. Capital Goods
+          - Apparel/Accessories
+          - Oil Well Services & Equipment
+          - Retail (Department & Discount)
+          - Rental & Leasing
+          - Constr. - Supplies & Fixtures
+          - Fabricated Plastic & Rubber
+          - Printing & Publishing
+          - Fish/Livestock
+          - Furniture & Fixtures
+          - Retail (Grocery)
+          - Healthcare Facilities
+          - Major Drugs
+          - Auto & Truck Manufacturers
+          - Gold & Silver
+          - Broadcasting & Cable TV
+          - Misc. Fabricated Products
+          - Chemical Manufacturing
+          - Insurance (Prop. & Casualty)
+          - Textiles - Non Apparel
+          - Restaurants
+          - Communications Equipment
+          - Hotels & Motels
+          - Computer Hardware
+          - Footwear
+          - Retail (Home Improvement)
+          - Paper & Paper Products
+          - Insurance (Life)
+          - Personal & Household Prods.
+          - Crops
+          - Iron & Steel
+          - Personal Services
+          - Casinos & Gaming
+          - Communications Services
+          - Insurance (Miscellaneous)
+          - Mobile Homes & RVs
+          - Advertising
+          - Trucking
+          - Appliance & Tool
+          - Constr. & Agric. Machinery
+          - Metal Mining
+          - Natural Gas Utilities
+          - Audio & Video Equipment
+          - Retail (Drugs)
+          - Electric Utilities
+          - Regional Banks
+          - Railroads
+          - Waste Management Services
+          - Water Transportation
+          - Recreational Products
+          - Printing Services
+          - Beverages (Nonalcoholic)
+          - Office Supplies
+          - Containers & Packaging
+          - Chemicals - Plastics & Rubber
+          - Forestry & Wood Products
+          - Motion Pictures
+          - Air Courier
+          - Tobacco
+          - Insurance (Accident & Health)
+          - Computer Storage Devices
+          - Beverages (Alcoholic)
+          - Non-Metallic Mining
+          - Tires
+          - Security Systems & Services
+          - Jewelry & Silverware
+        trbc2012:
+          type: string
+          example: Apparel & Accessories Retailers (NEC)
+          enum:
+          - Apparel & Accessories Retailers (NEC)
+          - Coal (NEC)
+          - Heavy Electrical Equipment (NEC)
+          - Biotechnology & Medical Research (NEC)
+          - Management Consulting Services
+          - Executive Search Services
+          - Medical Equipment, Supplies & Distribution (NEC)
+          - Oil & Gas Exploration and Production (NEC)
+          - Oil & Gas Refining and Marketing (NEC)
+          - Electronic Components
+          - Bio Therapeutic Drugs
+          - Investment Management & Fund Operators (NEC)
+          - Enterprise Software
+          - Entertainment Production (NEC)
+          - Aerospace & Defense (NEC)
+          - Biopharmaceuticals
+          - Water Supply & Irrigation Systems
+          - Fruit & Vegetable Processing
+          - IT Services & Consulting (NEC)
+          - Food Processing (NEC)
+          - Photovoltaic Solar Systems & Equipment
+          - Internet Gaming
+          - Engine & Powertrain Systems
+          - Commercial REITs (NEC)
+          - Securities & Commodity Exchanges
+          - Investment Banking & Brokerage Services (NEC)
+          - Ground Freight & Logistics (NEC)
+          - Online Services (NEC)
+          - Social Media & Networking
+          - Construction Materials (NEC)
+          - Advanced Medical Equipment & Technology (NEC)
+          - Airlines (NEC)
+          - Construction & Engineering (NEC)
+          - Gyms, Fitness and Spa Centers
+          - Advertising & Marketing (NEC)
+          - Miscellaneous Educational Service Providers
+          - Transaction & Payment Services
+          - Banks (NEC)
+          - Real Estate Services (NEC)
+          - Appliances, Tools & Housewares (NEC)
+          - Apparel & Accessories (NEC)
+          - Shell Companies
+          - Oil Related Services and Equipment (NEC)
+          - General Department Stores
+          - Real Estate Rental, Development & Operations (NEC)
+          - Iron & Steel (NEC)
+          - Plastic Containers & Packaging
+          - Professional Information Services (NEC)
+          - Poultry Farming
+          - Furniture
+          - Business Support Services (NEC)
+          - Gasoline stations
+          - Display Screens
+          - Internet & Mail Order Department Stores
+          - Bio Diagnostics & Testing
+          - Renewable Energy Equipment & Services (NEC)
+          - Closed End Funds
+          - Server & Database Software
+          - Pharmaceuticals Wholesale
+          - Consumer Leasing
+          - Corporate Banks
+          - Electric (Alternative) Vehicles
+          - Non-Gold Precious Metals & Minerals (NEC)
+          - Broadcasting (NEC)
+          - Pest Control Services
+          - Heavy Machinery & Vehicles (NEC)
+          - Office REITs
+          - Home Furnishings (NEC)
+          - Financial Technology (Fintech) (NEC)
+          - Semiconductors (NEC)
+          - Agricultural Chemicals (NEC)
+          - Commodity Chemicals (NEC)
+          - Property & Casualty Insurance (NEC)
+          - Commercial Printing Services (NEC)
+          - Testing & Measuring Equipment
+          - Integrated Circuits
+          - Software (NEC)
+          - Venture Capital
+          - Integrated Hardware & Software
+          - Blockchain & Cryptocurrency (NEC)
+          - Auto Vehicles, Parts & Service Retailers (NEC)
+          - Medical Diagnostic & Testing Equipment
+          - Programming Software & Testing Tools
+          - Industrial Machinery
+          - Batteries & Uninterruptable Power supplies
+          - Quick Service Restaurants
+          - Auto, Truck & Motorcycle Parts (NEC)
+          - Laboratory Diagnostic & Testing Substances
+          - Phones & Smart Phones
+          - Footwear (NEC)
+          - Aircraft Parts Manufacturing
+          - Home Improvement Products & Services Retailers (NEC)
+          - Paper Mills & Products
+          - Industrial REITs
+          - Pharmaceuticals (NEC)
+          - Investment Holding Companies (NEC)
+          - Industrial Machinery & Equipment (NEC)
+          - Industrial Equipment Rental
+          - Personal Products (NEC)
+          - Vegetable, Fruit & Nut Farming
+          - Semiconductor Equipment & Testing (NEC)
+          - Specialty Mining & Metals (NEC)
+          - Biodiesel
+          - Application Software
+          - System Software
+          - Travel Agents
+          - Gold Mining
+          - Casinos & Gaming (NEC)
+          - Heating, Ventilation & Air Conditioning Systems
+          - Handbags & Luggage
+          - Restaurants & Bars (NEC)
+          - Financial Information Providers
+          - Child Care & Family Services
+          - Life Insurance
+          - Integrated Telecommunications Services (NEC)
+          - Television Broadcasting
+          - Consumer Repair Services
+          - Education & Training Information Providers
+          - Computer Hardware (NEC)
+          - Machine Tools
+          - Used Car Dealers
+          - Insurance Brokers
+          - Courier Services
+          - Network Equipment
+          - Prefabricated Homes
+          - Consumer Credit Cards Services
+          - Outdoor Advertising
+          - Radio Broadcasting
+          - Freight Trucking
+          - Recreational Products (NEC)
+          - Telemedicine Services
+          - Communications & Networking (NEC)
+          - Advanced Electronic Equipment
+          - Oil Exploration & Production - Onshore
+          - Residential Builders - Single Homes
+          - Agricultural Machinery
+          - Investment Banking
+          - Uranium (NEC)
+          - Building Contractors
+          - Personal Services (NEC)
+          - Silver Mining
+          - Electrical Components & Equipment (NEC)
+          - Security Software
+          - Food Retail & Distribution (NEC)
+          - Discount Stores (NEC)
+          - Children's & Infants' Clothing Retailers
+          - Oil & Gas Transportation Services (NEC)
+          - Agricultural Biotechnology
+          - E-commerce & Auction Services
+          - Home Audio
+          - Integrated Oil & Gas
+          - Courier, Postal, Air Freight & Land-based Logistics (NEC)
+          - Professional & Business Education
+          - Paints & Coatings
+          - Retail REITs
+          - Frozen Food Manufacturing
+          - Biomass & Waste to Energy Electric Utilities
+          - Specialty Chemicals (NEC)
+          - Employment Services (NEC)
+          - Supermarkets & Convenience Stores
+          - Commercial Aircraft Manufacturing
+          - Healthcare Facilities & Services (NEC)
+          - Multiline Utilities
+          - Mortgage REITs
+          - Memory Chips (RAM)
+          - Scientific & Super Computers
+          - Electric Utilities (NEC)
+          - Environmental Services & Equipment (NEC)
+          - Homebuilding (NEC)
+          - Gambling & Gaming Machine Manufacturers
+          - Women's Footwear
+          - Petroleum Product Wholesale
+          - Cruise Lines
+          - Investment Management
+          - Consumer Lending (NEC)
+          - Sporting Goods Stores
+          - Diversified REITs
+          - Oil Related Equipment
+          - Cryptocurrency Mining
+          - Non-Alcoholic Beverages (NEC)
+          - Toys & Children's Products (NEC)
+          - Regional Airlines
+          - Healthcare REITs
+          - Satellite Design & Manufacture
+          - Residential REITs
+          - Hotels, Motels & Cruise Lines (NEC)
+          - Diversified Chemicals
+          - Business Support Supplies (NEC)
+          - Passenger Car rental
+          - Grain (Crop) Production
+          - Paper Packaging (NEC)
+          - Construction Supplies & Fixtures Wholesale
+          - Sea-Borne Tankers
+          - Household Products (NEC)
+          - Highway & Bridge Construction
+          - Hotels & Motels
+          - Plastics
+          - Sugar & Artificial Sweeteners
+          - UK Investment Trusts
+          - Pet Food Manufacturing
+          - Self-Storage REITs
+          - Retail - Drugs without Grocery
+          - Medical Equipment Wholesale
+          - Household Appliances
+          - Optical Goods Stores
+          - Dairy Products
+          - Testing Laboratories
+          - Natural Gas Distribution
+          - Multiline Insurance & Brokers (NEC)
+          - Stationary Fuel Cells
+          - Special Foods & Wellbeing Products
+          - Retail & Mortgage Banks
+          - Specialized REITs (NEC)
+          - Managed Healthcare (NEC)
+          - Gaming Machine Operators
+          - Personal Care Products Retailers
+          - Technology Consulting & Outsourcing Services
+          - Food Ingredients
+          - Electronic Equipment & Parts (NEC)
+          - Meat Processing
+          - Office Real Estate Rental & Development
+          - Portable Motors & Generators
+          - Industrial Machinery & Equipment Wholesale
+          - Sporting & Outdoor Goods
+          - Private Equity
+          - Corporate Financial Services (NEC)
+          - Non-Paper Containers & Packaging (NEC)
+          - Airport Operators
+          - Agriculture Support Services
+          - Trade & Business Publishing
+          - Pump & Pumping Equipment
+          - Cosmetics & Perfumes
+          - Personal Care Services
+          - Hospitals, Clinics & Primary Care Services
+          - Power Charging Stations
+          - Home Furnishings Retailers (NEC)
+          - Tobacco (NEC)
+          - Uranium Mining
+          - Cable Service Providers
+          - School, College & University (NEC)
+          - Spacecraft Manufacturing
+          - Financial & Commodity Market Operators & Service Providers (NEC)
+          - Wireless Telecommunications Services (NEC)
+          - Electric Scooters & Bicycles
+          - Casinos
+          - Sports & Outdoor Footwear
+          - Waste Management, Disposal & Recycling Services
+          - Broadcasting Equipment
+          - New Car Dealers
+          - Water & Related Utilities (NEC)
+          - Proprietary & Advanced Pharmaceuticals
+          - Residential Real Estate Rental & Development
+          - Hedge Funds
+          - Automotive Parts & Accessories Retailers
+          - Property & Casualty Reinsurance
+          - Miscellaneous Specialty Retailers (NEC)
+          - Scientific & Precision Equipment
+          - Doors & Window Frames
+          - Coffee & Tea
+          - Internet Security & Transactions Services
+          - Veterinary Drugs
+          - Generic Pharmaceuticals
+          - Storage Devices
+          - NFC & RFID Systems
+          - Construction Machinery
+          - Construction Supplies & Fixtures (NEC)
+          - Renewable IPPs
+          - Cloud Computing Services
+          - Medical Equipment
+          - Office Furniture
+          - Brewers (NEC)
+          - Heavy Machinery & Vehicles Wholesale
+          - Hospitality REITs
+          - Property Insurance
+          - Medical Software & Technology Services
+          - Metal Service Centers
+          - Household Electronics (NEC)
+          - Solar Electric Ultilities
+          - Life & Health Insurance (NEC)
+          - Aluminum (NEC)
+          - Marine Freight & Logistics (NEC)
+          - Doctor's Office
+          - Commercial Food Services
+          - Distillers & Wineries (NEC)
+          - Petroleum Refining
+          - Residential & Long-Term Care
+          - Wealth Management
+          - Market Research
+          - Bio Medical Devices
+          - Wireless Telecoms Service Providers
+          - Lottery Operators
+          - Semiconductor Testing Equipment & Service
+          - Consumer Goods Conglomerates
+          - Diversified Mining
+          - Health Insurance
+          - Rare Earth Minerals
+          - Output Devices
+          - Health Food Stores
+          - Diversified Industrial Goods Wholesale
+          - Alternative Medicine
+          - Watches
+          - Veterinary Medical Equipment & Supplies
+          - Wires & Cables
+          - Photographic Equipment
+          - Movie Theaters & Movie Products
+          - 3D Printers
+          - Computer & Electronics Retailers (NEC)
+          - Portable Satellite Navigation
+          - Cement & Concrete Manufacturing
+          - Iron, Steel Mills & Foundries
+          - Automotive Batteries
+          - Satellite Service Operators
+          - Sailing Yachts & Motorboats
+          - Arms & Ammunitions Manufacturing
+          - Newspaper Publishing
+          - Oil Pipeline Transportation
+          - Alternative Electric Utilities
+          - Commercial Leasing
+          - Blockchain Technology (Software)
+          - Food Wholesale
+          - Bread & Bakery Product Manufacturing
+          - Auto & Truck Manufacturers (NEC)
+          - Drone Manufacturing
+          - Nursery & Garden Centers
+          - Oil & Gas Drilling (NEC)
+          - Air Freight
+          - Heavy Trucks
+          - Snack Food & Non-chocolate Confectionary
+          - Deep Sea Freight
+          - Fertilizers
+          - Personal & Car Loans
+          - Medical & Diagnostic Laboratories
+          - Forest & Wood Products (NEC)
+          - Consumer Publishing (NEC)
+          - Airport Operators & Services (NEC)
+          - Diversified Investment Services
+          - Carbonated Soft Drinks
+          - Switchgear
+          - Commodity Chemicals Wholesale
+          - Welding & Soldering Equipment
+          - Compliance & Investor Communication
+          - Leisure & Recreation (NEC)
+          - Online Job portals
+          - Tires & Rubber Products (NEC)
+          - Women's Apparel Retailers
+          - Commercial Loans
+          - Adventure Sports Facilities & Ski Resorts
+          - Brokerage Services
+          - Freight Logistics
+          - Mobile Application Software
+          - Book & Magazine Retailers
+          - Copper Ore  Mining
+          - Cafés
+          - Fire
+          - Semiconductor Machinery Manufacturing
+          - Wind Systems & Equipment
+          - Ethanol Fuels
+          - Lighting Fixtures
+          - Toys & Games Retailers
+          - Recreational Pharmaceuticals
+          - Floor Covering Retailers
+          - Industrial Valve Manufacturing
+          - Energy Drinks
+          - Search Engines
+          - Electrical Transmission & Grid Equipment
+          - Commercial Equipment
+          - Pet & Pet Supplies Retailers
+          - Natural Gas Utilities (NEC)
+          - Glass Containers & Packaging
+          - Cleaning Services
+          - Footwear Wholesale
+          - Cigars & Cigarette Manufacturing
+          - Medical Monitoring Systems
+          - Security & Surveillance
+          - Consumer Goods Rental
+          - Locomotive Engines & Rolling Stock
+          - Home Healthcare Services
+          - Medical Prosthetics
+          - Residential Real Estate Services
+          - Purification & Treatment Equipment
+          - Maintenance & Repair Services
+          - Timber REITs
+          - Metal Containers & Packaging
+          - Glasses, Spectacles & Contact lenses
+          - Container & Packaging Material Wholesale
+          - LNG Transportation & Storage
+          - Heavy Buses & Coaches
+          - Insurance - Automobile
+          - Data Processing Services
+          - Content & Site Management Services
+          - Auto & Truck Parts Wholesale
+          - Coke Coal Mining
+          - Builder Merchants
+          - Coloring Agents
+          - Appliance & Houseware Wholesale
+          - Nonferrous Metal Processing
+          - Professional Sports Venues
+          - Footwear Retailers
+          - Discount Stores without Grocery
+          - Amusement Parks and Zoos
+          - Servers & Systems
+          - Medical Devices & Implants
+          - Life & Health Reinsurance
+          - Kitchen Cabinets
+          - Adhesive & Epoxy
+          - Automotive Body Parts
+          - Universities
+          - Branding & Naming
+          - Civil Engineers & Architects
+          - Construction Supplies
+          - Leisure Products Wholesale
+          - Funeral Services
+          - Oil Related Services
+          - Natural Gas Pipeline Transportation
+          - Motorcycles & Scooters
+          - Sanitary Products
+          - Medical Farming
+          - Pubs, Bars & Night Clubs
+          - Advertising Agency
+          - Microfinancing
+          - Independent Power Producers (NEC)
+          - Accounting & Tax Preparation
+          - Fishing & Farming (NEC)
+          - Internet & Mail Order Discount Stores
+          - Knitwear
+          - Vegan & Vegetarian Food Manufacturing
+          - Automotive Accessories
+          - Industrial Components
+          - Breakfast Cereal Manufacturing
+          - Medical Supplies
+          - Telecommunication Construction
+          - Rating Agencies
+          - Ball & Roller Bearings
+          - Electrical Components
+          - Gold (NEC)
+          - Marketing Consulting Services
+          - Auto & Truck Wholesale
+          - Wineries
+          - Outsourcing & Staffing Services
+          - Chocolate & Confectionery
+          - VOIP Services
+          - Exhibition & Conference Services
+          - Elevator & Conveying Equipment
+          - Department Stores (NEC)
+          - Land Division & Subdivision
+          - Plays & Concert Production
+          - Reinsurance (NEC)
+          - Movie, TV Production & Distribution
+          - Resort Operators
+          - Computer Hardware & Software Retailers
+          - Jewelry & Watch Retailers
+          - Machine Learning & Artificial Intelligence (AI) Services
+          - Interior Design Services
+          - Wood Products
+          - Entertainment Production Equipment & Services
+          - Security Services
+          - Drug Retailers (NEC)
+          - Men's Apparel Retailers
+          - Iron Ore Mining
+          - Plumbing Fixtures & Fittings
+          - Office Equipment (NEC)
+          - Point of Sale Systems
+          - Human Resources Consulting Services
+          - Railway Freight Operators
+          - Automobiles & Multi Utility Vehicles
+          - Parking Lot Operators
+          - Birth Control Products
+          - Electric Power Plant Construction
+          - Laser Equipment
+          - Men's Clothing
+          - Office Supplies & Stationery Stores
+          - Industrial Gases
+          - Bottled Water & Ice
+          - Casualty Insurance
+          - Fishing & Farming Wholesale
+          - Sports & Outdoors Retailers
+          - Carpets & Curtains
+          - Unconventional Oil & Gas Production
+          - Oil & Gas Storage
+          - Geophysical Surveying & Mapping Services
+          - Primary Aluminum Production
+          - Power & Communications Network Construction
+          - Yarn Goods
+          - Pulp Mills
+          - Inland Water Freight
+          - Water & Sewage Construction
+          - Electric Equipment Wholesale
+          - Organic Farming
+          - Medical Imaging Systems
+          - Residential Builders - Multifamily Homes
+          - Renewable Energy Services
+          - Book Publishing
+        indexMemberships:
+          type: array
+          example:
+          - NASDAQ 100 Index
+          - S&P 500
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/indexMembers'
+        incorporatedCountry:
+          type: string
+          example: USA
+          description: The country code of the incorporated company's Instrument.
+          enum:
+          - USA
+          - ARG
+          - CYM
+          - AUS
+          - MEX
+          - FRA
+          - LUX
+          - GBR
+          - CAN
+          - TWN
+          - VGB
+          - CHL
+          - BMU
+          - ISR
+          - NLD
+          - IND
+          - IRL
+          - ESP
+          - DEU
+          - BRA
+          - ZAF
+          - JPN
+          - PRI
+          - CHN
+          - BHS
+          - JEY
+          - MHL
+          - PAN
+          - SWE
+          - SGP
+          - KOR
+          - ITA
+          - BGD
+          - CHE
+          - CUW
+          - TUR
+          - PER
+          - IDN
+          - CYP
+          - DNK
+          - BEL
+          - COL
+          - FIN
+          - MUS
+          - GGY
+          - NOR
+          - PHL
+          - LBR
+          - GRC
+        isOptionsEnabled:
+          type: boolean
+          example: true
+          description: The ability to trade options for this equity instrument. Default is false, meaning it is not possible to trade options for this instrument.
+        longOnly:
+          type: boolean
+          example: true
+          description: The ability to short an Instrument. Default is true, meaning it is not possible to short the instrument.
+        exchangeNickelSpread:
+          type: boolean
+          example: false
+          description: If true, a limit order for this Instrument must be in increments of $0.05
+        close:
+          type: number
+          example: 87.79
+          description: The most recent closing price of the Instrument.
+        enableExtendedHoursNotionalStatus:
+          type: string
+          example: INACTIVE
+          description: The instruments eligibility for extended hours notional trading. This will default to INACTIVE.
+        fundamentalDataModel:
+          $ref: '#/components/schemas/fundamentalDataModel'
+        type:
+          deprecated: true
+          type: string
+          example: EQUITY
+          description: The classification of the Instrument.
+          enum:
+          - EQUITY
+          - ETF
+          - ETN
+          - ADR
+          - ALTERNATIVE_ASSET
+          - MUTUAL_FUND
+        url:
+          type: string
+          example: http://investor.apple.com
+          description: URL for the investor site of the instrument.
+        closePrior:
+          type: number
+          example: 90.5
+          description: The instruments closing price of the prior trading day.
+        image:
+          type: string
+          example: http://syscdn.drivewealth.net/images/symbols/ms.png
+          description: A publicly hosted image of the instruments logo.
+        isPTP:
+          type: boolean
+          example: false
+          description: True, if the Instrument is a publicly traded partnership (PTP).
+    highPrice:
+      type: number
+      example: 86.85
+      description: The highest price in the current trading day.
+    InstrumentBase:
+      type: object
+      properties:
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        name:
+          type: string
+          example: Morgan Stanley
+          description: A friendly name of the Instrument, like the Company name for an equity
+        orderSizeMax:
+          type: number
+          example: 20000
+          description: The maximum share amount for any order of this Instrument.
+        orderSizeMin:
+          type: number
+          example: 0.1
+          description: The minimum share amount for any order of this Instrument.
+        orderSizeStep:
+          type: number
+          example: 0.01
+          description: Increment amount on order of this Instrument.
+        id:
+          $ref: '#/components/schemas/instrumentID'
+        instrumentType:
+          $ref: '#/components/schemas/instrumentType'
+        exchange:
+          type: string
+          example: NYQ
+          description: The stock exchange the instrument is listed on.
+        status:
+          $ref: '#/components/schemas/instrumentStatus'
+        ISIN:
+          $ref: '#/components/schemas/instrumentISIN'
+        CUSIP:
+          $ref: '#/components/schemas/instrumentCUSIP'
+        settlementDays:
+          type: integer
+          description: Number of days for the instrument to settle
+          example: 1
+    openPrice:
+      type: number
+      example: 86.53
+      description: Most recent opening price of the instrument.
+    DebtInstrumentDetails:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/InstrumentBase'
+      properties:
+        debtData:
+          $ref: '#/components/schemas/DebtReferenceData'
+    country:
+      type: string
+      example: US
+      description: The ISO standard country alpha-2 code.
+    instrumentSymbol:
+      type: string
+      nullable: true
+      example: MS
+      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
+    instrumentCUSIP:
+      description: 'CUSIP stands for `Committee on Uniform Securities Identification Procedures`.
+
+        A CUSIP number identifies most financial instruments, including: stocks of all registered U.S. and Canadian companies, commercial paper, and U.S. government and municipal bonds.
+
+        The CUSIP system facilitates the clearance and settlement process of securities.
+
+        CUSIP numbers consist of nine characters (including letters and numbers) that uniquely identify a company or issuer and the type of financial instrument.
+
+        A similar system is used to identify foreign securities (`CUSIP International Numbering System or CINS`).
+
+        CINS employs the same nine character identifier as CUSIP, but also contains a letter in the first position to signify the issuer''s country or geographic region.
+
+        '
+      type: string
+      minLength: 9
+      maxLength: 9
+      example: E09876AA7
+    OptionInstrumentDetails:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/OptionInstrumentBase'
+      properties:
+        optionsData:
+          type: object
+          properties:
+            rootSymbol:
+              type: string
+              example: AAPL
+              description: Ticker symbol of the underlying instrument from which this Option is derived.
+            rootId:
+              type: string
+              example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+              description: A unique ID created by DriveWealth to identify a specific Instrument that this Option is derived from.
+            expirationDate:
+              type: string
+              example: '2018-09-18'
+              description: The date the Option Contract will expire
+              format: date
+            optionType:
+              type: string
+              example: PUT
+              description: Call or Put
+              enum:
+              - CALL
+              - PUT
+            strikePrice:
+              type: number
+              example: 16.5
+              description: The strike price of the option.
+            deliverable:
+              type: number
+              example: 100
+              default: 100
+              description: The deliverable unit, available for stock and index options, is the number of shares of the underlying stock with respect to one option contract.
+            multiplier:
+              type: number
+              example: 100
+              default: 100
+              description: The premium/strike Multiplier, available for stock and index options, provides the premium/strike multiplier for an option contract.
+    MutualFundInstrumentDetails:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/InstrumentBase'
+      properties:
+        url:
+          type: string
+          example: http://investor.apple.com
+          description: The URL to the investor information page or the prospectus.
+        image:
+          type: string
+          example: http://syscdn.drivewealth.net/images/symbols/ms.png
+          description: A publicly hosted image of the instruments logo.
+        mutualFundData:
+          type: object
+          properties:
+            fundFamily:
+              type: string
+              description: The name of the fund family. For example, "ABC Funds".
+              example: Vanguard
+            shareClass:
+              type: string
+              description: Identifies the share class of the fund. For example Class A, Class B, or Institutional.
+              enum:
+              - A
+              - B
+              - INST
+              example: INST
+            loadType:
+              type: string
+              description: Identifies how commissions are paid for the fund, if any.
+              enum:
+              - NO_LOAD
+              - FRONT_END
+              - BACK_END
+              - LEVEL
+              - HYBRID
+              - OTHER
+              example: NO_LOAD
+            dccsEligible:
+              type: boolean
+              description: Indicates if the fund allows orders to be submitted through the NSCC DCC&S Defined Contribution Clearance and Settlement.
+              example: true
+            blueSkyStates:
+              type: array
+              description: State postal abbreviation for each state the fund has been registered in.
+              example:
+              - CA
+              - NY
+              - AZ
+              items:
+                type: string
+            purchaseCutOff:
+              type: string
+              description: The cutoff time to accept a buy order and execute the same day.
+              example: '16:00'
+            redemptionCutOff:
+              type: string
+              description: The cutoff time to accept a sell order and execute the same day.
+              example: '16:00'
+            maximumPurchaseAmount:
+              type: integer
+              description: The maximum purchase amount in dollars the fund will allow.
+              example: 10000000
+            purchaseMinimums:
+              type: object
+              properties:
+                minimumInitialTaxable:
+                  type: integer
+                  description: The minimum initial purchase amount, in dollars, the fund will allow for taxable accounts.
+                  example: 500
+                minimumInitialIRA:
+                  type: integer
+                  description: The minimum initial purchase amount, in dollars, the fund will allow for IRA accounts.
+                  example: 500
+                minimumInitialQualifiedPlans:
+                  type: integer
+                  description: The minimum initial purchase amount, in dollars, the fund will allow for qualified plans. This would include 401K, HSAs, etc.
+                  example: 500
+                minimumSubsequentTaxable:
+                  type: integer
+                  description: The minimum subsequent purchase amount, in dollars, the fund will allow for taxable accounts.
+                  example: 100
+                minimumSubsequentIRA:
+                  type: integer
+                  description: The minimum subsequent purchase amount, in dollars, the fund will allow for IRA accounts.
+                  example: 100
+                minimumSubsequentQualifiedPlans:
+                  type: integer
+                  description: 'The minimum subsequent purchase amount, in dollars, the fund will allow for qualified plans. This would include 401K, HSAs, etc. '
+                  example: 100
+                minimumSystematicPurchase:
+                  type: integer
+                  description: The minimum amount, in dollars, which will be allowed for systematic purchases.
+                  example: 10
+                minimumInitialExchange:
+                  type: integer
+                  description: The minimum initial purchase amount, in dollars, which will be allowed for exchange purchases.
+                  example: 10
+                minimumSubsequentExchange:
+                  type: integer
+                  description: The minimum subsequent purchase amount, in dollars, which will be allowed for exchange purchases.
+                  example: 10
+            fundType:
+              type: string
+              description: The type of mutual fund.
+              enum:
+              - MUTUAL_FUND
+              - MONEY_MARKET
+              - UIT
+              - CLOSE_END
+              - GIC
+              - STABLE_VALUE
+              - SEPARATE_ACCOUNT
+              - BANK_COLLECTIVE_TRUST
+              - OFFSHORE_NRA
+              - BIC
+              - 529_PLAN
+              - OFFSHORE_US_DOLLAR
+              - OFFSHORE_NON_US_DOLLAR
+              - ANNUITY
+              - UNKNOWN
+              example: MUTUAL_FUND
+            fundStatus:
+              type: string
+              description: Indicates if the fund is open or closed. Eligible values are Open, Closed - Liquidated, Closed - Merged.
+              enum:
+              - OPEN
+              - LIQUIDATED
+              - MERGED
+              - UNKNOWN
+              example: OPEN
+            largeTradeNotificationRequired:
+              type: boolean
+              description: Does the fund required prior notification when large trades are being placed.
+            largeTradeDollarThreshold:
+              type: number
+              description: At what dollar amount is prior trade notification.
+              example: 1000000000
+            redemptionFeePercentage:
+              type: integer
+              description: The percent charged for the non-short-term redemption.
+              example: 0
+            redemptionFeeAmount:
+              type: integer
+              description: The amount, in dollars, charged for the non-short-term redemption fee.
+              example: 0
+            restrictedRedemption:
+              type: boolean
+              description: Is the redemption of shares for this fund limited to specific dates and/or intervals.
+            purchaseEligibility:
+              type: string
+              description: 'Can the fund be purchased by new and/or existing shareholders. Eligible values: All, Existing Only, Closed, Restrictions Apply (see Prospectus).'
+              enum:
+              - ALL
+              - EXISTING_ONLY
+              - CLOSED
+              - RESTRICTIONS_APPLY
+              - UNKNOWN
+              example: ALL
+            exchangeBuyEligibility:
+              type: string
+              description: Can shares of another fund be exchanged into new and/or existing accounts or is the fund closed for exchange purchases.
+              enum:
+              - ALL
+              - EXISTING_ONLY
+              - CLOSED
+              - RESTRICTIONS_APPLY
+              - UNKNOWN
+              example: ALL
+            exchangeFee:
+              type: string
+              description: Are exchange fees charged on this fund and, if so, are they done on a percentage or fixed dollar basis.
+              enum:
+              - NO_EXCHANGE_FEE
+              - PERCENTAGE
+              - FIXED_DOLLAR
+              - UNKNOWN
+              example: PERCENTAGE
+            exchangeFeePercentage:
+              type: number
+              description: The exchange fee percent charged.
+              example: 10.5
+            exchangeFeeAmount:
+              type: integer
+              description: The amount, in dollars, of the exchange fee charged.
+              example: 0
+            dividendFrequency:
+              type: string
+              description: The frequency dividends are paid out by the fund.
+              enum:
+              - MONTHLY
+              - QUARTERLY
+              - SEMI_ANNUALLY
+              - ANNUALLY
+              example: MONTHLY
+            operatingExpenses:
+              type: number
+              description: Expenses paid by the shareholders each year as a percentage of the fund's value.
+              example: 0.25
+            portfolioTurnover:
+              type: number
+              description: Investment portfolio turnover rate.
+              example: 10.7
+            shortTermRedemptionRules:
+              type: boolean
+              description: Do Short-Term Redemption Fee fields apply for this fund.
+              example: true
+            shortTermRedemptionMinimumAmount:
+              type: integer
+              description: The minimum amount that the fund will charge as a short-term redemption fee.
+              example: 0
+            mergedSecurity:
+              type: string
+              description: The fund status code equal to closed - merged, the Security ID of the fund to which it was merged.
+              example: '922908306'
+            prospectusUrl:
+              type: string
+              description: The link to the fund prospectus.
+              example: https://app.allfunds.com/docs/legal/fund/....
+            managementFee:
+              type: number
+              description: The fund management fee.
+              example: 0.15
+            domicile:
+              type: string
+              description: The fund ISO 2 domicile code.
+              example: GB
+            summaryRiskIndicator:
+              type: integer
+              description: The fund risk reward indicator.
+              minimum: 1
+              maximum: 7
+              enum:
+              - 1
+              - 2
+              - 3
+              - 4
+              - 5
+              - 6
+              - 7
+              example: 3
+            UCITS:
+              type: boolean
+              description: True, if the investment funds regulated at European Union level.
+              example: true
+    instrumentISIN:
+      description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
+      type: string
+      minLength: 12
+      maxLength: 14
+      example: US023135BX34
+    Coupon:
+      description: A coupon or coupon payment is the annual interest rate paid on a bond, expressed as a percentage of the face value and paid from issue date until maturity.
+      type: object
+      properties:
+        couponType:
+          description: The method by which the coupon rate of the instrument is determined.
+          type: string
+          enum:
+          - UNKNOWN
+          - SHORT_TERM_DISCOUNT
+          - FIXED_RATE_-_UNCONFIRMED
+          - ADJUSTABLE_RATE
+          - ZERO_COUPON
+          - FLOATING_RATE
+          - INDEX_LINKED
+          - STEPPED_COUPON
+          - FIXED_RATE
+          - STRIPPED_CONVERTIBLE
+          - DEFERRED_INTEREST
+          - FLOATING_RATE_@_FLOOR
+          - STRIPPED_TAX_CREDIT
+          - INVERSE_FLOATING
+          - STRIPPED_COUPON_PRINCIPAL
+          - LINKED_INVERSE_FLOATER
+          - FLEXIBLE_RATE
+          - ORIGINAL_ISSUE_DISCOUNT
+          - STRIPPED_PRINCIPAL
+          - RESERVE_CUSIP
+          - VARIABLE_RATE
+          - STRIPPED_COUPON
+          - FLOATING_AUCTION_RATE
+          - TAX_CREDIT
+          - TAX_CREDIT_OID
+          - STRIPPED_COUPON_PAYMENT
+          - STEPPED_UP_STEPPED_DOWN
+          - CREDIT_SENSITIVE
+          - PAY_IN_KIND
+          - RANGE
+          - DIGITAL
+          - RESET
+          example: FIXED_RATE
+          readOnly: true
+        currentRateDate:
+          description: The annual rate of interest currently applicable to the instrument.
+          type: string
+          format: date
+          minLength: 0
+          maxLength: 10
+          example: '2018-05-10'
+          readOnly: true
+        dayCount:
+          description: The method of calculating interest accrual associated with the instrument.
+          type: string
+          enum:
+          - UNKNOWN_INTEREST_CALCULATION_METHOD
+          - ACTUAL/ACTUAL
+          - ACTUAL/360
+          - 30/360
+          - 30_DAYS_PER_MONTH_/_ACTUAL
+          - ACTUAL/365_(FIXED)
+          - CHANGEABLE
+          - ACTUAL/365_(366_LEAP_YEAR_-_ISDA)
+          - 30/360_(COMPOUNDED_INTEREST)
+          - 30/365
+          - FUTURE_DATA_-_NOT_AVAILABLE
+          - HISTORICAL_DATA_-_NOT_AVAILABLE
+          - 30/360_(ICMA)
+          - ACTUAL/365_(366_LEAP_YEAR)
+          - ACTUAL/364
+          - BUS/252
+          - 365/365
+          - ACTUAL/ACTUAL_(ICMA)
+          - 28/360
+          - 30/360_US
+          - 30/360_US_(NASD)
+          - 30/360_BMA
+          - 30/360_(ISDA)
+          - 30/360_IT
+          - 30/360_SIA
+          - 30E/360
+          - 30E/360_(ISDA)
+          - 30E+/360
+          - NL/365_(NO_LEAP_YEAR)
+          - 7/360
+          - 30/360_WITH_GROSS_UP
+          - NOT_APPLICABLE
+          example: 30/360
+          readOnly: true
+        benchmark:
+          description: The identifier the index against which the interest rate for an Index Linked Bond is reset.
+          type: string
+          example: US CPI
+          readOnly: true
+        benchmarkFormula:
+          description: The multiple in the floating rate formula that is applied to the benchmark in order to calculate the reset rate on a floating rate instrument.
+          type: string
+          example: '1.5'
+          readOnly: true
+        nextResetDate:
+          description: The date of the next interest rate reset of the instrument
+          type: string
+          format: date
+          example: '2018-05-10'
+          readOnly: true
+        minimumRate:
+          description: The minimum interest rate that an instrument will pay.
+          type: number
+          format: double
+          example: 0.05
+          readOnly: true
+        maximumRate:
+          description: The maximum interest rate that an instrument will pay.
+          type: number
+          format: double
+          example: 0.05
+          readOnly: true
+        firstCouponDate:
+          description: The date on which the first payment of interest is made.
+          type: string
+          format: date
+          example: '2018-05-10'
+          readOnly: true
+        nextCouponDate:
+          description: The next date on which a payment of interest will be made.
+          type: string
+          format: date
+          example: '2018-05-10'
+          readOnly: true
+        finalCouponDate:
+          description: The date on which the final interest payment is scheduled to be made to owners of the security.
+          type: string
+          format: date
+          example: '2018-05-10'
+          readOnly: true
+    FilterCriterion:
+      type: object
+      required:
+      - field
+      - operator
+      - value1
+      properties:
+        field:
+          description: The name of the field to be filtered on.
+          type: string
+          example: spRating
+          enum:
+          - id
+          - ISIN
+          - CUSIP
+          - CINS
+          - payFrequency
+          - payFrequencyDescription
+          - couponRate
+          - maturityDate
+          - spRating
+          - assetClassCode
+          - assetClassDescription
+          - accrualDate
+          - bidPrice
+          - askPrice
+          - meanPrice
+          - askYieldToMaturity
+          - bidYieldToMaturity
+          - status
+          - statusDescription
+          - issuer.primaryName
+          - issuer.country
+          - issuer.domicileCountry
+          - features.minimumInvestmentAmount
+          - features.incrementalInvestmentAmount
+          - coupon.dayCountDescription
+          - coupon.couponTypeDescription
+          - details.nextCouponDate
+          - statusCode
+          - longOnly
+          - coupon.dayCount
+          - coupon.couponType
+          - coupon.nextCouponDate
+          - sector
+          - price
+          - minimumAmount
+          - orderBook.liquidityRetail
+          - orderBook.liquidityInstitutional
+          - orderBook.liquidityMicro
+          - orderBook.onlyLiveQuotes
+          - orderBook.price
+          - orderBook.yieldToWorst
+          - details.debtTypeDescription
+          - denominationAmounts.incrementAmount
+          - indicators.tradingRestrictionsType
+        operator:
+          description: 'Filters, operator`= equal to``!= not equal to``< less than``<= less than or equal to``> greater than``>= greater than or equal to``>< in between``() contains` '
+          type: string
+          enum:
+          - '='
+          - '!='
+          - <
+          - <=
+          - '>='
+          - '>'
+          - '><'
+          - ()
+        value1:
+          description: The value of the field that should be filtered
+          type: string
+          example: AA
+        value2:
+          description: The value of the field that should be filtered. Should be provided when filtering ranges (between "><")
+          type: string
+          example: A
+    Indicators:
+      description: Indicators that provide additional information about the security
+      example:
+        callIndicator: false
+        convertibleIndicator: false
+        defaultIndicator: false
+        dtcIndicator: true
+        oidIndicator: false
+        putIndicator: false
+        sinkIndicator: false
+        tipsIndicator: false
+        floaterIndicator: false
+        traceEligible: true
+        capitalizedIndicator: false
+        childIndicator: false
+        defeasanceIndicator: false
+        equityLinkedNoteIndicator: false
+        pikIndicator: false
+        tenderExchangeOfferIndicator: false
+        warrantsIndicator: false
+        tradingRestrictionsType: None
+      properties:
+        callIndicator:
+          description: Indicates if the security is eligible to be redeemed by the issuer on a call basis
+          readOnly: true
+          type: boolean
+        convertibleIndicator:
+          description: Specifies whether an issue is convertible or exchangeable
+          readOnly: true
+          type: boolean
+        defaultIndicator:
+          description: Specifies whether the security is in default or not
+          readOnly: true
+          type: boolean
+        dtcIndicator:
+          description: Indicates whether the security is acceptable for clearing by the DTCC.
+          readOnly: true
+          type: boolean
+        oidIndicator:
+          description: Specifies whether or not this issue qualifies for Original Issue Discount status
+          readOnly: true
+          type: boolean
+        putIndicator:
+          description: Indicates whether the security carries provisions that allow for redemption at the request of owners of the security
+          readOnly: true
+          type: boolean
+        sinkIndicator:
+          description: Indicates whether the security carries a sinking fund as part of its terms and conditions
+          readOnly: true
+          type: boolean
+        tipsIndicator:
+          description: Indicates whether the security is a Treasury Inflation Protected Security
+          readOnly: true
+          type: boolean
+        traceEligible:
+          description: Indicates whether the security is considered TRACE eligible for price reporting
+          readOnly: true
+          type: boolean
+        capitalizedIndicator:
+          description: Specifies whether a bond issuer has set aside some of the proceeds from a bond sale to cover a certain number of interest payments
+          readOnly: true
+          type: boolean
+        childIndicator:
+          description: Indicates whether the security is created as the result of a corporate action or other event (the child instrument) from a previously issued instrument (the parent)
+          readOnly: true
+          type: boolean
+        defeasanceIndicator:
+          description: Indicates whether the security contains a provision that voids a bond or loan when the borrower sets aside cash or bonds sufficient enough to service the borrower's debt (a process called defeasance)
+          readOnly: true
+          type: boolean
+        equityLinkedNoteIndicator:
+          description: Indicates whether the security is an Equity Linked Note
+          readOnly: true
+          type: boolean
+        pikIndicator:
+          description: Indicates whether the security carries provisions to make Payment In Kind (PIK) to owners of the security
+          readOnly: true
+          type: boolean
+        tenderExchangeOfferIndicator:
+          description: Indicates whether the security has an associated exchange or tender offer
+          readOnly: true
+          type: boolean
+        warrantsIndicator:
+          description: Indicates whether there is a warrant associated with the particular security
+          readOnly: true
+          type: boolean
+        floaterIndicator:
+          description: Indicates whether the security has a floating or adjustable rate issue
+          readOnly: true
+          type: boolean
+        tradingRestrictionsType:
+          description: Indicates whether any trading restrictions are in effect for the security
+          enum:
+          - None
+          - 144A
+          - REG_S
+          - PRIVATE_PLACEMENT
+          - ACCREDITED_INVESTORS
+          - REG_D
+          - SEC_ACT_OF_1933
+          readOnly: true
+          type: string
+    lowPrice:
+      type: number
+      example: 85.83
+      description: The lowest price in the current trading day.
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    DebtReferenceData:
+      type: object
+      properties:
+        payFrequency:
+          $ref: '#/components/schemas/PayFrequency'
+        couponRate:
+          $ref: '#/components/schemas/CouponRate'
+        maturityDate:
+          $ref: '#/components/schemas/MaturityDate'
+        spRating:
+          $ref: '#/components/schemas/SpRating'
+        spRatingDate:
+          $ref: '#/components/schemas/SpRatingDate'
+        minimumInvestmentAmount:
+          description: The minimum initial investment in the security.
+          type: integer
+          format: int64
+          example: 1000
+          readOnly: true
+        incrementalInvestmentAmount:
+          description: The minimum additional investment in the security.
+          type: integer
+          format: int64
+          example: 1000
+          readOnly: true
+        issueDate:
+          description: The date on which the instrument was first made available to the market.
+          type: string
+          format: date
+          example: '2018-05-10'
+          readOnly: true
+        datedDate:
+          description: The date of a Bond Issue from which Interest begins to accrue.
+          type: string
+          format: date
+          example: '2018-05-10'
+          readOnly: true
+        issueAmount:
+          description: The total value of the security at issue.
+          type: number
+          format: double
+          example: 1000000
+          readOnly: true
+        issuePricePercent:
+          description: The nominal value associated with a financial instrument at the time of issuance.
+          type: number
+          format: double
+          example: 100
+          readOnly: true
+        accruedInterest:
+          description: The amount of interest that has accumulated since the last coupon payment.
+          type: number
+          format: double
+          example: 0.05
+          readOnly: true
+        debtType:
+          description: The code for the type fixed income instrument.
+          type: integer
+          readOnly: true
+        bondType:
+          $ref: '#/components/schemas/BondType'
+        debtTypeDescription:
+          type: string
+          description: The description for the type fixed income instrument.
+          enum:
+          - NONE
+          - BANK_LOAN
+          - ASSET-BACKED_SECURITY_(ABS)
+          - BOND
+          - CERTIFICATE_OF_DEPOSIT_(CD)
+          - DEMAND_NOTE
+          - EMPLOYEE_STOCK_OWNERSHIP_PLAN_(ESOP)
+          - FHLMC_REFERENCE_NOTES
+          - GUARANTEED_INVESTMENT_CERTIFICATE_(GIC)
+          - SCHULDSCHEIN
+          - INCOME
+          - MORTGAGE-BACKED_SECURITY_(MBS)
+          - BANKER'S_ACCEPTANCE
+          - COLLATERALISED_LOAN_OBLIGATION_(CLO)
+          - COLLATERALIZED_MORTGAGE_OBLIGATION_(CMO)
+          - NOTE
+          - COLLATERALISED_BOND_OBLIGATION_(CBO)
+          - COMMERCIAL_PAPER
+          - PFANDBRIEF
+          - PROMISSORY_NOTES
+          - STRUCTURED_ASSETS
+          - TRUST_CERTIFICATE
+          - PARTICIPATION_UNIT
+          - SAVINGS_BOND
+          - PASS_THRU_CERTIFICATES
+          - UNKNOWN
+          - STRIP
+          - ANNUITY
+          - BILL
+          - CERTIFICATE
+          - DEPOSIT_NOTE
+          - EQUIPMENT_TRUST_CERTIFICATE
+          - FNMA_BENCHMARK_ISSUES
+          - MORTGAGE/UK_DEBENTURE
+          - SCHATZANWEISUNGEN
+          - DISCOUNT_NOTE
+          - PERMANENT_INTEREST_BEARING_SECURITY
+          - OTHER_MONEY_MARKETS
+          - LOAN_NOTE
+          - MERCHANT_MARINE
+          - MORTGAGE_NOTE
+          - COLLATERALIZED_DEBT_OBLIGATION_(CDO)
+          - PRIVATE_PLACEMENT
+          - EXCHANGE_TRADED_NOTE
+          - PREMIUM_BOND
+          - SECURITY
+          - UNIT
+          - SAVINGS_NOTES
+          - PARTICIPATION_CERTIFICATES
+          - DISCOUNT_DEBENTURE
+          - DEBENTURE_-_UNSECURED
+          - EXCHANGE_TRADED_COMMODITY
+          - ASSET-BACKED_COMMERCIAL_PAPER
+          - SUKUK
+          - DEBENTURE_-_SECURED
+          - LETTER_OF_CREDIT
+          - GLOBAL_DEPOSITORY_NOTE
+          example: BOND
+          readOnly: true
+        sector:
+          type: string
+          example: FINANCE_AND_INSURANCE
+          description: The categorization of the sector pertaining to the Instrument.
+          enum:
+          - AGRICULTURE_FORESTRY_FISHING_AND_HUNTING
+          - MINING_QUARRYING_AND_OIL_AND_GAS_EXTRACTION
+          - UTILITIES
+          - CONSTRUCTION
+          - MANUFACTURING
+          - WHOLESALE_TRADE
+          - RETAIL_TRADE
+          - TRANSPORTATION_AND_WAREHOUSING
+          - INFORMATION
+          - FINANCE_AND_INSURANCE
+          - REAL_ESTATE_AND_RENTAL_AND_LEASING
+          - PROFESSIONAL_SCIENTIFIC_AND_TECHNICAL_SERVICES
+          - MANAGEMENT_OF_COMPANIES_AND_ENTERPRISES
+          - ADMINISTRATIVE_AND_SUPPORT_AND_WASTE_MANAGEMENT_AND_REMEDIATION_SERVICES
+          - EDUCATIONAL_SERVICES
+          - HEALTH_CARE_AND_SOCIAL_ASSISTANCE
+          - ARTS_ENTERTAINMENT_AND_RECREATION
+          - ACCOMMODATION_AND_FOOD_SERVICES
+          - OTHER_SERVICES_EXCEPT_PUBLIC_ADMINISTRATION
+          - PUBLIC_ADMINISTRATION
+        duration:
+          description: The duration of the bond.
+          type: number
+          format: double
+          example: '10.5'
+          readOnly: true
+          nullable: true
+        nextCallDate:
+          description: The next call date of the bond.
+          type: string
+          format: date
+          example: '2018-05-10'
+          readOnly: true
+          nullable: true
+        debtRankType:
+          description: The debt rank type of the bond.
+          type: string
+          example: SENIOR
+          readOnly: true
+          enum:
+          - UNKNOWN
+          - SECOND_MORTGAGE
+          - 'FIRST_MORTGAGE '
+          - JUNIOR
+          - MEZZANINE
+          - SENIOR_SUBORDINATED
+          - SUBORDINATED
+          - THIRD_MORTGAGE
+          - UNSUBORDINATED
+          - JUNIOR_SUBORDINATED
+          - SENIOR
+          - NOT_APPLICABLE
+          - TIER_I
+          - LOWER_TIER_II
+          - UPPER_TIER_II
+          - TIER_III
+          - SENIOR_SECURED
+          - ALTERNATIVE_ADDITIONAL_TIER_I
+          - SENIOR_NON_PREFERRED
+        spRatingType:
+          type: string
+          example: INVESTMENT_GRADE
+          description: The spRating type of the bond.
+          enum:
+          - INVESTMENT_GRADE
+          - HIGH_YIELD
+        coupon:
+          $ref: '#/components/schemas/Coupon'
+        issuer:
+          $ref: '#/components/schemas/Issuer'
+        indicators:
+          $ref: '#/components/schemas/Indicators'
+        denominationAmounts:
+          $ref: '#/components/schemas/DenominationAmounts'
+    OptionInstrumentBase:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/instrumentID'
+        symbol:
+          type: string
+          example: AAPL220517P00016000
+          description: The Option OSI symbol
+        type:
+          $ref: '#/components/schemas/instrumentType'
+        name:
+          type: string
+          example: Morgan Stanley
+          description: A friendly name of the Instrument, like the Company name for an equity
+        exchange:
+          type: string
+          example: NYQ
+          description: The stock exchange the instrument is listed on.
+        orderSizeMax:
+          type: number
+          example: 20000
+          description: The maximum share amount for any order of this Instrument.
+        orderSizeMin:
+          type: number
+          example: 0.1
+          description: The minimum share amount for any order of this Instrument.
+        orderSizeStep:
+          type: number
+          example: 0.01
+          description: Increment amount on order of this Instrument.
+    InstrumentInList:
+      type: object
+      required:
+      - id
+      - status
+      properties:
+        id:
+          $ref: '#/components/schemas/instrumentID'
+        symbol:
+          type: string
+          example: MS
+          description: The ticker symbol of the associated Instrument.
+        name:
+          type: string
+          example: Morgan Stanley
+          description: The official name of the company associated to the Instrument.
+        enableExtendedHoursNotionalStatus:
+          type: string
+          example: INACTIVE
+          description: The Instrument's eligibility for extended hours notional trading. This will default to INACTIVE
+        instrumentType:
+          $ref: '#/components/schemas/instrumentType'
+        type:
+          deprecated: true
+          type: string
+          example: EQUITY
+          description: The classification of the Instrument.
+          enum:
+          - EQUITY
+          - ETF
+          - ETN
+          - ADR
+          - ALTERNATIVE_ASSET
+          - MUTUAL_FUND
+          - INTEREST_RATE
+        status:
+          type: string
+          example: ACTIVE
+          description: The current status of the instrument.
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - CLOSE_ONLY
+          - HALTED
+        ISIN:
+          $ref: '#/components/schemas/instrumentISIN'
+        isOptionsEnabled:
+          type: boolean
+          example: true
+          default: false
+          description: The ability to trade options for this equity instrument.
+        CUSIP:
+          $ref: '#/components/schemas/instrumentCUSIP'
+        payFrequency:
+          $ref: '#/components/schemas/PayFrequency'
+        couponRate:
+          $ref: '#/components/schemas/CouponRate'
+        maturityDate:
+          $ref: '#/components/schemas/MaturityDate'
+        spRating:
+          $ref: '#/components/schemas/SpRating'
+        bondType:
+          $ref: '#/components/schemas/BondType'
+        domicileCountry:
+          $ref: '#/components/schemas/country'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

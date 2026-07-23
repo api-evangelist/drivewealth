@@ -1,0 +1,1153 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Deposits API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Deposits
+  x-displayName: Deposits
+paths:
+  /accounts/{accountID}/funding/deposits:
+    get:
+      tags:
+      - Deposits
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      summary: List Account Deposits
+      description: Retrieves a list of Account Deposits by accountID.
+      responses:
+        '200':
+          description: Retrieving a list of Account Deposits was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/depositsByUserIDObject'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /funding/deposits:
+    post:
+      tags:
+      - Deposits
+      summary: Create Deposit
+      description: Creates a Deposit.
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+          example: a1b2c3d4-5e6f-7g8h-9i0j-1k2l3m4n5o6
+        required: false
+        description: A unique key (UUID) that is used to prevent duplicate requests. Should a network interruption occur, or you otherwise lost a response from the API, you can safely perform the request provided that you send the same value as the Idempotency-Key. DriveWealth Idempotency Keys are saved for 4 days. Within this time period, sending any request with a duplicate key will return the exact same response as the original request, including the same status code and payload.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DepositRequestReq'
+            examples:
+              Individual ACH Deposit:
+                value:
+                  accountNo: DWFS001102
+                  amount: 100.25
+                  currency: USD
+                  type: ACH
+                  bankAccountID: bank_a4656e60-321e-425b-aa0d-a2e75c38885f
+              Bulk Deposit:
+                value:
+                  accountNo: DWFS001102
+                  amount: 100.25
+                  currency: USD
+                  type: BULK_FUNDING
+      responses:
+        '200':
+          description: Creating a User's Account Deposit was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deposit'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /funding/deposits/{depositID}:
+    get:
+      tags:
+      - Deposits
+      summary: Retrieve Deposit
+      description: Retrieves Deposit details by depositID.
+      parameters:
+      - in: path
+        name: depositID
+        schema:
+          $ref: '#/components/schemas/depositID'
+        required: true
+        description: A unique identifier for the user's account deposit.
+      responses:
+        '200':
+          description: Retrieving a Deposit by depositID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositByDepositID'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /funding/recurring-deposits/{recurringID}:
+    get:
+      tags:
+      - Deposits
+      summary: Retrieve Recurring Deposits
+      description: Retrieves Recurring Deposits details by recurringID.
+      parameters:
+      - in: path
+        name: recurringID
+        schema:
+          type: string
+        required: true
+        example: recurring_98be6652-6361-4d4c-905b-06e9ec38d060
+        description: A unique identifier for the user's recurring bank deposit.
+      responses:
+        '200':
+          description: Fetching recurring deposit schedule was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringDeposit'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+    patch:
+      tags:
+      - Deposits
+      summary: Update Recurring Deposit
+      description: Updates Recurring Deposit details by recurringID.
+      parameters:
+      - in: path
+        name: recurringID
+        schema:
+          type: string
+        required: true
+        example: recurring_98be6652-6361-4d4c-905b-06e9ec38d060
+        description: A unique identifier for the user's recurring bank deposit.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecurringDepositUpdate'
+      responses:
+        '200':
+          description: Updating a User's recurring deposit was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringDepositUpdate'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+    delete:
+      tags:
+      - Deposits
+      summary: Delete Recurring Deposit
+      description: Deactivates Recurring Deposit details by recurringID.
+      parameters:
+      - in: path
+        name: recurringID
+        schema:
+          type: string
+        required: true
+        example: recurring_98be6652-6361-4d4c-905b-06e9ec38d060
+        description: A unique identifier for the user's recurring bank deposit.
+      responses:
+        '200':
+          description: Deactivating Recurring Deposit was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringDepositDeleteResponse'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /users/{userID}/recurring-deposits:
+    get:
+      tags:
+      - Deposits
+      summary: List User Recurring Deposits
+      description: Retrieves a list of User Recurring Deposits by userID.
+      parameters:
+      - in: path
+        name: userID
+        schema:
+          type: string
+        required: true
+        example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+        description: The User's unique identifier.
+      responses:
+        '200':
+          description: Fetching All User's Recurring Deposits was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringDepositsByUserID'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /users/{userID}/funding/deposits:
+    get:
+      tags:
+      - Deposits
+      summary: List User Deposits
+      description: Retrieves a list of User Deposits by userID.
+      parameters:
+      - in: path
+        name: userID
+        schema:
+          type: string
+        required: true
+        example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+        description: The User's unique identifier.
+      responses:
+        '200':
+          description: Retrieving a list User Deposits by userID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositsArray'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    email:
+      type: string
+      example: jj@drivewealth.dev
+      description: The user's email address.
+    transactionCodeType:
+      type: string
+      example: CSR
+      enum:
+      - CSR
+      - CSD
+    bankAccountNumberLastFour:
+      type: string
+      example: '****3174'
+      description: The last four digits of the user's external bank account number.
+    firstName:
+      type: string
+      example: Justin
+      description: The first name of the user.
+    note:
+      type: string
+      example: Hey! Welcome to DriveWealth Developer Docs!
+      description: A way to store a message/comment on the this object.
+    DepositStatusHistory:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/depositStatusNumber'
+        statusMessage:
+          $ref: '#/components/schemas/depositStatus'
+        updatedBy:
+          $ref: '#/components/schemas/updatedBy'
+        comment:
+          type: string
+          example: Valid request. Auto-move to Pending
+          description: A custom comment generated by the system.
+    RecurringDepositsByUserID:
+      type: array
+      description: A list of the all the user's recurring deposits.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/DepositByUserID'
+    depositTypes:
+      type: string
+      example: ACH
+      description: The method/form in which the funds will be arriving to the user's account.
+      enum:
+      - ACH
+      - BULK_FUNDING
+      - CASH_PROMOTION
+      - CASH_TRANSFER
+    settlementProfileID:
+      type: string
+      example: settlement-profile-bank-account-1
+      description: A settlement profile identifier that links to a specific bank account for fund settlement.
+    currencyObject:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/currency'
+        description:
+          type: string
+          example: US Dollar
+          description: A custom description about the currency.
+        symbol:
+          $ref: '#/components/schemas/currencySymbol'
+    updated:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    bankAccountNumber:
+      type: string
+      example: '7442393174'
+      description: The account number of the user's external bank account.
+    depositStatusObject:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/depositStatusNumber'
+        message:
+          $ref: '#/components/schemas/depositStatus'
+        updated:
+          $ref: '#/components/schemas/updated'
+          description: The last updated timestamp of the status of the user's deposit.
+    Deposit:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/depositID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        category:
+          type: string
+          example: DEPOSIT
+        currency:
+          $ref: '#/components/schemas/currency'
+        amount:
+          type: number
+          example: 250.25
+          description: The amount of cash that is being deposited into the user's account.
+        status:
+          $ref: '#/components/schemas/depositStatus'
+        source:
+          type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/depositTypes'
+            brand:
+              type: string
+              example: ACH
+              description: A custom description about the type of deposit.
+            meta_info:
+              type: string
+              example: Hey! Welcome to DriveWealth Developer Docs!
+              description: A way to store a message/note on the deposit object.
+        created:
+          $ref: '#/components/schemas/created'
+          description: The date and time the deposit was created for the user's account.
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        userID:
+          $ref: '#/components/schemas/userID'
+        transactionCode:
+          $ref: '#/components/schemas/transactionCode'
+        wlpFinTranTypeID:
+          $ref: '#/components/schemas/wlpFinTranTypeID'
+        batch:
+          type: boolean
+          example: true
+        recurring:
+          type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/recurringID'
+            nextDeposit:
+              type: string
+              example: '2019-01-15'
+              description: The date of when the next recurring deposit will be triggered.
+            active:
+              type: boolean
+              example: false
+              description: True, if the recurring deposit is active.
+            frequency:
+              $ref: '#/components/schemas/recurringFrequency'
+    recurringID:
+      type: string
+      example: recurring_98be6652-6361-4d4c-905b-06e9ec38d060
+      description: A unique identifier of the recurring deposit.
+    recurringFrequency:
+      type: string
+      example: MONTHLY_FIRST
+      description: The recurring deposit frequency.
+      enum:
+      - BIWEEKLY
+      - DAILY
+      - MONTHLY
+      - MONTHLY_FIRST
+      - MONTHLY_MIDDLE
+      - QUARTERLY
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    bankAccountCountry:
+      type: string
+      example: USA
+      description: The country where the user's external bank is located.
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8b8ba3fd-74dc-45dc-b2dc-7de683bd713c.1556222995391
+          description: The user's unqiue account identifier.
+        accountNo:
+          type: string
+          example: DWBG000052
+          description: The user's unqiue account number, that is human readable.
+        nickname:
+          type: string
+          example: Justin's Self Directed Account
+        status:
+          type: object
+          properties:
+            name:
+              type: string
+              example: PENDING
+              description: The status of the user's account.
+            description:
+              type: string
+              example: Pending
+              description: A custom description about status of the user's account.
+        accountType:
+          type: string
+          example: LIVE
+          description: The type of account that has been created.
+        accountManagementType:
+          type: string
+          example: SELF
+          description: The type of account who has trading authority.
+          enum:
+          - SELF
+          - ADVISORY
+          - RIA_MANAGED
+          - CUSTODIAL
+          - CUSTODIAL_MANAGED
+          - RESERVED
+          - HSA_SELF
+          - HSA_ADVISORY
+          - HSA_RIA_MANAGED
+        tradingType:
+          type: object
+          properties:
+            name:
+              type: string
+              example: CASH
+              description: The type of trading ocurring in the account.
+              enum:
+              - CASH
+              - MARGIN
+              - CRYPTO
+            description:
+              type: string
+              example: Cash Account
+              description: A custom description about the type of account.
+        leverage:
+          type: number
+          example: 1
+          description: The leverage that is applied to the user's account.
+        commissionID:
+          type: string
+          example: 449d41b9-3940-41ff-b0e6-334adfb443f8
+          description: The unique identifier for the assiocated commission schedule.
+        userID:
+          type: string
+          example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+          description: The user's unique identifier.
+        restricted:
+          type: boolean
+          example: false
+          description: True, if the user is restricted from trading.
+        goodFaithViolations:
+          type: number
+          example: 0
+          description: The amount of times that a user buy a security and sell it before paying for the inital purchase in full with settled funds.
+        patternDayTrades:
+          type: number
+          example: 0
+          description: The amount of times that a user buy and sells the same security in the same day over a seven day period.
+        freeTradeBalance:
+          type: number
+          example: 0
+        gfvPdtExempt:
+          type: boolean
+          example: false
+        buyingPowerOverride:
+          type: boolean
+          example: false
+          description: True, if buying power check turned off.
+        bod:
+          type: object
+          description: Beginning of Day Information, *⚠️ Only updated at the beginning of day, this information will not change interaday.*
+          properties:
+            moneyMarket:
+              type: number
+              example: 3028.98
+              description: The amount of money the user's has in money market for this account.
+            equityValue:
+              type: number
+              example: 12071.5
+              description: The value of the sum of all equities in  the account.
+            cashAvailableForWithdrawal:
+              type: number
+              example: 3028.98
+              description: The amount of money available for withdrawal.
+            cashAvailableForTrading:
+              type: number
+              example: 3028.98
+              description: The amount of money available for trading.
+            updatedWhen:
+              type: string
+              example: '2022-12-12T21:13:12.391Z'
+              description: The date and time the dob job was run.
+        cashBalance:
+          type: number
+          example: 3028.98
+          description: The amount of settled cash in the account.
+        sweepInd:
+          type: boolean
+          example: true
+          description: True, if the user's account cash is set to move into a bank sweep or money market account.
+        interestFree:
+          type: boolean
+          example: false
+          description: True, if the user will not be paid interest on the money in a bank sweep or money market account.
+        createdWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The createdWhen is the date and time the user's account was created.
+        updatedWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The updatedWhen is the last date and time the user's account was updated.
+        lastActivityDate:
+          $ref: '#/components/schemas/lastActivityDate'
+        interestedParties:
+          type: array
+          items:
+            $ref: '#/components/schemas/interestedParty'
+    batch:
+      type: boolean
+      example: true
+    currency:
+      type: string
+      example: USD
+      description: The name of the currency in abbreviation form.
+      enum:
+      - USD
+    DepositsByUserID:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/depositID'
+        paymentID:
+          $ref: '#/components/schemas/depositID'
+        amount:
+          type: number
+          example: 125.22
+          description: The amount of the deposit
+        currency:
+          $ref: '#/components/schemas/currencyObject'
+        status:
+          $ref: '#/components/schemas/depositStatusObject'
+        accountDetails:
+          type: object
+          properties:
+            accountID:
+              $ref: '#/components/schemas/accountID'
+            accountNo:
+              $ref: '#/components/schemas/accountNo'
+            accountType:
+              $ref: '#/components/schemas/accountTypeObject'
+            accountManagementType:
+              $ref: '#/components/schemas/accountManagementTypeObject'
+        wlpFinTranTypeID:
+          $ref: '#/components/schemas/wlpFinTranTypeID'
+        note:
+          $ref: '#/components/schemas/note'
+    created:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    RecurringDepositUpdate:
+      type: object
+      properties:
+        amount:
+          type: number
+          example: 330.25
+          description: The amount of the recurring deposit will be updated to.
+        frequency:
+          $ref: '#/components/schemas/recurringFrequency'
+    interestedPartyAuthorizedUser:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/userID'
+        reportingRole:
+          type: string
+          description: The role of the interested party of the ID.
+          enum:
+          - AUTH3RD
+          - AUTHREP
+          - NTHOLDER
+          - TRDHOLDER
+        tradeDiscretion:
+          type: boolean
+          description: The trade discretion of the interested party of the ID.
+        from:
+          type: string
+          format: date-time
+          pattern: yyyy-MM-ddTHH:mm:ss.SSSZ
+          example: '2022-12-25T22:28:21.810Z'
+          description: Time when the interested party role started
+        to:
+          type: string
+          format: date-time
+          pattern: yyyy-MM-ddTHH:mm:ss.SSSZ
+          example: '2022-12-26T22:28:21.810Z'
+          description: Time when the interested party role ended
+        endReason:
+          type: string
+          description: The reason the interested party role ended.
+          enum:
+          - CORRECTION
+          - ENDED
+          - INACTIVE
+          - REPLACED
+          - OTHER
+          - TRANSFER
+    externalBankCountry:
+      type: string
+      example: USA
+      description: The country of the bank where the account is linked.
+    transactionCode:
+      type: string
+      example: JOURNAL
+      enum:
+      - JOURNAL
+      - FEE_ACH
+      - DISBURSEMENT_ACH_SVB
+    interestedParty:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of interested party.
+          enum:
+          - AUTHORIZED_USERS
+        data:
+          type: array
+          description: 'The data of the interested party. Different types can be used in this field. Current supported type: InterestedPartyAuthorizedUser'
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/interestedPartyAuthorizedUser'
+    lastActivityDate:
+      type: string
+      example: '2024-07-23'
+      description: The date indicating the last recorded activity of the account, across the partner's ecosystem. It's important to update this field regularly, as activity recency may impact functions like escheatment, and there may be activity occuring outside of the DriveWealth APIs.
+    RecurringDeposit:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/recurringID'
+        currency:
+          $ref: '#/components/schemas/currency'
+        amount:
+          type: number
+          example: 1075.25
+          description: The amount of the recurring deposit.
+        frequency:
+          $ref: '#/components/schemas/recurringFrequency'
+        bankAccountID:
+          $ref: '#/components/schemas/bankAccountID'
+        active:
+          type: boolean
+          example: true
+          description: True, if the recurring deposit is active.
+        nextDeposit:
+          type: string
+          example: '2019-01-15'
+          description: The date of when the next recurring deposit will be triggered.
+        depositHistory:
+          type: array
+          description: A list of all the past deposit processed.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/DepositHistory'
+    bankRoutingNumberLastFour:
+      type: string
+      example: '****0000'
+      description: The last four digits of the user's external bank routing number.
+    accountTypeObject:
+      type: object
+      properties:
+        name:
+          type: string
+          example: LIVE
+          description: The type of account that has been created.
+        description:
+          type: string
+          example: Live Account
+          description: A custom description of the account type.
+    iraContribution:
+      type: string
+      example: CURRENT_YEAR
+      description: The type of contribution deposit for retirement accounts.
+      enum:
+      - CURRENT_YEAR
+      - PRIOR_YEAR
+      - ROLLOVER
+    bankAccountID:
+      type: string
+      example: bank_a4656e60-321e-425b-aa0d-a2e75c38885f
+      description: The unique DriveWealth identifier that identifies each linked bank account.
+    depositsByUserIDObject:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/depositID'
+        paymentID:
+          $ref: '#/components/schemas/depositID'
+        amount:
+          type: number
+          example: 125.22
+          description: The amount of the deposit
+        currency:
+          $ref: '#/components/schemas/currencyObject'
+        status:
+          $ref: '#/components/schemas/depositStatusObject'
+        accountDetails:
+          type: object
+          properties:
+            accountID:
+              $ref: '#/components/schemas/accountID'
+            accountNo:
+              $ref: '#/components/schemas/accountNo'
+            accountType:
+              $ref: '#/components/schemas/accountTypeObject'
+            accountManagementType:
+              $ref: '#/components/schemas/accountManagementTypeObject'
+        wlpFinTranTypeID:
+          $ref: '#/components/schemas/wlpFinTranTypeID'
+        note:
+          $ref: '#/components/schemas/note'
+    externalBankName:
+      type: string
+      example: Bank of America
+      description: The bank name of the linked account.
+    AccountDetails:
+      type: array
+      description: A list of all the user's accounts at DriveWealth.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/Account'
+    username:
+      type: string
+      example: ttc.user.justin
+      description: The username of the user.
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    externalAccountHolderAddress:
+      type: string
+      example: 15 Exchange Place, Jersey City, NJ, 07302
+      description: The home address of the linked account holder.
+    depositID:
+      type: string
+      example: CKDQ000001-1671085040913-DMIQY
+      description: A unique identifier for the Deposit.
+    transactionCodeObject:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/transactionCode'
+        type:
+          $ref: '#/components/schemas/transactionCodeType'
+        description:
+          type: string
+          example: Cash Receipt - ACH
+          description: A custom description about the transaction code.
+    DepositsArray:
+      type: array
+      description: A list of deposits
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/DepositsByUserID'
+    bankRoutingNumber:
+      type: string
+      example: '110000000'
+      description: The routing number of the user's external bank.
+    accountManagementTypeObject:
+      type: object
+      properties:
+        name:
+          type: string
+          example: SELF
+          description: The type of account who has trading authority.
+          enum:
+          - SELF
+          - ADVISORY
+          - RIA_MANAGED
+          - CUSTODIAL
+          - CUSTODIAL_MANAGED
+          - RESERVED
+          - RETIREMENT_TRADITIONAL_SELF
+          - RETIREMENT_TRADITIONAL_ADVISORY
+          - RETIREMENT_TRADITIONAL_RIA_MANAGED
+          - RETIREMENT_ROTH_SELF
+          - RETIREMENT_ROTH_ADVISORY
+          - RETIREMENT_ROTH_RIA_MANAGED
+          - TRUST_SELF
+          - TRUST_ADVISORY
+          - TRUST_RIA_MANAGED
+          - HSA_SELF
+          - HSA_ADVISORY
+          - HSA_RIA_MANAGED
+        description:
+          type: string
+          example: Self Directed Account
+          description: A custom description of the account management type.
+    firmName:
+      type: string
+      example: Tendies Trading Company
+      description: The firm name.
+    externalBankAddress:
+      type: string
+      example: 222 Broadway, New York City, NY, 10038
+      description: The full address of the bank where the account is linked.
+    depositStatusNumber:
+      type: number
+      example: 1
+      description: The current status of the user's deposit in integer form.
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 14
+      - 15
+      - 16
+      - 5
+      - -1
+    DepositByUserID:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/recurringID'
+        currency:
+          $ref: '#/components/schemas/currency'
+        amount:
+          type: number
+          example: 1075.25
+          description: The amount of the recurring deposit.
+        frequency:
+          $ref: '#/components/schemas/recurringFrequency'
+        bankAccountID:
+          $ref: '#/components/schemas/bankAccountID'
+        active:
+          type: boolean
+          example: true
+          description: True, if the recurring deposit is active.
+        nextDeposit:
+          type: string
+          example: '2019-01-15'
+          description: The date of when the next recurring deposit will be triggered.
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        created:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The date and time the recurring deposit was created for the user's external bank account.
+        updated:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The date and time the recurring deposit was updated for the user's external bank account.
+        createdBy:
+          type: string
+          example: b25f0d36-b4e4-41f8-b3d9-9249e46402cd
+          description: The user identifier whom created the recurring deposit.
+    RecurringDepositDeleteResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/recurringID'
+        currency:
+          $ref: '#/components/schemas/currency'
+        amount:
+          type: number
+          example: 1075.25
+          description: The amount of the recurring deposit.
+        frequency:
+          $ref: '#/components/schemas/recurringFrequency'
+        bankAccountID:
+          $ref: '#/components/schemas/bankAccountID'
+        active:
+          type: boolean
+          example: false
+          description: True, if the recurring deposit is active.
+        nextDeposit:
+          type: string
+          example: null
+          description: The date of when the next recurring deposit will be triggered.
+        depositHistory:
+          type: array
+          description: A list of all the past deposit processed.
+          items:
+            $ref: '#/components/schemas/DepositHistory'
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        userID:
+          $ref: '#/components/schemas/userID'
+        created:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The date and time the recurring deposit was created for the user's external bank account.
+        updated:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The date and time the recurring deposit was updated for the user's external bank account.
+        createdBy:
+          type: string
+          example: b25f0d36-b4e4-41f8-b3d9-9249e46402cd
+          description: The user identifier whom created the recurring deposit.
+    externalAccountHolderCountry:
+      type: string
+      example: USA
+      description: The country of the linked account holder.
+    depositStatus:
+      type: string
+      example: PENDING
+      description: The current status of the user's deposit.
+      enum:
+      - STARTED
+      - PENDING
+      - SUCCESSFUL
+      - FAILED
+      - OTHER
+      - APPROVED
+      - REJECTED
+      - ON_HOLD
+      - RETURNED
+      - '-'
+    currencySymbol:
+      type: string
+      example: $
+      description: The currency symbol.
+      enum:
+      - $
+    parentIBID:
+      type: string
+      example: 80f9b672-120d-4b73-9cc9-42fb3262c4b9
+      description: The unique identifier of the firm.
+    accountNo:
+      type: string
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
+    accountHolderName:
+      type: string
+      example: Justin Smith
+      description: The full name of the user on the external bank account.
+    DepositByDepositID:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/userID'
+        category:
+          type: string
+          example: DEPOSIT
+        amount:
+          type: number
+          example: 250.25
+          description: The amount of cash that is being deposited into the user's account.
+        currency:
+          $ref: '#/components/schemas/currencyObject'
+        status:
+          $ref: '#/components/schemas/depositStatus'
+        created:
+          $ref: '#/components/schemas/created'
+          description: The date and time the deposit was created for the user's account.
+        userDetails:
+          $ref: '#/components/schemas/UserDetails'
+        accountDetails:
+          $ref: '#/components/schemas/AccountDetails'
+        batch:
+          $ref: '#/components/schemas/batch'
+        transactionCode:
+          $ref: '#/components/schemas/transactionCodeObject'
+        note:
+          $ref: '#/components/schemas/note'
+        details:
+          type: object
+          properties:
+            country:
+              $ref: '#/components/schemas/bankAccountCountry'
+            bankAccountNumber:
+              $ref: '#/components/schemas/bankAccountNumberLastFour'
+            bankRoutingNumber:
+              $ref: '#/components/schemas/bankRoutingNumberLastFour'
+            accountHolderName:
+              $ref: '#/components/schemas/accountHolderName'
+        wlpFinTranTypeID:
+          $ref: '#/components/schemas/wlpFinTranTypeID'
+        statusHistory:
+          type: array
+          description: A list of the different historical status of the deposit
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/DepositStatusHistory'
+    DepositHistory:
+      type: object
+      properties:
+        depositID:
+          $ref: '#/components/schemas/depositID'
+        currency:
+          $ref: '#/components/schemas/currency'
+        status:
+          $ref: '#/components/schemas/depositStatus'
+        created:
+          $ref: '#/components/schemas/created'
+          description: The date and time the recurring deposit was created for the user's external bank account.
+        updated:
+          $ref: '#/components/schemas/updated'
+          description: The date and time the recurring deposit was updated for the user's external bank account.
+        createdBy:
+          type: string
+          example: b25f0d36-b4e4-41f8-b3d9-9249e46402cd
+          description: The user identifier whom created the recurring deposit.
+        metaAccountInfo:
+          type: string
+          example: Automated DAILY recurring deposit for b25f0d3... |MyBank Premier Checking|****5204
+          description: A custom message about the processing of the recurring deposit.
+    UserDetails:
+      type: object
+      properties:
+        userID:
+          $ref: '#/components/schemas/userID'
+        username:
+          $ref: '#/components/schemas/username'
+        firstName:
+          $ref: '#/components/schemas/firstName'
+        lastName:
+          $ref: '#/components/schemas/lastName'
+        email:
+          $ref: '#/components/schemas/email'
+        parentIBID:
+          type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/parentIBID'
+            name:
+              $ref: '#/components/schemas/firmName'
+        wlpID:
+          $ref: '#/components/schemas/wlpID'
+    updatedBy:
+      type: string
+      example: SYSTEM
+      enum:
+      - SYSTEM REPORT SERVICE
+      - INSTANT FUNDING BREAKDOWN JOB
+    lastName:
+      type: string
+      example: Smith
+      description: The last (family) name of the user.
+    DepositRequestReq:
+      type: object
+      required:
+      - accountNo
+      - amount
+      - currency
+      - type
+      properties:
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        amount:
+          type: number
+          example: 250.25
+          description: The amount that will be deposited into the user's account.
+        currency:
+          $ref: '#/components/schemas/currency'
+        type:
+          $ref: '#/components/schemas/depositTypes'
+        bankAccountID:
+          $ref: '#/components/schemas/bankAccountID'
+        note:
+          $ref: '#/components/schemas/note'
+        iraContribution:
+          $ref: '#/components/schemas/iraContribution'
+        recurringFrequency:
+          $ref: '#/components/schemas/recurringFrequency'
+        startDate:
+          type: string
+          example: '2017-09-18'
+          description: The start date of the recurring deposit. The date should be in the future and within 90 days.
+        settlementProfileID:
+          $ref: '#/components/schemas/settlementProfileID'
+        originatorBankDetails:
+          type: object
+          properties:
+            bankAccountNumber:
+              $ref: '#/components/schemas/bankAccountNumber'
+            bankRoutingNumber:
+              $ref: '#/components/schemas/bankRoutingNumber'
+            bankName:
+              $ref: '#/components/schemas/externalBankName'
+            bankAddress:
+              $ref: '#/components/schemas/externalBankAddress'
+            bankAccountCountry:
+              $ref: '#/components/schemas/externalBankCountry'
+            accountHolderName:
+              $ref: '#/components/schemas/accountHolderName'
+            accountHolderAddress:
+              $ref: '#/components/schemas/externalAccountHolderAddress'
+            accountHolderCountry:
+              $ref: '#/components/schemas/externalAccountHolderCountry'
+        metadata:
+          type: object
+          example:
+            myCustomKey: myCustomValue
+          description: The metadata object allows for creating a maximum of 5 keys (max 36 characters) and each value cannot exceed more than 128 bytes.
+    wlpFinTranTypeID:
+      type: string
+      example: c43bab85-2916-4831-a0db-66215150a6e4
+      description: A unique identifier to id different type of transactions.
+    wlpID:
+      type: string
+      example: TTC
+      description: The wlpID is a deep backoffice ID that identifies each partner from each other.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

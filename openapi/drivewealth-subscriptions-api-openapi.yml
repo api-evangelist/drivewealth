@@ -1,0 +1,474 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Subscriptions API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Subscriptions
+  x-displayName: Subscriptions
+paths:
+  /subscriptions:
+    post:
+      deprecated: true
+      tags:
+      - Subscriptions
+      summary: Create Subscription
+      description: 'Creates a Subscription charge for a User''s Linked Bank Account.
+
+
+        This API is now deprecated as the Subscriptions product is no longer supported.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionRequest'
+      responses:
+        '200':
+          description: Creating a Subscription for a User's Linked Bank Account was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /subscriptions/{subscriptionID}:
+    delete:
+      deprecated: true
+      tags:
+      - Subscriptions
+      summary: Delete Subscription
+      description: 'Removes a User''s Subscription by Subscription.
+
+
+        This API is now deprecated as the Subscriptions product is no longer supported.'
+      parameters:
+      - in: path
+        name: subscriptionID
+        schema:
+          $ref: '#/components/schemas/subscriptionID'
+        required: true
+        description: The unique identifier that identifies the user's subscription.
+      responses:
+        '201':
+          description: User's Subscription removal was Received.
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /users/{userID}/subscriptions:
+    get:
+      deprecated: true
+      tags:
+      - Subscriptions
+      summary: List Subscriptions by User
+      description: 'Retrieves all User''s Subscriptions by User
+
+
+        This API is now deprecated as the Subscriptions product is no longer supported.'
+      parameters:
+      - in: path
+        name: userID
+        schema:
+          type: string
+        required: true
+        example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+        description: The User's unique identifier.
+      responses:
+        '200':
+          description: Retrieving all User's Subscription was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSubscriptions'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    SubscriptionRequest:
+      type: object
+      required:
+      - accountID
+      - bankAccountID
+      - planID
+      properties:
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        bankAccountID:
+          $ref: '#/components/schemas/bankAccountID'
+        planID:
+          type: string
+          example: plan_1d3e1630-9107-47c2-a9c4-6cca93821cb7
+          description: The unique identifier that identifies the plan schedule.
+    dividend:
+      type: object
+      properties:
+        type:
+          type: string
+          example: CASH
+          description: The dividend type, whether a cash or stock dividend.
+          enum:
+          - CASH
+          - STOCK
+          - RETURN_OF_CAPITAL
+          - DISTRIBUTION_LONG
+          - DISTRIBUTION_SHORT
+          - OTHER
+        amountPerShare:
+          type: number
+          example: 0.65
+          description: The amount of the dividend issued, per share.
+        taxCode:
+          type: string
+          example: FULLY_TAXABLE
+          description: Whether the dividend is taxable or not.
+          enum:
+          - FULLY_TAXABLE
+          - NON_TAXABLE
+          - TAX_EXEMPT
+          - 'null'
+    subscriptionStatus:
+      type: string
+      example: ACTIVE
+      description: The current status of the user's subscription.
+      enum:
+      - ACTIVE
+      - CANCELLED
+    UserSubscriptions:
+      type: array
+      description: A list of the user's current subscriptions.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/UserSubscription'
+    currency:
+      type: string
+      example: USD
+      description: The name of the currency in abbreviation form.
+      enum:
+      - USD
+    created:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    bankAccountID:
+      type: string
+      example: bank_a4656e60-321e-425b-aa0d-a2e75c38885f
+      description: The unique DriveWealth identifier that identifies each linked bank account.
+    subscriptionID:
+      type: string
+      example: subscription_4451b62e-0e88-46ce-9eab-f0a54ccdc599
+      description: The unique identifier that identifies the user's subscription.
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    orderID:
+      type: string
+      example: IC.0e352bb7-9869-4233-9861-9673544efedd
+      description: A unique DriveWealth order identifier created when an order is placed.
+    accountManagementTypeObject:
+      type: object
+      properties:
+        name:
+          type: string
+          example: SELF
+          description: The type of account who has trading authority.
+          enum:
+          - SELF
+          - ADVISORY
+          - RIA_MANAGED
+          - CUSTODIAL
+          - CUSTODIAL_MANAGED
+          - RESERVED
+          - RETIREMENT_TRADITIONAL_SELF
+          - RETIREMENT_TRADITIONAL_ADVISORY
+          - RETIREMENT_TRADITIONAL_RIA_MANAGED
+          - RETIREMENT_ROTH_SELF
+          - RETIREMENT_ROTH_ADVISORY
+          - RETIREMENT_ROTH_RIA_MANAGED
+          - TRUST_SELF
+          - TRUST_ADVISORY
+          - TRUST_RIA_MANAGED
+          - HSA_SELF
+          - HSA_ADVISORY
+          - HSA_RIA_MANAGED
+        description:
+          type: string
+          example: Self Directed Account
+          description: A custom description of the account management type.
+    finTranID:
+      type: string
+      example: EF.a935f686-5567-4e10-9e71-261314207c0b
+      description: The internal and unique transaction identification number.
+    accountType:
+      type: string
+      example: LIVE
+      description: The type of account that has been created.
+      enum:
+      - LIVE
+    TransactionRes:
+      type: array
+      description: A list of transactions.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/Transaction'
+    accountNo:
+      type: string
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
+    Transaction:
+      type: object
+      properties:
+        accountAmount:
+          type: number
+          example: -890.12
+          description: The amount of the transaction.
+        accountBalance:
+          type: number
+          example: 49984.44
+          description: The equity value of the account at the time of the transaction.
+        accountType:
+          $ref: '#/components/schemas/accountType'
+        dividend:
+          $ref: '#/components/schemas/dividend'
+        dividendTax:
+          type: object
+          description: An object containing details of a dividend withholding.
+          properties:
+            rate:
+              type: number
+              description: The Witholding rate associated with the dividend payment.
+              example: 0.15
+            type:
+              type: string
+              description: The type of tax associated with the withholding
+              example: FOREIGN_TAX
+              enum:
+              - FOREIGN_TAX
+              - NON_RESIDENTIAL_ALIEN
+              - OTHER
+        dnb:
+          type: boolean
+          example: false
+          description: If false, the transaction was sent to inteliclear. Default is false.
+        comment:
+          type: string
+          example: Buy 0.0259 shares of AMZN at 1003.13 FULL fill
+          description: A comment describing the transaction
+        finTranID:
+          $ref: '#/components/schemas/finTranID'
+        finTranTypeID:
+          $ref: '#/components/schemas/finTranTypeID'
+        feeSec:
+          type: number
+          description: The sec fee charged to an applicable sell order. Reference your fee schedule for SEC fee amounts per share.
+          example: 0.01
+        feeTaf:
+          type: number
+          description: Trading activity fee (TAF) for an applicable sell order. Reference your fee schedule for TAF fee amounts per share.
+          example: 0.01
+        feeBase:
+          type: number
+          description: The net fee amount of TAF and SEC Fees for a given sell order.
+          example: 0.02
+        feeXtraShares:
+          type: number
+          description: Commission charged when the share quantity is greater than the base share amount. Reference your commission schedule for more info.
+          example: 0.05
+        feeExchange:
+          type: number
+          description: An Exchange Fee applied to an order.
+          example: 0.02
+        fillQty:
+          type: number
+          description: The quantity of shares filled for a transaction.
+          example: 1.02387115
+        fillPx:
+          type: number
+          description: The fill price of the order for the given transaction.
+          example: 17.44
+        orderID:
+          $ref: '#/components/schemas/orderID'
+        mergerAcquisition:
+          type: object
+          description: An object containing details of a corporate event, such as a merger or an acquisition.
+          properties:
+            type:
+              type: string
+              description: The transaction result of the corporate event
+              example: EXCHANGE STOCK_CASH
+              enum:
+              - EXCHANGE_STOCK_CASH
+              - ADD_SHARES
+              - ADD_SHARES_CASH
+              - ADD_SHARES_REMOVE_CASH
+              - REMOVE_SHARES
+              - REMOVE_SHARES_CASH
+              - REMOVE_SHARES_ADD_CASH
+            acquirer:
+              type: object
+              description: Object containing details of the acquiring company
+              properties:
+                id:
+                  $ref: '#/components/schemas/instrumentID'
+                symbol:
+                  type: string
+                  description: The instrument ticker symbol.
+                  example: AAPL
+                name:
+                  type: string
+                  description: The name of the acquiring company
+                  example: Apple
+            acquiree:
+              type: object
+              description: Object containing details of the company being acquired
+              properties:
+                id:
+                  $ref: '#/components/schemas/instrumentID'
+                symbol:
+                  type: string
+                  description: The instrument ticker symbol.
+                  example: TSLA
+                name:
+                  type: string
+                  description: The name of the company being acquired
+                  example: TSLA
+        positionDelta:
+          type: number
+          description: The delta in the number of shares due to the corporate action.
+          example: 0.18
+    finTranTypeID:
+      type: string
+      example: JNLC
+      description: The abbreviated transaction type identifier.
+      enum:
+      - CSR
+      - CSD
+      - FEE
+      - JNLC
+      - CADJ
+      - INT
+      - SPUR
+      - SSAL
+      - MERGER_ACQUISITION
+      - DIV
+      - DIVTAX
+      - DIVNRA
+      - STCK
+      - COMM
+      - SPINOFF
+      - STOCK_SPLIT
+      - ACATS_CASH
+      - ACATS_STOCK
+      - CCPUR
+      - CCSAL
+      - SLIP
+      - DIVM
+      - PTP_WITHHOLDING
+    UserSubscription:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/subscriptionID'
+        accountDetails:
+          type: object
+          properties:
+            accountID:
+              $ref: '#/components/schemas/accountID'
+            accountNo:
+              $ref: '#/components/schemas/accountNo'
+            accountType:
+              $ref: '#/components/schemas/accountType'
+            accountManagementType:
+              $ref: '#/components/schemas/accountManagementTypeObject'
+            status:
+              $ref: '#/components/schemas/subscriptionStatus'
+            paymentSource:
+              type: object
+              properties:
+                source:
+                  type: string
+                sourceType:
+                  $ref: '#/components/schemas/bankAccountID'
+            plan:
+              type: object
+              properties:
+                planID:
+                  type: string
+                  example: plan_1d3e1630-9107-47c2-a9c4-6cca93821cb7
+                  description: The unique identifier that identifies the plan schedule.
+                name:
+                  type: string
+                  example: Monthly Subscription
+                  description: The name of the global name of the planned subscription.
+                interval:
+                  type: string
+                  example: MONTH
+                  description: The interval in which the user's linked bank account will be charged.
+                  enum:
+                  - MONTHLY
+                  - QUARTERLY
+                intervalCount:
+                  type: number
+                  example: 1
+                  description: The interval in which the user's linked bank account will be charged represented as an integer value.
+                  enum:
+                  - 1
+                  - 3
+                amount:
+                  type: number
+                  example: 4.99
+                  description: The amount the user's linked bank account will be charged.
+                currency:
+                  $ref: '#/components/schemas/currency'
+            created:
+              $ref: '#/components/schemas/created'
+              description: The date and time that the subscription was created for the user's linked bank account.
+            started:
+              type: string
+              example: '2022-12-11T22:28:21.810Z'
+              description: The date and time that the subscription started.
+            expires:
+              type: string
+              example: '2022-12-11T22:28:21.810Z'
+              description: The date and time that the subscription will expire; and stop charging the user's linked bank account.
+            transactionHistory:
+              type: array
+              example: []
+              description: A list of all this historical subscriptions transactions charged to the user's linked bank account.
+              items:
+                oneOf:
+                - $ref: '#/components/schemas/TransactionRes'
+    Subscription:
+      type: object
+      properties:
+        subscriptionID:
+          $ref: '#/components/schemas/subscriptionID'
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

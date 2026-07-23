@@ -1,0 +1,363 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Depth of Book API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Depth of Book
+  x-displayName: Depth of Book
+paths:
+  /quotes/depth:
+    post:
+      tags:
+      - Depth of Book
+      description: 'Get the Depth of Book for an Instrument.
+
+
+        For now, this API only works with debt instruments, but will expand in the future.'
+      summary: Retrieve Depth of Book
+      operationId: getQuoteDepth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarketQuoteRequest'
+            examples:
+              MarketQuoteRequestSample:
+                value:
+                  instrumentID: f6d3e213-4e6f-4ee3-8a9a-793027c62c57
+                  quantity: 3.14
+        required: true
+      responses:
+        '200':
+          description: Fetching Market data was successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketQuoteResponse'
+              examples:
+                QuoteResponse:
+                  value:
+                  - id: f61b3240-6ab4-48bb-8f30-c160b7fba999
+                    instrumentID: 206b06c2-6d46-4515-9340-678cb131f2cc
+                    ISIN: US105756BB58
+                    CUSIP: 105756BB5
+                    quantity: 3
+                    salesCredit:
+                      currency: USD
+                      amount: 14
+                    bidPrices:
+                    - bidPrice: 98.882
+                      bidSize: 100000
+                      bidYield: 4.799
+                      minQty: 150
+                    - bidPrice: 98.872
+                      bidSize: 230000
+                      bidYield: 4.812
+                      minQty: 112
+                    askPrices:
+                    - askPrice: 98.884
+                      askSize: 1000
+                      askYield: 4.793
+                      minQty: 150
+                    - askPrice: 98.889
+                      askSize: 250000
+                      askYield: 4.768
+                      minQty: 150
+                    effectiveBidPrices:
+                    - bidPrice: 99.022
+                      bidSize: 100000
+                      bidYield: 4.739
+                      minQty: 112
+                    - bidPrice: 99.012
+                      bidSize: 230000
+                      bidYield: 4.812
+                      minQty: 112
+                    effectiveAskPrices:
+                    - askPrice: 98.744
+                      askSize: 1000
+                      askYield: 4.793
+                      minQty: 150
+                    - askPrice: 98.749
+                      askSize: 250000
+                      askYield: 4.768
+                      minQty: 150
+                    recentTrades:
+                    - price: 98.992
+                      quantity: 10000
+                      yield: 4.799
+                      side: buy
+                      date: '2017-07-21T17:32:28Z'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    instrumentCUSIP:
+      description: 'CUSIP stands for `Committee on Uniform Securities Identification Procedures`.
+
+        A CUSIP number identifies most financial instruments, including: stocks of all registered U.S. and Canadian companies, commercial paper, and U.S. government and municipal bonds.
+
+        The CUSIP system facilitates the clearance and settlement process of securities.
+
+        CUSIP numbers consist of nine characters (including letters and numbers) that uniquely identify a company or issuer and the type of financial instrument.
+
+        A similar system is used to identify foreign securities (`CUSIP International Numbering System or CINS`).
+
+        CINS employs the same nine character identifier as CUSIP, but also contains a letter in the first position to signify the issuer''s country or geographic region.
+
+        '
+      type: string
+      minLength: 9
+      maxLength: 9
+      example: E09876AA7
+    instrumentISIN:
+      description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
+      type: string
+      minLength: 12
+      maxLength: 14
+      example: US023135BX34
+    RecentTrade:
+      type: object
+      description: Recent Trade
+      properties:
+        price:
+          type: number
+          format: double
+          example: 98.884
+          description: Trade price
+        quantity:
+          type: number
+          format: double
+          example: 150
+          description: Trade size/quantity
+        yield:
+          type: number
+          format: double
+          example: 4.793
+          description: Trade yield
+        date:
+          type: string
+          format: date-time
+          description: Asset's trade time.
+          example: '2017-07-21T17:32:28Z'
+        side:
+          type: string
+          example: sell
+          description: The side of order that is being placed.
+          enum:
+          - buy
+          - sell
+      example:
+        price: 98.992
+        size: 10000
+        yield: 4.799
+        side: buy
+        dateTime: '2017-07-21T17:32:28Z'
+    AskPrice:
+      type: object
+      description: Ask Price
+      example:
+        askPrice: 98.992
+        askSize: 10000
+        askYield: 4.799
+        minQty: 150
+      properties:
+        askPrice:
+          type: number
+          format: double
+          example: 98.884
+          description: Ask value
+          readOnly: true
+        askSize:
+          type: number
+          format: double
+          example: 150
+          description: Ask size
+          readOnly: true
+        askYield:
+          type: number
+          format: double
+          example: 4.793
+          description: Ask yield
+          readOnly: true
+        minQty:
+          type: number
+          format: double
+          example: 150
+          description: Minimum quantity
+          readOnly: true
+    SalesCredit:
+      type: object
+      description: If set, the unit price will be marked up or marked down based on the prescribed amount. Only applicable to Orders for Debt Instruments.
+      properties:
+        currency:
+          $ref: '#/components/schemas/currency'
+        amount:
+          type: integer
+          example: 14
+          description: The sales credit amount in cents.
+    MarketQuoteRequest:
+      type: object
+      description: Trade Quote Request for Fixed Income Securities
+      required:
+      - instrumentID
+      - quantity
+      properties:
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        quantity:
+          type: number
+          format: double
+          example: 3.14
+          description: The quantity of bonds user wishes to trade.
+          minimum: 0
+        salesCredit:
+          $ref: '#/components/schemas/SalesCredit'
+    BidPrice:
+      type: object
+      description: Bid Price
+      example:
+        bidPrice: 98.992
+        bidSize: 10000
+        bidYield: 4.799
+        minQty: 150
+      properties:
+        bidPrice:
+          type: number
+          format: double
+          example: 130.529
+          description: Bid value
+          readOnly: true
+        bidSize:
+          type: number
+          format: double
+          example: 150
+          description: Bid size
+          readOnly: true
+        bidYield:
+          type: number
+          format: double
+          example: 4.799
+          description: Bid yield
+          readOnly: true
+        minQty:
+          type: number
+          format: double
+          example: 150
+          description: Minimum quantity
+          readOnly: true
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    MarketQuoteResponse:
+      type: object
+      description: Trade Quote Response for Fixed Income Orders
+      example:
+        MarketQuoteResponseSuccess:
+          id: bba6ecf0-9831-45ee-af0b-447077d82c2c
+          instrumentID: f6d3e213-4e6f-4ee3-8a9a-793027c62c57
+          ISIN: US459058GX53
+          CUSIP: US6174464486
+          salesCredit:
+            currency: USD
+            amount: 14
+          bidPrices:
+          - bidPrice: 98.992
+            bidSize: 10000
+            bidYield: 4.799
+          askPrices:
+          - askPrice: 98.992
+            askSize: 10000
+            askYield: 4.799
+            minQty: 150
+          effectiveBidPrices:
+          - bidPrice: 98.992
+            bidSize: 10000
+            bidYield: 4.799
+            minQty: 112
+          effectiveAskPrices:
+          - askPrice: 98.992
+            askSize: 10000
+            askYield: 4.799
+            minQty: 150
+          recentTrades:
+          - price: 98.992
+            size: 10000
+            yield: 4.799
+            side: buy
+            date: '2017-07-21T17:32:28Z'
+      properties:
+        id:
+          type: string
+          description: Quote id in the DriveWealth System
+          format: uuid
+          example: bba6ecf0-9831-45ee-af0b-447077d82c2c
+          readOnly: true
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        ISIN:
+          $ref: '#/components/schemas/instrumentISIN'
+          readOnly: true
+        CUSIP:
+          $ref: '#/components/schemas/instrumentCUSIP'
+          readOnly: true
+        quantity:
+          type: number
+          format: double
+          example: 150
+          description: Trade size/quantity
+        salesCredit:
+          $ref: '#/components/schemas/SalesCredit'
+        bidPrices:
+          type: array
+          description: bid prices without sales credit
+          items:
+            $ref: '#/components/schemas/BidPrice'
+        askPrices:
+          type: array
+          description: ask prices without sales credit
+          items:
+            $ref: '#/components/schemas/AskPrice'
+        effectiveBidPrices:
+          type: array
+          description: prices include any sales credit provided in the request
+          items:
+            $ref: '#/components/schemas/BidPrice'
+        effectiveAskPrices:
+          type: array
+          description: prices include any sales credit provided in the request
+          items:
+            $ref: '#/components/schemas/AskPrice'
+        recentTrades:
+          type: array
+          description: Recent Trades
+          items:
+            $ref: '#/components/schemas/RecentTrade'
+    currency:
+      type: string
+      example: USD
+      description: The name of the currency in abbreviation form.
+      enum:
+      - USD
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

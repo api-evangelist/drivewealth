@@ -1,0 +1,175 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Beneficiaries API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Beneficiaries
+  x-displayName: Beneficiaries
+paths:
+  /accounts/{accountID}/beneficiaries:
+    post:
+      tags:
+      - Beneficiaries
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      summary: Create Account Beneficiaries
+      description: Creates an Account Beneficiary by accountID.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeneficiaryReq'
+        required: true
+      responses:
+        '200':
+          description: Creating an Account Beneficiary was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeneficiaryRes'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+    get:
+      tags:
+      - Beneficiaries
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      summary: Retrieve Account Beneficiaries
+      description: Retrieves a list of Account Beneficiaries by accountID.
+      responses:
+        '200':
+          description: Retrieving a list of Account Beneficiaries was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeneficiaryRes'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+    delete:
+      tags:
+      - Beneficiaries
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      summary: Delete Account Beneficiaries
+      description: Removes all Accounts Beneficiaries by accountID.
+      responses:
+        '202':
+          description: Removing all Account Beneficiaries was Accepted.
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    BeneficiaryReq:
+      type: object
+      properties:
+        primary:
+          type: array
+          description: An array of objects containing the primary beneficiary details
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/beneficiariesObject'
+        contingent:
+          type: array
+          description: An array of objects containing the contingent beneficiary details.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/beneficiariesObject'
+    name:
+      type: string
+      example: Tom Ace
+      description: Full name or entity name of type.
+    BeneficiaryRes:
+      type: object
+      properties:
+        primary:
+          type: array
+          description: An array of objects containing the primary beneficiary details
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/beneficiariesObject'
+        contingent:
+          type: array
+          description: An array of objects containing the contingent beneficiary details.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/beneficiariesObject'
+    beneficiariesObject:
+      type: object
+      description: An object containing the information of a beneficiary.
+      properties:
+        type:
+          type: string
+          example: ENTITY
+          description: Type of beneficiary.
+          enum:
+          - PERSON
+          - ENTITY
+        name:
+          $ref: '#/components/schemas/name'
+        percentage:
+          type: number
+          example: '0.25'
+          description: Percentage ownership beneficiary has in the account. Must total 1 (aka 100%) across all beneficiaries.
+        email:
+          type: string
+          example: tom@ac.com
+          description: The email of the entity.
+        formationDate:
+          type: string
+          example: '2010-10-25'
+          description: 'Entity formation date. Must follow the YYYY-MM-DD format. Only required if type: `ENTITY`.'
+        primaryContact:
+          type: string
+          example: '5512478089'
+          description: 'Primary phone contact of entity. Only required if type: `ENTITY`'
+        phone:
+          type: string
+          example: '4153647890'
+          description: Phone number of beneficiary.
+        created:
+          type: string
+          example: '2022-12-29T18:32:15.533Z'
+          description: The when the beneficiary was added to the account.
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

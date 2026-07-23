@@ -1,0 +1,1413 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Orders API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Orders
+  x-displayName: Orders
+paths:
+  /accounts/{accountID}/summary/orders:
+    get:
+      tags:
+      - Orders
+      summary: List Account resting Orders
+      description: Retrives a list of Account Orders by accountID. The orders returned will all be currently pending Orders that are awaiting a fill or cancellation.
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      responses:
+        '200':
+          description: Retrieving a list of Account Orders was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PendingOrders'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /accounts/{accountID}/reports/order-history:
+    get:
+      tags:
+      - Orders
+      summary: List Account historical Orders
+      description: Retrieves a list of Account Orders by accountID. The orders returned are ones that have been previously closed, either by being filled or by being canceled.
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      - in: query
+        name: from
+        schema:
+          type: string
+        required: true
+        example: '2022-06-16'
+        description: Date start time of data. Follow [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601)
+      - in: query
+        name: to
+        schema:
+          type: string
+        required: true
+        example: '2022-07-16'
+        description: Date end time of data. Follow [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601)
+      - in: query
+        name: limit
+        schema:
+          type: number
+        required: false
+        example: 25
+        description: The number of orders to be returned per page.
+      - in: query
+        name: offset
+        schema:
+          type: string
+        required: false
+        example: '2022-07-16'
+        description: Follow [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601)
+      - in: query
+        name: direction
+        schema:
+          type: string
+          enum:
+          - prev
+          - next
+        required: false
+        example: prev
+        description: The direction of pagination.
+      responses:
+        '200':
+          description: Retrieving a list of Account Orders was Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderHistoryRes'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /orders:
+    post:
+      tags:
+      - Orders
+      summary: Create Order
+      description: Create an Order.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+            examples:
+              'Market Cash Amount Order ':
+                value:
+                  accountNo: DWFS001102
+                  orderType: MARKET
+                  symbol: SBUX
+                  side: BUY
+                  amountCash: 100
+              Market Quantity Order:
+                value:
+                  accountNo: DWFS001102
+                  orderType: MARKET
+                  symbol: SBUX
+                  side: BUY
+                  quantity: 2
+              Market Quantity Order w/ Lot Disposition:
+                value:
+                  accountNo: DWFS001102
+                  orderType: MARKET
+                  symbol: SBUX
+                  side: SELL
+                  quantity: 2
+                  taxLotDisposition:
+                  - taxLotID: 3db27e74626adac3be7b549f2bbc0ab2480852a7
+              Limit GTC Order:
+                value:
+                  accountNo: DWFS001102
+                  orderType: LIMIT
+                  symbol: AAPL
+                  price: 165.25
+                  quantity: 10
+                  timeInForce: GTC
+                  expiration: '2023-12-31'
+                  side: BUY
+              Option Order:
+                value:
+                  accountNo: DWFS001102
+                  orderType: LIMIT
+                  timeInForce: GTC
+                  expiration: '2023-08-01'
+                  symbol: AAPL230818C00195000
+                  side: BUY_OPEN
+                  quantity: 1
+                  price: 3.42
+              Fixed Income Order:
+                value:
+                  accountNo: DWFS001102
+                  orderType: LIMIT
+                  side: SELL
+                  symbol: US459058GX53
+                  quantity: 3
+                  commission: 3.567
+                  price: 4.5
+                  currency: USD
+                  timeInForce: DAY
+                  limitType: YIELD
+              Order With Commission:
+                value:
+                  accountNo: DWFS001102
+                  orderType: LIMIT
+                  side: SELL
+                  symbol: AAPL
+                  quantity: 3
+                  commission: 3.5
+                  price: 4.5
+              Order With CommissionRate:
+                value:
+                  accountNo: DWFS001102
+                  orderType: LIMIT
+                  side: SELL
+                  symbol: AAPL
+                  quantity: 3
+                  commissionRate: 0.3
+                  price: 4.5
+              Market Order With Travel Rule Enforced:
+                value:
+                  accountNo: DWFS001102
+                  orderType: MARKET
+                  symbol: SBUX
+                  side: BUY
+                  quantity: 2
+                  travelRuleBankAccountID: bank_485ba18c-009d-4c4a-a6e9-99b104c800b2
+              Market Order With deptType:
+                value:
+                  accountNo: DWFS001102
+                  orderType: MARKET
+                  symbol: SBUX
+                  side: BUY
+                  quantity: 2
+                  deptType: ATS
+        required: true
+      responses:
+        '200':
+          description: Creating an Order was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrderResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+              examples:
+                Both Commission and CommissionRate are present in the request:
+                  value:
+                    errorCode: E032
+                    message: Invalid or missing parameters in the request body. Refer to the API documentation for details.
+                    errorDetails:
+                      detail: Cannot specify both 'commission' and 'commissionRate'. Provide either 'commission' or 'commissionRate'
+                      field: commission/commissionRate
+                      type: DECIMAL
+                CommissionRate decimal places more than 4:
+                  value:
+                    errorCode: E032
+                    message: Invalid or missing parameters in the request body. Refer to the API documentation for details.
+                    errorDetails:
+                      detail: Commission rate should not exceed 4 decimal places
+                      field: commissionRate
+                      type: DECIMAL
+                Invalid commissionRate range:
+                  value:
+                    errorCode: E032
+                    message: Invalid or missing parameters in the request body. Refer to the API documentation for details.
+                    errorDetails:
+                      detail: Commission rate should be between 0.0001 and 1.0
+                      field: commissionRate
+                      type: DECIMAL
+        '403':
+          description: Account restricted to make day trades
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+              examples:
+                Account is restricted from making day trades:
+                  value:
+                    errorCode: A051
+                    message: 'Account has been restricted. Check account status and notes for details. Forbidden: Account is restricted from making day trades. accountID=<accountID>'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /orders/{orderID}:
+    get:
+      tags:
+      - Orders
+      parameters:
+      - in: path
+        name: orderID
+        schema:
+          $ref: '#/components/schemas/orderID'
+        required: true
+      summary: Retrieve Order
+      description: Retrieves an Order details by orderID.
+      responses:
+        '200':
+          description: Fetching Order status was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderStatusResponse'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+    patch:
+      tags:
+      - Orders
+      parameters:
+      - in: path
+        name: orderID
+        schema:
+          $ref: '#/components/schemas/orderID'
+        required: true
+      summary: Update Order
+      description: Updates an Order by orderID.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelOrder'
+        required: true
+      responses:
+        '200':
+          description: The Order was Successfully Updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelOrderResponse'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /orders/byOrderNo/{orderNo}:
+    get:
+      tags:
+      - Orders
+      summary: Retrieve Order by Order Number
+      description: Retrieves an Order by OrderNo.
+      parameters:
+      - in: path
+        name: orderNo
+        schema:
+          $ref: '#/components/schemas/orderNo'
+        required: true
+      responses:
+        '200':
+          description: ' Retrieving an Order by OrderNo was Successful.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderStatusResponse'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /orders/{orderID}/audit:
+    get:
+      tags:
+      - Orders
+      summary: Retrieve Order Audit Details
+      description: Retrieves an Order Audit Details by Order
+      parameters:
+      - in: path
+        name: orderID
+        schema:
+          $ref: '#/components/schemas/orderID'
+        required: true
+      responses:
+        '200':
+          description: Retrieving an Order Audit by OrderID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderAuditResponse'
+              examples:
+                Order Audit Example:
+                  value:
+                    orderID: LL.203309cd-91c7-4f9a-9f33-632d0109cc77
+                    orderNo: LLFE048977
+                    accountID: a8888112-92d3-65d9-h20a-f333aeb4ae76.1646639525528
+                    accountNo: XXXR000004
+                    quantities:
+                      requestedQuantity: 10
+                      totalFilledQuantity: 10
+                    ordStatus: FILLED
+                    side: SELL
+                    symbol: HOOD
+                    ordType: LIMIT
+                    amountCash: 0
+                    violationExempt: false
+                    preventQueuing: false
+                    extendedHours: false
+                    pricing:
+                      avgPxRaw: 44.22
+                      avgPx: 44.22
+                      stopPx: 0
+                      mitTriggerPrice: 0
+                    instrumentID: 4ab39131-2ca0-466c-b96c-332357bc0826
+                    orderExpires: '2025-03-07T21:00:00.000Z'
+                    commissionOverride:
+                      commissionOverrideType: RAW_COMMISSION
+                      commissionID: null
+                      commissionOverrideDesc: Standard Commission
+                      commissionAmount: 1.28
+                      secOverride: 0.01
+                      tafOverride: 0.01
+                    commissionAndFees:
+                      total: 1.3
+                      tefra: 0
+                      ptp: 0
+                    auditOrders:
+                    - status: NEW
+                      quantities:
+                        cumulativeQuantity: 0
+                        filledQuantity: 0
+                        remainingQuantity: 0
+                      pricing:
+                        averagePrice: 0
+                        averagePriceRaw: 0
+                        lastPrice: 0
+                        rateAsk: 0
+                        rateBid: 0
+                      commissionAndFees:
+                        commission: 1.28
+                        feeSec: 0
+                        feeTaf: 0
+                        feeBase: 0
+                        feeXtraShares: 0
+                        feeExchange: 0
+                      pnl: 0
+                      transactTime: '2024-12-10T01:57:53.109Z'
+                      comment: NOS started
+                      createdWhen: '2024-12-10T01:57:53.109Z'
+                    - status: CANCELED
+                      quantities:
+                        cumulativeQuantity: 0
+                        filledQuantity: 0
+                        remainingQuantity: 0
+                      pricing:
+                        averagePrice: 0
+                        averagePriceRaw: 0
+                        lastPrice: 0
+                        rateAsk: 37.44
+                        rateBid: 37.4
+                      commissionAndFees:
+                        commission: 0
+                        feeSec: 0
+                        feeTaf: 0
+                        feeBase: 0
+                        feeXtraShares: 0
+                        feeExchange: 0
+                      pnl: 0
+                      transactTime: '2024-12-10T21:25:00.358Z'
+                      comment: oNo LLFE048977 aNo RAXR000004
+                      eventID: event_cc97eaa0-a245-469b-83f4-1f5b8374f77e
+                      createdWhen: '2024-12-10T21:25:00.375Z'
+                    - status: NEW
+                      quantities:
+                        cumulativeQuantity: 0
+                        filledQuantity: 0
+                        remainingQuantity: 10
+                      pricing:
+                        averagePrice: 0
+                        averagePriceRaw: 0
+                        lastPrice: 0
+                        rateAsk: 38.74
+                        rateBid: 38.7
+                      commissionAndFees:
+                        commission: 0
+                        feeSec: 0
+                        feeTaf: 0
+                        feeBase: 0
+                        feeXtraShares: 0
+                        feeExchange: 0
+                      pnl: 0
+                      transactTime: '2024-12-11T14:05:32.600Z'
+                      comment: NOS Sending to sor when open
+                      createdWhen: '2024-12-11T14:05:32.600Z'
+                    - status: FILLED
+                      quantities:
+                        cumulativeQuantity: 0
+                        filledQuantity: 0
+                        remainingQuantity: 0
+                      pricing:
+                        averagePrice: 44.22
+                        averagePriceRaw: 44.22
+                        lastPrice: 0
+                        rateAsk: 38
+                        rateBid: 37.84
+                      commissionAndFees:
+                        commission: 0
+                        feeSec: 0
+                        feeTaf: 0
+                        feeBase: 0
+                        feeXtraShares: 0
+                        feeExchange: 0
+                      pnl: 0
+                      transactTime: '2024-12-11T21:00:05.494Z'
+                      comment: oNo LLFE048977 aNo RAXR000004
+                      eventID: event_539cae86-9c77-48a1-b2d7-5efe111a638c
+                      createdWhen: '2024-12-11T21:00:05.523Z'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    commissionOverrideType:
+      type: string
+      enum:
+      - NO_OVERRIDE
+      - RAW_COMMISSION
+      example: RAW_COMMISSION
+      description: The type of commission override applied to the order
+    OrderHistoryRes:
+      type: object
+      properties:
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        tradingType:
+          $ref: '#/components/schemas/tradingType'
+        updated:
+          type: string
+          example: '2017-06-16T15:35:30.617Z'
+          description: Time of last update.
+        orders:
+          type: array
+          description: An array that holds a list of completed orders.
+          items:
+            oneOf:
+            - type: object
+              properties:
+                orderID:
+                  $ref: '#/components/schemas/orderID'
+                orderNo:
+                  $ref: '#/components/schemas/orderNo'
+                createdWhen:
+                  $ref: '#/components/schemas/created'
+                symbol:
+                  $ref: '#/components/schemas/instrumentSymbol'
+                cumQty:
+                  $ref: '#/components/schemas/orderCumulativeQuantity'
+                orderStatus:
+                  $ref: '#/components/schemas/orderStatusNumber'
+                orderType:
+                  $ref: '#/components/schemas/orderTypes'
+                orderQty:
+                  $ref: '#/components/schemas/orderQuantity'
+                isoTimeRestingOrderExpires:
+                  type: string
+                  example: null
+                  description: The time when the limit order expires.
+                limitPrice:
+                  type: number
+                  example: null
+                  description: The price set for the limit order.
+                side:
+                  $ref: '#/components/schemas/sideAbbreviated'
+                mitTriggerPrice:
+                  type: number
+                  example: 0
+                  description: Market If Touched trigger price. For MIT orders.
+                triggered:
+                  type: number
+                  example: 0
+                  description: The trigger price for limit orders.
+                averagePriceRaw:
+                  type: number
+                  example: 147.45
+                  description: The average price of purchase for the order.
+                orderCashAmt:
+                  type: number
+                  example: null
+                  description: The amount of cash requested for an order (notional orders only).
+                stopPrice:
+                  type: number
+                  example: 200
+                  description: The stop price of a limit order.
+                ISIN:
+                  $ref: '#/components/schemas/instrumentISIN'
+    CreateOrderRequest:
+      type: object
+      required:
+      - accountNo
+      - orderType
+      - side
+      properties:
+        accountNo:
+          type: string
+          example: CSSW000001
+          description: The user's assiocated account number.
+        orderType:
+          $ref: '#/components/schemas/orderTypesRequest'
+        limitType:
+          $ref: '#/components/schemas/limitType'
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        side:
+          $ref: '#/components/schemas/schemas-side'
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        ISIN:
+          $ref: '#/components/schemas/instrumentISIN'
+        quantity:
+          type: number
+          format: double
+          example: 5
+          description: The unit quantity to purchase or sell. Required if `amountCash` is null.
+        amountCash:
+          $ref: '#/components/schemas/amountCash'
+        price:
+          type: number
+          format: double
+          example: 160.12
+          description: The price for non-`MARKET` Order types. This would be required if placing a `LIMIT`, `STOP`, or `MARKET_IF_TOUCHED` order.
+        currency:
+          $ref: '#/components/schemas/currency'
+        commission:
+          type: number
+          format: double
+          example: 4
+          description: A USD amount to charge as commission for an Order. This defaults to using an Account's assigned Commission Schedule if unset. For example, `4` will result in a $4.00 commission charge, regardless of the assigned Commission Schedule.
+        commissionRate:
+          $ref: '#/components/schemas/commissionRate'
+        clientNotes:
+          type: string
+          example: Manual limit order.
+          description: Client facing notes that can be added to a request.
+        preventQueuing:
+          $ref: '#/components/schemas/preventQueuing'
+        extendedHours:
+          $ref: '#/components/schemas/extendedHours'
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        timeInForce:
+          $ref: '#/components/schemas/timeInForce'
+        expiration:
+          $ref: '#/components/schemas/expiration'
+        salesCredit:
+          $ref: '#/components/schemas/SalesCredit'
+        dccs:
+          $ref: '#/components/schemas/dccs'
+        taxLotDisposition:
+          $ref: '#/components/schemas/LotDisposition'
+        travelRuleBankAccountID:
+          type: string
+          example: bank_485ba18c-009d-4c4a-a6e9-99b104c800b2
+          description: The travel rule bank account ID. Supported By MARKET, LIMIT, STOP, MARKET_IF_TOUCHED orders. Only if partner enabled to send travel rule.
+        traderID:
+          type: string
+          example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+          description: The trader ID of the individual creating the order.
+        clientOrderTransactionTime:
+          $ref: '#/components/schemas/clientOrderTransactionTime'
+        clientOrderID:
+          $ref: '#/components/schemas/clientOrderID'
+        deptType:
+          $ref: '#/components/schemas/deptType'
+    commissionRate:
+      type: number
+      format: BigDecimal
+      description: The commission rate is a percentage charge to the total amount of the order.
+      example: 0.3
+      minimum: 0.0001
+      maximum: 1
+    note:
+      type: string
+      example: Hey! Welcome to DriveWealth Developer Docs!
+      description: A way to store a message/comment on the this object.
+    orderTypes:
+      type: string
+      example: MARKET
+      description: The type of the Order.
+      enum:
+      - MARKET
+      - LIMIT
+      - STOP
+      - STOP_LIMIT
+      - MARKET_IF_TOUCHED
+    timeInForce:
+      type: string
+      example: GTC
+      description: Set to "GTC" for a good-til-canceled order. Set to "GTX" for extended hours orders. When this property is not set, market and limit orders will be good-for-day by default, while stops and market-if-touched orders will be assumed good-til-canceled.
+      enum:
+      - GTC
+      - GTX
+      - DAY
+      - FILL_OR_KILL
+    preventQueuing:
+      type: boolean
+      example: false
+      description: If set to `true`, Orders received when the market is closed will not be queued for the next market open, and will be rejected. Please pay attention to the spelling of queuing as there are two valid spellings of this word.
+      enum:
+      - true
+      - false
+    updated:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    clientOrderID:
+      type: string
+      example: 5a1762d5-4562
+      description: A unique identifier that represents the order, as defined by the partner. This detail will be reported to the CAT system for US brokers to more easily reconcile reported information.
+    PendingOrders:
+      type: object
+      description: A list of pending orders.
+      properties:
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        tradingType:
+          $ref: '#/components/schemas/tradingType'
+        updated:
+          type: string
+          example: '2021-04-23T18:41:32.440Z'
+          description: The time of the last update to the Pending Orders Object.
+        orders:
+          type: array
+          description: An array that holds a list of currently pending orders.
+          items:
+            oneOf:
+            - type: object
+              properties:
+                orderID:
+                  $ref: '#/components/schemas/orderID'
+                orderNo:
+                  $ref: '#/components/schemas/orderNo'
+                createdWhen:
+                  $ref: '#/components/schemas/created'
+                symbol:
+                  $ref: '#/components/schemas/instrumentSymbol'
+                cumQty:
+                  $ref: '#/components/schemas/orderCumulativeQuantity'
+                orderStatus:
+                  type: string
+                  example: '2'
+                  description: The current status of the order.
+                  enum:
+                  - '0'
+                  - '1'
+                  - '2'
+                  - '3'
+                  - '4'
+                  - '6'
+                  - '7'
+                  - '8'
+                  - '9'
+                  - A
+                  - B
+                  - C
+                orderType:
+                  type: string
+                  example: '1'
+                  description: The type of order that is placed.
+                  enum:
+                  - '0'
+                  - '1'
+                  - '2'
+                  - '3'
+                  - '4'
+                  - '6'
+                  - '7'
+                  - m
+                orderQty:
+                  $ref: '#/components/schemas/orderQuantity'
+                isoTimeRestingOrderExpires:
+                  type: string
+                  example: null
+                  description: The time when the limit order expires.
+                limitPrice:
+                  type: number
+                  example: null
+                  description: The price set for the limit order.
+                side:
+                  $ref: '#/components/schemas/sideAbbreviated'
+                orderCashAmt:
+                  type: number
+                  example: null
+                  description: The amount of cash requested for an order (fractional shares only).
+                stopPrice:
+                  type: number
+                  example: 200
+                  description: The stop price of a limit order.
+                ISIN:
+                  $ref: '#/components/schemas/instrumentISIN'
+                salesCredit:
+                  $ref: '#/components/schemas/SalesCredit'
+                instrumentType:
+                  $ref: '#/components/schemas/instrumentType'
+    ErrorCodeMessage:
+      type: string
+      description: The error message that is returned when an error occurs.
+    side:
+      type: string
+      example: BUY
+      description: The side of the order.
+      enum:
+      - BUY
+      - SELL
+    amountCash:
+      type: number
+      format: double
+      example: null
+      description: The USD-denominated amount to purchase or sell.
+    currency:
+      type: string
+      example: USD
+      description: The name of the currency in abbreviation form.
+      enum:
+      - USD
+    clientOrderTransactionTime:
+      type: string
+      example: '2024-07-30T22:13:18.000Z'
+      description: The date with a valid timestamp of when a partner received the order from the customer.
+    created:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    TaxLot:
+      type: object
+      properties:
+        taxLotID:
+          $ref: '#/components/schemas/taxLotID'
+    taxLotID:
+      type: string
+      example: 3db27e74626adac3be7b549f2bbc0ab2480852a7
+      description: A unique tax lot identifier.
+    commissionOverrideDesc:
+      type: string
+      example: Standard Commission
+      description: The description of commission override applied to the order
+    sideAbbreviated:
+      type: string
+      example: B
+      description: The side of the order.
+      enum:
+      - B
+      - S
+      - BUY_OPEN
+      - BUY_CLOSE
+      - SELL_OPEN
+      - SELL_CLOSE
+    availableForTradingQuantity:
+      type: number
+      example: 1
+      description: The number of units that can currently be traded by the Account holder.
+    dccs:
+      type: boolean
+      example: true
+      description: True, when the Mutual Fund HSA is classified as Defined Contribution Clearing and Settlement (DCC&S) order.
+    CreateOrderResponse:
+      type: object
+      properties:
+        orderId:
+          type: string
+          example: EF.418a5506-256c-4c3c-9d4d-f491522cf7f2
+          description: A unique identifier for the order.
+        orderNo:
+          type: string
+          example: EFXM000103
+          description: A human readable order identifier.
+    auditLog:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/localOrderStatus'
+        quantities:
+          type: object
+          properties:
+            cumulativeQuantity:
+              example: 0
+            filledQuantity:
+              example: 0
+            remainingQuantity:
+              example: 0
+        pricing:
+          type: object
+          properties:
+            averagePrice:
+              example: 0
+            averagePriceRaw:
+              example: 0
+            lastPrice:
+              example: 0
+            rateAsk:
+              example: 0
+            rateBid:
+              example: 0
+        commissionAndFees:
+          type: object
+          properties:
+            commission:
+              example: 0
+            feeSec:
+              example: 0
+            feeTaf:
+              example: 0
+            feeBase:
+              example: 0
+            feeXtraShares:
+              example: 0
+            feeExchange:
+              example: 0
+        pnl:
+          example: 0
+        transactTime:
+          $ref: '#/components/schemas/updated'
+        comment:
+          $ref: '#/components/schemas/note'
+        eventID:
+          type: string
+          example: event_15cc717e-856d-4eb4-8348-93cd5b6186aa
+          description: EventID sent to client
+        createdWhen:
+          $ref: '#/components/schemas/created'
+    localOrderStatus:
+      type: string
+      example: FILLED
+      description: The current status of the order.
+      enum:
+      - NEW
+      - FILLED
+      - PARTIAL_FILL
+      - REJECTED
+      - CANCELED
+      - PENDING_CANCEL
+    ErrorDetails:
+      type: object
+      properties:
+        field:
+          type: string
+          description: JSON field name from the request body that caused an error
+        type:
+          type: string
+          enum:
+          - STRING
+          - ARRAY
+          - INT
+          - DECIMAL
+          - BOOL
+          - TEXT
+          - UUID
+          - DATE
+          - MAP
+          - OBJECT
+          description: Expected data type of the field
+        allowedValues:
+          type: string
+          description: Example values which are allowed in the field
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    orderAveragePrice:
+      type: number
+      example: 1038.81
+      description: The average price of the security being transacted in the order.
+    expiration:
+      type: string
+      format: date
+      example: YYYY-MM-DD
+      description: The date of expiration for a good-til-canceled order, in “YYYY-MM-DD” format. The order will be canceled if not executed by the market close on this date. If not set, a good-til-canceled Stop and MIT order will be assumed to expire 90 days after creation. If not set, a limit order will be considered GTD and will cancel at the end of the trading day.
+    cancelDetails:
+      type: object
+      description: Additional details to clarify when and how the cancel request was received. US broker-dealers must utilize this field for CAT compliance.
+      properties:
+        initiator:
+          type: string
+          nullable: true
+          example: C
+          description: The individual responsible for initiating the cancellation of an order. Please refer to CAT documentation and instructions for more information on the allowed values.
+          enum:
+          - C
+          - F
+        requestedTimestamp:
+          type: string
+          nullable: true
+          example: '2023-07-30T22:13:18.000Z'
+          description: The requested timestamp in ISO format by user to cancel an order
+        manualCancel:
+          type: boolean
+          nullable: true
+          example: true
+          description: Whether an order cancellation request was received from a human, manually. A false value represents that an automated system initiated the cancel.
+        comment:
+          type: string
+          nullable: true
+          example: This order has been cancelled
+          description: A freeform comment to attach to the cancel request
+    LotDisposition:
+      type: array
+      items:
+        allOf:
+        - $ref: '#/components/schemas/TaxLot'
+    orderID:
+      type: string
+      example: IC.0e352bb7-9869-4233-9861-9673544efedd
+      description: A unique DriveWealth order identifier created when an order is placed.
+    commissionID:
+      type: string
+      example: b3e985dd-9679-63dc-5dd5-9bd7982efecd
+      description: The unique identifier associated with a specific commission related to the account.
+    OrderStatusResponse:
+      type: object
+      description: Order details for a fixed income asset trade
+      properties:
+        id:
+          $ref: '#/components/schemas/orderID'
+        orderNo:
+          $ref: '#/components/schemas/orderNo'
+        type:
+          $ref: '#/components/schemas/orderTypes'
+        side:
+          $ref: '#/components/schemas/schemas-side'
+        status:
+          $ref: '#/components/schemas/localOrderStatus'
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        ISIN:
+          $ref: '#/components/schemas/instrumentISIN'
+        CUSIP:
+          $ref: '#/components/schemas/instrumentCUSIP'
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        averagePrice:
+          $ref: '#/components/schemas/orderAveragePrice'
+        currency:
+          $ref: '#/components/schemas/currency'
+        totalOrderAmount:
+          type: number
+          format: double
+          example: 800
+          description: Total amount paid for the order.
+        cumulativeQuantity:
+          $ref: '#/components/schemas/orderCumulativeQuantity'
+        quantity:
+          $ref: '#/components/schemas/orderQuantity'
+        fees:
+          type: number
+          format: double
+          example: 0.01
+          description: Cost of the order.
+        ptpWithholdingFee:
+          type: number
+          format: double
+          example: 0.01
+          description: The publicly traded partnership (PTP) withholding fee for the order.
+        createdBy:
+          type: string
+          example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+          description: userID of the individual creating the order.
+        userID:
+          type: string
+          example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+          description: userID of the account holder the order relates to.
+        accountID:
+          type: string
+          example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407776996299
+          description: accountID for the account the order relates to.
+        accountNo:
+          type: string
+          example: CSSW000001
+          description: accountNo for the account the order related to.
+        created:
+          type: string
+          example: '2019-02-14T18:56:07.411Z'
+          description: The time at which the order was created.
+        statusMessage:
+          type: object
+          description: If the Order was unsuccessful, this object will be present with additional details regarding why.
+          properties:
+            errorCode:
+              type: object
+              example: null
+              description: A DriveWealth error code.
+            message:
+              type: string
+              example: null
+              description: Description of the error code.
+            reason:
+              type: string
+              example: null
+              description: A longer reason for the error.
+        amountCash:
+          $ref: '#/components/schemas/amountCash'
+        OrderExpires:
+          type: string
+          example: null
+          description: The date of expiration for a good-til-canceled order, in “YYYY-MM-DD” format. The order will be canceled if not executed by the market close on this date. If not set, a good-til-canceled Stop and MIT order will be assumed to expire 90 days after creation. If not set, a limit order will be considered GTD and will cancel at the end of the trading day.
+        salesCredit:
+          $ref: '#/components/schemas/SalesCredit'
+        instrumentType:
+          $ref: '#/components/schemas/instrumentType'
+        dccs:
+          $ref: '#/components/schemas/dccs'
+        openQuantity:
+          $ref: '#/components/schemas/openQuantity'
+        availableForTradingQuantity:
+          $ref: '#/components/schemas/availableForTradingQuantity'
+        travelRuleBankAccountID:
+          type: string
+          example: bank_485ba18c-009d-4c4a-a6e9-99b104c800b2
+          description: Displays travel rule bank account ID which set while creating order
+        clientOrderTransactionTime:
+          $ref: '#/components/schemas/clientOrderTransactionTime'
+        clientOrderID:
+          $ref: '#/components/schemas/clientOrderID'
+    orderCumulativeQuantity:
+      type: number
+      example: 0.7219
+      description: The amount of shares currently being transacted; larger orders may execute in chunks.
+    CancelOrder:
+      type: object
+      required:
+      - method
+      properties:
+        method:
+          type: string
+          example: CANCEL
+          enum:
+          - CANCEL
+          description: The method in which is requested.
+        traderID:
+          type: string
+          example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+          description: The trader ID of the individual.
+        clientOrderTransactionTime:
+          $ref: '#/components/schemas/clientOrderTransactionTime'
+        clientOrderID:
+          $ref: '#/components/schemas/clientOrderID'
+        cancelDetails:
+          $ref: '#/components/schemas/cancelDetails'
+    instrumentType:
+      type: string
+      example: EQUITY
+      description: The classification of the instrument.
+      enum:
+      - EQUITY
+      - ALTERNATIVE_ASSET
+      - MUTUAL_FUND
+      - DEBT
+      - OPTION
+      - CRYPTO
+    schemas-side:
+      type: string
+      example: BUY
+      description: Whether an order is to purchase or sell. Generally, the value should be set to `BUY` or `SELL`. For Options orders, `BUY_OPEN`, `BUY_CLOSE`, `SELL_OPEN`, `SELL_CLOSE` should be used.
+      enum:
+      - BUY
+      - SELL
+      - BUY_OPEN
+      - BUY_CLOSE
+      - SELL_OPEN
+      - SELL_CLOSE
+    orderNo:
+      type: string
+      example: ICDU023727
+      description: A unique, human-readable DriveWealth order number.
+    deptType:
+      type: string
+      example: ATS
+      description: The name of the department in abbreviation form.
+      enum:
+      - A
+      - ATS
+      - DMA
+      - SA
+      - T
+      - O
+    orderQuantity:
+      type: number
+      example: 0.7219
+      description: The amount of the instrument in shares.
+    orderStatusNumber:
+      type: number
+      example: 2
+      description: The current status of the order, represented as a number.
+      enum:
+      - 0
+      - 1
+      - 2
+      - 4
+      - 6
+      - 7
+      - 8
+    instrumentSymbol:
+      type: string
+      nullable: true
+      example: MS
+      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
+    ErrorResponseModel:
+      type: object
+      description: The error response model that is returned when an error occurs.
+      required:
+      - errorCode
+      - message
+      properties:
+        errorCode:
+          $ref: '#/components/schemas/ErrorCode'
+        message:
+          $ref: '#/components/schemas/ErrorCodeMessage'
+        errorDetails:
+          $ref: '#/components/schemas/ErrorDetails'
+    tradingType:
+      type: string
+      example: CASH
+      description: The type of trading the account will participate in.
+      enum:
+      - CASH
+      - MARGIN
+    extendedHours:
+      type: boolean
+      example: false
+      description: Whether the order is eligible for Extended Hours Trading. The `timeInForce` must be set to `GTX` when this field is `true`. Only applicable to Equity Orders.
+      enum:
+      - true
+      - false
+    instrumentISIN:
+      description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
+      type: string
+      minLength: 12
+      maxLength: 14
+      example: US023135BX34
+    accountNo:
+      type: string
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
+    openQuantity:
+      type: number
+      example: 1
+      description: The number of units currently represented by the position in the Account.
+    instrumentCUSIP:
+      description: 'CUSIP stands for `Committee on Uniform Securities Identification Procedures`.
+
+        A CUSIP number identifies most financial instruments, including: stocks of all registered U.S. and Canadian companies, commercial paper, and U.S. government and municipal bonds.
+
+        The CUSIP system facilitates the clearance and settlement process of securities.
+
+        CUSIP numbers consist of nine characters (including letters and numbers) that uniquely identify a company or issuer and the type of financial instrument.
+
+        A similar system is used to identify foreign securities (`CUSIP International Numbering System or CINS`).
+
+        CINS employs the same nine character identifier as CUSIP, but also contains a letter in the first position to signify the issuer''s country or geographic region.
+
+        '
+      type: string
+      minLength: 9
+      maxLength: 9
+      example: E09876AA7
+    OrderAuditResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/orderID'
+        orderNo:
+          $ref: '#/components/schemas/orderNo'
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        quantities:
+          type: object
+          properties:
+            requestedQuantity:
+              type: number
+              example: 1
+              description: The amount of shares requested in the order.
+            totalFilledQuantity:
+              type: number
+              example: 1
+              description: The amount of shares filled in the order.
+        ordStatus:
+          $ref: '#/components/schemas/localOrderStatus'
+        side:
+          $ref: '#/components/schemas/side'
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        ordType:
+          $ref: '#/components/schemas/orderTypes'
+        amountCash:
+          $ref: '#/components/schemas/amountCash'
+        violationExempt:
+          type: boolean
+          example: true
+        preventQueuing:
+          $ref: '#/components/schemas/preventQueuing'
+        extendedHours:
+          $ref: '#/components/schemas/extendedHours'
+        orderExpires:
+          type: string
+          format: date
+          example: YYYY-MM-DDTHH:MM:SS.sssZ
+          description: The date of expiration for a good-til-canceled order, in ISO format. The order will be canceled if not executed by the market close on this date. If not set, a good-til-canceled Stop and MIT order will be assumed to expire 90 days after creation. If not set, a limit order will be considered GTD and will cancel at the end of the trading day.
+        openQuantity:
+          $ref: '#/components/schemas/openQuantity'
+        availableForTradingQuantity:
+          $ref: '#/components/schemas/availableForTradingQuantity'
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        pricing:
+          type: object
+          properties:
+            avgPxRaw:
+              example: 33.66
+            avgPx:
+              example: 33.66
+            stopPx:
+              example: 0
+            minTriggerPrice:
+              example: 0
+        commissionOverride:
+          $ref: '#/components/schemas/commissionOverride'
+        commissionAndFees:
+          type: object
+          properties:
+            total:
+              example: 2.99
+            tefra:
+              example: 0
+            ptp:
+              example: 0
+        auditLog:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/auditLog'
+        clientOrderTransactionTime:
+          $ref: '#/components/schemas/clientOrderTransactionTime'
+        clientOrderID:
+          $ref: '#/components/schemas/clientOrderID'
+    limitType:
+      type: string
+      enum:
+      - PRICE
+      - YIELD
+      description: Whether the limit price represents a unit price, or a yield. Only applicable to Orders for debt Instruments.
+      example: PRICE
+    SalesCredit:
+      type: object
+      description: If set, the unit price will be marked up or marked down based on the prescribed amount. Only applicable to Orders for Debt Instruments.
+      properties:
+        currency:
+          $ref: '#/components/schemas/currency'
+        amount:
+          type: integer
+          example: 14
+          description: The sales credit amount in cents.
+    metadata:
+      type: object
+      example:
+        myCustomKey: myCustomValue
+      description: The metadata object allows for creating a maximum of 5 keys (max 36 characters) and each value cannot exceed more than 128 bytes.
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    orderTypesRequest:
+      type: string
+      example: MARKET
+      description: The type of the Order.
+      enum:
+      - MARKET
+      - LIMIT
+      - STOP
+      - MARKET_IF_TOUCHED
+    commissionOverride:
+      oneOf:
+      - type: object
+        properties:
+          commissionOverrideType:
+            $ref: '#/components/schemas/commissionOverrideType'
+          commissionID:
+            $ref: '#/components/schemas/commissionID'
+          commissionOverrideDesc:
+            $ref: '#/components/schemas/commissionOverrideDesc'
+      - type: object
+        properties:
+          commissionOverrideType:
+            $ref: '#/components/schemas/commissionOverrideType'
+          commissionID:
+            $ref: '#/components/schemas/commissionID'
+          commissionOverrideDesc:
+            $ref: '#/components/schemas/commissionOverrideDesc'
+          commissionAmount:
+            example: 3.5
+          secOverride:
+            example: 0.01
+          tafOverride:
+            example: 0.01
+      - type: object
+        properties:
+          commissionOverrideType:
+            example: '#/components/schemas/commissionOverrideType'
+          commissionID:
+            $ref: '#/components/schemas/commissionID'
+          commissionOverrideDesc:
+            example: '#/components/schemas/commissionOverrideDesc'
+          commissionRate:
+            example: 0.5
+          secOverride:
+            example: 0.01
+          tafOverride:
+            example: 0.01
+    ErrorCode:
+      type: string
+      description: The error code that is returned when an error occurs.
+      example: E032
+    CancelOrderResponse:
+      type: object
+      properties:
+        orderId:
+          type: string
+          example: EF.418a5506-256c-4c3c-9d4d-f491522cf7f2
+          description: A unique identifier for the order.
+        orderNo:
+          type: string
+          example: EFXM000103
+          description: A human readable order identifier.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

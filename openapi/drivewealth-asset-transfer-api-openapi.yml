@@ -1,0 +1,1531 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Asset Transfer API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Asset Transfer
+  x-displayName: Asset Transfer
+paths:
+  /asset-transfers/acats:
+    post:
+      tags:
+      - Asset Transfer
+      summary: Create ACATS Transfer
+      responses:
+        '200':
+          description: Initiating a transfer was successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ACATSTransferCreatedResponseModel'
+              examples:
+                ACATS Transfer (Full):
+                  value:
+                    id: acats_41eb5bdd-8ce2-4471-8fc6-9892da089cd1
+                    source: BROKER0001
+                    sourceAccountID: d6a776bc-be5c-47df-94eb-baf914f1847c.1738660911962
+                    destination: DWXR001004
+                    destinationAccountID: c815c129-27cd-46f2-b316-ab6bde9aff62.1737384219426
+                    clearingNo: '0001'
+                    status:
+                      name: PENDING
+                      description: Asset transfer request is pending
+                    type:
+                      name: ACAT
+                      description: ACAT transfer
+                    acatType:
+                      name: FULL
+                      description: Full Acats Transfer
+                    sourceAccountType:
+                      name: INDIVIDUAL
+                      description: Individual Account
+                    positions: []
+                    metadata: {}
+                    auditDetails:
+                    - timestamp: '2023-07-28T23:56:10.507Z'
+                      status:
+                        name: STARTED
+                        description: Asset transfer request has been initiated.
+                      comment: Transfer request has been submitted in queue
+                    - timestamp: '2023-07-28T23:56:10.645Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      comment: <string>
+                    created: '2023-07-28T23:56:10.491Z'
+                    updated: '2023-07-28T23:56:10.667Z'
+                ACATS Transfer (Partial):
+                  value:
+                    id: acats_45dc50ac-3daa-484d-98cb-5264abb51d86
+                    source: FOLIO123
+                    sourceAccountID: d6a776bc-be5c-47df-94eb-baf914f1847c.1738660911962
+                    destination: DWKN000094
+                    destinationAccountID: c815c129-27cd-46f2-b316-ab6bde9aff62.1737384219426
+                    clearingNo: '0001'
+                    status:
+                      name: STARTED
+                      description: Asset transfer request has been initiated.
+                    acatType:
+                      name: PARTIAL
+                      description: Partial Acats Transfer
+                    sourceAccountType:
+                      name: INDIVIDUAL
+                      description: Individual Account
+                    cash: 10
+                    positions:
+                    - symbol: META
+                      instrumentID: 4312a85c-93ba-4adb-b50d-cc7973243a53
+                      quantity: 1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+              examples:
+                Invalid accountNo on request body:
+                  value:
+                    errorCode: A012
+                    message: A required accountNo is missing or invalid. Refer to the API documentation for details.
+                    errorDetails:
+                      field: destination
+                      type: STRING
+                Source and Destination are same:
+                  value:
+                    errorCode: E032
+                    message: 'Invalid or missing parameters in the request body. Refer to the API documentation for details. Details: Source can''t be DW account'
+                Destination account is not approved:
+                  value:
+                    errorCode: T005
+                    message: ACAT Transfer cannot initiate. Destination account is not approved.
+                Invalid Symbol:
+                  value:
+                    errorCode: E032
+                    message: 'Invalid or missing parameters in the request body. Refer to the API documentation for details. Details: Symbol is not active or invalid.'
+                    errorDetails:
+                      field: positions.symbol
+                      type: ARRAY
+                Invalid clearing broker:
+                  value:
+                    errorCode: E032
+                    message: Invalid or missing parameters in the request body. Refer to the API documentation for details.
+                    errorDetails:
+                      detail: 'Refer supported DTCC Broker list on API documentation. '
+                      field: brokerCode
+                      type: STRING
+                Cash Should be Greater Than 0 400 Bad:
+                  value:
+                    errorCode: E032
+                    message: Invalid or missing parameters in the request body. Refer to the API documentation for details.
+                    errorDetails:
+                      detail: cash should greater than 0
+                      field: cash
+                      type: DECIMAL
+                Invalid Symbol in Partial Acats Transfer 400 Bad:
+                  value:
+                    errorCode: I019
+                    message: Invalid symbol(s) in the request body.
+                    errorDetails:
+                      detail: Invalid value for AMZ
+                      field: positions.symbol
+                      type: STRING
+                Positions Required on Partial Acat Transfer 400 Bad:
+                  value:
+                    errorCode: E032
+                    message: Invalid or missing parameters in the request body. Refer to the API documentation for details.
+                    errorDetails:
+                      field: positions
+                      type: OBJECT
+                Acat Type is Missing 400 Bad:
+                  value:
+                    errorCode: E032
+                    message: Invalid or missing parameters in the request body. Refer to the API documentation for details.
+                    errorDetails:
+                      detail: PARTIAL, FULL
+                      field: type
+                      type: ENUM
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AcatsCreateRequestModel'
+      description: The Automated Customer Account Transfer Service (ACATS) is a system that facilitates the transfer of securities from one trading account to another at a different brokerage firm or bank.
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /asset-transfers/minor-graduation:
+    post:
+      tags:
+      - Asset Transfer
+      summary: Create Minor Graduation Transfer
+      responses:
+        '200':
+          description: Initiating a transfer was successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericTransferResponseModel'
+              examples:
+                Minor Graduation Created:
+                  value:
+                    id: grad_28d08c72-3d0f-4c6e-8961-2dc6491c28a8
+                    source: LKGE000001
+                    destination: LKKZ000004
+                    status:
+                      name: STARTED
+                      description: Asset transfer request has been initiated.
+                    type:
+                      name: TEEN
+                      description: Teen Account Transfer
+                    created: '2023-07-26T14:05:18.518Z'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+              examples:
+                Validate Source accountNo 400 Bad:
+                  value:
+                    errorCode: E033
+                    message: Invalid parameter in message body. Refer to the API documentation for details.
+                    errorDetails:
+                      field: source
+                      type: STRING
+                Validate Destination accountNo 400 Bad:
+                  value:
+                    errorCode: E033
+                    message: Invalid parameter in message body. Refer to the API documentation for details.
+                    errorDetails:
+                      field: destination
+                      type: STRING
+                Source and Destination account can't be same in transfer 400 Bad:
+                  value:
+                    errorCode: E032
+                    message: 'Invalid or missing parameters in the request body. Refer to the API documentation for details. Details: Source and Destination accounts can''t be same.'
+                Destination account should be OPEN 400 Bad:
+                  value:
+                    errorCode: U072
+                    message: 'User is not allowed to access this resource. Forbidden: LKAF000023 should be OPEN in order to initiate the transfer.'
+                Source account should be OPEN 400 Bad:
+                  value:
+                    errorCode: T004
+                    message: 'Assets Transfer cannot initiate. Details: LKKZ000021 has PENDING account status, user can''t initiate the transfer. Please contact support.'
+                Source account has no cash and positions both 400 Bad:
+                  value:
+                    errorCode: T004
+                    message: 'Assets Transfer cannot initiate. Details: LKMA000035 has no cash or positions, user can''t initiate the transfer. Please contact support.'
+                Missing Authorized User on Teen Account 400 Bad:
+                  value:
+                    errorCode: A022
+                    message: Authorized user on account is missing. Refer to the API documentation for the details.
+                Duplicate Minor Asset Transfer Request 400 Bad:
+                  value:
+                    errorCode: E020
+                    message: 'Value is already exists. Details: Assets transfer request is already exist for LKNS000023'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MinorCreateRequestModel'
+            examples:
+              Minor Graduation:
+                value:
+                  source: LKGE000001
+                  destination: LKKZ000004
+                  comment: Migrating Teen account to Individual account.
+                  metadata: {}
+      description: If an Account is opened for the purpose of allowing a minor to invest, this API will allow for the transfer of assets from this account to the minor's own named account once they reach the age of majority.
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /asset-transfers/{assetTransferID}:
+    parameters:
+    - schema:
+        type: string
+      name: assetTransferID
+      in: path
+      required: true
+    get:
+      tags:
+      - Asset Transfer
+      summary: Retrieve Transfer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/AcatsTransferGetResponseModel'
+                - $ref: '#/components/schemas/GenericTransferResponseModel'
+              examples:
+                ACATS Transfer (Full):
+                  value:
+                    id: acats_385621f4-ef89-4a4e-8cc1-ef1295549ca4
+                    source: FA-IJKE001
+                    destination: DWWFP000907
+                    destinationAccountID: deb66500-168a-4432-9b1c-05a58e1d563f.1742485154193
+                    clearingNo: '0123'
+                    status:
+                      name: PENDING
+                      description: Asset transfer request is pending
+                    type:
+                      name: ACAT
+                      description: ACAT transfer
+                    acatType:
+                      name: FULL
+                      description: Full Acats Transfer
+                    acatTransit:
+                      name: ACAT_IN
+                      description: Incoming ACAT Transfer
+                    sourceAccountType:
+                      name: INDIVIDUAL
+                      description: Individual Account
+                    partner:
+                      id: ac5de50f-2297-e2e7-7b31-2c54872ae231
+                      name: Test
+                    incomingCash: 10000
+                    positions: []
+                    incomingPositions:
+                    - symbol: AMD
+                      cusip: 007903107
+                      instrumentID: 0bfd8059-8456-4b1b-1491-b394992409df
+                      quantity: 8
+                    - symbol: SBSI
+                      cusip: 84470P109
+                      instrumentID: 1c6c1625-a84b-4dd3-8146-c6a97cd74bcf
+                      quantity: 7
+                    - symbol: TSLA
+                      cusip: 88160R101
+                      instrumentID: 5b85fabb-a7f6-44e6-d57c-a3efc760226c
+                      quantity: 9
+                    outgoingPositions: []
+                    settlementInfo:
+                      controlNo: '20250320013533'
+                      status724: '310'
+                      status: ACAT_SETTLED
+                      positions:
+                        accepted:
+                        - 007903107
+                        - 84470P109
+                        - 88160R101
+                      cash: 10000
+                    auditDetails:
+                    - timestamp: '2025-03-20T15:39:19.319Z'
+                      status:
+                        name: STARTED
+                        description: Asset transfer request has been initiated.
+                      comment: Transfer request has been submitted in queue
+                    - timestamp: '2025-03-20T15:43:09.252Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      comment: TIF has been created
+                      updatedBy: ACAT_TRANSFER_SYSTEM
+                    - timestamp: '2025-03-20T15:44:26.852Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      comment: Transfer is under review
+                      updatedBy: ACAT_STATUS_UPDATE_SYSTEM
+                    - timestamp: '2025-03-20T15:45:03.041Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      status724: '230'
+                      comment: ACAT auto-review completed. Ready for sending to DTCC.
+                      updatedBy: ACAT_REVIEW_SYSTEM
+                    - timestamp: '2023-10-20T18:00:04.185Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      status724: '500'
+                      comment: Partial transfer in progress
+                      updatedBy: ACAT_STATUS_UPDATE_SYSTEM
+                    - timestamp: '2023-10-21T00:01:19.340Z'
+                      status:
+                        name: SUCCESSFUL
+                        description: Asset transfer request has been successfully completed
+                      status724: '310'
+                      comment: Transfer Settled
+                      updatedBy: ACAT_STATUS_UPDATE_SYSTEM
+                    created: '2025-03-20T15:39:19.226Z'
+                    updated: '2025-03-20T15:44:27.029Z'
+                ACATS Transfer (Partial):
+                  value:
+                    id: acats_0a18eea2-c63d-447a-a0f1-1c7d9a08c9da
+                    source: TR6666
+                    destination: FWCT000005
+                    destinationAccountID: c815c129-27cd-46f2-b316-ab6bde9aff62.1737384219426
+                    clearingNo: 0158
+                    status:
+                      name: SUCCESSFUL
+                      description: Asset transfer request has been successfully completed
+                    type:
+                      name: ACAT
+                      description: ACAT transfer
+                    acatType:
+                      name: PARTIAL
+                      description: Partial Acats Transfer
+                    acatTransit:
+                      name: ACAT_IN
+                      description: Incoming Acats Transfer
+                    sourceAccountType:
+                      name: INDIVIDUAL
+                      description: Individual Account
+                    partner:
+                      id: 25f77a3e-2a4b-48bf-bea2-1b8bcd541621
+                      name: Stark House
+                    incomingCash: 0
+                    incomingPositions:
+                    - symbol: AMD
+                      cusip: 007903107
+                      instrumentID: 0bfd8059-8456-4b1b-1491-b394992409df
+                      quantity: 3
+                    - symbol: SBSI
+                      cusip: 84470P109
+                      instrumentID: 1c6c1625-8146-4dd3-a84b-c6a97cd74bcf
+                      quantity: 56
+                    outgoingPositions: []
+                    settlementInfo:
+                      controlNo: '20250320013533'
+                      status724: '310'
+                      status: ACAT_SETTLED
+                      positions:
+                        accepted:
+                        - 007903107
+                    positions:
+                    - symbol: AMD
+                      instrumentID: 0bfd8059-8456-4b1b-1491-b394992409df
+                      quantity: 3
+                    - symbol: SBSI
+                      instrumentID: 1c6c1625-8146-4dd3-a84b-c6a97cd74bcf
+                      quantity: 56
+                    metadata: {}
+                    auditDetails:
+                    - timestamp: '2023-10-20T13:02:50.970Z'
+                      status:
+                        name: STARTED
+                        description: Asset transfer request has been initiated.
+                      comment: Transfer request has been submitted in queue
+                    - timestamp: '2023-10-20T15:00:04.185Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      comment: TIF has been created
+                      updatedBy: ACAT_TRANSFER_SYSTEM
+                    - timestamp: '2023-10-20T17:00:04.185Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      status724: '230'
+                      comment: ACAT auto-review completed. Ready for sending to DTCC.
+                      updatedBy: ACAT_REVIEW_SYSTEM
+                    - timestamp: '2023-10-20T18:00:04.185Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      status724: '500'
+                      comment: Partial transfer in progress
+                      updatedBy: ACAT_STATUS_UPDATE_SYSTEM
+                    - timestamp: '2023-10-21T00:01:19.340Z'
+                      status:
+                        name: SUCCESSFUL
+                        description: Asset transfer request has been successfully completed
+                      status724: '310'
+                      comment: Transfer Settled
+                      updatedBy: ACAT_STATUS_UPDATE_SYSTEM
+                    created: '2023-10-20T13:02:50.960Z'
+                    updated: '2023-10-21T00:01:19.340Z'
+                ACATS Transfer accepted:
+                  value:
+                    id: acats_385621f4-ef89-4a4e-8cc1-ef1295549ca4
+                    source: TR6666
+                    destination: DWWFP000907
+                    destinationAccountID: deb66500-168a-4432-9b1c-05a58e1d563f.1742485154193
+                    clearingNo: '0123'
+                    status:
+                      name: PENDING
+                      description: Asset transfer request is pending
+                    type:
+                      name: ACAT
+                      description: ACAT transfer
+                    acatType:
+                      name: FULL
+                      description: Full Acats Transfer
+                    acatTransit:
+                      name: ACAT_IN
+                      description: Incoming ACAT Transfer
+                    sourceAccountType:
+                      name: INDIVIDUAL
+                      description: Individual Account
+                    partner:
+                      id: ac5de50f-2297-e2e7-7b31-2c54872ae231
+                      name: Test
+                    incomingCash: 0
+                    positions: []
+                    incomingPositions:
+                    - symbol: AMD
+                      cusip: 007903107
+                      instrumentID: 0bfd8059-8456-4b1b-1491-b394992409df
+                      quantity: 3
+                    outgoingPositions: []
+                    settlementInfo:
+                      controlNo: '20250320013533'
+                      status724: '230'
+                      status: ACAT_REVIEW_ACCEPTED
+                      positions:
+                        accepted:
+                        - 007903107
+                    auditDetails:
+                    - timestamp: '2025-03-20T15:39:19.319Z'
+                      status:
+                        name: STARTED
+                        description: Asset transfer request has been initiated.
+                      comment: Transfer request has been submitted in queue
+                    - timestamp: '2025-03-20T15:43:09.252Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      comment: TIF has been created
+                      updatedBy: ACAT_TRANSFER_SYSTEM
+                    - timestamp: '2025-03-20T15:44:26.852Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      comment: Transfer is under review
+                      updatedBy: ACAT_STATUS_UPDATE_SYSTEM
+                    - timestamp: '2025-03-20T15:45:03.041Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      status724: '230'
+                      comment: ACAT auto-review completed. Ready for sending to DTCC.
+                      updatedBy: ACAT_REVIEW_SYSTEM
+                    created: '2025-03-20T15:39:19.226Z'
+                    updated: '2025-03-20T15:44:27.029Z'
+                ACATS Transfer rejected, symbol unsupported:
+                  value:
+                    id: acats_afa75685-370b-4b28-a3d1-3e791797f4e6
+                    source: FAKE001
+                    destination: DWWHA000914
+                    destinationAccountID: deb66500-168a-4432-9b1c-05a58e1d563f.1742496584428
+                    clearingNo: '0123'
+                    status:
+                      name: PENDING
+                      description: Asset transfer request is pending
+                    type:
+                      name: ACAT
+                      description: ACAT transfer
+                    acatType:
+                      name: PARTIAL
+                      description: Partial Acats Transfer
+                    acatTransit:
+                      name: ACAT_IN
+                      description: Incoming ACAT Transfer
+                    sourceAccountType:
+                      name: INDIVIDUAL
+                      description: Individual Account
+                    partner:
+                      id: ac5de50f-2297-e2e7-7b31-2c54872ae231
+                      name: Test
+                    incomingCash: 100
+                    positions:
+                    - symbol: AMD
+                      instrumentID: 0bfd8059-8456-4b1b-1491-b394992409df
+                      quantity: 15
+                    incomingPositions:
+                    - symbol: AMD
+                      cusip: 007903107
+                      instrumentID: 0bfd8059-8456-4b1b-1491-b394992409df
+                      quantity: 3
+                    outgoingPositions: []
+                    settlementInfo:
+                      controlNo: '20250320013538'
+                      status724: '220'
+                      status: ACAT_REVIEW_ERROR
+                      cash: 100
+                    rejectionInfo:
+                      rejected:
+                        007903107: AMD is not supported. EQUITY is not supported.
+                      rejectionCode: SYMBOL_NOT_SUPPORTED
+                      rejectionReason: Instrument not supported
+                      positions:
+                        007903107: AMD is not supported. EQUITY is not supported.
+                    auditDetails:
+                    - timestamp: '2025-03-20T18:54:32.953Z'
+                      status:
+                        name: STARTED
+                        description: Asset transfer request has been initiated.
+                      comment: Transfer request has been submitted in queue
+                    - timestamp: '2025-03-20T18:54:41.967Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      comment: TIF has been created
+                    - timestamp: '2025-03-20T18:56:19.001Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      comment: Transfer is under review
+                    - timestamp: '2025-03-20T18:56:27.547Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      status724: '220'
+                      comment: ACAT auto-review completed. Ready for sending to DTCC.
+                    created: '2025-03-20T18:54:32.914Z'
+                    updated: '2025-03-20T18:56:19.148Z'
+                ACATS Transfer rejected, debit balance:
+                  value:
+                    id: acats_8a83f127-642f-467f-9b3c-499995d20c23
+                    source: FAKE001
+                    destination: DWWNE000902
+                    destinationAccountID: deb66500-168a-4432-9b1c-05a58e1d563f.1742500153887
+                    clearingNo: '0123'
+                    status:
+                      name: PENDING
+                      description: Asset transfer request is pending
+                    type:
+                      name: ACAT
+                      description: ACAT transfer
+                    acatType:
+                      name: PARTIAL
+                      description: Partial Acats Transfer
+                    acatTransit:
+                      name: ACAT_IN
+                      description: Incoming ACAT Transfer
+                    sourceAccountType:
+                      name: INDIVIDUAL
+                      description: Individual Account
+                    partner:
+                      id: ac5de50f-2297-e2e7-7b31-2c54872ae231
+                      name: Test
+                    cash: 500
+                    incomingCash: -700
+                    positions:
+                    - symbol: AMD
+                      instrumentID: 0bfd8059-8456-4b1b-1491-b394992409df
+                      quantity: 15
+                    incomingPositions:
+                    - symbol: AMD
+                      cusip: 007903107
+                      instrumentID: 0bfd8059-8456-4b1b-1491-b394992409df
+                      quantity: 15
+                    outgoingPositions: []
+                    settlementInfo:
+                      controlNo: '20250320013541'
+                      status724: '220'
+                      status: ACAT_REVIEW_ERROR
+                      positions:
+                        accepted:
+                        - 007903107
+                    rejectionInfo:
+                      rejectionCode: MISSING_FUND
+                      rejectionReason: Partial transfer cannot have debit balance.
+                      cash: 700
+                    auditDetails:
+                    - timestamp: '2025-03-20T19:49:18.653Z'
+                      status:
+                        name: STARTED
+                        description: Asset transfer request has been initiated.
+                      comment: Transfer request has been submitted in queue
+                    - timestamp: '2025-03-20T19:50:08.062Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      status724: '200'
+                      comment: Transfer is under review
+                      updatedBy: ACAT_STATUS_UPDATE_SYSTEM
+                    - timestamp: '2025-03-20T19:50:32.102Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      status724: '220'
+                      comment: ACAT auto-review completed. Ready for sending to DTCC.
+                      updatedBy: ACAT_REVIEW_SYSTEM
+                    created: '2025-03-20T19:49:18.627Z'
+                    updated: '2025-03-20T19:50:08.308Z'
+                ACATS Transfer with excluded securities:
+                  value:
+                    id: acats_91bd66d1-85bd-49c7-ae1a-aefb9e77a79e
+                    source: FF-12-001
+                    destination: DWWNE000901
+                    destinationAccountID: deb66500-168a-4432-9b1c-05a58e1d563f.1742499753944
+                    clearingNo: '0123'
+                    status:
+                      name: PENDING
+                      description: Asset transfer request is pending
+                    type:
+                      name: ACAT
+                      description: ACAT transfer
+                    acatType:
+                      name: PARTIAL
+                      description: Partial Acats Transfer
+                    acatTransit:
+                      name: ACAT_IN
+                      description: Incoming ACAT Transfer
+                    sourceAccountType:
+                      name: INDIVIDUAL
+                      description: Individual Account
+                    partner:
+                      id: ac5de50f-2297-e2e7-7b31-2c54872ae231
+                      name: Test
+                    incomingCash: 100
+                    positions:
+                    - symbol: AMD
+                      instrumentID: 0bfd8059-8456-4b1b-1491-b394992409df
+                      quantity: 15
+                    incomingPositions:
+                    - symbol: AMD
+                      cusip: 007903107
+                      instrumentID: 0bfd8059-8456-4b1b-1491-b394992409df
+                      quantity: 15
+                    - symbol: ''
+                      cusip: L7066G104
+                      quantity: 21
+                    - symbol: ''
+                      cusip: L8066G104
+                      quantity: 21
+                    - symbol: ''
+                      cusip: L9066G104
+                      quantity: 21
+                    outgoingPositions: []
+                    settlementInfo:
+                      controlNo: '20250320013540'
+                      status724: '230'
+                      status: ACAT_REVIEW_ACCEPTED
+                      positions:
+                        accepted:
+                        - 007903107
+                        excluded:
+                          L7066G104: Offshore MF found and excluded.
+                          L8066G104: Offshore MF found and excluded.
+                          L9066G104: Offshore MF found and excluded.
+                      cash: 100
+                    auditDetails:
+                    - timestamp: '2025-03-20T19:42:38.877Z'
+                      status:
+                        name: STARTED
+                        description: Asset transfer request has been initiated.
+                      comment: Transfer request has been submitted in queue
+                    - timestamp: '2025-03-20T19:43:32.377Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      status724: '200'
+                      comment: Transfer is under review
+                      updatedBy: ACAT_STATUS_UPDATE_SYSTEM
+                    - timestamp: '2025-03-20T19:43:56.113Z'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      status724: '230'
+                      comment: ACAT auto-review completed. Ready for sending to DTCC.
+                      updatedBy: ACAT_REVIEW_SYSTEM
+                    created: '2025-03-20T19:42:38.799Z'
+                    updated: '2025-03-20T19:43:32.611Z'
+                Minor Graduation:
+                  value:
+                    id: grad_28d08c72-3d0f-4c6e-8961-2dc6491c28a8
+                    source: LKGE000001
+                    destination: LKKZ000004
+                    status:
+                      name: STARTED
+                      description: Asset transfer request has been initiated.
+                    acatType:
+                      name: FULL
+                      description: Full ACATs Transfer
+                    type:
+                      name: TEEN
+                      description: Teen Account Transfer
+                    partner:
+                      id: 25f77a3e-2a4b-48bf-bea2-1b8bcd541621
+                      name: Stark House
+                    auditDetails:
+                    - timestamp: '2023-07-26T14:05:18.518Z'
+                      status:
+                        name: STARTED
+                        description: Asset transfer request has been initiated.
+                      comment: Transfer request has been submitted in queue
+                    created: '2023-07-26T14:05:18.518Z'
+      description: Get a Transfer's current details.
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /asset-transfers:
+    get:
+      summary: List Transfers
+      tags:
+      - Asset Transfer
+      description: Lists all of your Transfers across all Accounts. This can be filtered by type of Transfer.
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/AssetTransferStatus'
+        in: query
+        name: status
+        description: A status to filter by
+      - schema:
+          $ref: '#/components/schemas/AssetTransferType'
+        in: query
+        name: type
+        description: A Transfer type to filter by
+        required: true
+      - in: query
+        name: limit
+        description: Maximum number of records to be returned
+        schema:
+          type: string
+      - in: query
+        name: offset
+        description: Specify an identifier from last API response to go to the next page or prev page
+        schema:
+          type: string
+      - in: query
+        name: direction
+        description: Go to the next page or prev page
+        schema:
+          type: string
+          enum:
+          - prev
+          - next
+      responses:
+        '200':
+          description: Listing Transfers was successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/AcatsTransferListResponseModel'
+                      - $ref: '#/components/schemas/GenericTransferResponseModel'
+                  nextPageOffset:
+                    type: string
+                    description: The next page offset.
+                  prevPageOffset:
+                    type: string
+                    description: The previous page offset.
+              examples:
+                List Assets Transfers [TEEN]:
+                  value:
+                    data:
+                    - id: grad_ba9522d8-0f3a-43bd-bb16-9efc0ad1a913
+                      source: DWCW001118
+                      destination: DWYE001127
+                      status:
+                        name: SUCCESSFUL
+                        description: Asset transfer request has been successfully completed
+                      type:
+                        name: TEEN
+                        description: Teen Account Transfer
+                      partner:
+                        id: 25f77a3e-2a4b-48bf-bea2-1b8bcd541621
+                        name: Stark House
+                      auditDetails:
+                      - timestamp: '2023-10-25T16:00:42.126Z'
+                        status:
+                          name: STARTED
+                          description: Asset transfer request has been initiated.
+                        comment: Transfer request has been submitted in queue
+                      - timestamp: '2023-10-25T16:00:42.257Z'
+                        status:
+                          name: PENDING
+                          description: Asset transfer request is pending
+                        comment: Transfer process started
+                      - timestamp: '2023-10-27T21:00:07.959Z'
+                        status:
+                          name: ON_HOLD
+                          description: Asset transfer request is on hold.
+                        comment: Transfer is on hold for DWCW001118. Settlement is not finished yet.
+                      - timestamp: '2023-10-28T14:00:02.453Z'
+                        status:
+                          name: SUCCESSFUL
+                          description: Asset transfer request has been successfully completed
+                        comment: Transfer Completed
+                      created: '2023-10-25T16:00:42.126Z'
+                      updated: '2023-10-28T14:00:02.453Z'
+                    - id: grad_47edac5a-57f0-456a-83ca-128205fcdf3d
+                      source: DWXG000976
+                      destination: DWHZ001105
+                      status:
+                        name: ON_HOLD
+                        description: Asset transfer request is on hold.
+                      type:
+                        name: TEEN
+                        description: Teen Account Transfer
+                      partner:
+                        id: 25f77a3e-2a4b-48bf-bea2-1b8bcd541621
+                        name: Stark House
+                      auditDetails:
+                      - timestamp: '2023-10-29T04:00:56.167Z'
+                        status:
+                          name: STARTED
+                          description: Asset transfer request has been initiated.
+                        comment: Transfer request has been submitted in queue
+                      - timestamp: '2023-10-29T04:00:56.309Z'
+                        status:
+                          name: PENDING
+                          description: Asset transfer request is pending
+                        comment: Transfer process started
+                      - timestamp: '2023-11-01T21:00:02.207Z'
+                        status:
+                          name: ON_HOLD
+                          description: Asset transfer request is on hold.
+                        comment: Transfer is on hold for DWXG000976. Settlement is not finished yet.
+                      created: '2023-10-29T04:00:56.167Z'
+                      updated: '2023-11-01T21:00:02.207Z'
+                    nextPageOffset: 25f77a3e-2a4b-48bf-bea2-1b8bcd541621#grad_47edac5a-57f0-456a-83ca-128205fcdf3d#2023-07-28T23:55:34.142Z
+                    prevPageOffset: ''
+                List Assets Transfers [ACAT]:
+                  value:
+                    data:
+                    - id: acats_d83e92cb-ca72-4d0d-9576-ede66ffcee2b
+                      source: TR6666
+                      sourceAccountID: d6a776bc-be5c-47df-94eb-baf914f1847c.1738660911962
+                      destination: FWCT000005
+                      destinationAccountID: c815c129-27cd-46f2-b316-ab6bde9aff62.1737384219426
+                      clearingNo: '1111'
+                      status:
+                        name: PENDING
+                        description: Asset transfer request is pending
+                      type:
+                        name: ACAT
+                        description: ACAT transfer
+                      acatType:
+                        name: PARTIAL
+                        description: Partial Acats Transfer
+                      acatTransit:
+                        name: ACAT_IN
+                        description: Incomming Acats Transfer
+                      sourceAccountType:
+                        name: INDIVIDUAL
+                        description: Individual Account
+                      partner:
+                        id: 25f77a3e-2a4b-48bf-bea2-1b8bcd541621
+                        name: Stark House
+                      cash: 12345.67
+                      positions:
+                      - symbol: SBSI
+                        instrumentID: 1c6c1625-8146-4dd3-a84b-c6a97cd74bcf
+                        quantity: 213
+                      metadata: {}
+                      auditDetails:
+                      - timestamp: '2023-10-20T13:18:42.383Z'
+                        status:
+                          name: STARTED
+                          description: Asset transfer request has been initiated.
+                        comment: Transfer request has been submitted in queue
+                      - timestamp: '2023-10-20T15:00:04.207Z'
+                        status:
+                          name: PENDING
+                          description: Asset transfer request is pending
+                        comment: TIF has been created
+                      created: '2023-10-20T13:18:42.347Z'
+                      updated: '2023-10-20T15:00:04.216Z'
+                    - id: acats_0a18eea2-c63d-447a-a0f1-1c7d9a08c9da
+                      source: TR6666
+                      sourceAccountID: d6a776bc-be5c-47df-94eb-baf914f1847c.1738660911962
+                      destination: FWCT000005
+                      destinationAccountID: c815c129-27cd-46f2-b316-ab6bde9aff62.1737384219426
+                      clearingNo: '1111'
+                      status:
+                        name: SUCCESSFUL
+                        description: Asset transfer request has been successfully completed
+                      type:
+                        name: ACAT
+                        description: ACAT transfer
+                      acatType:
+                        name: PARTIAL
+                        description: Partial Acats Transfer
+                      sourceAccountType:
+                        name: INDIVIDUAL
+                        description: Individual Account
+                      partner:
+                        id: 25f77a3e-2a4b-48bf-bea2-1b8bcd541621
+                        name: Stark House
+                      positions:
+                      - symbol: ACHN
+                        instrumentID: 27673f0e-2219-40b0-9ecc-91c87266efaf
+                        quantity: 1
+                      - symbol: SBSI
+                        instrumentID: 1c6c1625-8146-4dd3-a84b-c6a97cd74bcf
+                        quantity: 56
+                      metadata: {}
+                      auditDetails:
+                      - timestamp: '2023-10-20T13:02:50.970Z'
+                        status:
+                          name: STARTED
+                          description: Asset transfer request has been initiated.
+                        comment: Transfer request has been submitted in queue
+                      - timestamp: '2023-10-20T15:00:04.185Z'
+                        status:
+                          name: PENDING
+                          description: Asset transfer request is pending
+                        comment: TIF has been created
+                      - timestamp: '2023-11-02T00:01:19.340Z'
+                        status:
+                          name: SUCCESSFUL
+                          description: Asset transfer request has been successfully completed
+                        comment: Transfer Settled
+                      created: '2023-10-20T13:02:50.960Z'
+                      updated: '2023-11-02T00:01:19.340Z'
+                    - id: acats_d9faa000-9d97-4ab8-85f8-cbd856d31b79
+                      source: TR6666
+                      sourceAccountID: d6a776bc-be5c-47df-94eb-baf914f1847c.1738660911962
+                      destination: FWRT000005
+                      destinationAccountID: c815c129-27cd-46f2-b316-ab6bde9aff62.1737384219426
+                      clearingNo: '1111'
+                      status:
+                        name: FAILED
+                        description: Asset transfer is failed.
+                      type:
+                        name: ACAT
+                        description: ACAT transfer
+                      acatType:
+                        name: FULL
+                        description: Full Acats Transfer
+                      sourceAccountType:
+                        name: INDIVIDUAL
+                        description: Individual Account
+                      partner:
+                        id: 25f77a3e-2a4b-48bf-bea2-1b8bcd541621
+                        name: Stark House
+                      positions: []
+                      metadata:
+                        customer_id: '12345'
+                      rejectionInfo:
+                        rejectionCode: ACCOUNT_NOT_MATCH
+                        rejectionReason: Account Title Mismatch
+                      auditDetails:
+                      - timestamp: '2023-08-28T11:30:26.367Z'
+                        status:
+                          name: STARTED
+                          description: Asset transfer request has been initiated.
+                        comment: Transfer request has been submitted in queue
+                      - timestamp: '2023-09-12T15:55:03.294Z'
+                        status:
+                          name: PENDING
+                          description: Asset transfer request is pending
+                        comment: Request has been submitted for ACAT transfer
+                      - timestamp: '2023-11-02T00:01:34.330Z'
+                        status:
+                          name: FAILED
+                          description: Asset transfer is failed.
+                        comment: Full Transfer Rejected. Contact Clearing Broker for further information
+                      created: '2023-08-28T11:30:25.805Z'
+                      updated: '2023-11-02T00:01:34.330Z'
+                    nextPageOffset: 25f77a3e-2a4b-48bf-bea2-1b8bcd541621#acats_d9faa000-9d97-4ab8-85f8-cbd856d31b79#2023-08-28T11:30:25.805Z
+                    prevPageOffset: ''
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    AcatsAuditDetails:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/AssetTransferStatus'
+        status724:
+          $ref: '#/components/schemas/Status724'
+        comment:
+          $ref: '#/components/schemas/note'
+        updatedBy:
+          type: string
+          description: The user who updated the status.
+        updated:
+          type: string
+          description: The date when the status was last updated.
+    RejectionInfo:
+      type: object
+      properties:
+        rejectionCode:
+          $ref: '#/components/schemas/AcatRejectionCode'
+        rejectionReason:
+          type: string
+        positions:
+          type: object
+          description: The positions which are rejected by broker after review.
+          additionalProperties:
+            type: string
+            example: Instrument not found.
+        cash:
+          type: number
+          description: The debit amount of cash which is rejected by broker after review.
+          example: -700
+    destinationAccountID:
+      type: string
+      example: c815c129-27cd-46f2-b316-ab6bde9aff62.1737384219426
+      description: It's a unique destination account id, that is human readable.
+    AcatsTransitType:
+      type: string
+      description: The transit type of ACAT transfer to be performed.
+      enum:
+      - ACAT_IN
+      - ACAT_OUT
+    note:
+      type: string
+      example: Hey! Welcome to DriveWealth Developer Docs!
+      description: A way to store a message/comment on the this object.
+    AcatsCreateRequestModelWithoutEnums:
+      type: object
+      properties:
+        clearingNo:
+          type: string
+          example: '0001'
+          description: The DTCC clearing number of the broker.
+          minLength: 1
+          maxLength: 4
+        cash:
+          type: number
+          description: The amount of cash to be moved from the source account.
+          default: 0
+        positions:
+          type: array
+          minItems: 0
+          description: The positions to be moved from the source account to the destination account.
+          items:
+            $ref: '#/components/schemas/AcatPositionModel'
+    AssetTransferType:
+      type: string
+      enum:
+      - ACAT
+      - TEEN
+      - CASH
+      - PROMOTIONAL
+      - REWARD
+      - STOCK
+    SettlementInfo:
+      title: AcatSettlementInfo
+      type: object
+      description: Settlement Info will appear when transfer gets sent to clearing custody. It consists of the controlno assigned from clearing custody and the status.
+      properties:
+        controlNo:
+          type: string
+          description: The control number assigned by the clearing custody.
+          example: '20250320013533'
+        status:
+          type: string
+          enum:
+          - ACAT_RECEIVED
+          - ACAT_READY
+          - ACAT_READY_AFTER_CUTOFF
+          - ACAT_SENT
+          - ACAT_ACK
+          - ACAT_ADJUST
+          - ACAT_IN_PROGRESS
+          - ACAT_UNDER_REVIEW
+          - ACAT_REVIEW_ACK
+          - ACAT_REVIEW_SENT
+          - ACAT_REVIEW_ADJUST
+          - ACAT_PTR_IN_PROGRESS
+          - ACAT_REVIEW_ACCEPTED
+          - ACAT_SETTLEMENT_IN_PROGRESS
+          - ACAT_REVIEW_ERROR
+          - ACAT_SETTLED
+          - ACAT_REJECTED
+          - ACAT_PURGE
+          - ACAT_PTR_REJECTED
+          - UNRECOGNISED
+          description: Enum for the status assigned by clearing custody
+          example: ACAT_REVIEW_ACCEPTED
+        status724:
+          $ref: '#/components/schemas/Status724'
+        positions:
+          type: object
+          description: The positions and cash which accepted by broker after review.
+          properties:
+            cash:
+              type: number
+              description: The amount of cash to be moved to account.
+              default: 0
+            accepted:
+              type: array
+              description: The positions which are accepted and to be moved from the account. Array is consist of cusip values.
+            excluded:
+              type: array
+              description: The positions which are excluded in transfer. Array is consist of cusip values. We will exclude the assets which are not supported by ACAT transfer.
+    ErrorCodeMessage:
+      type: string
+      description: The error message that is returned when an error occurs.
+    assetTransferID:
+      type: string
+      example: c85b231a-2bc9-11ee-be56-0242ac120002
+      description: The unique identifier of the asset transfer.
+    ACATSTransferCreatedResponseModel:
+      type: object
+      properties:
+        sourceAccountID:
+          $ref: '#/components/schemas/sourceAccountID'
+        destinationAccountID:
+          $ref: '#/components/schemas/destinationAccountID'
+        sourceAccountType:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/AcatsTransferEnumValues_SourceAccountType'
+            description:
+              type: string
+        acatType:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/AcatsType'
+            description:
+              type: string
+        acatTransit:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/AcatsTransitType'
+            description:
+              type: string
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        auditDetails:
+          type: array
+          description: Audit of Transfer status changes
+          anyOf:
+          - $ref: '#/components/schemas/AcatsAuditDetails'
+    parentIBIDObject:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 80f9b672-120d-4b73-9cc9-42fb3262c4b9
+          description: The unique identifier of an associated organization.
+        name:
+          type: string
+          example: Tendies Trading Company
+          description: The organization name.
+    AcatPositionModel:
+      title: AcatPosition
+      type: object
+      description: Position Model. Symbol or InstrumentID is required.
+      properties:
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        quantity:
+          type: number
+          description: The quantity of shares to be transferred. Assets that are moving to or from an account outside of DriveWealth, can only be whole shares.
+          minimum: 1
+      required:
+      - quantity
+    GenericTransferRequest:
+      type: object
+      properties:
+        source:
+          $ref: '#/components/schemas/accountNo'
+        destination:
+          type: string
+          description: The DriveWealth destination account number where all assets will be transferred to.
+          example: LKKZ000004
+        comment:
+          $ref: '#/components/schemas/note'
+        metadata:
+          $ref: '#/components/schemas/metadata'
+    ErrorDetails:
+      type: object
+      properties:
+        field:
+          type: string
+          description: JSON field name from the request body that caused an error
+        type:
+          type: string
+          enum:
+          - STRING
+          - ARRAY
+          - INT
+          - DECIMAL
+          - BOOL
+          - TEXT
+          - UUID
+          - DATE
+          - MAP
+          - OBJECT
+          description: Expected data type of the field
+        allowedValues:
+          type: string
+          description: Example values which are allowed in the field
+    AcatRejectionCode:
+      type: string
+      description: The ACAT rejection reason.
+      enum:
+      - UNKNOWN
+      - SSN_NOT_MATCH
+      - ACCOUNT_NOT_MATCH
+      - DOC_REQUIRED
+      - ACCOUNT_FLAT
+      - BROKER_NOT_MATCH
+      - DUPLICATE_REQUEST
+      - ACCOUNT_IN_TRANSIT
+      - BROKER_REJECTED
+      - MISSING_AUTH_SIGN
+      - MISSING_FUND
+      - SYMBOL_NOT_SUPPORTED
+    GenericTransferStatus:
+      type: object
+      description: The status of the Transfer
+      properties:
+        name:
+          $ref: '#/components/schemas/AssetTransferStatus'
+        description:
+          type: string
+    AcatsTransferListResponseModel:
+      type: object
+      properties:
+        sourceAccountID:
+          $ref: '#/components/schemas/sourceAccountID'
+        destinationAccountID:
+          $ref: '#/components/schemas/destinationAccountID'
+        sourceAccountType:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/AcatsTransferEnumValues_SourceAccountType'
+            description:
+              type: string
+        acatType:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/AcatsType'
+            description:
+              type: string
+        acatTransit:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/AcatsTransitType'
+            description:
+              type: string
+        settlementInfo:
+          $ref: '#/components/schemas/SettlementInfo'
+        rejectionInfo:
+          $ref: '#/components/schemas/RejectionInfo'
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        auditDetails:
+          type: array
+          description: Audit of Transfer status changes
+          anyOf:
+          - $ref: '#/components/schemas/AcatsAuditDetails'
+    AssetTransferStatus:
+      type: string
+      enum:
+      - STARTED
+      - PENDING
+      - FAILED
+      - SUCCESSFUL
+      - ON_HOLD
+    AcatsTransferGetResponseModel:
+      type: object
+      properties:
+        sourceAccountID:
+          $ref: '#/components/schemas/sourceAccountID'
+        destinationAccountID:
+          $ref: '#/components/schemas/destinationAccountID'
+        sourceAccountType:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/AcatsTransferEnumValues_SourceAccountType'
+            description:
+              type: string
+        acatType:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/AcatsType'
+            description:
+              type: string
+        acatTransit:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/AcatsTransitType'
+            description:
+              type: string
+        settlementInfo:
+          $ref: '#/components/schemas/SettlementInfo'
+        rejectionInfo:
+          type: object
+          properties:
+            rejectionCode:
+              $ref: '#/components/schemas/AcatRejectionCode'
+            rejectionReason:
+              type: string
+            positions:
+              type: object
+              description: The positions which are rejected by broker after review.
+              additionalProperties:
+                type: string
+                example: Instrument not found.
+            cash:
+              type: number
+              description: The debit amount of cash which is rejected by broker after review.
+              example: -700
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        auditDetails:
+          type: array
+          description: Audit of Transfer status changes
+          anyOf:
+          - $ref: '#/components/schemas/AcatsAuditDetails'
+    AcatsType:
+      type: string
+      description: The type of ACAT transfer to be performed.
+      enum:
+      - FULL
+      - PARTIAL
+    GenericTransferResponseModel:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/assetTransferID'
+        status:
+          $ref: '#/components/schemas/GenericTransferStatus'
+        type:
+          type: object
+          description: The type of the Transfer
+          properties:
+            name:
+              $ref: '#/components/schemas/AssetTransferType'
+            description:
+              type: string
+        partner:
+          $ref: '#/components/schemas/parentIBIDObject'
+        created:
+          type: string
+          format: date-time
+          example: '2022-12-22T06:07:41Z'
+        updated:
+          type: string
+          format: date-time
+          example: '2022-12-22T06:07:41Z'
+        auditDetails:
+          type: array
+          description: Audit of Transfer status changes
+          items:
+            type: object
+            minProperties: 1
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+                description: Status update timestamp
+                example: '2022-12-22T06:07:41Z'
+              status:
+                $ref: '#/components/schemas/GenericTransferStatus'
+              comment:
+                type: string
+                description: Status comment added by the system
+    sourceAccountID:
+      type: string
+      example: d6a776bc-be5c-47df-94eb-baf914f1847c.1738660911962
+      description: It's a unique source account id, that is human readable.
+    ErrorResponseModel:
+      type: object
+      description: The error response model that is returned when an error occurs.
+      required:
+      - errorCode
+      - message
+      properties:
+        errorCode:
+          $ref: '#/components/schemas/ErrorCode'
+        message:
+          $ref: '#/components/schemas/ErrorCodeMessage'
+        errorDetails:
+          $ref: '#/components/schemas/ErrorDetails'
+    instrumentSymbol:
+      type: string
+      nullable: true
+      example: MS
+      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
+    AcatsTransferEnumValues_SourceAccountType:
+      type: string
+      description: The type of account the sources account is.
+      enum:
+      - INDIVIDUAL
+      - CORPORATE
+      - JOINT
+      - CUSTODIAL
+      - IRA
+      - RIA_MANAGED
+    accountNo:
+      type: string
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
+    metadata:
+      type: object
+      example:
+        myCustomKey: myCustomValue
+      description: The metadata object allows for creating a maximum of 5 keys (max 36 characters) and each value cannot exceed more than 128 bytes.
+    AcatsCreateRequestModel:
+      type: object
+      title: AcatsRequestModel
+      description: ACAT Request model
+      allOf:
+      - $ref: '#/components/schemas/GenericTransferRequest'
+      - $ref: '#/components/schemas/AcatsCreateRequestModelWithoutEnums'
+      properties:
+        sourceAccountType:
+          $ref: '#/components/schemas/AcatsTransferEnumValues_SourceAccountType'
+        acatType:
+          $ref: '#/components/schemas/AcatsType'
+      required:
+      - source
+      - destination
+      - clearingNo
+      - type
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    MinorCreateRequestModel:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/GenericTransferRequest'
+      properties: {}
+    ErrorCode:
+      type: string
+      description: The error code that is returned when an error occurs.
+      example: E032
+    Status724:
+      type: string
+      description: The status of the transfer in the clearing custody.
+      example: '230'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

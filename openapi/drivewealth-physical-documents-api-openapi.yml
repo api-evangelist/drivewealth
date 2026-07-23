@@ -1,0 +1,217 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Physical Documents API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Physical Documents
+  x-displayName: Physical Documents
+paths:
+  /documents:
+    post:
+      tags:
+      - Physical Documents
+      summary: Upload Physical Document
+      description: Uploads a Physical Document.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadUserPhysicalDocumentReq'
+      responses:
+        '200':
+          description: Uploading a Physical Document was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadUserPhysicalDocument'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /documents/{documentID}/url:
+    get:
+      tags:
+      - Physical Documents
+      summary: Retrieve Physical Document URL
+      description: Retrieves a Physical Document by documentID.
+      parameters:
+      - in: path
+        name: documentID
+        schema:
+          $ref: '#/components/schemas/physicalDocumentID'
+        required: true
+        description: The unique identifier of the document.
+      responses:
+        '201':
+          description: Retrieving a Physical Document URL by documentID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserPhysicalDocumentByID'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /users/{userID}/documents:
+    get:
+      tags:
+      - Physical Documents
+      summary: List User Physical Documents
+      description: Retrieves a list of Users Physical Documents by userID.
+      parameters:
+      - in: path
+        name: userID
+        schema:
+          type: string
+        required: true
+        example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+        description: The User's unique identifier.
+      responses:
+        '200':
+          description: Retrieving a list of Users Physical Documents by userID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentsArray'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    UploadUserPhysicalDocumentReq:
+      type: object
+      required:
+      - userID
+      - type
+      - document
+      properties:
+        userID:
+          $ref: '#/components/schemas/userID'
+        type:
+          $ref: '#/components/schemas/physicalDocumentTypes'
+        document:
+          $ref: '#/components/schemas/physicalDocumentBase64'
+        side:
+          $ref: '#/components/schemas/physicalDocumentSides'
+    UploadUserPhysicalDocument:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/physicalDocumentID'
+        type:
+          $ref: '#/components/schemas/physicalDocumentTypes'
+        status:
+          $ref: '#/components/schemas/physicalDocumentStatusObject'
+        side:
+          $ref: '#/components/schemas/physicalDocumentSides'
+    GetUserPhysicalDocumentByID:
+      type: object
+      properties:
+        url:
+          $ref: '#/components/schemas/fileURL'
+    physicalDocumentStatusObject:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/physicalDocumentStatus'
+        description:
+          type: string
+          example: Document has not been submitted for approval.
+          description: A custom description that describes the document current status.
+    fileURL:
+      type: string
+      example: https://dzb6emi8pracf.cloudfront.net/5a013513-8af1-4078-be75-36a5250953f7.1488219178676/Stmt_DRVW_001_DWJM000019_Apr2017.pdf?Policy=eyJTdGF0ZW1lbnQiOiBbeyJSZXNvdXJjZSI6Imh0dHBzOi8vZHpiNmVtaThwcmFjZi5jbG91ZGZyb250Lm5ldC81YTAxMzUxMy04YWYxLTQwNzgtYmU3NS0zNmE1MjUwOTUzZjcuMTQ4ODIxOTE3ODY3Ni9TdG10X0RSVldfMDAxX0RXSk0wMDAwMTlfQXByMjAxNy5wZGYiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE0OTk3MTc1NDV9LCJJcEFkZHJlc3MiOnsiQVdTOlNvdXJjZUlwIjoiMC4wLjAuMC8wIn19fV19&Signature=UWZRPku4IWoqkp4fyQ179auFVrImZUYDXswjjO-zPGW9-XKno3-TG9O2OHxWG-j7NfEHMXtZbCha~lQwpjt~g58YpL1NYk9xhlp7~HR-skC3J3W8GFVWxbR5TQUXPFOdU-KNwYlTnlE1Wr81nUyoNWrrF-8afyiHVnfm2w35GpZavAKhOiKNDHn7kTorQz3rbkYDks9u1CGPU7TCeZ-GzupVqsUN7xDOxPUnH0KCVGY86PT8bEpPkhpc3jNmtLnB~WB3YdrFg0bSbrbU4M-sVyp49AqK~xq5uDu3Bx22vdyJlKUClEsVvKhQLOArkpMdHYwyPZC~Kz85sroGqnP3oQ__&Key-Pair-Id=APKAJP3MFGZ6DRA4CW4Q
+      description: A short-lived URL that can be accessed to download the file.
+    physicalDocumentStatus:
+      type: string
+      example: NOT_SUBMITTED
+      description: The current status of the physical document.
+      enum:
+      - NOT_SUBMITTED
+      - PENDING
+      - APPROVED
+      - REJECTED
+    schemas-Documents:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/physicalDocumentID'
+        type:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/physicalDocumentTypes'
+            description:
+              type: string
+              example: Driver License
+              description: A custom description about the classification of the document.
+        status:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/physicalDocumentStatus'
+            description:
+              type: string
+              example: The document has not been submitted for approval.
+              description: A custom description to describe the status.
+    DocumentsArray:
+      type: array
+      description: An array of uploaded documents
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/schemas-Documents'
+    physicalDocumentSides:
+      type: string
+      example: FRONT
+      description: The actual side of the physical document.
+    physicalDocumentTypes:
+      type: string
+      example: DRIVER_LICENSE
+      description: The type of physical document.
+      enum:
+      - DRIVER_LICENSE
+      - PASSPORT
+      - NATIONAL_ID_CARD
+      - VOTER_ID
+      - WORK_PERMIT
+      - VISA
+      - RESIDENCE_PERMIT
+      - ACATS_IN
+      - ACATS_OUT
+      - TRANSFER_ON_DEATH
+      - BENEFICIARY_DOCUMENT
+    physicalDocumentBase64:
+      type: string
+      example: data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QCMR
+      description: The Base64 encoded string of the document.
+      maximum: 10
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    physicalDocumentID:
+      type: string
+      example: 532e1b7d-09fd-4a1b-956f-d4e91ad71b4f
+      description: The unique identifier of the document.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

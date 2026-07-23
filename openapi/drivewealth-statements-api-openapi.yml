@@ -1,0 +1,232 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Statements API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Statements
+  x-displayName: Statements
+paths:
+  /accounts/{accountID}/statements:
+    get:
+      tags:
+      - Statements
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      summary: List Account Statements
+      description: Retrives a list of Account Statements by accountID.
+      responses:
+        '200':
+          description: Retrieving a list of Account Statements by accountID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatementListRes'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /accounts/{accountID}/taxforms:
+    get:
+      tags:
+      - Statements
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      - $ref: '#/components/parameters/fromParams'
+      - $ref: '#/components/parameters/toParams'
+      summary: List Account Tax Statements
+      description: Retrieves a list of Account Tax Statements by accountID.
+      responses:
+        '200':
+          description: Retrieving a list of  Account Tax Statements by accountID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTaxDocsRes'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /accounts/{accountID}/confirms:
+    get:
+      tags:
+      - Statements
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      - in: query
+        name: from
+        schema:
+          type: string
+        required: false
+        example: '2018-09-18'
+        description: Filter, the date from which to start the search.
+      - in: query
+        name: to
+        schema:
+          type: string
+        required: false
+        example: '2019-09-18'
+        description: Filter, the date to which to end the search.
+      summary: List Account Trade Confirmations
+      description: Retrieves a list of Account Trade Confirmations by accountID.
+      responses:
+        '200':
+          description: Retrieving a list of Account Trade Confirmations by accountID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTradeConfirmsRes'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /statements/{accountID}/{fileKey}:
+    get:
+      tags:
+      - Statements
+      summary: Retrieve Statement
+      description: Retrieves an Account Statement (Monthly, Trade Confirms, Tax Forms, etc.) by accountID and fileKey.
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      - in: path
+        name: fileKey
+        schema:
+          $ref: '#/components/schemas/fileKey'
+        required: true
+      responses:
+        '200':
+          description: Retrieving an Account Statement was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGeneratedAccountDocument'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    ListTaxDocsRes:
+      type: array
+      description: An array that holds the reference details to an accounts tax documents.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/taxStatementObj'
+    ListTradeConfirmsRes:
+      type: array
+      description: An array that holds the reference details to an accounts trade confirmations.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/tradeConfirmObj'
+    fileURL:
+      type: string
+      example: https://dzb6emi8pracf.cloudfront.net/5a013513-8af1-4078-be75-36a5250953f7.1488219178676/Stmt_DRVW_001_DWJM000019_Apr2017.pdf?Policy=eyJTdGF0ZW1lbnQiOiBbeyJSZXNvdXJjZSI6Imh0dHBzOi8vZHpiNmVtaThwcmFjZi5jbG91ZGZyb250Lm5ldC81YTAxMzUxMy04YWYxLTQwNzgtYmU3NS0zNmE1MjUwOTUzZjcuMTQ4ODIxOTE3ODY3Ni9TdG10X0RSVldfMDAxX0RXSk0wMDAwMTlfQXByMjAxNy5wZGYiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE0OTk3MTc1NDV9LCJJcEFkZHJlc3MiOnsiQVdTOlNvdXJjZUlwIjoiMC4wLjAuMC8wIn19fV19&Signature=UWZRPku4IWoqkp4fyQ179auFVrImZUYDXswjjO-zPGW9-XKno3-TG9O2OHxWG-j7NfEHMXtZbCha~lQwpjt~g58YpL1NYk9xhlp7~HR-skC3J3W8GFVWxbR5TQUXPFOdU-KNwYlTnlE1Wr81nUyoNWrrF-8afyiHVnfm2w35GpZavAKhOiKNDHn7kTorQz3rbkYDks9u1CGPU7TCeZ-GzupVqsUN7xDOxPUnH0KCVGY86PT8bEpPkhpc3jNmtLnB~WB3YdrFg0bSbrbU4M-sVyp49AqK~xq5uDu3Bx22vdyJlKUClEsVvKhQLOArkpMdHYwyPZC~Kz85sroGqnP3oQ__&Key-Pair-Id=APKAJP3MFGZ6DRA4CW4Q
+      description: A short-lived URL that can be accessed to download the file.
+    statementObj:
+      type: object
+      properties:
+        displayName:
+          type: string
+          example: Apr 28, 2017 Statement
+          description: Description of account statement file.
+        fileKey:
+          type: string
+          example: '2017042802'
+          description: Key to be used to retrieve account statement PDF. Reference [Get Statement File](https://developer.drivewealth.com/reference/get-statement-file) for retrieving an account statement.
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    UserGeneratedAccountDocument:
+      type: object
+      properties:
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        url:
+          $ref: '#/components/schemas/fileURL'
+    tradeConfirmObj:
+      type: object
+      properties:
+        displayName:
+          type: string
+          example: Jun 02, 2017 Trade Confirm
+          description: Description of trade confirmation file.
+        fileKey:
+          type: string
+          example: '2017060201'
+          description: Key to be used to retrieve trade confirmation PDF. Reference [Get Statement File](https://developer.drivewealth.com/reference/get-statement-file) for retrieving an account statement.
+    taxStatementObj:
+      type: object
+      properties:
+        displayName:
+          type: string
+          example: 2015 Tax Year 1099-B
+          description: Description of account tax statement file.
+        fileKey:
+          type: string
+          example: '2015123103'
+          description: Key to be used to retrieve account tax statement PDF. Reference [Get Statement File](https://developer.drivewealth.com/reference/get-statement-file) for retrieving an account statement.
+    fileKey:
+      type: string
+      example: '2022122502'
+      description: A unique identifier for the specific account document.
+    StatementListRes:
+      type: array
+      description: An array that holds the reference details to an accounts statements.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/statementObj'
+  parameters:
+    toParams:
+      in: query
+      name: to
+      schema:
+        type: string
+      required: false
+      example: '2022-07-16'
+      description: The date to end the filter.
+    fromParams:
+      in: query
+      name: from
+      schema:
+        type: string
+      required: false
+      example: '2022-06-16'
+      description: The date to start the filter.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

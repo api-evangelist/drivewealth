@@ -1,0 +1,1947 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Accounts
+  x-displayName: Accounts
+paths:
+  /accounts:
+    post:
+      tags:
+      - Accounts
+      summary: Create Account
+      description: Creates a trading Account.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountReq'
+            examples:
+              Self Directed Account:
+                value:
+                  userID: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+                  accountType: LIVE
+                  accountManagementType: SELF
+                  tradingType: CASH
+              Managed Account:
+                value:
+                  userID: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+                  accountType: LIVE
+                  accountManagementType: MANAGED
+                  tradingType: CASH
+              Robo Advisory Account:
+                value:
+                  userID: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+                  accountType: LIVE
+                  accountManagementType: RIA_MANAGED
+                  tradingType: CASH
+                  riaProductID: product_b94c0b6a-5ac8-43e4-95d1-777051c0503b
+                  riaUserID: 80f9b672-120d-4b73-9ccv9-42fb3262c4b9
+        required: true
+      responses:
+        '200':
+          description: Creating an Account was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountRes'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /accounts/{accountID}:
+    get:
+      tags:
+      - Accounts
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      summary: Retrieve Account
+      description: Retrieves an Account details by accountID.
+      responses:
+        '200':
+          description: Retrieving Account details was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDetailRes'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+    patch:
+      tags:
+      - Accounts
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      summary: Update Account
+      description: Updates an Account details by accountID.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAcctReq'
+            examples:
+              Add Authorized User:
+                value:
+                  authorizedUsers:
+                  - userID: f6fd0783-2fdb-4ddb-9fd5-2464d8abc267
+                    permissions:
+                    - MINOR_GRADUATION_TRANSFER
+              Enable Equity Dividend Reinvestment:
+                value:
+                  accountFeatures:
+                    equities:
+                      dividendReinvestment: true
+                      capitalGainsReinvestment: true
+              Update Account Status:
+                value:
+                  status: FROZEN
+                  statusChangeReason: PARTNER_RESTRICTED
+                  statusComment: Account is restricted by partner due to suspicious activity.
+        required: true
+      responses:
+        '200':
+          description: Updating an Account details by accountID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDetailRes'
+              examples:
+                Account Summary:
+                  value:
+                    account:
+                      id: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+                      accountNo: DWBG000052
+                      accountType:
+                        name: LIVE
+                        description: Live Account
+                      accountMgmtType:
+                        name: SELF
+                        description: Self Directed Account
+                      status:
+                        name: OPEN
+                        description: Open
+                      tradingType:
+                        name: CASH
+                        description: Cash Account
+                      leverage: 1
+                      nickname: Steve's Robo Advisor Managed Account
+                      parentIB:
+                        id: 80f9b672-120d-4b73-9cc9-42fb3262c4b9
+                        name: Tendies Trading Company
+                      taxProfile:
+                        taxStatusCode: W-9
+                        taxRecipientCode: INDIVIDUAL
+                      commissionID: b3e985dd-9679-63dc-5dd5-9bd7982efecd
+                      beneficiaries: false
+                      userID: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+                      restricted: false
+                      goodFaithViolations: 0
+                      patternDayTrades: 0
+                      freeTradeBalance: 0
+                      gfvPdtExempt: false
+                      buyingPowerOverride: false
+                      bod:
+                        moneyMarket: 0
+                        equityValue: 0
+                        cashAvailableForWithdrawal: 0
+                        cashAvailableForTrading: 0
+                        cashBalance: 0
+                      ria:
+                        advisorID: 66304da9-3h6f-2234-935f-ac6b7933d706
+                        productID: product_b94c0b6a-5ac8-43e4-95d1-777051c0503b
+                      sweepInd: true
+                      interestFree: false
+                      createdWhen: '2022-12-22T06:07:41.773Z'
+                      openedWhen: '2022-12-22T06:07:41Z'
+                      updatedWhen: '2022-12-11T22:28:21.810Z'
+                      ignoreMarketHoursForTest: false
+                      flaggedForACATS: false
+                      extendedHoursEnrolled: false
+                      accountFeatures:
+                        fixedIncome:
+                          enrolled: true
+                      lastActivityDate: '2024-07-23'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /accounts/{accountID}/summary/money:
+    get:
+      tags:
+      - Accounts
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      summary: Retrieve Account Cash
+      description: Retrieves an Account Cash details by accountID.
+      responses:
+        '200':
+          description: Retrieving Money details was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoneyDetailsRes'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /accounts/{accountID}/summary:
+    get:
+      tags:
+      - Accounts
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      summary: Retrieve Account Summary
+      description: 'Retrieves an Account Summary details by accountID.
+
+
+        The full Account Summary API is now deprecated. Instead, use the individual APIs for retrieving the Account''s Positions, Transactions, or Orders separately.'
+      deprecated: true
+      responses:
+        '200':
+          description: Retrieving Account Summary details by accountID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SummaryRes'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /accounts/{accountID}/performance:
+    get:
+      deprecated: true
+      tags:
+      - Accounts
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      - in: query
+        name: period
+        schema:
+          type: string
+          enum:
+          - 1d
+          - '*d'
+          - 1w
+          - '*w'
+          - 1m
+          - '*m'
+          - 1y
+          - '*y'
+        required: false
+        example: 3d
+        description: 'Used for relative date range, accepts a number and a unit of time (E.g: 3d = 3 Days or 2w = 2 Weeks).'
+      - in: query
+        name: from
+        schema:
+          type: string
+        required: false
+        example: '2018-09-18'
+        description: Start date and time of requested time frame of the accounts performance.
+      - in: query
+        name: to
+        schema:
+          type: string
+        required: false
+        example: '2019-09-18'
+        description: End date and time of requested time frame of the accounts performance.
+      summary: Retrieve Account Performance
+      description: Retrieves realtime Account Performance details by accountID.
+      responses:
+        '200':
+          description: Retrieving realtime Account Performance details by accountID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerformanceRes'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /accounts/{accountID}/summary/margin:
+    get:
+      tags:
+      - Accounts
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      summary: Retrieve Account Margin
+      description: Retrieves Account Margin details by accountID.
+      responses:
+        '200':
+          description: Retrieving an Account Margin details by accountID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarginRes'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /accounts/{accountID}/position-details:
+    get:
+      tags:
+      - Accounts
+      summary: Retrieve Account Lots
+      description: Retrieves an Account Lots details by accountID.
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      responses:
+        '200':
+          description: Retrieving Account Lots details by accountID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountPositionLots'
+              examples:
+                Account Lots:
+                  value:
+                    accountID: 0d1d686c-abe3-4203-82e5-62f1bd8266f3.1654094651810
+                    accountNo: XYRR000001
+                    positions:
+                    - instrumentID: 5b85fabb-d57c-44e6-a7f6-a3efc760226c
+                      symbol: TSLA
+                      currency: USD
+                      costBasis: 4
+                      quantity: 0.01648699
+                      currentMarketPrice: 253.76
+                      currentMarketValue: 4.18
+                      unrealizedPnL: 0.18
+                      effectiveCostPerShare: 242.6155411
+                      side: B
+                      taxLots:
+                      - id: 3db27e74626adac3be7b549f2bbc0ab2480852a7
+                        created: '2022-08-25T10:07:47.235Z'
+                        initialQuantity: 0.01240767
+                        openQuantity: 0.01240767
+                        effectiveCostPerShare: 241.79
+                        side: B
+                        comment: SPLIT CAFB015132 TSLA...
+                      - id: 3db27e74626adac3be7b549f2bbc0ab2480852a7
+                        created: '2023-09-25T15:28:12.120Z'
+                        initialQuantity: 0.00407932
+                        openQuantity: 0.00407932
+                        effectiveCostPerShare: 245.14
+                        side: B
+                        comment: TSLA FRACK part TSLA KI...
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /users/{userID}/accounts:
+    get:
+      tags:
+      - Accounts
+      summary: List User Accounts
+      description: Retrieves a list of User Accounts by userID.
+      parameters:
+      - in: path
+        name: userID
+        schema:
+          type: string
+        required: true
+        example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+        description: Unique ID of the User to fetch their accounts at DriveWealth.
+      responses:
+        '200':
+          description: Retrieving a list of User Accounts by userID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDetails'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    productID:
+      type: string
+      example: product_b94c0b6a-5ac8-43e4-95d1-777051c0503b
+      description: The unique identifier associated with an RIA managed product.
+    PerformanceRes:
+      type: object
+      properties:
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        startDate:
+          type: string
+          example: '2017-09-18'
+          description: Start date and time of requested time frame of the accounts performance.
+        endDate:
+          type: string
+          example: '2018-09-18'
+          description: End date and time of requested time frame of the accounts performance.
+        lastUpdated:
+          type: string
+          example: '2017-06-16T15:35:30.617Z'
+          description: Date and time of last performance update.
+        performance:
+          type: array
+          description: Array of performance objects.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/performanceObj'
+    note:
+      type: string
+      example: Hey! Welcome to DriveWealth Developer Docs!
+      description: A way to store a message/comment on the this object.
+    AccountRes:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/accountID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        accountType:
+          type: object
+          properties:
+            name:
+              type: string
+              example: LIVE
+              description: The type of account.
+            description:
+              type: string
+              example: Live Account
+              description: A description of the type of account.
+        accountMgmtType:
+          $ref: '#/components/schemas/accountManagementTypeObject'
+        accountHolderType:
+          $ref: '#/components/schemas/accountHolderTypeObject'
+        status:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/accountStatus'
+            description:
+              type: string
+              example: Open
+              description: A description of the account status.
+        tradingType:
+          type: object
+          properties:
+            name:
+              type: string
+              example: CASH
+              description: The type of trading ocurring in the account.
+              enum:
+              - CASH
+              - MARGIN
+              - CRYPTO
+            description:
+              type: string
+              example: Cash Account
+              description: A custom description about the type of account.
+        leverage:
+          $ref: '#/components/schemas/leverage'
+        nickname:
+          $ref: '#/components/schemas/accountNickname'
+        parentIB:
+          $ref: '#/components/schemas/parentIBIDObject'
+        taxProfile:
+          $ref: '#/components/schemas/taxProfileObject'
+        commissionID:
+          $ref: '#/components/schemas/commissionID'
+        beneficiaries:
+          $ref: '#/components/schemas/beneficiariesOption'
+        userID:
+          $ref: '#/components/schemas/userID'
+          description: The userID associated with the account. This will be the userID of your customer.
+        restricted:
+          $ref: '#/components/schemas/restricted'
+        goodFaithViolations:
+          $ref: '#/components/schemas/goodFaithViolations'
+        patternDayTrades:
+          $ref: '#/components/schemas/patternDayTrades'
+        freeTradeBalance:
+          $ref: '#/components/schemas/freeTradeBalance'
+        gfvPdtExempt:
+          $ref: '#/components/schemas/gfvPdtExempt'
+        buyingPowerOverride:
+          $ref: '#/components/schemas/buyingPowerOverride'
+        bod:
+          $ref: '#/components/schemas/bod'
+        ria:
+          $ref: '#/components/schemas/riaObject'
+        sweepInd:
+          $ref: '#/components/schemas/sweepInd'
+        interestFree:
+          $ref: '#/components/schemas/interestFree'
+        openedWhen:
+          $ref: '#/components/schemas/openedWhen'
+        ignoreMarketHoursForTest:
+          $ref: '#/components/schemas/ignoreMarketHoursForTest'
+        flaggedForACATS:
+          $ref: '#/components/schemas/flaggedForACATS'
+        accountFeatures:
+          $ref: '#/components/schemas/accountFeatures'
+        interestedParties:
+          type: array
+          items:
+            $ref: '#/components/schemas/interestedParty'
+    SummaryRes:
+      type: object
+      properties:
+        accountSummary:
+          type: object
+          properties:
+            accountID:
+              $ref: '#/components/schemas/accountID'
+            accountNo:
+              $ref: '#/components/schemas/accountNo'
+            tradingType:
+              $ref: '#/components/schemas/tradingType'
+            lastUpdated:
+              type: string
+              example: '2017-06-16T15:35:30.617Z'
+              description: Time of last update.
+            cash:
+              $ref: '#/components/schemas/MoneyDetailsRes/properties/cash'
+        margin:
+          $ref: '#/components/schemas/marginObj'
+        equity:
+          type: object
+          properties:
+            equityValue:
+              $ref: '#/components/schemas/equityValue'
+            equityPositions:
+              type: array
+              items:
+                oneOf:
+                - $ref: '#/components/schemas/equityPositionsObj'
+        orders:
+          type: array
+          description: An array of pending orders.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/ordersObj'
+        transactions:
+          type: array
+          description: An array of account transactions
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/transactionSumObj'
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    ordersObj:
+      type: object
+      properties:
+        orderID:
+          $ref: '#/components/schemas/orderID'
+        orderNo:
+          $ref: '#/components/schemas/orderNo'
+        createdWhen:
+          $ref: '#/components/schemas/created'
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        cumQty:
+          $ref: '#/components/schemas/orderCumulativeQuantity'
+        orderStatus:
+          $ref: '#/components/schemas/orderStatus'
+        orderType:
+          $ref: '#/components/schemas/orderTypes'
+        orderQty:
+          $ref: '#/components/schemas/orderQuantity'
+        isoTimeRestingOrderExpires:
+          type: string
+          example: null
+          description: The time when the limit order expires.
+        limitPrice:
+          $ref: '#/components/schemas/limitPrice'
+        side:
+          $ref: '#/components/schemas/sideAbbreviated'
+        orderCashAmt:
+          type: number
+          example: null
+          description: The amount of cash requested for an order (fractional shares only).
+        stopPrice:
+          $ref: '#/components/schemas/stopPrice'
+    limitPrice:
+      type: number
+      example: null
+      description: The price set for the limit order.
+    PositionLegs:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/taxLotID'
+        created:
+          type: string
+          example: '2017-06-16T15:35:30.617Z'
+          description: The timestamp when the position was created.
+        initialQuantity:
+          type: number
+          example: 0.17583963
+          description: The initial quantity of shares for position leg.
+        openQuantity:
+          type: number
+          example: 10.1
+          description: The total amount of shares that are currently held in this position leg.
+        effectiveCostPerShare:
+          type: number
+          example: 113.74
+          description: The effective cost per share of the position leg.
+        side:
+          $ref: '#/components/schemas/sideAbbreviated'
+        comment:
+          $ref: '#/components/schemas/note'
+    taxLotID:
+      type: string
+      example: 3db27e74626adac3be7b549f2bbc0ab2480852a7
+      description: A unique tax lot identifier.
+    riaID:
+      type: string
+      example: 66304da9-3h6f-2234-935f-ac6b7933d706
+      description: This is the parentIBID or userID of the registered investment advisor creating the re-balance run.
+    buyingPowerOverride:
+      type: boolean
+      example: false
+      description: True if the account is required to have sufficient buying power to enter a trade.
+    accountHolderType:
+      type: string
+      example: I
+      description: A classification for the type of the account holder. US broker-dealers must utilize this field for CAIS compliance. If unset, a default value of `I` will be assumed for CAIS reporting. Please refer to CAIS documentation and instructions for more information on the allowed values.
+      enum:
+      - E
+      - I
+      - A
+      - F
+      - O
+      - V
+      - P
+      - X
+    taxProfileObject:
+      type: object
+      properties:
+        taxStatusCode:
+          type: string
+          example: W-9
+          description: The tax code of the accounts associated user.
+        taxRecipientCode:
+          type: string
+          example: INDIVIDUAL
+          description: The type of tax filing of the accounts associated user.
+    gfvRestricted:
+      type: boolean
+      example: false
+      description: True, when the account cannot trade on unsettled funds.
+    patternDayTrader:
+      type: boolean
+      example: false
+      description: True, when the account is designated as a Pattern Day Trader.
+    accountType:
+      type: string
+      example: LIVE
+      description: The type of account that has been created.
+      enum:
+      - LIVE
+    goodFaithViolations:
+      type: number
+      example: 0
+      description: The total number of good faith violations.
+    AccountFeatureEquities:
+      type: object
+      description: Account features related to equities
+      properties:
+        dividendReinvestment:
+          type: boolean
+          example: true
+          description: True, if equity dividends are reinvested.
+        dividendReinvestmentOptInWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The timestamp when the account has opted for equity dividend reinvestment.
+          readOnly: true
+        dividendReinvestmentOptOutWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The timestamp when the account has opted out of equity dividend reinvestment.
+          readOnly: true
+        capitalGainsReinvestment:
+          type: boolean
+          example: true
+          description: True, if equity capital gains are reinvested.
+        capitalGainsReinvestmentOptInWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The timestamp when the account has opted for equity capital gains reinvestment.
+          readOnly: true
+        capitalGainsReinvestmentOptOutWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The timestamp when the account has opted out of equity capital gains reinvestment
+          readOnly: true
+    stopPrice:
+      type: number
+      example: 200
+      description: The stop price of a limit order.
+    accountStatus:
+      type: string
+      example: OPEN
+      description: The current status of the user's account.
+      enum:
+      - PENDING
+      - OPEN
+      - OPEN_NO_NEW_TRADES
+      - FROZEN
+      - CLOSED
+    openedWhen:
+      type: string
+      example: '2022-12-22T06:07:41Z'
+      description: A timestamp of when the account was opened.
+    permissions:
+      type: string
+      example: MINOR_GRADUATION_TRANSFER
+      enum:
+      - ORDERS_CREATE
+      - MINOR_GRADUATION_TRANSFER
+    marginObj:
+      type: object
+      properties:
+        marginRequirement:
+          type: number
+          example: 1
+          description: Leverage amounts. 0.5 = 2:1 Leverage. 1 = 1:1 Leverage
+          enum:
+          - 0.5
+          - 1
+        longMarketValue:
+          type: number
+          example: 0
+          description: A real-time dollar value of current holdings.
+        debitBalance:
+          type: number
+          example: 0
+          description: Real-time dollar value of debt; positive dollar amount is a debit balance, negative dollar amount is a credit balance.
+        equity:
+          type: number
+          example: 0
+          description: Real-time dollar value of equity; calculated as longMarketValue – debitBalance.
+        equityFraction:
+          type: number
+          example: 0
+          description: Equity as a fraction of long market value; calculated as equity ÷ longMarketValue.
+        equityRequired:
+          type: number
+          example: 1
+          description: Minimum equity required to stay above a HOUSE margin call. If the account is in a margin call (HOUSE or EXCHANGE) this field will not appear here, but instead appear in the marginCall object.
+        accruedInterest:
+          type: number
+          example: 0
+          description: NEEDS DESCRIPTION
+        bodDTBP:
+          type: number
+          example: 10000
+          description: The Day Trading Buying Power (DTBP) in dollars at the beginning of day.
+          nullable: true
+        patternDayTrader:
+          type: boolean
+          example: false
+          description: NEEDS DESCRIPTION
+        restricted:
+          type: boolean
+          example: false
+          description: Account becomes restricted (set to true) if equity is less than 50% of long market value (this is essentially a warning, at 35% the account will be in HOUSE margin call).
+        daySMA:
+          type: number
+          example: 0
+          description: Current SMA using traditional calculations – Start with beginning of day SMA and update with deposits and withdrawals as well as stock buys and sells during the day. Deposits increase and withdrawals decrease SMA dollar for dollar. Buys increase and sells decrease SMA by 50% of trade dollar value.
+        rtExcessEquity:
+          type: number
+          example: 0
+          description: Equity in excess of equityRequired calculated in real time (more is good).
+        effectiveSMA:
+          type: number
+          example: 0
+          description: The lower of margin.daySMA and margin.rtExcessEquity. This is risk protection for the user as well as DriveWealth. Using only margin.daySMA for lending on margin has the disadvantage that the SMA can become inflated if the market drops from start of day. If user's were to use their entire daySMA to buy stock on a day when the market drops, they are immediately placed into a HOUSE CALL. The margin.rtExcessEquity prevents that from happening by lending them only a (reduced) amount that would place them above a HOUSE margin call. That is the risk protection provided to both parties.
+        noBuyingPowerReason:
+          type: string
+          example: null
+          description: 'Reason indicating why the user has no buying power: `MIN_MARGIN_EQUITY_NOT_MET` - margin.equity is less than $2,000 and margin.debitBalance is greater than $0 `EFFECTIVE_SMA_ZERO` - `SMA` is $0 `HOUSE_CALL` - margin.equityfFaction is less than 35% (required house equity) `EXCHANGE_CALL` - margin.equityfFaction is less than 25% (required exchange equity) * `RESTING_ORDERS_WILL_TRIGGER_HOUSE_MARGIN_CALL` - Market dropped after resting orders were placed, and will trigger house call if filled.'
+        marginCall:
+          type: object
+          description: Object of margin call calculations. Will only appear if noBuyingPowerReason is equal to `MIN_MARGIN_EQUITY_NOT_MET` or `HOUSE_CALL` or `EXCHANGE_CALL`
+          properties: {}
+        restingOrders:
+          type: number
+          example: 0
+          description: Total dollar value committed in resting orders that reduces the effectiveSMA
+    MoneyDetailsRes:
+      type: object
+      properties:
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        tradingType:
+          $ref: '#/components/schemas/tradingType'
+        updated:
+          type: string
+          example: '2021-04-23T18:41:32.440Z'
+          description: Timestamp of the last time the deposit was updated.
+        cash:
+          type: object
+          properties:
+            cashAvailableForTrade:
+              type: number
+              example: 0
+              description: An accounts buying power, this figure dictates the total amount of money that can be used for purchases. Will be reduced by pending orders.
+            cashAvailableForWithdrawal:
+              type: number
+              example: 0
+              description: An accounts withdrawal balance, this property only contains settled funds, and money that has already seasoned.
+            cashBalance:
+              type: number
+              example: -12043.23
+              description: An accounts total cash balance, including both settled and un-settled money.
+            noBuyingPowerReason:
+              type: array
+              description: Reasons for no buying power.
+              items: {}
+            cashSettlement:
+              type: array
+              description: An array of objects containing the time of when money settles as a result of a sale.
+              items:
+                oneOf:
+                - $ref: '#/components/schemas/cashSettlementTime'
+            cashPendingSettlement:
+              type: number
+              description: The amount of unsettled cash not included in cash available to trade.
+              example: 500
+            pendingPaymentsAmount:
+              type: number
+              example: 0
+              description: The total amount of money that is pending due to a recent deposit(s)
+        payments:
+          type: object
+          properties:
+            buyingPower:
+              type: object
+              properties:
+                pendingDepositsAmountAvailable:
+                  type: number
+                  example: 20802.71
+                  description: The current buying power of an account based on recent deposit requests.
+                pendingDepositsAmountNotAvailable:
+                  type: number
+                  example: 0
+                  description: Recent deposits that are not included in buying power.
+            redemptions:
+              type: object
+              properties:
+                amountWithheldFromRedemptions:
+                  type: number
+                  example: 60
+                  description: Total dollar amount not included in `cashAvailableForWithdrawal` due to seasoning period on deposit
+    orderStatus:
+      type: string
+      example: FILLED
+      description: The current status of the order.
+      enum:
+      - NEW
+      - FILLED
+      - PARTIAL_FILL
+      - PENDING_CANCEL
+      - CANCELED
+      - REJECTED
+    pdtRestricted:
+      type: boolean
+      example: false
+      description: True, when the account is PDT restricted, and can only sell.
+    portfolioID:
+      type: string
+      example: portfolio_87fec25f-c350-4a53-83a0-fc6be0c2989e
+      description: The unique identifier of a portfolio.
+    UpdateAcctReq:
+      type: object
+      properties:
+        leverage:
+          $ref: '#/components/schemas/leverage'
+        nickname:
+          $ref: '#/components/schemas/accountNickname'
+        status:
+          $ref: '#/components/schemas/accountStatus'
+          items:
+            anyOf:
+            - required:
+              - statusChangeReason
+        accountHolderType:
+          $ref: '#/components/schemas/accountHolderType'
+        statusComment:
+          type: string
+          example: Closing the Account.
+          description: A reason for updating the account status, not required when editing other attributes.
+        statusChangeReason:
+          $ref: '#/components/schemas/statusChangeReason'
+        restricted:
+          $ref: '#/components/schemas/restricted'
+        ignoreMarketHoursForTest:
+          $ref: '#/components/schemas/ignoreMarketHoursForTest'
+        accountFeatures:
+          $ref: '#/components/schemas/accountFeatures'
+        authorizedUsers:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/authorizedUser'
+        finra3210ComplianceEntity:
+          $ref: '#/components/schemas/finra3210ComplianceEntity'
+        lastActivityDate:
+          $ref: '#/components/schemas/lastActivityDate'
+        interestedParties:
+          type: array
+          items:
+            $ref: '#/components/schemas/interestedParty'
+    AccountFeatureFixedIncome:
+      type: object
+      description: Account features related to Fixed Income
+      properties:
+        enrolled:
+          description: Indicates if this account is enrolled for trading fixed income assets
+          type: boolean
+          default: false
+          example: true
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8b8ba3fd-74dc-45dc-b2dc-7de683bd713c.1556222995391
+          description: The user's unqiue account identifier.
+        accountNo:
+          type: string
+          example: DWBG000052
+          description: The user's unqiue account number, that is human readable.
+        nickname:
+          type: string
+          example: Justin's Self Directed Account
+        status:
+          type: object
+          properties:
+            name:
+              type: string
+              example: PENDING
+              description: The status of the user's account.
+            description:
+              type: string
+              example: Pending
+              description: A custom description about status of the user's account.
+        accountType:
+          type: string
+          example: LIVE
+          description: The type of account that has been created.
+        accountManagementType:
+          type: string
+          example: SELF
+          description: The type of account who has trading authority.
+          enum:
+          - SELF
+          - ADVISORY
+          - RIA_MANAGED
+          - CUSTODIAL
+          - CUSTODIAL_MANAGED
+          - RESERVED
+          - HSA_SELF
+          - HSA_ADVISORY
+          - HSA_RIA_MANAGED
+        tradingType:
+          type: object
+          properties:
+            name:
+              type: string
+              example: CASH
+              description: The type of trading ocurring in the account.
+              enum:
+              - CASH
+              - MARGIN
+              - CRYPTO
+            description:
+              type: string
+              example: Cash Account
+              description: A custom description about the type of account.
+        leverage:
+          type: number
+          example: 1
+          description: The leverage that is applied to the user's account.
+        commissionID:
+          type: string
+          example: 449d41b9-3940-41ff-b0e6-334adfb443f8
+          description: The unique identifier for the assiocated commission schedule.
+        userID:
+          type: string
+          example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+          description: The user's unique identifier.
+        restricted:
+          type: boolean
+          example: false
+          description: True, if the user is restricted from trading.
+        goodFaithViolations:
+          type: number
+          example: 0
+          description: The amount of times that a user buy a security and sell it before paying for the inital purchase in full with settled funds.
+        patternDayTrades:
+          type: number
+          example: 0
+          description: The amount of times that a user buy and sells the same security in the same day over a seven day period.
+        freeTradeBalance:
+          type: number
+          example: 0
+        gfvPdtExempt:
+          type: boolean
+          example: false
+        buyingPowerOverride:
+          type: boolean
+          example: false
+          description: True, if buying power check turned off.
+        bod:
+          type: object
+          description: Beginning of Day Information, *⚠️ Only updated at the beginning of day, this information will not change interaday.*
+          properties:
+            moneyMarket:
+              type: number
+              example: 3028.98
+              description: The amount of money the user's has in money market for this account.
+            equityValue:
+              type: number
+              example: 12071.5
+              description: The value of the sum of all equities in  the account.
+            cashAvailableForWithdrawal:
+              type: number
+              example: 3028.98
+              description: The amount of money available for withdrawal.
+            cashAvailableForTrading:
+              type: number
+              example: 3028.98
+              description: The amount of money available for trading.
+            updatedWhen:
+              type: string
+              example: '2022-12-12T21:13:12.391Z'
+              description: The date and time the dob job was run.
+        cashBalance:
+          type: number
+          example: 3028.98
+          description: The amount of settled cash in the account.
+        sweepInd:
+          type: boolean
+          example: true
+          description: True, if the user's account cash is set to move into a bank sweep or money market account.
+        interestFree:
+          type: boolean
+          example: false
+          description: True, if the user will not be paid interest on the money in a bank sweep or money market account.
+        createdWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The createdWhen is the date and time the user's account was created.
+        updatedWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The updatedWhen is the last date and time the user's account was updated.
+        lastActivityDate:
+          $ref: '#/components/schemas/lastActivityDate'
+        interestedParties:
+          type: array
+          items:
+            $ref: '#/components/schemas/interestedParty'
+    equityValue:
+      type: number
+      format: double
+      example: 34275565.44
+      description: The current total market value of the account's open equity positions.
+    riaObject:
+      type: object
+      properties:
+        advisorID:
+          $ref: '#/components/schemas/riaID'
+        productID:
+          $ref: '#/components/schemas/productID'
+    created:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    flaggedForACATS:
+      type: boolean
+      example: false
+      description: True if the account is flagged for an Automated Customer Account Transfer (ACATS).
+    cashSettlementTime:
+      type: object
+      properties:
+        utcTime:
+          type: string
+          example: '2021-04-26T13:30:00.001Z'
+          description: Timestamp of when the pending cash amount is released due to settlement.
+        cash:
+          type: number
+          example: 439.7
+          description: The total amount of money that is settling on the provided utcTime.
+    sideAbbreviated:
+      type: string
+      example: B
+      description: The side of the order.
+      enum:
+      - B
+      - S
+      - BUY_OPEN
+      - BUY_CLOSE
+      - SELL_OPEN
+      - SELL_CLOSE
+    parentIBIDObject:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 80f9b672-120d-4b73-9cc9-42fb3262c4b9
+          description: The unique identifier of an associated organization.
+        name:
+          type: string
+          example: Tendies Trading Company
+          description: The organization name.
+    statusChangeReason:
+      type: string
+      example: DECEASED
+      description: Change account status with reason
+      enum:
+      - DUPLICATE_ACCOUNT
+      - DECEASED
+      - PARTNER_RESTRICTED
+    accountHolderTypeObject:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/accountHolderType'
+        description:
+          type: string
+          example: An account that does not meet FINRA Rule 4215(c) or a proprietary trading account
+          description: A custom description of the account holder type.
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    performanceObj:
+      type: object
+      properties:
+        realizedDayPL:
+          type: number
+          example: 100.5
+          description: The actual profit or loss on the day in USD.
+        unrealizedDayPL:
+          type: number
+          example: 3564.38
+          description: Current unrealized profit and loss for open positions in account.
+        cumRealizedPL:
+          type: number
+          example: 10
+          description: The cumulative realized profit/loss from inception of account, each day adds to previous days.
+        date:
+          type: string
+          example: '2018-09-18'
+          description: the date of the performance arrays values.
+        equity:
+          type: number
+          example: 9941.59
+          description: Invested equity (excluding cash) for this day (see performance.date). For Total `Equity` add performance.equity and performance.cash
+        cash:
+          type: number
+          example: 439.7
+          description: The total cash balance (settled and unsettled) for this day (see performance.date).
+        deposits:
+          type: number
+          example: 0
+          description: The total amount of deposits calculated from 4pm of previous day until current time.
+        withdrawals:
+          type: number
+          example: 0
+          description: The total amount of withdrawals calculated from 4pm of previous day until current time.
+        fees:
+          type: number
+          example: 0
+          description: The total amount of fees calculated from 4pm of previous day until current time.
+    patternDayTrades:
+      type: number
+      example: 0
+      description: The total number of pattern day trades.
+    commissionID:
+      type: string
+      example: b3e985dd-9679-63dc-5dd5-9bd7982efecd
+      description: The unique identifier associated with a specific commission related to the account.
+    instrumentType:
+      type: string
+      example: EQUITY
+      description: The classification of the instrument.
+      enum:
+      - EQUITY
+      - ALTERNATIVE_ASSET
+      - MUTUAL_FUND
+      - DEBT
+      - OPTION
+      - CRYPTO
+    AccountDetailRes:
+      type: object
+      properties:
+        account:
+          type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/accountID'
+            accountNo:
+              $ref: '#/components/schemas/accountNo'
+            accountType:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: LIVE
+                  description: The type of account.
+                description:
+                  type: string
+                  example: Live Account
+                  description: A description of the type of account.
+            accountMgmtType:
+              $ref: '#/components/schemas/accountManagementTypeObject'
+            accountHolderType:
+              $ref: '#/components/schemas/accountHolderTypeObject'
+            finra3210ComplianceEntity:
+              $ref: '#/components/schemas/finra3210ComplianceEntity'
+            status:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/accountStatus'
+                description:
+                  type: string
+                  example: Open
+                  description: A description of the account status.
+            tradingType:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: CASH
+                  description: The type of trading ocurring in the account.
+                  enum:
+                  - CASH
+                  - MARGIN
+                  - CRYPTO
+                description:
+                  type: string
+                  example: Cash Account
+                  description: A custom description about the type of account.
+            leverage:
+              $ref: '#/components/schemas/leverage'
+            nickname:
+              $ref: '#/components/schemas/accountNickname'
+            parentIB:
+              $ref: '#/components/schemas/parentIBIDObject'
+            taxProfile:
+              $ref: '#/components/schemas/taxProfileObject'
+            commissionID:
+              $ref: '#/components/schemas/commissionID'
+            beneficiaries:
+              $ref: '#/components/schemas/beneficiariesOption'
+            userID:
+              $ref: '#/components/schemas/userID'
+              description: The userID associated with the account. This will be the userID of your customer.
+            restricted:
+              $ref: '#/components/schemas/restricted'
+              description: True, when the account cannot trade on unsettled funds.
+              deprecated: true
+            gfvRestricted:
+              $ref: '#/components/schemas/gfvRestricted'
+            goodFaithViolations:
+              $ref: '#/components/schemas/goodFaithViolations'
+            pdtRestricted:
+              $ref: '#/components/schemas/pdtRestricted'
+            patternDayTrader:
+              $ref: '#/components/schemas/patternDayTrader'
+            patternDayTrades:
+              $ref: '#/components/schemas/patternDayTrades'
+            freeTradeBalance:
+              $ref: '#/components/schemas/freeTradeBalance'
+            gfvPdtExempt:
+              $ref: '#/components/schemas/gfvPdtExempt'
+            buyingPowerOverride:
+              $ref: '#/components/schemas/buyingPowerOverride'
+            bod:
+              $ref: '#/components/schemas/bod'
+            ria:
+              $ref: '#/components/schemas/riaObject'
+            sweepInd:
+              $ref: '#/components/schemas/sweepInd'
+            interestFree:
+              $ref: '#/components/schemas/interestFree'
+            accountFeatures:
+              $ref: '#/components/schemas/accountFeatures'
+            statusChangeReason:
+              $ref: '#/components/schemas/statusChangeReasonInternal'
+            statusUpdatedBy:
+              $ref: '#/components/schemas/statusUpdatedBy'
+            statusChangeHistory:
+              $ref: '#/components/schemas/statusChangeHistory'
+            createdWhen:
+              type: string
+              example: '2022-12-22T06:07:41.773Z'
+              description: A timestamp of when the account was created.
+            openedWhen:
+              $ref: '#/components/schemas/openedWhen'
+            updatedWhen:
+              type: string
+              example: '2022-12-22T16:04:47.140Z'
+              description: A timestamp of when the account was last updated.
+            ignoreMarketHoursForTest:
+              $ref: '#/components/schemas/ignoreMarketHoursForTest'
+            flaggedForACATS:
+              $ref: '#/components/schemas/flaggedForACATS'
+            extendedHoursEnrolled:
+              type: boolean
+              example: false
+              description: Is the account enrolled in extended hours trading?
+            lastActivityDate:
+              $ref: '#/components/schemas/lastActivityDate'
+            interestedParties:
+              type: array
+              items:
+                $ref: '#/components/schemas/interestedParty'
+    leverage:
+      type: number
+      example: 1
+      description: The amount of leverage an account is allowed to trade with.
+    accountNo:
+      type: string
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    gfvPdtExempt:
+      type: boolean
+      example: false
+      description: True if the account exempt from trading violations.
+    authorizedUser:
+      type: object
+      properties:
+        userID:
+          $ref: '#/components/schemas/userID'
+        permissions:
+          type: array
+          description: Permission assigned to the authorized user.
+          example:
+          - ORDERS_CREATE
+          - MINOR_GRADUATION_TRANSFER
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/permissions'
+    sweepInd:
+      type: boolean
+      example: true
+      description: Are the funds swept into a money market account?
+    PositionLots:
+      type: object
+      properties:
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        currency:
+          $ref: '#/components/schemas/currency'
+        costBasis:
+          type: number
+          example: 19
+          description: The cost basis of the position.
+        quantity:
+          type: number
+          example: 0.16707001
+          description: The total amount of securities held in this position.
+        currentMarketPrice:
+          type: number
+          example: 90.16
+          description: The current market price of the instrument.
+        currentMarketValue:
+          type: number
+          example: 15.06
+          description: The average price of the the total position.
+        unrealizedPnL:
+          type: number
+          example: -3.94
+          description: The unrealized profit/loss of the position.
+        effectiveCostPerShare:
+          type: number
+          example: 1.09
+          description: The effective cost per share of the position.
+        side:
+          type: string
+          example: B
+          description: The parent side of the position, which can be 'B' for Long or 'S' for Short.
+        taxLots:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/PositionLegs'
+    transactionSumObj:
+      type: object
+      properties:
+        orderID:
+          $ref: '#/components/schemas/orderID'
+        orderNo:
+          $ref: '#/components/schemas/orderNo'
+        createdWhen:
+          $ref: '#/components/schemas/created'
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        cumQty:
+          $ref: '#/components/schemas/orderCumulativeQuantity'
+        orderStatus:
+          $ref: '#/components/schemas/orderStatus'
+        orderType:
+          $ref: '#/components/schemas/orderTypes'
+        orderQty:
+          $ref: '#/components/schemas/orderQuantity'
+        isoTimeRestingOrderExpires:
+          type: string
+          example: null
+          description: The time when the limit order expires.
+        limitPrice:
+          type: number
+          example: null
+          description: The price set for the limit order.
+        side:
+          $ref: '#/components/schemas/sideAbbreviated'
+        orderCashAmt:
+          type: number
+          example: null
+          description: The amount of cash requested for an order (fractional shares only).
+        stopPrice:
+          type: number
+          example: 200
+          description: The stop price of a limit order.
+        realizedPL:
+          type: number
+          example: 3564.38
+          description: Realized profit and loss for position.
+        executedWhen:
+          type: string
+          example: 017-06-16T15:35:27.856Z
+          description: The time when the transaction was executed.
+        updatedWhen:
+          type: string
+          example: '2017-06-16T15:35:30.617Z'
+          description: NEEDS DESCRIPTION
+        updatedReason:
+          type: string
+          example: market_order-buy-new
+          description: A reason for the update.
+        commissions:
+          type: number
+          example: 0
+          description: Commission for the transaction if applicable.
+        commissionDesc:
+          type: string
+          example: Free
+          description: A short description about the commission.
+    accountFeatures:
+      type: object
+      properties:
+        options:
+          $ref: '#/components/schemas/AccountFeatureOptions'
+        mutualFunds:
+          $ref: '#/components/schemas/AccountFeatureMutualFunds'
+        fixedIncome:
+          $ref: '#/components/schemas/AccountFeatureFixedIncome'
+        equities:
+          $ref: '#/components/schemas/AccountFeatureEquities'
+    interestedPartyAuthorizedUser:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/userID'
+        reportingRole:
+          type: string
+          description: The role of the interested party of the ID.
+          enum:
+          - AUTH3RD
+          - AUTHREP
+          - NTHOLDER
+          - TRDHOLDER
+        tradeDiscretion:
+          type: boolean
+          description: The trade discretion of the interested party of the ID.
+        from:
+          type: string
+          format: date-time
+          pattern: yyyy-MM-ddTHH:mm:ss.SSSZ
+          example: '2022-12-25T22:28:21.810Z'
+          description: Time when the interested party role started
+        to:
+          type: string
+          format: date-time
+          pattern: yyyy-MM-ddTHH:mm:ss.SSSZ
+          example: '2022-12-26T22:28:21.810Z'
+          description: Time when the interested party role ended
+        endReason:
+          type: string
+          description: The reason the interested party role ended.
+          enum:
+          - CORRECTION
+          - ENDED
+          - INACTIVE
+          - REPLACED
+          - OTHER
+          - TRANSFER
+    orderID:
+      type: string
+      example: IC.0e352bb7-9869-4233-9861-9673544efedd
+      description: A unique DriveWealth order identifier created when an order is placed.
+    beneficiariesOption:
+      type: boolean
+      example: false
+      description: True if the account has associated beneficiaries.
+    orderCumulativeQuantity:
+      type: number
+      example: 0.7219
+      description: The amount of shares currently being transacted; larger orders may execute in chunks.
+    statusChangeReasonInternal:
+      type: string
+      example: LEGAL_AML
+      description: Reason for the account status change
+      enum:
+      - ACAT
+      - ACCOUNT_TRANSFERRED
+      - COMPLIANCE_RESTRICTED
+      - DUPLICATE_ACCOUNT
+      - DECEASED
+      - FINRA_RESTRICTIONS
+      - LEGAL_AML
+      - MARGIN_CALLS
+      - PAYMENT_FAILURE
+      - PARTNER_RESTRICTED
+      - PDT_RESTRICTIONS
+    MarginRes:
+      type: object
+      properties:
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        tradingType:
+          $ref: '#/components/schemas/tradingType'
+        updated:
+          type: string
+          example: '2017-06-16T15:35:30.617Z'
+          description: Time of last update.
+        margin:
+          $ref: '#/components/schemas/marginObj'
+    orderNo:
+      type: string
+      example: ICDU023727
+      description: A unique, human-readable DriveWealth order number.
+    orderQuantity:
+      type: number
+      example: 0.7219
+      description: The amount of the instrument in shares.
+    AccountPositionLots:
+      type: object
+      properties:
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        positions:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/PositionLots'
+    instrumentSymbol:
+      type: string
+      nullable: true
+      example: MS
+      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
+    tradingType:
+      type: string
+      example: CASH
+      description: The type of trading the account will participate in.
+      enum:
+      - CASH
+      - MARGIN
+    bod:
+      type: object
+      description: Beginning of day balances in the account.
+      properties:
+        moneyMarket:
+          type: number
+          example: 0
+          description: Beginning of day money market value.
+        equityValue:
+          type: number
+          example: 0
+          description: Beginning of day equity value.
+        cashAvailableForWithdrawal:
+          type: number
+          example: 0
+          description: Total amount of settled funds that can be withdrawn.
+        cashAvailableForTrading:
+          type: number
+          example: 0
+          description: Total amount of settled funds that can be traded.
+        cashBalance:
+          type: number
+          example: 0
+          description: The current account cash balance.
+    statusUpdatedBy:
+      type: string
+      example: ACAT_SYSTEM
+      description: A free string, which can be UUID of Backoffice user or any other system which updated the status.
+    instrumentISIN:
+      description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
+      type: string
+      minLength: 12
+      maxLength: 14
+      example: US023135BX34
+    accountManagementType:
+      type: string
+      example: SELF
+      description: The type of account who has trading authority.
+      enum:
+      - SELF
+      - ADVISORY
+      - MANAGED
+      - RIA_MANAGED
+      - CUSTODIAL
+      - CUSTODIAL_MANAGED
+      - RESERVED
+      - HSA_SELF
+      - HSA_ADVISORY
+      - HSA_RIA_MANAGED
+    freeTradeBalance:
+      type: number
+      example: 0
+      description: The total number of free trades left for the account.
+    AccountFeatureOptions:
+      type: object
+      properties:
+        enrolled:
+          type: boolean
+          description: User requested option trading be allowed for their account
+          example: 'true'
+        optionsLevel:
+          type: string
+          description: The level of options trading the customer requested
+          example: LEVEL_1
+          enum:
+          - LEVEL_1
+          - LEVEL_2
+          - LEVEL_3
+          - LEVEL_4
+    orderTypes:
+      type: string
+      example: MARKET
+      description: The type of the Order.
+      enum:
+      - MARKET
+      - LIMIT
+      - STOP
+      - STOP_LIMIT
+      - MARKET_IF_TOUCHED
+    statusChangeHistory:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/accountStatus'
+        statusChangeReason:
+          $ref: '#/components/schemas/statusChangeReasonInternal'
+        statusUpdatedBy:
+          $ref: '#/components/schemas/statusUpdatedBy'
+    currency:
+      type: string
+      example: USD
+      description: The name of the currency in abbreviation form.
+      enum:
+      - USD
+    lastActivityDate:
+      type: string
+      example: '2024-07-23'
+      description: The date indicating the last recorded activity of the account, across the partner's ecosystem. It's important to update this field regularly, as activity recency may impact functions like escheatment, and there may be activity occuring outside of the DriveWealth APIs.
+    interestedParty:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of interested party.
+          enum:
+          - AUTHORIZED_USERS
+        data:
+          type: array
+          description: 'The data of the interested party. Different types can be used in this field. Current supported type: InterestedPartyAuthorizedUser'
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/interestedPartyAuthorizedUser'
+    finra3210ComplianceEntity:
+      type: string
+      example: COMPLYSCI
+      description: The regulatory system that the account will be reported to.
+      enum:
+      - ''
+      - COMPLYSCI
+      - MCO
+    AccountDetails:
+      type: array
+      description: A list of all the user's accounts at DriveWealth.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/Account'
+    restricted:
+      type: boolean
+      example: false
+      description: If true, the account cannot trade on unsettled funds.
+    equityPositionsObj:
+      type: object
+      properties:
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        ISIN:
+          $ref: '#/components/schemas/instrumentISIN'
+        instrumentType:
+          $ref: '#/components/schemas/instrumentType'
+        openQty:
+          type: number
+          example: 31.65120151
+          description: Quantity of shares owned by the account.
+        costBasis:
+          type: number
+          example: 975.98
+          description: Cost basis of the position.
+        marketValue:
+          type: number
+          example: 4540.36
+          description: Current market value of the position.
+        side:
+          type: string
+          example: B
+          description: 'In this case, Side distinguishes the type of position. This will always return ''long''(B). '
+          enum:
+          - B
+        priorClose:
+          type: number
+          example: 144.29
+          description: The prior closing price of the security.
+        availableForTradingQty:
+          type: number
+          example: 31.65120151
+          description: The quantity of the security available for sale.
+        avgPrice:
+          type: number
+          example: 30.84
+          description: The average price of the position.
+        mktPrice:
+          type: number
+          example: 143.45
+          description: The current market price of the position.
+        unrealizedPL:
+          type: number
+          example: 3564.38
+          description: Unrealized profit and loss for position.
+        unrealizedDayPLPercent:
+          type: number
+          example: -0.58
+          description: Unrealized day profit and loss for position in percent.
+        unrealizedDayPL:
+          type: number
+          example: -26.59
+          description: Unrealized day profit and loss for position.
+    accountManagementTypeObject:
+      type: object
+      properties:
+        name:
+          type: string
+          example: SELF
+          description: The type of account who has trading authority.
+          enum:
+          - SELF
+          - ADVISORY
+          - RIA_MANAGED
+          - CUSTODIAL
+          - CUSTODIAL_MANAGED
+          - RESERVED
+          - RETIREMENT_TRADITIONAL_SELF
+          - RETIREMENT_TRADITIONAL_ADVISORY
+          - RETIREMENT_TRADITIONAL_RIA_MANAGED
+          - RETIREMENT_ROTH_SELF
+          - RETIREMENT_ROTH_ADVISORY
+          - RETIREMENT_ROTH_RIA_MANAGED
+          - TRUST_SELF
+          - TRUST_ADVISORY
+          - TRUST_RIA_MANAGED
+          - HSA_SELF
+          - HSA_ADVISORY
+          - HSA_RIA_MANAGED
+        description:
+          type: string
+          example: Self Directed Account
+          description: A custom description of the account management type.
+    accountNickname:
+      type: string
+      example: Steve's Robo Advisor Managed Account
+      description: 'A description or nickname for an account. '
+    ignoreMarketHoursForTest:
+      type: boolean
+      example: false
+      description: Can the account ignore market hours in the UAT environment?
+    interestFree:
+      type: boolean
+      example: false
+      description: Is the interest generated from money market deposited back into account?
+    AccountFeatureMutualFunds:
+      type: object
+      properties:
+        dividendReinvestment:
+          type: boolean
+          example: true
+          description: True, if dividends are reinvested.
+        dividendReinvestmentOptInWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The timestamp when the account has opted for dividend reinvestment.
+          readOnly: true
+        dividendReinvestmentOptOutWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The timestamp when the account has opted out of dividend reinvestment.
+          readOnly: true
+        capitalGainsReinvestment:
+          type: boolean
+          example: true
+          description: True, if capital gains are reinvested.
+        capitalGainsReinvestmentOptInWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The timestamp when the account has opted for capital gains reinvestment.
+          readOnly: true
+        capitalGainsReinvestmentOptOutWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The timestamp when the account has opted out of capital gains reinvestment
+          readOnly: true
+    AccountReq:
+      type: object
+      required:
+      - userID
+      - accountType
+      - accountManagementType
+      - tradingType
+      properties:
+        userID:
+          $ref: '#/components/schemas/userID'
+        accountType:
+          $ref: '#/components/schemas/accountType'
+        accountManagementType:
+          $ref: '#/components/schemas/accountManagementType'
+        accountHolderType:
+          $ref: '#/components/schemas/accountHolderType'
+        tradingType:
+          $ref: '#/components/schemas/tradingType'
+        finra3210ComplianceEntity:
+          $ref: '#/components/schemas/finra3210ComplianceEntity'
+        riaUserID:
+          $ref: '#/components/schemas/riaID'
+        riaProductID:
+          type: string
+          example: ''
+          description: RIA product identifier (legacy)
+        riaPortfolioID:
+          $ref: '#/components/schemas/portfolioID'
+          description: A unique ID associated with an RIA managed portfolio. If set, a portfolio will be assigned to this account for automatic rebalancing.
+        authorizedUsers:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/authorizedUser'
+        ignoreBuyingPower:
+          type: boolean
+          example: false
+          description: If true, the accounts cash balance can go negative.
+        violationsExempt:
+          type: boolean
+          example: false
+          description: Instruct the GFV/PDT system to not process for this account. Available only in sandbox.
+        ignoreMarketHoursForTest:
+          type: boolean
+          example: true
+          description: If set to `true` trades will execute in DriveWealth's UAT environment after market hours. If you are attempting to test Mutual Fund orders this flag needs to be set to `false`.
+        extendedHoursEnrolled:
+          type: boolean
+          example: false
+          description: '''true or ''false'' if the account is enrolled in and able to access Extended Hours Trading'
+        metadata:
+          type: object
+          example:
+            myCustomKey: myCustomValue
+          description: The metadata object allows for creating a maximum of 5 keys (max 36 characters) and each value cannot exceed more than 128 bytes.
+        leverage:
+          $ref: '#/components/schemas/leverage'
+        accountFeatures:
+          $ref: '#/components/schemas/accountFeatures'
+        interestedParties:
+          type: array
+          items:
+            $ref: '#/components/schemas/interestedParty'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token

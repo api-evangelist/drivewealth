@@ -1,0 +1,253 @@
+openapi: 3.0.2
+info:
+  title: DriveWealth Accounts Violations API
+  version: '1.0'
+servers:
+- url: https://bo-api.drivewealth.io/back-office
+  description: Sandbox server (Uses test data)
+- url: https://bo-api.drivewealth.net/back-office
+  description: Production Server (Uses LIVE data)
+tags:
+- name: Violations
+  x-displayName: Violations
+paths:
+  /accounts/{accountID}/summary/violations:
+    get:
+      tags:
+      - Violations
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      summary: Retrieve Account Violations Summary
+      description: Retrives Account Violations Summary details by accountID.
+      responses:
+        '200':
+          description: Retrieving an Account Violations Summary details by accountID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViolationListRes'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+  /accounts/{accountID}/violations:
+    get:
+      tags:
+      - Violations
+      parameters:
+      - in: path
+        name: accountID
+        schema:
+          $ref: '#/components/schemas/accountID'
+        required: true
+      summary: List Account Violations
+      description: Retrives a list of Account Violations by accountID.
+      responses:
+        '200':
+          description: Retrieving a list of Account Violations by accountID was Successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViolationDetailsRes'
+      security:
+      - bearerAuth: []
+        dwAppKey: []
+      - sessionToken: []
+        dwAppKey: []
+components:
+  schemas:
+    accountEquityBreakdownObj:
+      type: object
+      properties:
+        longMarketValue:
+          type: number
+          example: 30000
+          description: The current long market value.
+        debitBalance:
+          type: number
+          example: 2000
+          description: The current debit balance.
+        accountEquity:
+          type: number
+          example: 28000
+          description: The current total account equity (longMarketValue - debitBalance).
+    created:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    sideAbbreviated:
+      type: string
+      example: B
+      description: The side of the order.
+      enum:
+      - B
+      - S
+      - BUY_OPEN
+      - BUY_CLOSE
+      - SELL_OPEN
+      - SELL_CLOSE
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    patternDayTrades:
+      type: number
+      example: 0
+      description: The total number of pattern day trades.
+    orderID:
+      type: string
+      example: IC.0e352bb7-9869-4233-9861-9673544efedd
+      description: A unique DriveWealth order identifier created when an order is placed.
+    ViolationDetailsRes:
+      type: object
+      properties:
+        goodFaithViolations:
+          $ref: '#/components/schemas/properties-goodFaithViolations'
+        patternDayTrades:
+          type: array
+          description: An array of pattern day trade violations.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/patternDayTradesObj'
+        accountEquityBreakdown:
+          $ref: '#/components/schemas/accountEquityBreakdownObj'
+    properties-goodFaithViolations:
+      type: object
+      properties:
+        count:
+          $ref: '#/components/schemas/goodFaithViolations'
+    orderNo:
+      type: string
+      example: ICDU023727
+      description: A unique, human-readable DriveWealth order number.
+    ViolationListRes:
+      type: object
+      properties:
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        tradingType:
+          $ref: '#/components/schemas/tradingType'
+        updated:
+          type: string
+          example: '2017-06-16T15:35:30.617Z'
+          description: Time of last update.
+        violations:
+          $ref: '#/components/schemas/violationsObj'
+    orderQuantity:
+      type: number
+      example: 0.7219
+      description: The amount of the instrument in shares.
+    patternDayTradesObj:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/instrumentID'
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        qty:
+          $ref: '#/components/schemas/orderQuantity'
+        amount:
+          type: number
+          example: 100
+          description: The amount of shares being transacted.
+        side:
+          $ref: '#/components/schemas/sideAbbreviated'
+        createdWhen:
+          $ref: '#/components/schemas/created'
+        orderID:
+          $ref: '#/components/schemas/orderID'
+        orderNo:
+          $ref: '#/components/schemas/orderNo'
+        violationSells:
+          type: array
+          description: An array which orders are in violation.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/violationSells'
+        legacyGoodFaithViolations:
+          type: number
+          example: 0
+          description: NEEDS DESCRIPTION
+        message:
+          type: string
+          example: This transaction resulted in your third Pattern Day Trade.  Note that pending orders (such as limits) may trigger a 4th Pattern Day Trade.  If you have 4 or more day trades in a 5 day period, your account will be designated as a Pattern Day Trader and must maintain equity of at least $25,000.  Failure to do so will put your account on 90-Restriction. You will receive an email notification with more details.
+          description: A description of the violation.
+    instrumentSymbol:
+      type: string
+      nullable: true
+      example: MS
+      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
+    tradingType:
+      type: string
+      example: CASH
+      description: The type of trading the account will participate in.
+      enum:
+      - CASH
+      - MARGIN
+    accountNo:
+      type: string
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    violationsObj:
+      type: object
+      properties:
+        goodFaithViolations:
+          type: object
+          properties:
+            count:
+              $ref: '#/components/schemas/goodFaithViolations'
+        patternDayTrades:
+          type: object
+          properties:
+            count:
+              $ref: '#/components/schemas/patternDayTrades'
+        details:
+          type: string
+          example: /back-office/accounts/b5421694-65c6-4e48-9f8f-d90596e2f471.1616427127842/violations
+          description: A string containing the direct path to the [violations API](https://developer.drivewealth.com/reference/list-all-account-violations) for further detail
+    goodFaithViolations:
+      type: number
+      example: 0
+      description: The total number of good faith violations.
+    violationSells:
+      type: object
+      properties:
+        qty:
+          $ref: '#/components/schemas/orderQuantity'
+        amount:
+          type: number
+          example: 20
+          description: The amount of shares being transacted.
+        createdWhen:
+          $ref: '#/components/schemas/created'
+        orderID:
+          $ref: '#/components/schemas/orderID'
+        orderNo:
+          $ref: '#/components/schemas/orderNo'
+        side:
+          $ref: '#/components/schemas/sideAbbreviated'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    dwAppKey:
+      type: apiKey
+      in: header
+      name: dw-client-app-key
+    sessionToken:
+      type: apiKey
+      in: header
+      name: dw-auth-token
