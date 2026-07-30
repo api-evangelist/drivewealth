@@ -1,7 +1,20 @@
 aid: drivewealth
 name: DriveWealth
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/drivewealth.png
 url: https://raw.githubusercontent.com/api-evangelist/drivewealth/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
@@ -31,44 +44,383 @@ tags:
   - Financial Services
 
 apis:
-  - name: DriveWealth REST API
-    description: >
-      Primary REST API providing brokerage-as-a-service capabilities including account
-      opening, user management, order execution, funding, portfolio management, reporting,
-      and compliance for embedded investing applications.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.drivewealth.com/apis/reference/introduction
-    baseURL: https://api.drivewealth.net
-    tags:
-      - REST
-      - Brokerage
-      - Trading
-      - Account Management
-      - Fractional Shares
-    properties:
-      - type: Documentation
-        url: https://developer.drivewealth.com/apis/docs/opening-accounts
-      - type: OpenAPI
-        url: https://github.com/DriveWealth/dw-openapi
-      - type: OpenAPI
-        url: openapi/drivewealth-rest-openapi.yml
-
-  - name: DriveWealth FIX API
-    description: >
-      Financial Information Exchange (FIX) protocol API for institutional-grade
-      connectivity to DriveWealth's trading infrastructure.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.drivewealth.com/
-    baseURL: https://fix.drivewealth.net
-    tags:
-      - FIX
-      - Institutional
-      - Trading
-      - Financial Protocol
-    properties:
-      - type: Documentation
-        url: https://developer.drivewealth.com/
-
+- name: DriveWealth FIX API
+  description: >
+    Financial Information Exchange (FIX) protocol API for institutional-grade connectivity to DriveWealth's
+    trading infrastructure.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.drivewealth.com/
+  baseURL: https://fix.drivewealth.net
+  tags:
+  - FIX
+  - Institutional
+  - Trading
+  - Financial Protocol
+  properties:
+  - type: Documentation
+    url: https://developer.drivewealth.com/
+- aid: drivewealth:drivewealth-accounts-api
+  name: DriveWealth Accounts API
+  description: The Accounts API from DriveWealth — 8 operation(s) for accounts.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-advisor-reports-api
+  name: DriveWealth Advisor Reports API
+  description: The Advisor Reports API from DriveWealth — 3 operation(s) for advisor reports.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Advisor Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-advisor-reports-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-asset-transfer-api
+  name: DriveWealth Asset Transfer API
+  description: The Asset Transfer API from DriveWealth — 4 operation(s) for asset transfer.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Asset Transfer
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-asset-transfer-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-auth-api
+  name: DriveWealth Auth API
+  description: The Auth API from DriveWealth — 2 operation(s) for auth.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-auth-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-autopilot-api
+  name: DriveWealth AutoPilot API
+  description: The AutoPilot API from DriveWealth — 4 operation(s) for autopilot.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - AutoPilot
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-autopilot-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-beneficiaries-api
+  name: DriveWealth Beneficiaries API
+  description: The Beneficiaries API from DriveWealth — 1 operation(s) for beneficiaries.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Beneficiaries
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-beneficiaries-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-charts-api
+  name: DriveWealth Charts API
+  description: The Charts API from DriveWealth — 1 operation(s) for charts.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Charts
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-charts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-commission-schedules-api
+  name: DriveWealth Commission Schedules API
+  description: The Commission Schedules API from DriveWealth — 1 operation(s) for commission schedules.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Commission Schedules
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-commission-schedules-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-correspondent-reports-api
+  name: DriveWealth Correspondent Reports API
+  description: >-
+    The Correspondent Reports API from DriveWealth — 1 operation(s) for correspondent reports.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Correspondent Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-correspondent-reports-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-deposits-api
+  name: DriveWealth Deposits API
+  description: The Deposits API from DriveWealth — 6 operation(s) for deposits.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Deposits
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-deposits-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-depth-of-book-api
+  name: DriveWealth Depth of Book API
+  description: The Depth of Book API from DriveWealth — 1 operation(s) for depth of book.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Depth of Book
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-depth-of-book-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-exchanges-api
+  name: DriveWealth Exchanges API
+  description: The Exchanges API from DriveWealth — 4 operation(s) for exchanges.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Exchanges
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-exchanges-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-funds-api
+  name: DriveWealth Funds API
+  description: The Funds API from DriveWealth — 3 operation(s) for funds.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Funds
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-funds-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-instruments-api
+  name: DriveWealth Instruments API
+  description: The Instruments API from DriveWealth — 5 operation(s) for instruments.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Instruments
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-instruments-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-linked-bank-accounts-api
+  name: DriveWealth Linked Bank Accounts API
+  description: The Linked Bank Accounts API from DriveWealth — 1 operation(s) for linked bank accounts.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Linked Bank Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-linked-bank-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-orders-api
+  name: DriveWealth Orders API
+  description: The Orders API from DriveWealth — 6 operation(s) for orders.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-physical-documents-api
+  name: DriveWealth Physical Documents API
+  description: The Physical Documents API from DriveWealth — 3 operation(s) for physical documents.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Physical Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-physical-documents-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-portfolios-api
+  name: DriveWealth Portfolios API
+  description: The Portfolios API from DriveWealth — 3 operation(s) for portfolios.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Portfolios
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-portfolios-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-positions-api
+  name: DriveWealth Positions API
+  description: The Positions API from DriveWealth — 2 operation(s) for positions.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Positions
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-positions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-quotes-api
+  name: DriveWealth Quotes API
+  description: The Quotes API from DriveWealth — 2 operation(s) for quotes.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Quotes
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-quotes-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-settlements-api
+  name: DriveWealth Settlements API
+  description: The Settlements API from DriveWealth — 6 operation(s) for settlements.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Settlements
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-settlements-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-statements-api
+  name: DriveWealth Statements API
+  description: The Statements API from DriveWealth — 4 operation(s) for statements.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Statements
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-statements-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-subscriptions-api
+  name: DriveWealth Subscriptions API
+  description: The Subscriptions API from DriveWealth — 3 operation(s) for subscriptions.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-supported-countries-api
+  name: DriveWealth Supported Countries API
+  description: The Supported Countries API from DriveWealth — 1 operation(s) for supported countries.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Supported Countries
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-supported-countries-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-trade-allocations-api
+  name: DriveWealth Trade Allocations API
+  description: The Trade Allocations API from DriveWealth — 3 operation(s) for trade allocations.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Trade Allocations
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-trade-allocations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-transactions-api
+  name: DriveWealth Transactions API
+  description: The Transactions API from DriveWealth — 2 operation(s) for transactions.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-users-api
+  name: DriveWealth Users API
+  description: The Users API from DriveWealth — 3 operation(s) for users.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-users-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-violations-api
+  name: DriveWealth Violations API
+  description: The Violations API from DriveWealth — 2 operation(s) for violations.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Violations
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-violations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-virtual-bank-accounts-api
+  name: DriveWealth Virtual Bank Accounts API
+  description: >-
+    The Virtual Bank Accounts API from DriveWealth — 1 operation(s) for virtual bank accounts.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Virtual Bank Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-virtual-bank-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
+- aid: drivewealth:drivewealth-withdrawals-api
+  name: DriveWealth Withdrawals API
+  description: The Withdrawals API from DriveWealth — 4 operation(s) for withdrawals.
+  humanURL: https://developer.drivewealth.com/apis/reference/introduction
+  baseURL: https://api.drivewealth.net
+  tags:
+  - Withdrawals
+  properties:
+  - type: OpenAPI
+    url: openapi/drivewealth-withdrawals-api-openapi.yml
+  - type: Documentation
+    url: https://developer.drivewealth.com/apis/docs/opening-accounts
 common:
   - type: AgenticAccess
     url: agentic-access/drivewealth-agentic-access.yml
