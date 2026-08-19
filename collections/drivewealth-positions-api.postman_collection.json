@@ -1,0 +1,300 @@
+{
+  "item": [
+    {
+      "id": "ed481fde-01c7-4187-82f6-46fe6b4c2e25",
+      "name": "Positions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5355b35c-de21-47ff-ae7d-042cc53dbdfc",
+          "name": "List Account Positions",
+          "request": {
+            "name": "List Account Positions",
+            "description": {
+              "content": "Retrives a list of Account Positions by accountID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "summary",
+                "positions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d224c7a4-35eb-4bbb-8df8-12466e3b51b8",
+              "name": "Retrieving an Account's Positions by accountID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "summary",
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"accountNo\": \"DWBG000052\",\n  \"tradingType\": \"CASH\",\n  \"updated\": \"2017-06-16T15:35:30.617Z\",\n  \"equityValue\": 34275565.44,\n  \"optionsValue\": 12345.67,\n  \"debtValue\": 12345.67,\n  \"positionsValue\": 34287911.11,\n  \"equityPositions\": [\n    {\n      \"symbol\": \"MS\",\n      \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n      \"ISIN\": \"US023135BX34\",\n      \"instrumentType\": \"EQUITY\",\n      \"openQty\": 31.65120151,\n      \"costBasis\": 975.98,\n      \"marketValue\": 4540.36,\n      \"side\": \"B\",\n      \"priorClose\": 144.29,\n      \"availableForTradingQty\": 31.65120151,\n      \"avgPrice\": 30.84,\n      \"mktPrice\": 143.45,\n      \"unrealizedPL\": 3564.38,\n      \"unrealizedDayPLPercent\": -0.58,\n      \"unrealizedDayPL\": -26.59\n    },\n    {\n      \"symbol\": \"MS\",\n      \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n      \"ISIN\": \"US023135BX34\",\n      \"instrumentType\": \"EQUITY\",\n      \"openQty\": 31.65120151,\n      \"costBasis\": 975.98,\n      \"marketValue\": 4540.36,\n      \"side\": \"B\",\n      \"priorClose\": 144.29,\n      \"availableForTradingQty\": 31.65120151,\n      \"avgPrice\": 30.84,\n      \"mktPrice\": 143.45,\n      \"unrealizedPL\": 3564.38,\n      \"unrealizedDayPLPercent\": -0.58,\n      \"unrealizedDayPL\": -26.59\n    }\n  ],\n  \"optionsPositions\": [\n    {\n      \"symbol\": \"MS\",\n      \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n      \"ISIN\": \"US023135BX34\",\n      \"instrumentType\": \"EQUITY\",\n      \"openQty\": 31.65120151,\n      \"costBasis\": 975.98,\n      \"marketValue\": 4540.36,\n      \"side\": \"B\",\n      \"priorClose\": 144.29,\n      \"availableForTradingQty\": 31.65120151,\n      \"avgPrice\": 30.84,\n      \"mktPrice\": 440.75,\n      \"unrealizedPL\": 14.24,\n      \"unrealizedDayPLPercent\": 1.65,\n      \"unrealizedDayPL\": 0.54\n    },\n    {\n      \"symbol\": \"MS\",\n      \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n      \"ISIN\": \"US023135BX34\",\n      \"instrumentType\": \"EQUITY\",\n      \"openQty\": 31.65120151,\n      \"costBasis\": 975.98,\n      \"marketValue\": 4540.36,\n      \"side\": \"B\",\n      \"priorClose\": 144.29,\n      \"availableForTradingQty\": 31.65120151,\n      \"avgPrice\": 30.84,\n      \"mktPrice\": 440.75,\n      \"unrealizedPL\": 14.24,\n      \"unrealizedDayPLPercent\": 1.65,\n      \"unrealizedDayPL\": 0.54\n    }\n  ],\n  \"mutualFundsPositions\": [\n    {\n      \"symbol\": \"MS\",\n      \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n      \"ISIN\": \"US023135BX34\",\n      \"instrumentType\": \"EQUITY\",\n      \"openQty\": 31.65120151,\n      \"costBasis\": 975.98,\n      \"marketValue\": 4540.36,\n      \"side\": \"B\",\n      \"priorClose\": 144.29,\n      \"availableForTradingQty\": 31.65120151,\n      \"avgPrice\": 30.84\n    },\n    {\n      \"symbol\": \"MS\",\n      \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n      \"ISIN\": \"US023135BX34\",\n      \"instrumentType\": \"EQUITY\",\n      \"openQty\": 31.65120151,\n      \"costBasis\": 975.98,\n      \"marketValue\": 4540.36,\n      \"side\": \"B\",\n      \"priorClose\": 144.29,\n      \"availableForTradingQty\": 31.65120151,\n      \"avgPrice\": 30.84\n    }\n  ],\n  \"debtPositions\": [\n    {\n      \"symbol\": \"MS\",\n      \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n      \"ISIN\": \"US023135BX34\",\n      \"instrumentType\": \"EQUITY\",\n      \"openQty\": 31.65120151,\n      \"costBasis\": 975.98,\n      \"marketValue\": 4540.36,\n      \"side\": \"B\",\n      \"priorClose\": 144.29,\n      \"availableForTradingQty\": 31.65120151,\n      \"avgPrice\": 30.84\n    },\n    {\n      \"symbol\": \"MS\",\n      \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n      \"ISIN\": \"US023135BX34\",\n      \"instrumentType\": \"EQUITY\",\n      \"openQty\": 31.65120151,\n      \"costBasis\": 975.98,\n      \"marketValue\": 4540.36,\n      \"side\": \"B\",\n      \"priorClose\": 144.29,\n      \"availableForTradingQty\": 31.65120151,\n      \"avgPrice\": 30.84\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ccb47e3f-91eb-44e6-816e-79e88e780306",
+          "name": "Retrieve Account Option Positions",
+          "request": {
+            "name": "Retrieve Account Option Positions",
+            "description": {
+              "content": "Retrieves Account Option Positions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "options",
+                "positions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filterBy",
+                  "value": "<string>",
+                  "description": "The expiration date of options; to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "The start date of the range of option's expiration."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "The end date of the range of option's expiration."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "The number of results to be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<string>",
+                  "description": "The identifier of the page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b4f5f4a0-0657-4621-ae0e-433cdb493cc7",
+              "name": "Retrieving Account Option Positions was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "options",
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filterBy",
+                      "value": "expirationDate"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2023-02-16"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2023-02-16"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "86572e14-84ae-4f0c-9533-3c9432637f8e.1627500314555#65d1aee9-9a6c-4720-9879-71c4fcf43060.2023-12-07T21:17:45.743Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"expirationDate\": \"2018-09-18\",\n      \"position\": {\n        \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n        \"accountNo\": \"DWBG000052\",\n        \"costBasis\": 975.98,\n        \"effectivePx\": 975.98,\n        \"execID\": \"170638430890297892000\",\n        \"initPx\": 975.98,\n        \"initQty\": 0.01,\n        \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"side\": \"B\",\n        \"openQty\": 10,\n        \"comment\": \"TOP\"\n      },\n      \"instrument\": {\n        \"rootSymbol\": \"AAPL\",\n        \"rootId\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"symbol\": \"MS\",\n        \"optionType\": \"PUT\",\n        \"marketPrice\": 16.5,\n        \"strikePrice\": 16.5\n      }\n    },\n    {\n      \"expirationDate\": \"2018-09-18\",\n      \"position\": {\n        \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n        \"accountNo\": \"DWBG000052\",\n        \"costBasis\": 975.98,\n        \"effectivePx\": 975.98,\n        \"execID\": \"170638430890297892000\",\n        \"initPx\": 975.98,\n        \"initQty\": 0.01,\n        \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"side\": \"B\",\n        \"openQty\": 10,\n        \"comment\": \"TOP\"\n      },\n      \"instrument\": {\n        \"rootSymbol\": \"AAPL\",\n        \"rootId\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"symbol\": \"MS\",\n        \"optionType\": \"PUT\",\n        \"marketPrice\": 16.5,\n        \"strikePrice\": 16.5\n      }\n    }\n  ],\n  \"nextPageOffset\": \"86572e14-84ae-4f0c-9533-3c9432637f8e.1627500314555#65d1aee9-9a6c-4720-9879-71c4fcf43060.2023-12-07T21:17:45.743Z\",\n  \"prevPageOffset\": \"86572e14-84ae-4f0c-9533-3c9432637f8e.1627500314555#65d1aee9-9a6c-4720-9879-71c4fcf43060.2023-12-07T21:17:45.743Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "84c727dc-f136-41d4-8d16-5ceb0a2d8523",
+    "name": "DriveWealth Accounts Positions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Linked Bank Accounts API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Linked Bank Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List User Linked Bank Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/users/:userID/bank-accounts",
+            "params": [
+              {
+                "name": "userID",
+                "value": "cc07f91b-7ee1-4868-b8fc-823c70a1b932",
+                "type": "path",
+                "description": "Unique ID of the User to fetch their stored bank accounts."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of User Linked Bank Accounts by userID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Beneficiaries API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Beneficiaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Account Beneficiaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/beneficiaries",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of Account Beneficiaries by accountID."
+        },
+        {
+          "info": {
+            "name": "Create Account Beneficiaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/beneficiaries",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates an Account Beneficiary by accountID."
+        },
+        {
+          "info": {
+            "name": "Delete Account Beneficiaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/beneficiaries",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Removes all Accounts Beneficiaries by accountID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

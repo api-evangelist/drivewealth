@@ -1,0 +1,514 @@
+{
+  "item": [
+    {
+      "id": "0d00c18d-835d-49c8-ad3b-2366f0be2689",
+      "name": "Statements",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fb9e41c1-43d0-4799-b70d-17ad7330bb6e",
+          "name": "List Account Statements",
+          "request": {
+            "name": "List Account Statements",
+            "description": {
+              "content": "Retrives a list of Account Statements by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "statements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2026f9ea-7b08-4e3d-994a-ea9bcc6349e2",
+              "name": "Retrieving a list of Account Statements by accountID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "statements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"displayName\": \"Apr 28, 2017 Statement\",\n    \"fileKey\": \"2017042802\"\n  },\n  {\n    \"displayName\": \"Apr 28, 2017 Statement\",\n    \"fileKey\": \"2017042802\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49acf5c3-f44a-4b27-a58a-eb30ba6b641b",
+          "name": "List Account Tax Statements",
+          "request": {
+            "name": "List Account Tax Statements",
+            "description": {
+              "content": "Retrieves a list of Account Tax Statements by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "taxforms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "The date to start the filter."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "The date to end the filter."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "883d2eb7-7d3b-4dd4-bfa0-f6737f144d72",
+              "name": "Retrieving a list of  Account Tax Statements by accountID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "taxforms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "2022-06-16"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2022-07-16"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"displayName\": \"2015 Tax Year 1099-B\",\n    \"fileKey\": \"2015123103\"\n  },\n  {\n    \"displayName\": \"2015 Tax Year 1099-B\",\n    \"fileKey\": \"2015123103\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d07a7dd-6eb1-4665-9e1a-10666c0b6039",
+          "name": "List Account Trade Confirmations",
+          "request": {
+            "name": "List Account Trade Confirmations",
+            "description": {
+              "content": "Retrieves a list of Account Trade Confirmations by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "confirms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "Filter, the date from which to start the search."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "Filter, the date to which to end the search."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1c08c780-96da-42a9-ba1b-83221720d5c3",
+              "name": "Retrieving a list of Account Trade Confirmations by accountID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "confirms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "2018-09-18"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2019-09-18"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"displayName\": \"Jun 02, 2017 Trade Confirm\",\n    \"fileKey\": \"2017060201\"\n  },\n  {\n    \"displayName\": \"Jun 02, 2017 Trade Confirm\",\n    \"fileKey\": \"2017060201\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2a6e9df-278d-45c9-a3ea-ffb80609a696",
+          "name": "Retrieve Statement",
+          "request": {
+            "name": "Retrieve Statement",
+            "description": {
+              "content": "Retrieves an Account Statement (Monthly, Trade Confirms, Tax Forms, etc.) by accountID and fileKey.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "statements",
+                ":accountID",
+                ":fileKey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fileKey",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fa885dca-bc61-495b-942d-d404f4971b18",
+              "name": "Retrieving an Account Statement was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "statements",
+                    ":accountID",
+                    ":fileKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fileKey",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"url\": \"https://dzb6emi8pracf.cloudfront.net/5a013513-8af1-4078-be75-36a5250953f7.1488219178676/Stmt_DRVW_001_DWJM000019_Apr2017.pdf?Policy=eyJTdGF0ZW1lbnQiOiBbeyJSZXNvdXJjZSI6Imh0dHBzOi8vZHpiNmVtaThwcmFjZi5jbG91ZGZyb250Lm5ldC81YTAxMzUxMy04YWYxLTQwNzgtYmU3NS0zNmE1MjUwOTUzZjcuMTQ4ODIxOTE3ODY3Ni9TdG10X0RSVldfMDAxX0RXSk0wMDAwMTlfQXByMjAxNy5wZGYiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE0OTk3MTc1NDV9LCJJcEFkZHJlc3MiOnsiQVdTOlNvdXJjZUlwIjoiMC4wLjAuMC8wIn19fV19&Signature=UWZRPku4IWoqkp4fyQ179auFVrImZUYDXswjjO-zPGW9-XKno3-TG9O2OHxWG-j7NfEHMXtZbCha~lQwpjt~g58YpL1NYk9xhlp7~HR-skC3J3W8GFVWxbR5TQUXPFOdU-KNwYlTnlE1Wr81nUyoNWrrF-8afyiHVnfm2w35GpZavAKhOiKNDHn7kTorQz3rbkYDks9u1CGPU7TCeZ-GzupVqsUN7xDOxPUnH0KCVGY86PT8bEpPkhpc3jNmtLnB~WB3YdrFg0bSbrbU4M-sVyp49AqK~xq5uDu3Bx22vdyJlKUClEsVvKhQLOArkpMdHYwyPZC~Kz85sroGqnP3oQ__&Key-Pair-Id=APKAJP3MFGZ6DRA4CW4Q\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "96078a84-2d2b-4c6f-9ec2-6693b0357ec3",
+    "name": "DriveWealth Accounts Statements API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

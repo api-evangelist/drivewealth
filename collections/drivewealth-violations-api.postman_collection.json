@@ -1,0 +1,246 @@
+{
+  "item": [
+    {
+      "id": "5676aaf6-3a9c-439a-8c30-42f334c58d31",
+      "name": "Violations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e6a6ad82-0f42-46da-b1c8-8dc28a4690d8",
+          "name": "Retrieve Account Violations Summary",
+          "request": {
+            "name": "Retrieve Account Violations Summary",
+            "description": {
+              "content": "Retrives Account Violations Summary details by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "summary",
+                "violations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7f584f69-c4ad-4c93-ba1f-c1e1a42e7124",
+              "name": "Retrieving an Account Violations Summary details by accountID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "summary",
+                    "violations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"accountNo\": \"DWBG000052\",\n  \"tradingType\": \"CASH\",\n  \"updated\": \"2017-06-16T15:35:30.617Z\",\n  \"violations\": {\n    \"goodFaithViolations\": {\n      \"count\": 0\n    },\n    \"patternDayTrades\": {\n      \"count\": 0\n    },\n    \"details\": \"/back-office/accounts/b5421694-65c6-4e48-9f8f-d90596e2f471.1616427127842/violations\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "feb486ad-742c-46dd-8d25-30b4611b797c",
+          "name": "List Account Violations",
+          "request": {
+            "name": "List Account Violations",
+            "description": {
+              "content": "Retrives a list of Account Violations by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "violations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "23d78a2e-01f7-4a42-b16f-e5485f8f4240",
+              "name": "Retrieving a list of Account Violations by accountID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "violations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"goodFaithViolations\": {\n    \"count\": 0\n  },\n  \"patternDayTrades\": [\n    {\n      \"id\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n      \"symbol\": \"MS\",\n      \"qty\": 0.7219,\n      \"amount\": 100,\n      \"side\": \"B\",\n      \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"orderID\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n      \"orderNo\": \"ICDU023727\",\n      \"violationSells\": [\n        {\n          \"qty\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": 20,\n          \"createdWhen\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"orderID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"orderNo\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"side\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"qty\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": 20,\n          \"createdWhen\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"orderID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"orderNo\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"side\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"legacyGoodFaithViolations\": 0,\n      \"message\": \"This transaction resulted in your third Pattern Day Trade.  Note that pending orders (such as limits) may trigger a 4th Pattern Day Trade.  If you have 4 or more day trades in a 5 day period, your account will be designated as a Pattern Day Trader and must maintain equity of at least $25,000.  Failure to do so will put your account on 90-Restriction. You will receive an email notification with more details.\"\n    },\n    {\n      \"id\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n      \"symbol\": \"MS\",\n      \"qty\": 0.7219,\n      \"amount\": 100,\n      \"side\": \"B\",\n      \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"orderID\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n      \"orderNo\": \"ICDU023727\",\n      \"violationSells\": [\n        {\n          \"qty\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": 20,\n          \"createdWhen\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"orderID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"orderNo\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"side\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"qty\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": 20,\n          \"createdWhen\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"orderID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"orderNo\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"side\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"legacyGoodFaithViolations\": 0,\n      \"message\": \"This transaction resulted in your third Pattern Day Trade.  Note that pending orders (such as limits) may trigger a 4th Pattern Day Trade.  If you have 4 or more day trades in a 5 day period, your account will be designated as a Pattern Day Trader and must maintain equity of at least $25,000.  Failure to do so will put your account on 90-Restriction. You will receive an email notification with more details.\"\n    }\n  ],\n  \"accountEquityBreakdown\": {\n    \"longMarketValue\": 30000,\n    \"debitBalance\": 2000,\n    \"accountEquity\": 28000\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "149105ad-40c3-4839-9960-5d5ba00f434a",
+    "name": "DriveWealth Accounts Violations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

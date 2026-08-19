@@ -1,0 +1,1040 @@
+{
+  "item": [
+    {
+      "id": "01092b39-2e78-47a0-8985-dc323abef06e",
+      "name": "Accounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ee0717cb-3fe7-49d4-b24b-9498ee39f791",
+          "name": "Create Account",
+          "request": {
+            "name": "Create Account",
+            "description": {
+              "content": "Creates a trading Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userID\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"accountManagementType\": \"<string>\",\n  \"tradingType\": \"<string>\",\n  \"accountHolderType\": \"<string>\",\n  \"finra3210ComplianceEntity\": \"<string>\",\n  \"riaUserID\": \"<string>\",\n  \"riaProductID\": \"<string>\",\n  \"riaPortfolioID\": \"<string>\",\n  \"authorizedUsers\": [\n    {\n      \"userID\": \"<string>\",\n      \"permissions\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"userID\": \"<string>\",\n      \"permissions\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"ignoreBuyingPower\": \"<boolean>\",\n  \"violationsExempt\": \"<boolean>\",\n  \"ignoreMarketHoursForTest\": \"<boolean>\",\n  \"extendedHoursEnrolled\": \"<boolean>\",\n  \"metadata\": \"<object>\",\n  \"leverage\": \"<number>\",\n  \"accountFeatures\": {\n    \"options\": {\n      \"enrolled\": \"<boolean>\",\n      \"optionsLevel\": \"<string>\"\n    },\n    \"mutualFunds\": {\n      \"dividendReinvestment\": \"<boolean>\",\n      \"capitalGainsReinvestment\": \"<boolean>\"\n    },\n    \"fixedIncome\": {\n      \"enrolled\": false\n    },\n    \"equities\": {\n      \"dividendReinvestment\": \"<boolean>\",\n      \"capitalGainsReinvestment\": \"<boolean>\"\n    }\n  },\n  \"interestedParties\": [\n    {\n      \"type\": \"<string>\",\n      \"data\": [\n        {\n          \"id\": \"<string>\",\n          \"reportingRole\": \"<string>\",\n          \"tradeDiscretion\": \"<boolean>\",\n          \"from\": \"<dateTime>\",\n          \"to\": \"<dateTime>\",\n          \"endReason\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"reportingRole\": \"<string>\",\n          \"tradeDiscretion\": \"<boolean>\",\n          \"from\": \"<dateTime>\",\n          \"to\": \"<dateTime>\",\n          \"endReason\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"type\": \"<string>\",\n      \"data\": [\n        {\n          \"id\": \"<string>\",\n          \"reportingRole\": \"<string>\",\n          \"tradeDiscretion\": \"<boolean>\",\n          \"from\": \"<dateTime>\",\n          \"to\": \"<dateTime>\",\n          \"endReason\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"reportingRole\": \"<string>\",\n          \"tradeDiscretion\": \"<boolean>\",\n          \"from\": \"<dateTime>\",\n          \"to\": \"<dateTime>\",\n          \"endReason\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9f573ac6-14b8-4319-a531-d31d8bcb06e5",
+              "name": "Creating an Account was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"accountType\": \"LIVE\",\n  \"accountManagementType\": \"SELF\",\n  \"tradingType\": \"CASH\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"accountNo\": \"DWBG000052\",\n  \"accountType\": {\n    \"name\": \"LIVE\",\n    \"description\": \"Live Account\"\n  },\n  \"accountMgmtType\": {\n    \"name\": \"SELF\",\n    \"description\": \"Self Directed Account\"\n  },\n  \"accountHolderType\": {\n    \"name\": \"I\",\n    \"description\": \"An account that does not meet FINRA Rule 4215(c) or a proprietary trading account\"\n  },\n  \"status\": {\n    \"name\": \"OPEN\",\n    \"description\": \"Open\"\n  },\n  \"tradingType\": {\n    \"name\": \"CASH\",\n    \"description\": \"Cash Account\"\n  },\n  \"leverage\": 1,\n  \"nickname\": \"Steve's Robo Advisor Managed Account\",\n  \"parentIB\": {\n    \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n    \"name\": \"Tendies Trading Company\"\n  },\n  \"taxProfile\": {\n    \"taxStatusCode\": \"W-9\",\n    \"taxRecipientCode\": \"INDIVIDUAL\"\n  },\n  \"commissionID\": \"b3e985dd-9679-63dc-5dd5-9bd7982efecd\",\n  \"beneficiaries\": false,\n  \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"restricted\": false,\n  \"goodFaithViolations\": 0,\n  \"patternDayTrades\": 0,\n  \"freeTradeBalance\": 0,\n  \"gfvPdtExempt\": false,\n  \"buyingPowerOverride\": false,\n  \"bod\": {\n    \"moneyMarket\": 0,\n    \"equityValue\": 0,\n    \"cashAvailableForWithdrawal\": 0,\n    \"cashAvailableForTrading\": 0,\n    \"cashBalance\": 0\n  },\n  \"ria\": {\n    \"advisorID\": \"66304da9-3h6f-2234-935f-ac6b7933d706\",\n    \"productID\": \"product_b94c0b6a-5ac8-43e4-95d1-777051c0503b\"\n  },\n  \"sweepInd\": true,\n  \"interestFree\": false,\n  \"openedWhen\": \"2022-12-22T06:07:41Z\",\n  \"ignoreMarketHoursForTest\": false,\n  \"flaggedForACATS\": false,\n  \"accountFeatures\": {\n    \"options\": {\n      \"enrolled\": \"<boolean>\",\n      \"optionsLevel\": \"LEVEL_1\"\n    },\n    \"mutualFunds\": {\n      \"dividendReinvestment\": true,\n      \"dividendReinvestmentOptInWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"dividendReinvestmentOptOutWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"capitalGainsReinvestment\": true,\n      \"capitalGainsReinvestmentOptInWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"capitalGainsReinvestmentOptOutWhen\": \"2022-12-11T22:28:21.810Z\"\n    },\n    \"fixedIncome\": {\n      \"enrolled\": true\n    },\n    \"equities\": {\n      \"dividendReinvestment\": true,\n      \"dividendReinvestmentOptInWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"dividendReinvestmentOptOutWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"capitalGainsReinvestment\": true,\n      \"capitalGainsReinvestmentOptInWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"capitalGainsReinvestmentOptOutWhen\": \"2022-12-11T22:28:21.810Z\"\n    }\n  },\n  \"interestedParties\": [\n    {\n      \"type\": \"<string>\",\n      \"data\": [\n        {\n          \"id\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n          \"reportingRole\": \"<string>\",\n          \"tradeDiscretion\": \"<boolean>\",\n          \"from\": \"<dateTime>\",\n          \"to\": \"<dateTime>\",\n          \"endReason\": \"<string>\"\n        },\n        {\n          \"id\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n          \"reportingRole\": \"<string>\",\n          \"tradeDiscretion\": \"<boolean>\",\n          \"from\": \"<dateTime>\",\n          \"to\": \"<dateTime>\",\n          \"endReason\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"type\": \"<string>\",\n      \"data\": [\n        {\n          \"id\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n          \"reportingRole\": \"<string>\",\n          \"tradeDiscretion\": \"<boolean>\",\n          \"from\": \"<dateTime>\",\n          \"to\": \"<dateTime>\",\n          \"endReason\": \"<string>\"\n        },\n        {\n          \"id\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n          \"reportingRole\": \"<string>\",\n          \"tradeDiscretion\": \"<boolean>\",\n          \"from\": \"<dateTime>\",\n          \"to\": \"<dateTime>\",\n          \"endReason\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "289dfb01-eb6c-4276-ada5-e19dee0877d8",
+          "name": "Retrieve Account",
+          "request": {
+            "name": "Retrieve Account",
+            "description": {
+              "content": "Retrieves an Account details by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b00bafbe-5648-408d-bd80-e6a9350adcc2",
+              "name": "Retrieving Account details was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account\": {\n    \"id\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n    \"accountNo\": \"DWBG000052\",\n    \"accountType\": {\n      \"name\": \"LIVE\",\n      \"description\": \"Live Account\"\n    },\n    \"accountMgmtType\": {\n      \"name\": \"SELF\",\n      \"description\": \"Self Directed Account\"\n    },\n    \"accountHolderType\": {\n      \"name\": \"I\",\n      \"description\": \"An account that does not meet FINRA Rule 4215(c) or a proprietary trading account\"\n    },\n    \"finra3210ComplianceEntity\": \"COMPLYSCI\",\n    \"status\": {\n      \"name\": \"OPEN\",\n      \"description\": \"Open\"\n    },\n    \"tradingType\": {\n      \"name\": \"CASH\",\n      \"description\": \"Cash Account\"\n    },\n    \"leverage\": 1,\n    \"nickname\": \"Steve's Robo Advisor Managed Account\",\n    \"parentIB\": {\n      \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n      \"name\": \"Tendies Trading Company\"\n    },\n    \"taxProfile\": {\n      \"taxStatusCode\": \"W-9\",\n      \"taxRecipientCode\": \"INDIVIDUAL\"\n    },\n    \"commissionID\": \"b3e985dd-9679-63dc-5dd5-9bd7982efecd\",\n    \"beneficiaries\": false,\n    \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"restricted\": false,\n    \"gfvRestricted\": false,\n    \"goodFaithViolations\": 0,\n    \"pdtRestricted\": false,\n    \"patternDayTrader\": false,\n    \"patternDayTrades\": 0,\n    \"freeTradeBalance\": 0,\n    \"gfvPdtExempt\": false,\n    \"buyingPowerOverride\": false,\n    \"bod\": {\n      \"moneyMarket\": 0,\n      \"equityValue\": 0,\n      \"cashAvailableForWithdrawal\": 0,\n      \"cashAvailableForTrading\": 0,\n      \"cashBalance\": 0\n    },\n    \"ria\": {\n      \"advisorID\": \"66304da9-3h6f-2234-935f-ac6b7933d706\",\n      \"productID\": \"product_b94c0b6a-5ac8-43e4-95d1-777051c0503b\"\n    },\n    \"sweepInd\": true,\n    \"interestFree\": false,\n    \"accountFeatures\": {\n      \"options\": {\n        \"enrolled\": \"<boolean>\",\n        \"optionsLevel\": \"LEVEL_1\"\n      },\n      \"mutualFunds\": {\n        \"dividendReinvestment\": true,\n        \"dividendReinvestmentOptInWhen\": \"2022-12-11T22:28:21.810Z\",\n        \"dividendReinvestmentOptOutWhen\": \"2022-12-11T22:28:21.810Z\",\n        \"capitalGainsReinvestment\": true,\n        \"capitalGainsReinvestmentOptInWhen\": \"2022-12-11T22:28:21.810Z\",\n        \"capitalGainsReinvestmentOptOutWhen\": \"2022-12-11T22:28:21.810Z\"\n      },\n      \"fixedIncome\": {\n        \"enrolled\": true\n      },\n      \"equities\": {\n        \"dividendReinvestment\": true,\n        \"dividendReinvestmentOptInWhen\": \"2022-12-11T22:28:21.810Z\",\n        \"dividendReinvestmentOptOutWhen\": \"2022-12-11T22:28:21.810Z\",\n        \"capitalGainsReinvestment\": true,\n        \"capitalGainsReinvestmentOptInWhen\": \"2022-12-11T22:28:21.810Z\",\n        \"capitalGainsReinvestmentOptOutWhen\": \"2022-12-11T22:28:21.810Z\"\n      }\n    },\n    \"statusChangeReason\": \"LEGAL_AML\",\n    \"statusUpdatedBy\": \"ACAT_SYSTEM\",\n    \"statusChangeHistory\": {\n      \"status\": \"OPEN\",\n      \"statusChangeReason\": \"LEGAL_AML\",\n      \"statusUpdatedBy\": \"ACAT_SYSTEM\"\n    },\n    \"createdWhen\": \"2022-12-22T06:07:41.773Z\",\n    \"openedWhen\": \"2022-12-22T06:07:41Z\",\n    \"updatedWhen\": \"2022-12-22T16:04:47.140Z\",\n    \"ignoreMarketHoursForTest\": false,\n    \"flaggedForACATS\": false,\n    \"extendedHoursEnrolled\": false,\n    \"lastActivityDate\": \"2024-07-23\",\n    \"interestedParties\": [\n      {\n        \"type\": \"<string>\",\n        \"data\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reportingRole\": \"<string>\",\n            \"tradeDiscretion\": \"<boolean>\",\n            \"from\": \"<dateTime>\",\n            \"to\": \"<dateTime>\",\n            \"endReason\": \"<string>\"\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reportingRole\": \"<string>\",\n            \"tradeDiscretion\": \"<boolean>\",\n            \"from\": \"<dateTime>\",\n            \"to\": \"<dateTime>\",\n            \"endReason\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"data\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reportingRole\": \"<string>\",\n            \"tradeDiscretion\": \"<boolean>\",\n            \"from\": \"<dateTime>\",\n            \"to\": \"<dateTime>\",\n            \"endReason\": \"<string>\"\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reportingRole\": \"<string>\",\n            \"tradeDiscretion\": \"<boolean>\",\n            \"from\": \"<dateTime>\",\n            \"to\": \"<dateTime>\",\n            \"endReason\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e19b9e32-c56b-4753-bfe4-8871bfe5b99a",
+          "name": "Update Account",
+          "request": {
+            "name": "Update Account",
+            "description": {
+              "content": "Updates an Account details by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"leverage\": \"<number>\",\n  \"nickname\": \"<string>\",\n  \"status\": \"<string>\",\n  \"accountHolderType\": \"<string>\",\n  \"statusComment\": \"<string>\",\n  \"statusChangeReason\": \"<string>\",\n  \"restricted\": \"<boolean>\",\n  \"ignoreMarketHoursForTest\": \"<boolean>\",\n  \"accountFeatures\": {\n    \"options\": {\n      \"enrolled\": \"<boolean>\",\n      \"optionsLevel\": \"<string>\"\n    },\n    \"mutualFunds\": {\n      \"dividendReinvestment\": \"<boolean>\",\n      \"capitalGainsReinvestment\": \"<boolean>\"\n    },\n    \"fixedIncome\": {\n      \"enrolled\": false\n    },\n    \"equities\": {\n      \"dividendReinvestment\": \"<boolean>\",\n      \"capitalGainsReinvestment\": \"<boolean>\"\n    }\n  },\n  \"authorizedUsers\": [\n    {\n      \"userID\": \"<string>\",\n      \"permissions\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"userID\": \"<string>\",\n      \"permissions\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"finra3210ComplianceEntity\": \"<string>\",\n  \"lastActivityDate\": \"<string>\",\n  \"interestedParties\": [\n    {\n      \"type\": \"<string>\",\n      \"data\": [\n        {\n          \"id\": \"<string>\",\n          \"reportingRole\": \"<string>\",\n          \"tradeDiscretion\": \"<boolean>\",\n          \"from\": \"<dateTime>\",\n          \"to\": \"<dateTime>\",\n          \"endReason\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"reportingRole\": \"<string>\",\n          \"tradeDiscretion\": \"<boolean>\",\n          \"from\": \"<dateTime>\",\n          \"to\": \"<dateTime>\",\n          \"endReason\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"type\": \"<string>\",\n      \"data\": [\n        {\n          \"id\": \"<string>\",\n          \"reportingRole\": \"<string>\",\n          \"tradeDiscretion\": \"<boolean>\",\n          \"from\": \"<dateTime>\",\n          \"to\": \"<dateTime>\",\n          \"endReason\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"reportingRole\": \"<string>\",\n          \"tradeDiscretion\": \"<boolean>\",\n          \"from\": \"<dateTime>\",\n          \"to\": \"<dateTime>\",\n          \"endReason\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cdce558b-75c7-4760-9a51-4ec19651568d",
+              "name": "Updating an Account details by accountID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authorizedUsers\": [\n    {\n      \"userID\": \"f6fd0783-2fdb-4ddb-9fd5-2464d8abc267\",\n      \"permissions\": [\n        \"MINOR_GRADUATION_TRANSFER\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account\": {\n    \"id\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n    \"accountNo\": \"DWBG000052\",\n    \"accountType\": {\n      \"name\": \"LIVE\",\n      \"description\": \"Live Account\"\n    },\n    \"accountMgmtType\": {\n      \"name\": \"SELF\",\n      \"description\": \"Self Directed Account\"\n    },\n    \"status\": {\n      \"name\": \"OPEN\",\n      \"description\": \"Open\"\n    },\n    \"tradingType\": {\n      \"name\": \"CASH\",\n      \"description\": \"Cash Account\"\n    },\n    \"leverage\": 1,\n    \"nickname\": \"Steve's Robo Advisor Managed Account\",\n    \"parentIB\": {\n      \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n      \"name\": \"Tendies Trading Company\"\n    },\n    \"taxProfile\": {\n      \"taxStatusCode\": \"W-9\",\n      \"taxRecipientCode\": \"INDIVIDUAL\"\n    },\n    \"commissionID\": \"b3e985dd-9679-63dc-5dd5-9bd7982efecd\",\n    \"beneficiaries\": false,\n    \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"restricted\": false,\n    \"goodFaithViolations\": 0,\n    \"patternDayTrades\": 0,\n    \"freeTradeBalance\": 0,\n    \"gfvPdtExempt\": false,\n    \"buyingPowerOverride\": false,\n    \"bod\": {\n      \"moneyMarket\": 0,\n      \"equityValue\": 0,\n      \"cashAvailableForWithdrawal\": 0,\n      \"cashAvailableForTrading\": 0,\n      \"cashBalance\": 0\n    },\n    \"ria\": {\n      \"advisorID\": \"66304da9-3h6f-2234-935f-ac6b7933d706\",\n      \"productID\": \"product_b94c0b6a-5ac8-43e4-95d1-777051c0503b\"\n    },\n    \"sweepInd\": true,\n    \"interestFree\": false,\n    \"createdWhen\": \"2022-12-22T06:07:41.773Z\",\n    \"openedWhen\": \"2022-12-22T06:07:41Z\",\n    \"updatedWhen\": \"2022-12-11T22:28:21.810Z\",\n    \"ignoreMarketHoursForTest\": false,\n    \"flaggedForACATS\": false,\n    \"extendedHoursEnrolled\": false,\n    \"accountFeatures\": {\n      \"fixedIncome\": {\n        \"enrolled\": true\n      }\n    },\n    \"lastActivityDate\": \"2024-07-23\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "692da7b9-5f70-432a-9faa-f35f81f9c691",
+          "name": "Retrieve Account Cash",
+          "request": {
+            "name": "Retrieve Account Cash",
+            "description": {
+              "content": "Retrieves an Account Cash details by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "summary",
+                "money"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "20c3c996-2361-4b74-bb59-3055fc838539",
+              "name": "Retrieving Money details was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "summary",
+                    "money"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"accountNo\": \"DWBG000052\",\n  \"tradingType\": \"CASH\",\n  \"updated\": \"2021-04-23T18:41:32.440Z\",\n  \"cash\": {\n    \"cashAvailableForTrade\": 0,\n    \"cashAvailableForWithdrawal\": 0,\n    \"cashBalance\": -12043.23,\n    \"cashSettlement\": [\n      {\n        \"utcTime\": \"2021-04-26T13:30:00.001Z\",\n        \"cash\": 439.7\n      },\n      {\n        \"utcTime\": \"2021-04-26T13:30:00.001Z\",\n        \"cash\": 439.7\n      }\n    ],\n    \"cashPendingSettlement\": 500,\n    \"pendingPaymentsAmount\": 0\n  },\n  \"payments\": {\n    \"buyingPower\": {\n      \"pendingDepositsAmountAvailable\": 20802.71,\n      \"pendingDepositsAmountNotAvailable\": 0\n    },\n    \"redemptions\": {\n      \"amountWithheldFromRedemptions\": 60\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "164b2cef-a138-4d44-8cd3-03a53c7c6ffa",
+          "name": "Retrieve Account Summary",
+          "request": {
+            "name": "Retrieve Account Summary",
+            "description": {
+              "content": "Retrieves an Account Summary details by accountID.\n\nThe full Account Summary API is now deprecated. Instead, use the individual APIs for retrieving the Account's Positions, Transactions, or Orders separately.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "22cb5aef-3bad-467e-971c-8811cf977c26",
+              "name": "Retrieving Account Summary details by accountID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountSummary\": {\n    \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n    \"accountNo\": \"DWBG000052\",\n    \"tradingType\": \"CASH\",\n    \"lastUpdated\": \"2017-06-16T15:35:30.617Z\",\n    \"cash\": {\n      \"cashAvailableForTrade\": 0,\n      \"cashAvailableForWithdrawal\": 0,\n      \"cashBalance\": -12043.23,\n      \"cashSettlement\": [\n        {\n          \"utcTime\": \"2021-04-26T13:30:00.001Z\",\n          \"cash\": 439.7\n        },\n        {\n          \"utcTime\": \"2021-04-26T13:30:00.001Z\",\n          \"cash\": 439.7\n        }\n      ],\n      \"cashPendingSettlement\": 500,\n      \"pendingPaymentsAmount\": 0\n    }\n  },\n  \"margin\": {\n    \"marginRequirement\": 1,\n    \"longMarketValue\": 0,\n    \"debitBalance\": 0,\n    \"equity\": 0,\n    \"equityFraction\": 0,\n    \"equityRequired\": 1,\n    \"accruedInterest\": 0,\n    \"bodDTBP\": 10000,\n    \"patternDayTrader\": false,\n    \"restricted\": false,\n    \"daySMA\": 0,\n    \"rtExcessEquity\": 0,\n    \"effectiveSMA\": 0,\n    \"noBuyingPowerReason\": \"string\",\n    \"marginCall\": {},\n    \"restingOrders\": 0\n  },\n  \"equity\": {\n    \"equityValue\": 34275565.44,\n    \"equityPositions\": [\n      {\n        \"symbol\": \"MS\",\n        \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"ISIN\": \"US023135BX34\",\n        \"instrumentType\": \"EQUITY\",\n        \"openQty\": 31.65120151,\n        \"costBasis\": 975.98,\n        \"marketValue\": 4540.36,\n        \"side\": \"B\",\n        \"priorClose\": 144.29,\n        \"availableForTradingQty\": 31.65120151,\n        \"avgPrice\": 30.84,\n        \"mktPrice\": 143.45,\n        \"unrealizedPL\": 3564.38,\n        \"unrealizedDayPLPercent\": -0.58,\n        \"unrealizedDayPL\": -26.59\n      },\n      {\n        \"symbol\": \"MS\",\n        \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"ISIN\": \"US023135BX34\",\n        \"instrumentType\": \"EQUITY\",\n        \"openQty\": 31.65120151,\n        \"costBasis\": 975.98,\n        \"marketValue\": 4540.36,\n        \"side\": \"B\",\n        \"priorClose\": 144.29,\n        \"availableForTradingQty\": 31.65120151,\n        \"avgPrice\": 30.84,\n        \"mktPrice\": 143.45,\n        \"unrealizedPL\": 3564.38,\n        \"unrealizedDayPLPercent\": -0.58,\n        \"unrealizedDayPL\": -26.59\n      }\n    ]\n  },\n  \"orders\": [\n    {\n      \"orderID\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n      \"orderNo\": \"ICDU023727\",\n      \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"symbol\": \"MS\",\n      \"cumQty\": 0.7219,\n      \"orderStatus\": \"FILLED\",\n      \"orderType\": \"MARKET\",\n      \"orderQty\": 0.7219,\n      \"isoTimeRestingOrderExpires\": \"string\",\n      \"limitPrice\": 9989.41917651243,\n      \"side\": \"B\",\n      \"orderCashAmt\": 1035.3683317241946,\n      \"stopPrice\": 200\n    },\n    {\n      \"orderID\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n      \"orderNo\": \"ICDU023727\",\n      \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"symbol\": \"MS\",\n      \"cumQty\": 0.7219,\n      \"orderStatus\": \"FILLED\",\n      \"orderType\": \"MARKET\",\n      \"orderQty\": 0.7219,\n      \"isoTimeRestingOrderExpires\": \"string\",\n      \"limitPrice\": 2745.533447531607,\n      \"side\": \"B\",\n      \"orderCashAmt\": 5394.400981916888,\n      \"stopPrice\": 200\n    }\n  ],\n  \"transactions\": [\n    {\n      \"orderID\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n      \"orderNo\": \"ICDU023727\",\n      \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"symbol\": \"MS\",\n      \"cumQty\": 0.7219,\n      \"orderStatus\": \"FILLED\",\n      \"orderType\": \"MARKET\",\n      \"orderQty\": 0.7219,\n      \"isoTimeRestingOrderExpires\": \"string\",\n      \"limitPrice\": 9699.204364751417,\n      \"side\": \"B\",\n      \"orderCashAmt\": 3433.5956454815064,\n      \"stopPrice\": 200,\n      \"realizedPL\": 3564.38,\n      \"executedWhen\": \"017-06-16T15:35:27.856Z\",\n      \"updatedWhen\": \"2017-06-16T15:35:30.617Z\",\n      \"updatedReason\": \"market_order-buy-new\",\n      \"commissions\": 0,\n      \"commissionDesc\": \"Free\"\n    },\n    {\n      \"orderID\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n      \"orderNo\": \"ICDU023727\",\n      \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"symbol\": \"MS\",\n      \"cumQty\": 0.7219,\n      \"orderStatus\": \"FILLED\",\n      \"orderType\": \"MARKET\",\n      \"orderQty\": 0.7219,\n      \"isoTimeRestingOrderExpires\": \"string\",\n      \"limitPrice\": 108.43978639720642,\n      \"side\": \"B\",\n      \"orderCashAmt\": 479.36312912832733,\n      \"stopPrice\": 200,\n      \"realizedPL\": 3564.38,\n      \"executedWhen\": \"017-06-16T15:35:27.856Z\",\n      \"updatedWhen\": \"2017-06-16T15:35:30.617Z\",\n      \"updatedReason\": \"market_order-buy-new\",\n      \"commissions\": 0,\n      \"commissionDesc\": \"Free\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38e8bf56-e58c-4cc9-b7db-8b261bdd3890",
+          "name": "Retrieve Account Performance",
+          "request": {
+            "name": "Retrieve Account Performance",
+            "description": {
+              "content": "Retrieves realtime Account Performance details by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "performance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "Used for relative date range, accepts a number and a unit of time (E.g: 3d = 3 Days or 2w = 2 Weeks)."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "Start date and time of requested time frame of the accounts performance."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "End date and time of requested time frame of the accounts performance."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b4dab354-81d3-42ac-bdd8-52cff0c50cb0",
+              "name": "Retrieving realtime Account Performance details by accountID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "performance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2018-09-18"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2019-09-18"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"accountNo\": \"DWBG000052\",\n  \"startDate\": \"2017-09-18\",\n  \"endDate\": \"2018-09-18\",\n  \"lastUpdated\": \"2017-06-16T15:35:30.617Z\",\n  \"performance\": [\n    {\n      \"realizedDayPL\": 100.5,\n      \"unrealizedDayPL\": 3564.38,\n      \"cumRealizedPL\": 10,\n      \"date\": \"2018-09-18\",\n      \"equity\": 9941.59,\n      \"cash\": 439.7,\n      \"deposits\": 0,\n      \"withdrawals\": 0,\n      \"fees\": 0\n    },\n    {\n      \"realizedDayPL\": 100.5,\n      \"unrealizedDayPL\": 3564.38,\n      \"cumRealizedPL\": 10,\n      \"date\": \"2018-09-18\",\n      \"equity\": 9941.59,\n      \"cash\": 439.7,\n      \"deposits\": 0,\n      \"withdrawals\": 0,\n      \"fees\": 0\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ef3c9e11-f467-41ac-ab3d-07ae75a44b23",
+          "name": "Retrieve Account Margin",
+          "request": {
+            "name": "Retrieve Account Margin",
+            "description": {
+              "content": "Retrieves Account Margin details by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "summary",
+                "margin"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b990c54c-a8d7-4049-ab88-9e90c93c632a",
+              "name": "Retrieving an Account Margin details by accountID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "summary",
+                    "margin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"accountNo\": \"DWBG000052\",\n  \"tradingType\": \"CASH\",\n  \"updated\": \"2017-06-16T15:35:30.617Z\",\n  \"margin\": {\n    \"marginRequirement\": 1,\n    \"longMarketValue\": 0,\n    \"debitBalance\": 0,\n    \"equity\": 0,\n    \"equityFraction\": 0,\n    \"equityRequired\": 1,\n    \"accruedInterest\": 0,\n    \"bodDTBP\": 10000,\n    \"patternDayTrader\": false,\n    \"restricted\": false,\n    \"daySMA\": 0,\n    \"rtExcessEquity\": 0,\n    \"effectiveSMA\": 0,\n    \"noBuyingPowerReason\": \"string\",\n    \"marginCall\": {},\n    \"restingOrders\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9921e909-7529-447a-8d78-40ad90c5f775",
+          "name": "Retrieve Account Lots",
+          "request": {
+            "name": "Retrieve Account Lots",
+            "description": {
+              "content": "Retrieves an Account Lots details by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "position-details"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b34c624b-9fff-443a-b1d1-b85a4b5c4bdd",
+              "name": "Retrieving Account Lots details by accountID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "position-details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountID\": \"0d1d686c-abe3-4203-82e5-62f1bd8266f3.1654094651810\",\n  \"accountNo\": \"XYRR000001\",\n  \"positions\": [\n    {\n      \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n      \"symbol\": \"TSLA\",\n      \"currency\": \"USD\",\n      \"costBasis\": 4,\n      \"quantity\": 0.01648699,\n      \"currentMarketPrice\": 253.76,\n      \"currentMarketValue\": 4.18,\n      \"unrealizedPnL\": 0.18,\n      \"effectiveCostPerShare\": 242.6155411,\n      \"side\": \"B\",\n      \"taxLots\": [\n        {\n          \"id\": \"3db27e74626adac3be7b549f2bbc0ab2480852a7\",\n          \"created\": \"2022-08-25T10:07:47.235Z\",\n          \"initialQuantity\": 0.01240767,\n          \"openQuantity\": 0.01240767,\n          \"effectiveCostPerShare\": 241.79,\n          \"side\": \"B\",\n          \"comment\": \"SPLIT CAFB015132 TSLA...\"\n        },\n        {\n          \"id\": \"3db27e74626adac3be7b549f2bbc0ab2480852a7\",\n          \"created\": \"2023-09-25T15:28:12.120Z\",\n          \"initialQuantity\": 0.00407932,\n          \"openQuantity\": 0.00407932,\n          \"effectiveCostPerShare\": 245.14,\n          \"side\": \"B\",\n          \"comment\": \"TSLA FRACK part TSLA KI...\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b4156c12-f963-4bef-822f-7f2dcb499488",
+          "name": "List User Accounts",
+          "request": {
+            "name": "List User Accounts",
+            "description": {
+              "content": "Retrieves a list of User Accounts by userID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) Unique ID of the User to fetch their accounts at DriveWealth."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4cd43981-ef43-46a4-b572-f54a698c64dc",
+              "name": "Retrieving a list of User Accounts by userID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) Unique ID of the User to fetch their accounts at DriveWealth."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"8b8ba3fd-74dc-45dc-b2dc-7de683bd713c.1556222995391\",\n    \"accountNo\": \"DWBG000052\",\n    \"nickname\": \"Justin's Self Directed Account\",\n    \"status\": {\n      \"name\": \"PENDING\",\n      \"description\": \"Pending\"\n    },\n    \"accountType\": \"LIVE\",\n    \"accountManagementType\": \"SELF\",\n    \"tradingType\": {\n      \"name\": \"CASH\",\n      \"description\": \"Cash Account\"\n    },\n    \"leverage\": 1,\n    \"commissionID\": \"449d41b9-3940-41ff-b0e6-334adfb443f8\",\n    \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"restricted\": false,\n    \"goodFaithViolations\": 0,\n    \"patternDayTrades\": 0,\n    \"freeTradeBalance\": 0,\n    \"gfvPdtExempt\": false,\n    \"buyingPowerOverride\": false,\n    \"bod\": {\n      \"moneyMarket\": 3028.98,\n      \"equityValue\": 12071.5,\n      \"cashAvailableForWithdrawal\": 3028.98,\n      \"cashAvailableForTrading\": 3028.98,\n      \"updatedWhen\": \"2022-12-12T21:13:12.391Z\"\n    },\n    \"cashBalance\": 3028.98,\n    \"sweepInd\": true,\n    \"interestFree\": false,\n    \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n    \"updatedWhen\": \"2022-12-11T22:28:21.810Z\",\n    \"lastActivityDate\": \"2024-07-23\",\n    \"interestedParties\": [\n      {\n        \"type\": \"<string>\",\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  },\n  {\n    \"id\": \"8b8ba3fd-74dc-45dc-b2dc-7de683bd713c.1556222995391\",\n    \"accountNo\": \"DWBG000052\",\n    \"nickname\": \"Justin's Self Directed Account\",\n    \"status\": {\n      \"name\": \"PENDING\",\n      \"description\": \"Pending\"\n    },\n    \"accountType\": \"LIVE\",\n    \"accountManagementType\": \"SELF\",\n    \"tradingType\": {\n      \"name\": \"CASH\",\n      \"description\": \"Cash Account\"\n    },\n    \"leverage\": 1,\n    \"commissionID\": \"449d41b9-3940-41ff-b0e6-334adfb443f8\",\n    \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"restricted\": false,\n    \"goodFaithViolations\": 0,\n    \"patternDayTrades\": 0,\n    \"freeTradeBalance\": 0,\n    \"gfvPdtExempt\": false,\n    \"buyingPowerOverride\": false,\n    \"bod\": {\n      \"moneyMarket\": 3028.98,\n      \"equityValue\": 12071.5,\n      \"cashAvailableForWithdrawal\": 3028.98,\n      \"cashAvailableForTrading\": 3028.98,\n      \"updatedWhen\": \"2022-12-12T21:13:12.391Z\"\n    },\n    \"cashBalance\": 3028.98,\n    \"sweepInd\": true,\n    \"interestFree\": false,\n    \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n    \"updatedWhen\": \"2022-12-11T22:28:21.810Z\",\n    \"lastActivityDate\": \"2024-07-23\",\n    \"interestedParties\": [\n      {\n        \"type\": \"<string>\",\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0934d94e-1367-4f90-befc-6bf70922b05d",
+    "name": "DriveWealth Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

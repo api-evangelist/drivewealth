@@ -1,0 +1,482 @@
+{
+  "item": [
+    {
+      "id": "19977206-b910-40e4-8f65-a6fc251befad",
+      "name": "Portfolios",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1280c6aa-4208-46f5-8a8e-6cc4a246cb44",
+          "name": "Create Portfolio",
+          "request": {
+            "name": "Create Portfolio",
+            "description": {
+              "content": "Creates a Portfolio.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed",
+                "portfolios"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userID\": \"<string>\",\n  \"name\": \"<string>\",\n  \"clientPortfolioID\": \"<string>\",\n  \"description\": \"<string>\",\n  \"holdings\": [\n    {\n      \"type\": \"<string>\",\n      \"target\": \"<number>\",\n      \"id\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"target\": \"<number>\",\n      \"id\": \"<string>\"\n    }\n  ],\n  \"triggers\": [\n    {\n      \"type\": \"<string>\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": \"<number>\",\n      \"lowerBound\": \"<number>\",\n      \"upperBound\": \"<number>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": \"<number>\",\n      \"lowerBound\": \"<number>\",\n      \"upperBound\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5ccc2aa3-8935-49f6-985c-58118909c00e",
+              "name": "Creating a Portfolio was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed",
+                    "portfolios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userID\": \"66304da9-3h6f-2234-935f-ac6b7933d706\",\n  \"name\": \"Recession Proof\",\n  \"clientPortfolioID\": \"AAABBB-1222-3344.123456789\",\n  \"description\": \"Mix of sectors\",\n  \"holdings\": [\n    {\n      \"type\": \"FUND\",\n      \"target\": 0.95,\n      \"id\": \"fund_3d9d00d1-f06e-4f86-9cbf-893c75cf77fe\"\n    },\n    {\n      \"type\": \"FUND\",\n      \"target\": 0.95,\n      \"id\": \"fund_3d9d00d1-f06e-4f86-9cbf-893c75cf77fe\"\n    }\n  ],\n  \"triggers\": [\n    {\n      \"type\": \"TOTAL_DRIFT\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": 0.05,\n      \"lowerBound\": 0.01,\n      \"upperBound\": 0.02\n    },\n    {\n      \"type\": \"TOTAL_DRIFT\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": 0.05,\n      \"lowerBound\": 0.01,\n      \"upperBound\": 0.02\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"portfolio_4a22340a-31f8-4f0e-b5ee-24ddfbc66727\",\n  \"name\": \"Recession Proof\",\n  \"clientPortfolioID\": \"AAABBB-1222-3344.123456789\",\n  \"description\": \"A portifolio description\",\n  \"holdings\": [\n    {\n      \"id\": \"fund_3d9d00d1-f06e-4f86-9cbf-893c75cf77fe\",\n      \"name\": \"TECH\",\n      \"type\": \"FUND\",\n      \"clientFundID\": \"AAABBB-1222-3344.123456789\",\n      \"description\": \"Top 10 US Tech\",\n      \"target\": 0.95,\n      \"holdings\": [\n        {\n          \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n          \"target\": 0.5\n        },\n        {\n          \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n          \"target\": 0.5\n        }\n      ],\n      \"triggers\": [\n        {\n          \"type\": \"TOTAL_DRIFT\",\n          \"child\": \"string\",\n          \"maxAllowed\": 0.05,\n          \"lowerBound\": 0.01,\n          \"upperBound\": 0.02\n        },\n        {\n          \"type\": \"TOTAL_DRIFT\",\n          \"child\": \"string\",\n          \"maxAllowed\": 0.05,\n          \"lowerBound\": 0.01,\n          \"upperBound\": 0.02\n        }\n      ]\n    },\n    {\n      \"id\": \"fund_3d9d00d1-f06e-4f86-9cbf-893c75cf77fe\",\n      \"name\": \"TECH\",\n      \"type\": \"FUND\",\n      \"clientFundID\": \"AAABBB-1222-3344.123456789\",\n      \"description\": \"Top 10 US Tech\",\n      \"target\": 0.95,\n      \"holdings\": [\n        {\n          \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n          \"target\": 0.5\n        },\n        {\n          \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n          \"target\": 0.5\n        }\n      ],\n      \"triggers\": [\n        {\n          \"type\": \"TOTAL_DRIFT\",\n          \"child\": \"string\",\n          \"maxAllowed\": 0.05,\n          \"lowerBound\": 0.01,\n          \"upperBound\": 0.02\n        },\n        {\n          \"type\": \"TOTAL_DRIFT\",\n          \"child\": \"string\",\n          \"maxAllowed\": 0.05,\n          \"lowerBound\": 0.01,\n          \"upperBound\": 0.02\n        }\n      ]\n    }\n  ],\n  \"userID\": \"66304da9-3h6f-2234-935f-ac6b7933d706\",\n  \"triggers\": [\n    {\n      \"type\": \"TOTAL_DRIFT\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": 0.05,\n      \"lowerBound\": 0.01,\n      \"upperBound\": 0.02\n    },\n    {\n      \"type\": \"TOTAL_DRIFT\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": 0.05,\n      \"lowerBound\": 0.01,\n      \"upperBound\": 0.02\n    }\n  ],\n  \"isFundTargetsChanged\": false,\n  \"fundsTargetsChanged\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d60345ea-0eb5-4af5-868a-d07a1d5af82b",
+          "name": "Retrieve Portfolio",
+          "request": {
+            "name": "Retrieve Portfolio",
+            "description": {
+              "content": "Retrieves a Portfolio by portfolioID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed",
+                "portfolios",
+                ":portfolioID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "portfolioID",
+                  "description": "(Required) A unique identifier associated with a specific Portfolio."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "30a91522-c86f-4989-b607-7655fb4eefb5",
+              "name": "Retrieving a Portfolio by portfolioID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed",
+                    "portfolios",
+                    ":portfolioID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portfolioID",
+                      "description": "(Required) A unique identifier associated with a specific Portfolio."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"portfolio_4a22340a-31f8-4f0e-b5ee-24ddfbc66727\",\n  \"name\": \"Recession Proof\",\n  \"clientPortfolioID\": \"AAABBB-1222-3344.123456789\",\n  \"description\": \"A portifolio description\",\n  \"holdings\": [\n    {\n      \"id\": \"fund_3d9d00d1-f06e-4f86-9cbf-893c75cf77fe\",\n      \"name\": \"TECH\",\n      \"type\": \"FUND\",\n      \"clientFundID\": \"AAABBB-1222-3344.123456789\",\n      \"description\": \"Top 10 US Tech\",\n      \"target\": 0.95,\n      \"holdings\": [\n        {\n          \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n          \"target\": 0.5\n        },\n        {\n          \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n          \"target\": 0.5\n        }\n      ],\n      \"triggers\": [\n        {\n          \"type\": \"TOTAL_DRIFT\",\n          \"child\": \"string\",\n          \"maxAllowed\": 0.05,\n          \"lowerBound\": 0.01,\n          \"upperBound\": 0.02\n        },\n        {\n          \"type\": \"TOTAL_DRIFT\",\n          \"child\": \"string\",\n          \"maxAllowed\": 0.05,\n          \"lowerBound\": 0.01,\n          \"upperBound\": 0.02\n        }\n      ]\n    },\n    {\n      \"id\": \"fund_3d9d00d1-f06e-4f86-9cbf-893c75cf77fe\",\n      \"name\": \"TECH\",\n      \"type\": \"FUND\",\n      \"clientFundID\": \"AAABBB-1222-3344.123456789\",\n      \"description\": \"Top 10 US Tech\",\n      \"target\": 0.95,\n      \"holdings\": [\n        {\n          \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n          \"target\": 0.5\n        },\n        {\n          \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n          \"target\": 0.5\n        }\n      ],\n      \"triggers\": [\n        {\n          \"type\": \"TOTAL_DRIFT\",\n          \"child\": \"string\",\n          \"maxAllowed\": 0.05,\n          \"lowerBound\": 0.01,\n          \"upperBound\": 0.02\n        },\n        {\n          \"type\": \"TOTAL_DRIFT\",\n          \"child\": \"string\",\n          \"maxAllowed\": 0.05,\n          \"lowerBound\": 0.01,\n          \"upperBound\": 0.02\n        }\n      ]\n    }\n  ],\n  \"userID\": \"66304da9-3h6f-2234-935f-ac6b7933d706\",\n  \"triggers\": [\n    {\n      \"type\": \"TOTAL_DRIFT\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": 0.05,\n      \"lowerBound\": 0.01,\n      \"upperBound\": 0.02\n    },\n    {\n      \"type\": \"TOTAL_DRIFT\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": 0.05,\n      \"lowerBound\": 0.01,\n      \"upperBound\": 0.02\n    }\n  ],\n  \"isFundTargetsChanged\": false,\n  \"fundsTargetsChanged\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "293fcb74-938d-4e83-b71c-81cdd8c06f66",
+          "name": "Update Portfolio",
+          "request": {
+            "name": "Update Portfolio",
+            "description": {
+              "content": "Updates a Profolio by portfolioID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed",
+                "portfolios",
+                ":portfolioID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "portfolioID",
+                  "description": "(Required) A unique identifier associated with a specific Portfolio."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"clientPortfolioID\": \"<string>\",\n  \"description\": \"<string>\",\n  \"holdings\": [\n    {\n      \"type\": \"<string>\",\n      \"target\": \"<number>\",\n      \"id\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"target\": \"<number>\",\n      \"id\": \"<string>\"\n    }\n  ],\n  \"triggers\": {\n    \"type\": \"<string>\",\n    \"child\": \"<string>\",\n    \"maxAllowed\": \"<number>\",\n    \"lowerBound\": \"<number>\",\n    \"upperBound\": \"<number>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e2705c18-1461-47cc-b449-5d6a9199a003",
+              "name": "Updating a Portfolio by portfolioID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed",
+                    "portfolios",
+                    ":portfolioID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portfolioID",
+                      "description": "(Required) A unique identifier associated with a specific Portfolio."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Recession Proof\",\n  \"clientPortfolioID\": \"AAABBB-1222-3344.123456789\",\n  \"description\": \"A portifolio description.\",\n  \"holdings\": [\n    {\n      \"type\": \"FUND\",\n      \"target\": 0.95,\n      \"id\": \"fund_3d9d00d1-f06e-4f86-9cbf-893c75cf77fe\"\n    },\n    {\n      \"type\": \"FUND\",\n      \"target\": 0.95,\n      \"id\": \"fund_3d9d00d1-f06e-4f86-9cbf-893c75cf77fe\"\n    }\n  ],\n  \"triggers\": {\n    \"type\": \"TOTAL_DRIFT\",\n    \"child\": \"<string>\",\n    \"maxAllowed\": 0.05,\n    \"lowerBound\": 0.01,\n    \"upperBound\": 0.02\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"portfolio_4a22340a-31f8-4f0e-b5ee-24ddfbc66727\",\n  \"name\": \"Recession Proof\",\n  \"clientPortfolioID\": \"AAABBB-1222-3344.123456789\",\n  \"description\": \"A portifolio description\",\n  \"holdings\": [\n    {\n      \"id\": \"fund_3d9d00d1-f06e-4f86-9cbf-893c75cf77fe\",\n      \"name\": \"TECH\",\n      \"type\": \"FUND\",\n      \"clientFundID\": \"AAABBB-1222-3344.123456789\",\n      \"description\": \"Top 10 US Tech\",\n      \"target\": 0.95,\n      \"holdings\": [\n        {\n          \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n          \"target\": 0.5\n        },\n        {\n          \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n          \"target\": 0.5\n        }\n      ],\n      \"triggers\": [\n        {\n          \"type\": \"TOTAL_DRIFT\",\n          \"child\": \"string\",\n          \"maxAllowed\": 0.05,\n          \"lowerBound\": 0.01,\n          \"upperBound\": 0.02\n        },\n        {\n          \"type\": \"TOTAL_DRIFT\",\n          \"child\": \"string\",\n          \"maxAllowed\": 0.05,\n          \"lowerBound\": 0.01,\n          \"upperBound\": 0.02\n        }\n      ]\n    },\n    {\n      \"id\": \"fund_3d9d00d1-f06e-4f86-9cbf-893c75cf77fe\",\n      \"name\": \"TECH\",\n      \"type\": \"FUND\",\n      \"clientFundID\": \"AAABBB-1222-3344.123456789\",\n      \"description\": \"Top 10 US Tech\",\n      \"target\": 0.95,\n      \"holdings\": [\n        {\n          \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n          \"target\": 0.5\n        },\n        {\n          \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n          \"target\": 0.5\n        }\n      ],\n      \"triggers\": [\n        {\n          \"type\": \"TOTAL_DRIFT\",\n          \"child\": \"string\",\n          \"maxAllowed\": 0.05,\n          \"lowerBound\": 0.01,\n          \"upperBound\": 0.02\n        },\n        {\n          \"type\": \"TOTAL_DRIFT\",\n          \"child\": \"string\",\n          \"maxAllowed\": 0.05,\n          \"lowerBound\": 0.01,\n          \"upperBound\": 0.02\n        }\n      ]\n    }\n  ],\n  \"userID\": \"66304da9-3h6f-2234-935f-ac6b7933d706\",\n  \"triggers\": [\n    {\n      \"type\": \"TOTAL_DRIFT\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": 0.05,\n      \"lowerBound\": 0.01,\n      \"upperBound\": 0.02\n    },\n    {\n      \"type\": \"TOTAL_DRIFT\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": 0.05,\n      \"lowerBound\": 0.01,\n      \"upperBound\": 0.02\n    }\n  ],\n  \"isFundTargetsChanged\": false,\n  \"fundsTargetsChanged\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "966ad731-f175-43ec-9534-747cb2769285",
+          "name": "List Portfolios by Advisor",
+          "request": {
+            "name": "List Portfolios by Advisor",
+            "description": {
+              "content": "Fetches a list of portfolios by userID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID",
+                "managed",
+                "portfolio"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) The User's unique identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9fb31088-f623-4053-8982-6f8c337a62d4",
+              "name": "Fetching A List of Portfolios By userID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID",
+                    "managed",
+                    "portfolio"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) The User's unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"portfolio_87fec25f-c350-4a53-83a0-fc6be0c2989e\",\n    \"name\": \"Go Getter Portfolio\",\n    \"description\": \"This portfolio is comprised different funds that make up an aggressive portfolio.\",\n    \"clientPortfolioID\": \"AAABBB-1222-3344.123456789\",\n    \"holdings\": [\n      {\n        \"type\": \"CASH_RESERVE\",\n        \"target\": \"string\"\n      },\n      {\n        \"type\": \"CASH_RESERVE\",\n        \"target\": \"string\"\n      }\n    ],\n    \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"triggers\": [\n      {\n        \"child\": \"fund_4c16152c-f8e7-4a5a-af6b-c36f4e5cc6e7\",\n        \"maxAllowed\": 0.05,\n        \"lowerBound\": 0.1,\n        \"upperBound\": 0.25,\n        \"type\": \"TOTAL_DRIFT\"\n      },\n      {\n        \"child\": \"fund_4c16152c-f8e7-4a5a-af6b-c36f4e5cc6e7\",\n        \"maxAllowed\": 0.05,\n        \"lowerBound\": 0.1,\n        \"upperBound\": 0.25,\n        \"type\": \"TOTAL_DRIFT\"\n      }\n    ]\n  },\n  {\n    \"id\": \"portfolio_87fec25f-c350-4a53-83a0-fc6be0c2989e\",\n    \"name\": \"Go Getter Portfolio\",\n    \"description\": \"This portfolio is comprised different funds that make up an aggressive portfolio.\",\n    \"clientPortfolioID\": \"AAABBB-1222-3344.123456789\",\n    \"holdings\": [\n      {\n        \"type\": \"CASH_RESERVE\",\n        \"target\": \"string\"\n      },\n      {\n        \"type\": \"CASH_RESERVE\",\n        \"target\": \"string\"\n      }\n    ],\n    \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"triggers\": [\n      {\n        \"child\": \"fund_4c16152c-f8e7-4a5a-af6b-c36f4e5cc6e7\",\n        \"maxAllowed\": 0.05,\n        \"lowerBound\": 0.1,\n        \"upperBound\": 0.25,\n        \"type\": \"TOTAL_DRIFT\"\n      },\n      {\n        \"child\": \"fund_4c16152c-f8e7-4a5a-af6b-c36f4e5cc6e7\",\n        \"maxAllowed\": 0.05,\n        \"lowerBound\": 0.1,\n        \"upperBound\": 0.25,\n        \"type\": \"TOTAL_DRIFT\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cc9976b4-ec27-4b89-9ee2-71ad3ed52f77",
+    "name": "DriveWealth Accounts Portfolios API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

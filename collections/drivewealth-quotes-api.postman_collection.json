@@ -1,0 +1,284 @@
+{
+  "item": [
+    {
+      "id": "b4a2fb09-1a51-48ec-8b9b-709c33831750",
+      "name": "Quotes",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1f30fb0e-5788-4601-9c6f-67194c1af04c",
+          "name": "Retrieve Quote (referential feed)",
+          "request": {
+            "name": "Retrieve Quote (referential feed)",
+            "description": {
+              "content": "Fetch the realtime or 15 minute delayed Referential quote details for a specific security.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "quotes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "(Required) The ticker symbol of the associated instrument. Multiple ticker symbols separated by a comma may also be used."
+                },
+                {
+                  "disabled": false,
+                  "key": "exchangeOverride",
+                  "value": "<string>",
+                  "description": "The quote details will be 15 minutes delayed."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrumentIDs",
+                  "value": "<string>",
+                  "description": "(Required) The id of an instrument. Multiple instrumentIDs separated by a comma may also be used."
+                },
+                {
+                  "disabled": false,
+                  "key": "isins",
+                  "value": "<string>",
+                  "description": "(Required) The unique identifier of the instrument. Multiple instrumentIDs separated by a comma may also be used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "dw-customer-user-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dd465d39-a90c-4690-be6d-ed8902ed45b4",
+              "name": "Fetch referential quote details was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbols",
+                      "value": "MS"
+                    },
+                    {
+                      "key": "exchangeOverride",
+                      "value": "15MinDelayed"
+                    },
+                    {
+                      "key": "instrumentIDs",
+                      "value": "1179e8dd-2781-4ce9-842c-f05ded6a40d7"
+                    },
+                    {
+                      "key": "isins",
+                      "value": "US912810RC45"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "dw-customer-user-id",
+                    "value": "66304da9-3h6f-2234-935f-ac6b7933d706",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"SBUX\",\n    \"bid\": 95.59,\n    \"ask\": 95.6,\n    \"lastTrade\": 95.6,\n    \"change\": 0.32,\n    \"open\": 95.65,\n    \"high\": 96.2,\n    \"low\": 95.23,\n    \"close\": 0,\n    \"priorClose\": 95.28,\n    \"volume\": 3973709,\n    \"marketCondition\": \"NORMAL\",\n    \"dataProvider\": \"NYSE\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7539d9bf-2459-4f74-90b0-166adf31461c",
+          "name": "Retrieve Quote (consolidated feed)",
+          "request": {
+            "name": "Retrieve Quote (consolidated feed)",
+            "description": {
+              "content": "Fetch the NBBO quote details for a specific security.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "quotes",
+                "vdr"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "(Required) The ticker symbol of the associated instrument."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "dw-customer-user-id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f0785ca3-b0e6-47aa-b333-f544441ed51e",
+              "name": "Fetch NBBO quote details was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes",
+                    "vdr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbols",
+                      "value": "MS"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "dw-customer-user-id",
+                    "value": "66304da9-3h6f-2234-935f-ac6b7933d706",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"symbol\": \"MS\",\n  \"bid\": 86.12,\n  \"ask\": 85.14,\n  \"open\": 86.53,\n  \"high\": 86.85,\n  \"low\": 85.83,\n  \"timeOffset\": 8156.610480557494,\n  \"volume\": 2779731,\n  \"askSize\": 3,\n  \"bidSize\": 4,\n  \"change\": -1.33,\n  \"lastTradeExchange\": \"DX\",\n  \"bestBidExchange\": \"N\",\n  \"bestAskExchange\": \"Q\",\n  \"lastTrade\": 86.47,\n  \"lastTradeSize\": 2,\n  \"marketCondition\": \"NORMAL\",\n  \"tradeCount\": 29565,\n  \"close\": 0,\n  \"priorClose\": 86.86\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4c13f1bf-d925-414a-b322-958a7e25e0ca",
+    "name": "DriveWealth Accounts Quotes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

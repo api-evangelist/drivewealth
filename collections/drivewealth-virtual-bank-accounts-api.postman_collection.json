@@ -1,0 +1,140 @@
+{
+  "item": [
+    {
+      "id": "0338a68e-8630-4121-8427-e29eab43b7e6",
+      "name": "Virtual Bank Accounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c7d8f9b7-d2ec-4402-bcc1-f90e3af2b0e1",
+          "name": "Retrieve Account Virtual Bank Account",
+          "request": {
+            "name": "Retrieve Account Virtual Bank Account",
+            "description": {
+              "content": "Retrieves an Account Virtual Bank Account details by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "funding",
+                "deposit-instructions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "28991fcf-67f2-4332-bc04-84231df0f471",
+              "name": "Retrieving Virtual Bank Account details by accountID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "funding",
+                    "deposit-instructions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"bank_a4656e60-321e-425b-aa0d-a2e75c38885f\",\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"accountNo\": \"DWBG000052\",\n  \"wireDetails\": {\n    \"bankAccountNumber\": \"7442393174\",\n    \"bankName\": \"JP Morgan Chase\",\n    \"bankSwiftCode\": \"CHASUS33\",\n    \"bankAddress\": {\n      \"addressLine1\": \"222 BROADWAY\",\n      \"city\": \"New York City\",\n      \"stateProvince\": \"New York\",\n      \"zipPostalCode\": \"10038\",\n      \"country\": \"USA\"\n    },\n    \"beneficiaryName\": \"Tom Ace\",\n    \"beneficiaryAddress\": {\n      \"addressLine1\": \"222 BROADWAY\",\n      \"city\": \"New York City\",\n      \"stateProvince\": \"New York\",\n      \"zipPostalCode\": \"10038\",\n      \"country\": \"USA\"\n    },\n    \"virtualAccountID\": \"bfa2e...\",\n    \"paymentType\": \"WIRE\"\n  },\n  \"achDetails\": {\n    \"bankAccountNumber\": \"7442393174\",\n    \"bankRoutingNumber\": \"110000000\",\n    \"bankName\": \"JP Morgan Chase\",\n    \"bankAddress\": {\n      \"addressLine1\": \"222 BROADWAY\",\n      \"city\": \"New York City\",\n      \"stateProvince\": \"New York\",\n      \"zipPostalCode\": \"10038\",\n      \"country\": \"USA\"\n    },\n    \"bankRoutingNumberType\": \"ABA\",\n    \"beneficiaryName\": \"Tom Ace\",\n    \"beneficiaryAddress\": {\n      \"addressLine1\": \"222 BROADWAY\",\n      \"city\": \"New York City\",\n      \"stateProvince\": \"New York\",\n      \"zipPostalCode\": \"10038\",\n      \"country\": \"USA\"\n    },\n    \"virtualAccountID\": \"bfa2e...\",\n    \"paymentType\": \"ACH\"\n  },\n  \"wireDomesticDetails\": {\n    \"bankAccountNumber\": \"7442393174\",\n    \"bankRoutingNumber\": \"110000000\",\n    \"bankName\": \"JP Morgan Chase\",\n    \"bankAddress\": {\n      \"addressLine1\": \"222 BROADWAY\",\n      \"city\": \"New York City\",\n      \"stateProvince\": \"New York\",\n      \"zipPostalCode\": \"10038\",\n      \"country\": \"USA\"\n    },\n    \"bankRoutingNumberType\": \"ABA\",\n    \"beneficiaryName\": \"Tom Ace\",\n    \"beneficiaryAddress\": {\n      \"addressLine1\": \"222 BROADWAY\",\n      \"city\": \"New York City\",\n      \"stateProvince\": \"New York\",\n      \"zipPostalCode\": \"10038\",\n      \"country\": \"USA\"\n    },\n    \"virtualAccountID\": \"bfa2e...\",\n    \"paymentType\": \"WIRE\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2b7522c6-4781-4f03-aa22-9b5afafd9bdf",
+    "name": "DriveWealth Accounts Virtual Bank Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

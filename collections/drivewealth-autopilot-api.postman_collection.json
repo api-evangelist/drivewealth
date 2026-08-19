@@ -1,0 +1,519 @@
+{
+  "item": [
+    {
+      "id": "f2749073-1b4f-4dd5-8d5b-fdb4c3af7931",
+      "name": "AutoPilot",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "26e6454f-ac56-463a-9c5a-681116339d5b",
+          "name": "Create Autopilot Run",
+          "request": {
+            "name": "Create Autopilot Run",
+            "description": {
+              "content": "Create an Autopilot Run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed",
+                "autopilot",
+                ":partnerID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partnerID",
+                  "description": "(Required) This is the parentIBID or userID of the registered investment advisor."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reviewOnly\": \"<boolean>\",\n  \"forceRebalance\": \"<boolean>\",\n  \"subAccounts\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "618846e8-2718-4732-ae6a-74b79a6e11be",
+              "name": "Creating an Autopilot Run was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed",
+                    "autopilot",
+                    ":partnerID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partnerID",
+                      "description": "(Required) This is the parentIBID or userID of the registered investment advisor."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reviewOnly\": true,\n  \"forceRebalance\": true,\n  \"subAccounts\": [\n    \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n    \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ria_rebalance_ebf7e764-e2d6-4b3d-a333-b8ff05b92b89\",\n  \"created\": \"2022-12-27T06:06:28.955Z\",\n  \"status\": \"REBALANCE_NOT_STARTED\",\n  \"riaID\": \"66304da9-3h6f-2234-935f-ac6b7933d706\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c8381e3-ac67-425c-be60-8f69a6b6a341",
+          "name": "Retrieve Autopilot Run",
+          "request": {
+            "name": "Retrieve Autopilot Run",
+            "description": {
+              "content": "Retrieves an Autopilot Run by rebalanceRunID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed",
+                "autopilot",
+                ":rebalanceRunID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "rebalanceRunID",
+                  "description": "(Required) The unique re-balance run identifier `rebalanceRunID` associated with a specific re-balance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "baf450f7-c696-4537-84c1-6799028e999c",
+              "name": "Retrieving an Autopilot Run by rebalanceRunID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed",
+                    "autopilot",
+                    ":rebalanceRunID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "rebalanceRunID",
+                      "description": "(Required) The unique re-balance run identifier `rebalanceRunID` associated with a specific re-balance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ria_rebalance_ebf7e764-e2d6-4b3d-a333-b8ff05b92b89\",\n  \"riaID\": \"66304da9-3h6f-2234-935f-ac6b7933d706\",\n  \"status\": \"REBALANCE_NOT_STARTED\",\n  \"updated\": \"2022-12-27T06:07:28.955Z\",\n  \"created\": \"2022-12-27T06:06:28.955Z\",\n  \"moneyMovement\": true,\n  \"regularRebalance\": true,\n  \"reviewOnly\": true,\n  \"orders\": {\n    \"total\": 0,\n    \"submitted\": \"https://uat.drivewealth.autopilot.s3.amazonaws.com/44304da9....\",\n    \"outcome\": \"https://uat.drivewealth.autopilot.s3....\",\n    \"amountBuys\": -1059.35,\n    \"amountSells\": 862.69,\n    \"cleanedUp\": \"string\"\n  },\n  \"allocations\": {\n    \"submitted\": \"https://uat.drivewealth.autopilot.s3....\",\n    \"outcome\": \"https://uat.drivewealth.autopilot.s3....\"\n  },\n  \"subAccounts\": {\n    \"total\": 4,\n    \"rebalanced\": 3,\n    \"error\": 0,\n    \"outcome\": \"https://uat.drivewealth.autopilot.s3....\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1dfa0b17-ae69-4d69-a027-86c48d999ba4",
+          "name": "Retrieve Portfolio by Account",
+          "request": {
+            "name": "Retrieve Portfolio by Account",
+            "description": {
+              "content": "Retrieve Portfolio details by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "portfolio"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "18240041-f689-4768-be9c-c88991242c04",
+              "name": "Fetching Portfolio details was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "portfolio"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"portfolio_87fec25f-c350-4a53-83a0-fc6be0c2989e\",\n  \"equity\": 11003.76,\n  \"totalDrift\": 0.012,\n  \"rebalanceRequired\": true,\n  \"nextPortfolioRebalance\": \"2018-12-11T15:00:00.846Z\",\n  \"lastPortfolioRebalance\": \"2017-12-11T15:00:00.846Z\",\n  \"holdings\": [\n    {\n      \"id\": \"fund_4c16152c-f8e7-4a5a-af6b-c36f4e5cc6e7\",\n      \"type\": \"FUND\",\n      \"name\": \"Large Capitalization Fund\",\n      \"target\": 0.75,\n      \"actual\": 0.3054,\n      \"value\": 33604.12,\n      \"rebalanceRequired\": true,\n      \"holdings\": [\n        {\n          \"instrumentID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"instrumentID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    {\n      \"id\": \"fund_4c16152c-f8e7-4a5a-af6b-c36f4e5cc6e7\",\n      \"type\": \"FUND\",\n      \"name\": \"Large Capitalization Fund\",\n      \"target\": 0.75,\n      \"actual\": 0.3054,\n      \"value\": 33604.12,\n      \"rebalanceRequired\": true,\n      \"holdings\": [\n        {\n          \"instrumentID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"instrumentID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "561e4ef6-6cab-42e1-85a9-0bee7fb11e74",
+          "name": "List AutoPilot Runs by Advisor",
+          "request": {
+            "name": "List AutoPilot Runs by Advisor",
+            "description": {
+              "content": "Fetches a list of autopilot runs by userID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID",
+                "managed",
+                "autopilot"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "The date and time in which to start from."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "The date and time in which to end at."
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) The User's unique identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9c353d5a-1d3d-433b-8703-d0d082a45953",
+              "name": "Fetching A List Of Autopilot Runs By userID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID",
+                    "managed",
+                    "autopilot"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "2022-12-08T18:36:40.609Z"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2022-12-25T18:36:40.609Z"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "NEXT"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "2022-12-08T18:36:40.609Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) The User's unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"ria_rebalance_721ff5c3-f6f2-48d8-aaa3-41a49a044f2c\",\n    \"created\": \"2022-12-11T22:28:21.810Z\",\n    \"status\": \"REBALANCE_NOT_STARTED\",\n    \"moneyMovement\": \"string\",\n    \"regularRebalance\": \"string\"\n  },\n  {\n    \"id\": \"ria_rebalance_721ff5c3-f6f2-48d8-aaa3-41a49a044f2c\",\n    \"created\": \"2022-12-11T22:28:21.810Z\",\n    \"status\": \"REBALANCE_NOT_STARTED\",\n    \"moneyMovement\": \"string\",\n    \"regularRebalance\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "aeac9cf5-c0e3-406e-98db-036317ab1795",
+    "name": "DriveWealth Accounts AutoPilot API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

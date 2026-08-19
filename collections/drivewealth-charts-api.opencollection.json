@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Charts API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Charts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Chart",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/bars",
+            "params": [
+              {
+                "name": "instrumentID",
+                "value": "3fb1e8a9-f7d5-4d90-95e2-43e7326b5636",
+                "type": "query",
+                "description": "A unique ID created by DriveWealth to identify a specific instrument."
+              },
+              {
+                "name": "compression",
+                "value": "9",
+                "type": "query",
+                "description": "The compression number represents the time increments of the chart data. Refer to the Compression table above."
+              },
+              {
+                "name": "dateStart",
+                "value": "2022-11-10T00:00:00Z",
+                "type": "query",
+                "description": "The start date of the chart data. Follow ISO-8601 format."
+              },
+              {
+                "name": "dateEnd",
+                "value": "2022-11-18T23:59:00Z",
+                "type": "query",
+                "description": "The end date of the chart data. Follow ISO-8601 format."
+              },
+              {
+                "name": "tradingDays",
+                "value": "20",
+                "type": "query",
+                "description": "TradingDays may be defined as 1-60 days in the past from the current date. If set do not use `dateStart` and `dateEnd` values."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch historical bars for a given instrument over a given time period."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

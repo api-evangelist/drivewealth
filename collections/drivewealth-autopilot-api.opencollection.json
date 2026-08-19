@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts AutoPilot API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AutoPilot",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Autopilot Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bo-api.drivewealth.io/back-office/managed/autopilot/:partnerID",
+            "params": [
+              {
+                "name": "partnerID",
+                "value": "66304da9-3h6f-2234-935f-ac6b7933d706",
+                "type": "path",
+                "description": "This is the parentIBID or userID of the registered investment advisor."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create an Autopilot Run."
+        },
+        {
+          "info": {
+            "name": "Retrieve Autopilot Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/managed/autopilot/:rebalanceRunID",
+            "params": [
+              {
+                "name": "rebalanceRunID",
+                "value": "ria_rebalance_ebf7e878-e2d6-4b3d-a333-b8ff05b92b83",
+                "type": "path",
+                "description": "The unique re-balance run identifier `rebalanceRunID` associated with a specific re-balance."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves an Autopilot Run by rebalanceRunID."
+        },
+        {
+          "info": {
+            "name": "Retrieve Portfolio by Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/portfolio",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve Portfolio details by accountID."
+        },
+        {
+          "info": {
+            "name": "List AutoPilot Runs by Advisor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/users/:userID/managed/autopilot",
+            "params": [
+              {
+                "name": "userID",
+                "value": "cc07f91b-7ee1-4868-b8fc-823c70a1b932",
+                "type": "path",
+                "description": "The User's unique identifier."
+              },
+              {
+                "name": "from",
+                "value": "2022-12-08T18:36:40.609Z",
+                "type": "query",
+                "description": "The date and time in which to start from."
+              },
+              {
+                "name": "to",
+                "value": "2022-12-25T18:36:40.609Z",
+                "type": "query",
+                "description": "The date and time in which to end at."
+              },
+              {
+                "name": "direction",
+                "value": "NEXT",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "2022-12-08T18:36:40.609Z",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetches a list of autopilot runs by userID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

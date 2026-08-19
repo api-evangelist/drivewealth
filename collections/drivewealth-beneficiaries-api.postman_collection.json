@@ -1,0 +1,361 @@
+{
+  "item": [
+    {
+      "id": "a116b437-1ca8-4e5c-96fd-91f3e3a44de2",
+      "name": "Beneficiaries",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3b3bfd91-1268-4f57-b611-cf2e7ef17092",
+          "name": "Create Account Beneficiaries",
+          "request": {
+            "name": "Create Account Beneficiaries",
+            "description": {
+              "content": "Creates an Account Beneficiary by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "beneficiaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"primary\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"percentage\": \"<number>\",\n      \"email\": \"<string>\",\n      \"formationDate\": \"<string>\",\n      \"primaryContact\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"created\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"percentage\": \"<number>\",\n      \"email\": \"<string>\",\n      \"formationDate\": \"<string>\",\n      \"primaryContact\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"created\": \"<string>\"\n    }\n  ],\n  \"contingent\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"percentage\": \"<number>\",\n      \"email\": \"<string>\",\n      \"formationDate\": \"<string>\",\n      \"primaryContact\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"created\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"percentage\": \"<number>\",\n      \"email\": \"<string>\",\n      \"formationDate\": \"<string>\",\n      \"primaryContact\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"created\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bdbc2dfa-5d76-46f1-af4d-800b6564ddcd",
+              "name": "Creating an Account Beneficiary was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "beneficiaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"primary\": [\n    {\n      \"type\": \"ENTITY\",\n      \"name\": \"Tom Ace\",\n      \"percentage\": \"<number>\",\n      \"email\": \"tom@ac.com\",\n      \"formationDate\": \"2010-10-25\",\n      \"primaryContact\": \"5512478089\",\n      \"phone\": \"4153647890\",\n      \"created\": \"2022-12-29T18:32:15.533Z\"\n    },\n    {\n      \"type\": \"ENTITY\",\n      \"name\": \"Tom Ace\",\n      \"percentage\": \"<number>\",\n      \"email\": \"tom@ac.com\",\n      \"formationDate\": \"2010-10-25\",\n      \"primaryContact\": \"5512478089\",\n      \"phone\": \"4153647890\",\n      \"created\": \"2022-12-29T18:32:15.533Z\"\n    }\n  ],\n  \"contingent\": [\n    {\n      \"type\": \"ENTITY\",\n      \"name\": \"Tom Ace\",\n      \"percentage\": \"<number>\",\n      \"email\": \"tom@ac.com\",\n      \"formationDate\": \"2010-10-25\",\n      \"primaryContact\": \"5512478089\",\n      \"phone\": \"4153647890\",\n      \"created\": \"2022-12-29T18:32:15.533Z\"\n    },\n    {\n      \"type\": \"ENTITY\",\n      \"name\": \"Tom Ace\",\n      \"percentage\": \"<number>\",\n      \"email\": \"tom@ac.com\",\n      \"formationDate\": \"2010-10-25\",\n      \"primaryContact\": \"5512478089\",\n      \"phone\": \"4153647890\",\n      \"created\": \"2022-12-29T18:32:15.533Z\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"primary\": [\n    {\n      \"type\": \"ENTITY\",\n      \"name\": \"Tom Ace\",\n      \"percentage\": \"<number>\",\n      \"email\": \"tom@ac.com\",\n      \"formationDate\": \"2010-10-25\",\n      \"primaryContact\": \"5512478089\",\n      \"phone\": \"4153647890\",\n      \"created\": \"2022-12-29T18:32:15.533Z\"\n    },\n    {\n      \"type\": \"ENTITY\",\n      \"name\": \"Tom Ace\",\n      \"percentage\": \"<number>\",\n      \"email\": \"tom@ac.com\",\n      \"formationDate\": \"2010-10-25\",\n      \"primaryContact\": \"5512478089\",\n      \"phone\": \"4153647890\",\n      \"created\": \"2022-12-29T18:32:15.533Z\"\n    }\n  ],\n  \"contingent\": [\n    {\n      \"type\": \"ENTITY\",\n      \"name\": \"Tom Ace\",\n      \"percentage\": \"<number>\",\n      \"email\": \"tom@ac.com\",\n      \"formationDate\": \"2010-10-25\",\n      \"primaryContact\": \"5512478089\",\n      \"phone\": \"4153647890\",\n      \"created\": \"2022-12-29T18:32:15.533Z\"\n    },\n    {\n      \"type\": \"ENTITY\",\n      \"name\": \"Tom Ace\",\n      \"percentage\": \"<number>\",\n      \"email\": \"tom@ac.com\",\n      \"formationDate\": \"2010-10-25\",\n      \"primaryContact\": \"5512478089\",\n      \"phone\": \"4153647890\",\n      \"created\": \"2022-12-29T18:32:15.533Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "75bdcdf6-dfe9-45f9-a4fb-8edb30e68d0b",
+          "name": "Retrieve Account Beneficiaries",
+          "request": {
+            "name": "Retrieve Account Beneficiaries",
+            "description": {
+              "content": "Retrieves a list of Account Beneficiaries by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "beneficiaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0bc38c0c-1e2a-4155-8da2-cd4f4288ca02",
+              "name": "Retrieving a list of Account Beneficiaries was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "beneficiaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"primary\": [\n    {\n      \"type\": \"ENTITY\",\n      \"name\": \"Tom Ace\",\n      \"percentage\": \"<number>\",\n      \"email\": \"tom@ac.com\",\n      \"formationDate\": \"2010-10-25\",\n      \"primaryContact\": \"5512478089\",\n      \"phone\": \"4153647890\",\n      \"created\": \"2022-12-29T18:32:15.533Z\"\n    },\n    {\n      \"type\": \"ENTITY\",\n      \"name\": \"Tom Ace\",\n      \"percentage\": \"<number>\",\n      \"email\": \"tom@ac.com\",\n      \"formationDate\": \"2010-10-25\",\n      \"primaryContact\": \"5512478089\",\n      \"phone\": \"4153647890\",\n      \"created\": \"2022-12-29T18:32:15.533Z\"\n    }\n  ],\n  \"contingent\": [\n    {\n      \"type\": \"ENTITY\",\n      \"name\": \"Tom Ace\",\n      \"percentage\": \"<number>\",\n      \"email\": \"tom@ac.com\",\n      \"formationDate\": \"2010-10-25\",\n      \"primaryContact\": \"5512478089\",\n      \"phone\": \"4153647890\",\n      \"created\": \"2022-12-29T18:32:15.533Z\"\n    },\n    {\n      \"type\": \"ENTITY\",\n      \"name\": \"Tom Ace\",\n      \"percentage\": \"<number>\",\n      \"email\": \"tom@ac.com\",\n      \"formationDate\": \"2010-10-25\",\n      \"primaryContact\": \"5512478089\",\n      \"phone\": \"4153647890\",\n      \"created\": \"2022-12-29T18:32:15.533Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3377211-29f6-4fe5-9832-f156751c1d9f",
+          "name": "Delete Account Beneficiaries",
+          "request": {
+            "name": "Delete Account Beneficiaries",
+            "description": {
+              "content": "Removes all Accounts Beneficiaries by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "beneficiaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ef309768-f910-46b6-87ce-a966cf4d3d71",
+              "name": "Removing all Account Beneficiaries was Accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "beneficiaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f3da19e8-3ff0-4372-9815-f3ab1b75ac22",
+    "name": "DriveWealth Accounts Beneficiaries API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

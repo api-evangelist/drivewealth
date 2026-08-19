@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Subscriptions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bo-api.drivewealth.io/back-office/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a Subscription charge for a User's Linked Bank Account.\n\nThis API is now deprecated as the Subscriptions product is no longer supported."
+        },
+        {
+          "info": {
+            "name": "Delete Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://bo-api.drivewealth.io/back-office/subscriptions/:subscriptionID",
+            "params": [
+              {
+                "name": "subscriptionID",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier that identifies the user's subscription."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Removes a User's Subscription by Subscription.\n\nThis API is now deprecated as the Subscriptions product is no longer supported."
+        },
+        {
+          "info": {
+            "name": "List Subscriptions by User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/users/:userID/subscriptions",
+            "params": [
+              {
+                "name": "userID",
+                "value": "cc07f91b-7ee1-4868-b8fc-823c70a1b932",
+                "type": "path",
+                "description": "The User's unique identifier."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves all User's Subscriptions by User\n\nThis API is now deprecated as the Subscriptions product is no longer supported."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

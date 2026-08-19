@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Transactions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Account Transaction Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/summary/transactions",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrives an Account Transaction Summary details by accountID.\n\nThis API has been deprecated. Instead, use List Account Transactions to retrieve historical Transactions. To retrieve orders, use List Account historical Orders."
+        },
+        {
+          "info": {
+            "name": "List Account Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/transactions",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "2022-06-16",
+                "type": "query",
+                "description": "Date start time of data. Follow [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601)"
+              },
+              {
+                "name": "to",
+                "value": "2022-07-16",
+                "type": "query",
+                "description": "Date end time of data. Follow [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601)"
+              },
+              {
+                "name": "limit",
+                "value": "25",
+                "type": "query",
+                "description": "The number of transactions to be returned per page."
+              },
+              {
+                "name": "offset",
+                "value": "2022-07-16",
+                "type": "query",
+                "description": "Follow [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601)"
+              },
+              {
+                "name": "direction",
+                "value": "prev",
+                "type": "query",
+                "description": "The direction of pagination"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of Account Transactions by accountID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

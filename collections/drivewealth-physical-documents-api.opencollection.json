@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Physical Documents API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Physical Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload Physical Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bo-api.drivewealth.io/back-office/documents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Uploads a Physical Document."
+        },
+        {
+          "info": {
+            "name": "Retrieve Physical Document URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/documents/:documentID/url",
+            "params": [
+              {
+                "name": "documentID",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the document."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a Physical Document by documentID."
+        },
+        {
+          "info": {
+            "name": "List User Physical Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/users/:userID/documents",
+            "params": [
+              {
+                "name": "userID",
+                "value": "cc07f91b-7ee1-4868-b8fc-823c70a1b932",
+                "type": "path",
+                "description": "The User's unique identifier."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of Users Physical Documents by userID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

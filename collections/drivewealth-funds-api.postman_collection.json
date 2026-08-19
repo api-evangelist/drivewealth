@@ -1,0 +1,355 @@
+{
+  "item": [
+    {
+      "id": "1ad8a610-30d4-49e4-9655-03ddf580548d",
+      "name": "Funds",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c3965bfd-c563-4d2d-90e7-54af5c5b878b",
+          "name": "Create Fund",
+          "request": {
+            "name": "Create Fund",
+            "description": {
+              "content": "Creates a Fund.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed",
+                "funds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userID\": \"<string>\",\n  \"name\": \"<string>\",\n  \"clientFundID\": \"<string>\",\n  \"description\": \"<string>\",\n  \"holdings\": [\n    {\n      \"instrumentID\": \"<string>\",\n      \"target\": \"<number>\"\n    },\n    {\n      \"instrumentID\": \"<string>\",\n      \"target\": \"<number>\"\n    }\n  ],\n  \"triggers\": [\n    {\n      \"type\": \"<string>\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": \"<number>\",\n      \"lowerBound\": \"<number>\",\n      \"upperBound\": \"<number>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": \"<number>\",\n      \"lowerBound\": \"<number>\",\n      \"upperBound\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "09738a3c-7b12-4d34-a704-46964554f4ca",
+              "name": "Creating a Fund was Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed",
+                    "funds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userID\": \"66304da9-3h6f-2234-935f-ac6b7933d706\",\n  \"name\": \"TECH\",\n  \"clientFundID\": \"SUMS_CUSTOM_ALLOCATION_TEST\",\n  \"description\": \"Top 10 US Tech\",\n  \"holdings\": [\n    {\n      \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n      \"target\": 0.5\n    },\n    {\n      \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n      \"target\": 0.5\n    }\n  ],\n  \"triggers\": [\n    {\n      \"type\": \"TOTAL_DRIFT\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": 0.05,\n      \"lowerBound\": 0.01,\n      \"upperBound\": 0.02\n    },\n    {\n      \"type\": \"TOTAL_DRIFT\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": 0.05,\n      \"lowerBound\": 0.01,\n      \"upperBound\": 0.02\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"fund_3d7d00d1-f09e-4f86-9cbf-893c75cf77fe\",\n  \"userID\": \"66304da9-3h6f-2234-935f-ac6b7933d706\",\n  \"name\": \"TECH\",\n  \"type\": \"FUND\",\n  \"clientFundID\": \"AAABBB-1222-3344.123456789\",\n  \"description\": \"Top 10 US Tech\",\n  \"holdings\": [\n    {\n      \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n      \"target\": 0.5\n    },\n    {\n      \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n      \"target\": 0.5\n    }\n  ],\n  \"triggers\": [\n    {\n      \"type\": \"TOTAL_DRIFT\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": 0.05,\n      \"lowerBound\": 0.01,\n      \"upperBound\": 0.02\n    },\n    {\n      \"type\": \"TOTAL_DRIFT\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": 0.05,\n      \"lowerBound\": 0.01,\n      \"upperBound\": 0.02\n    }\n  ],\n  \"isInstrumentTargetsChanged\": false,\n  \"instrumentTargetsChanged\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d6e3e78-0b80-4f98-bd03-04331c111955",
+          "name": "Retrieve Fund",
+          "request": {
+            "name": "Retrieve Fund",
+            "description": {
+              "content": "Retrieves a Fund by fundID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed",
+                "funds",
+                ":fundID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fundID",
+                  "description": "(Required) The unique identifier associated with the Fund."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "48e06cf6-83eb-47e7-97bd-ed9ed073c102",
+              "name": "Retrieving a Fund by fundID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed",
+                    "funds",
+                    ":fundID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fundID",
+                      "description": "(Required) The unique identifier associated with the Fund."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"fund_3d7d00d1-f09e-4f86-9cbf-893c75cf77fe\",\n  \"userID\": \"66304da9-3h6f-2234-935f-ac6b7933d706\",\n  \"name\": \"TECH\",\n  \"type\": \"FUND\",\n  \"clientFundID\": \"AAABBB-1222-3344.123456789\",\n  \"description\": \"Top 10 US Tech\",\n  \"holdings\": [\n    {\n      \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n      \"target\": 0.5\n    },\n    {\n      \"instrumentID\": \"5b85fabb-d57c-44e6-a7f6-a3efc760226c\",\n      \"target\": 0.5\n    }\n  ],\n  \"triggers\": [\n    {\n      \"type\": \"TOTAL_DRIFT\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": 0.05,\n      \"lowerBound\": 0.01,\n      \"upperBound\": 0.02\n    },\n    {\n      \"type\": \"TOTAL_DRIFT\",\n      \"child\": \"<string>\",\n      \"maxAllowed\": 0.05,\n      \"lowerBound\": 0.01,\n      \"upperBound\": 0.02\n    }\n  ],\n  \"isInstrumentTargetsChanged\": false,\n  \"instrumentTargetsChanged\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42ca324d-82d3-40f5-ad33-0e0dd3c4ccac",
+          "name": "List Funds by Advisor",
+          "request": {
+            "name": "List Funds by Advisor",
+            "description": {
+              "content": "Fetches a list of funds by userID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID",
+                "managed",
+                "funds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) The User's unique identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "92f20392-4019-4267-b619-e96e39ce1b99",
+              "name": "Fetching A List of Funds By userID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID",
+                    "managed",
+                    "funds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) The User's unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"fund_4c16152c-f8e7-4a5a-af6b-c36f4e5cc6e7\",\n    \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"name\": \"Large Capitalization Fund\",\n    \"type\": \"FUND\",\n    \"clientFundID\": \"AAABBB-1222-3344.123456789\",\n    \"description\": \"This fund is comprised of large cap stocks weight like the S&P 500.\",\n    \"holdings\": [\n      {\n        \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"target\": 0.75\n      },\n      {\n        \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"target\": 0.75\n      }\n    ],\n    \"triggers\": [\n      {\n        \"child\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"maxAllowed\": 0.05,\n        \"lowerBound\": 0.1,\n        \"upperBound\": 0.25,\n        \"type\": \"TOTAL_DRIFT\"\n      },\n      {\n        \"child\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"maxAllowed\": 0.05,\n        \"lowerBound\": 0.1,\n        \"upperBound\": 0.25,\n        \"type\": \"TOTAL_DRIFT\"\n      }\n    ]\n  },\n  {\n    \"id\": \"fund_4c16152c-f8e7-4a5a-af6b-c36f4e5cc6e7\",\n    \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"name\": \"Large Capitalization Fund\",\n    \"type\": \"FUND\",\n    \"clientFundID\": \"AAABBB-1222-3344.123456789\",\n    \"description\": \"This fund is comprised of large cap stocks weight like the S&P 500.\",\n    \"holdings\": [\n      {\n        \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"target\": 0.75\n      },\n      {\n        \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"target\": 0.75\n      }\n    ],\n    \"triggers\": [\n      {\n        \"child\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"maxAllowed\": 0.05,\n        \"lowerBound\": 0.1,\n        \"upperBound\": 0.25,\n        \"type\": \"TOTAL_DRIFT\"\n      },\n      {\n        \"child\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"maxAllowed\": 0.05,\n        \"lowerBound\": 0.1,\n        \"upperBound\": 0.25,\n        \"type\": \"TOTAL_DRIFT\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e5ef13e2-f1a8-4718-9583-f1536caeed06",
+    "name": "DriveWealth Accounts Funds API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

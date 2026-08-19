@@ -1,0 +1,298 @@
+{
+  "item": [
+    {
+      "id": "ca459b12-ca06-41c9-b5c7-6e049683c804",
+      "name": "Transactions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b5304f60-23a4-4628-b8b6-9e5ecf3accbd",
+          "name": "Retrieve Account Transaction Summary",
+          "request": {
+            "name": "Retrieve Account Transaction Summary",
+            "description": {
+              "content": "Retrives an Account Transaction Summary details by accountID.\n\nThis API has been deprecated. Instead, use List Account Transactions to retrieve historical Transactions. To retrieve orders, use List Account historical Orders.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "summary",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5ba31546-acfc-4439-ac05-49b8aecbf95a",
+              "name": "Retrieving Account Transaction Summary details was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "summary",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"accountNo\": \"DWBG000052\",\n  \"tradingType\": \"CASH\",\n  \"updated\": \"2017-06-16T15:35:30.617Z\",\n  \"transactions\": [\n    {\n      \"orderId\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n      \"orderNo\": \"ICDU023727\",\n      \"symbol\": \"MS\",\n      \"ISIN\": \"US023135BX34\",\n      \"CUSIP\": \"E09876AA7\",\n      \"instrumentType\": \"EQUITY\",\n      \"cumQty\": 0.7219,\n      \"orderStatus\": 2,\n      \"orderType\": \"1\",\n      \"orderQty\": 0.7219,\n      \"limitPrice\": 7966.104881309796,\n      \"stopPrice\": 200,\n      \"executedPrice\": 122.47,\n      \"side\": \"B\",\n      \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"updatedWhen\": \"2017-06-16T15:35:30.617Z\",\n      \"updatedReason\": \"market_order-buy-new\",\n      \"commission\": 0,\n      \"commissionDesc\": \"Free\",\n      \"isoTimeRestingOrderExpires\": \"string\",\n      \"executedWhen\": \"017-06-16T15:35:27.856Z\",\n      \"realizedPL\": 3564.38,\n      \"orderCashAmt\": 9618.759275529055,\n      \"salesCredit\": {\n        \"currency\": \"USD\",\n        \"amount\": 14\n      },\n      \"currency\": \"USD\"\n    },\n    {\n      \"orderId\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n      \"orderNo\": \"ICDU023727\",\n      \"symbol\": \"MS\",\n      \"ISIN\": \"US023135BX34\",\n      \"CUSIP\": \"E09876AA7\",\n      \"instrumentType\": \"EQUITY\",\n      \"cumQty\": 0.7219,\n      \"orderStatus\": 2,\n      \"orderType\": \"1\",\n      \"orderQty\": 0.7219,\n      \"limitPrice\": 2923.1961546521825,\n      \"stopPrice\": 200,\n      \"executedPrice\": 122.47,\n      \"side\": \"B\",\n      \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"updatedWhen\": \"2017-06-16T15:35:30.617Z\",\n      \"updatedReason\": \"market_order-buy-new\",\n      \"commission\": 0,\n      \"commissionDesc\": \"Free\",\n      \"isoTimeRestingOrderExpires\": \"string\",\n      \"executedWhen\": \"017-06-16T15:35:27.856Z\",\n      \"realizedPL\": 3564.38,\n      \"orderCashAmt\": 228.79512972792892,\n      \"salesCredit\": {\n        \"currency\": \"USD\",\n        \"amount\": 14\n      },\n      \"currency\": \"USD\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49444538-a10e-45cf-ae39-b75520e630d8",
+          "name": "List Account Transactions",
+          "request": {
+            "name": "List Account Transactions",
+            "description": {
+              "content": "Retrieves a list of Account Transactions by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) Date start time of data. Follow [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601)"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) Date end time of data. Follow [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>",
+                  "description": "The number of transactions to be returned per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<string>",
+                  "description": "Follow [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601)"
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "The direction of pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dfa29875-faec-4805-b9ae-3dc1df154022",
+              "name": "Retrieving a list of Account Transactions was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "2022-06-16"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2022-07-16"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "2022-07-16"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "prev"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"accountAmount\": -890.12,\n    \"accountBalance\": 49984.44,\n    \"accountType\": \"LIVE\",\n    \"dividend\": {\n      \"type\": \"CASH\",\n      \"amountPerShare\": 0.65,\n      \"taxCode\": \"FULLY_TAXABLE\"\n    },\n    \"dividendTax\": {\n      \"rate\": 0.15,\n      \"type\": \"FOREIGN_TAX\"\n    },\n    \"dnb\": false,\n    \"comment\": \"Buy 0.0259 shares of AMZN at 1003.13 FULL fill\",\n    \"finTranID\": \"EF.a935f686-5567-4e10-9e71-261314207c0b\",\n    \"finTranTypeID\": \"JNLC\",\n    \"feeSec\": 0.01,\n    \"feeTaf\": 0.01,\n    \"feeBase\": 0.02,\n    \"feeXtraShares\": 0.05,\n    \"feeExchange\": 0.02,\n    \"fillQty\": 1.02387115,\n    \"fillPx\": 17.44,\n    \"orderID\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n    \"mergerAcquisition\": {\n      \"type\": \"ADD_SHARES\",\n      \"acquirer\": {\n        \"id\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"symbol\": \"AAPL\",\n        \"name\": \"Apple\"\n      },\n      \"acquiree\": {\n        \"id\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"symbol\": \"TSLA\",\n        \"name\": \"TSLA\"\n      }\n    },\n    \"positionDelta\": 0.18\n  },\n  {\n    \"accountAmount\": -890.12,\n    \"accountBalance\": 49984.44,\n    \"accountType\": \"LIVE\",\n    \"dividend\": {\n      \"type\": \"CASH\",\n      \"amountPerShare\": 0.65,\n      \"taxCode\": \"FULLY_TAXABLE\"\n    },\n    \"dividendTax\": {\n      \"rate\": 0.15,\n      \"type\": \"FOREIGN_TAX\"\n    },\n    \"dnb\": false,\n    \"comment\": \"Buy 0.0259 shares of AMZN at 1003.13 FULL fill\",\n    \"finTranID\": \"EF.a935f686-5567-4e10-9e71-261314207c0b\",\n    \"finTranTypeID\": \"JNLC\",\n    \"feeSec\": 0.01,\n    \"feeTaf\": 0.01,\n    \"feeBase\": 0.02,\n    \"feeXtraShares\": 0.05,\n    \"feeExchange\": 0.02,\n    \"fillQty\": 1.02387115,\n    \"fillPx\": 17.44,\n    \"orderID\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n    \"mergerAcquisition\": {\n      \"type\": \"EXCHANGE_STOCK_CASH\",\n      \"acquirer\": {\n        \"id\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"symbol\": \"AAPL\",\n        \"name\": \"Apple\"\n      },\n      \"acquiree\": {\n        \"id\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"symbol\": \"TSLA\",\n        \"name\": \"TSLA\"\n      }\n    },\n    \"positionDelta\": 0.18\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d3de4151-72c8-46e3-86ba-a6b1dce7c872",
+    "name": "DriveWealth Accounts Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

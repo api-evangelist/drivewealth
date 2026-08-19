@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Correspondent Reports API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Correspondent Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Correspondent Reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/correspondantReport",
+            "params": [
+              {
+                "name": "date",
+                "value": "2023-03-21",
+                "type": "query",
+                "description": "The date for which the Correspondent Report is being requested"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch daily reports generated to provide positions, account activity, balances, and more in file format"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

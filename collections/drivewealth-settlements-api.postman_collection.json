@@ -1,0 +1,1097 @@
+{
+  "item": [
+    {
+      "id": "372cb62c-aba6-4d82-8051-5a75bac12cd5",
+      "name": "Settlements",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7b19044e-3795-4cb4-8f6c-323e2db52b23",
+          "name": "List Cashless Reconciliations",
+          "request": {
+            "name": "List Cashless Reconciliations",
+            "description": {
+              "content": "Fetches a list of daily reconciliations for a firm using cashless settlement.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "funding",
+                "reconciliations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) The date and time in which to end at."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) The date and time in which to start from."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filters the reconciliations reports by the type of reconciliation."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filters the reconciliations reports by the status of reconciliation."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "702318d3-6a28-477a-bdd5-0b099c4e4c22",
+              "name": "Fetching a list of daily reconciliations for a firm was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding",
+                    "reconciliations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "to",
+                      "value": "2022-12-25T18:36:40.609Z"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2022-12-08T18:36:40.609Z"
+                    },
+                    {
+                      "key": "type",
+                      "value": "CRYPTO"
+                    },
+                    {
+                      "key": "status",
+                      "value": "APPROVED"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9_20240417\",\n    \"date\": \"2024-04-17\",\n    \"status\": \"APPROVED\",\n    \"statusComment\": \"Finished processing breakdown\",\n    \"totalAmount\": 12001.01,\n    \"created\": \"2024-04-15T22:28:21.810Z\",\n    \"updated\": \"2024-04-17T22:28:21.810Z\",\n    \"updatedBy\": \"SYSTEM REPORT SERVICE\"\n  },\n  {\n    \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9_20240417\",\n    \"date\": \"2024-04-17\",\n    \"status\": \"APPROVED\",\n    \"statusComment\": \"Finished processing breakdown\",\n    \"totalAmount\": 12001.01,\n    \"created\": \"2024-04-15T22:28:21.810Z\",\n    \"updated\": \"2024-04-17T22:28:21.810Z\",\n    \"updatedBy\": \"INSTANT FUNDING BREAKDOWN JOB\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7e7159f-8959-4bc1-98a9-3aa0343c72c4",
+          "name": "Retrieve Cashless Reconciliation",
+          "request": {
+            "name": "Retrieve Cashless Reconciliation",
+            "description": {
+              "content": "Fetches reconciliations details for a firm using cashless settlement.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "funding",
+                "reconciliations",
+                ":reconciliationID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reconciliationID",
+                  "description": "(Required) The unique identifier of the reconciliation report."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "26f2f569-11e5-49b4-ad01-96b3a83610d7",
+              "name": "Fetching a firm's reconciliation details was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding",
+                    "reconciliations",
+                    ":reconciliationID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reconciliationID",
+                      "description": "(Required) The unique identifier of the reconciliation report."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9_20240417\",\n  \"date\": \"2024-04-17\",\n  \"status\": \"APPROVED\",\n  \"statusComment\": \"Finished processing breakdown\",\n  \"amounts\": {\n    \"total\": -1263.56,\n    \"purchases\": -1680.07,\n    \"sales\": 416.51,\n    \"dividends\": 0,\n    \"fees\": 0,\n    \"other\": 0\n  },\n  \"transferAmounts\": {\n    \"currency\": \"USD\",\n    \"payablesToDW\": 1263.56,\n    \"receivablesFromDW\": 0\n  },\n  \"reconciliationBreakdown\": {\n    \"JSON\": \"https://d3k101jzh5wilt.cloudfront.net/reconciliation_2e901d48-dd17-42fe-8225-32d2ca6b633e_20190322.json?Policy=eyJTdGF0ddiOiBbeyJSZXNvdXJjZSI6Imh0dHBzOi8vZDNrMTAxanpoNXdpbHQuY2xvdWRmcm9udC5uZXQvcmVjb25jaWxpYXRpb25fMmU5ffdasdamA17ggVl6C40gHkKsr2HLfmjTd9BevcYRPh-QDKA1J~76INZ3nfada4ROS6OUR66A%22\"\n  },\n  \"partnerID\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n  \"created\": \"2024-04-15T22:28:21.810Z\",\n  \"updated\": \"2024-04-17T22:28:21.810Z\",\n  \"updatedBy\": \"SYSTEM REPORT SERVICE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "34338f3f-f0be-4cbc-bdad-d2d43aff003e",
+          "name": "Update Cashless Reconciliation",
+          "request": {
+            "name": "Update Cashless Reconciliation",
+            "description": {
+              "content": "Updates a Cashless Reconciliation by reconciliationID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "funding",
+                "reconciliations",
+                ":reconciliationID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reconciliationID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\",\n  \"statusComment\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ab01fa59-a663-4cbb-bc18-b0b1cab11dbb",
+              "name": "Updating the Cashless Reconciliations was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding",
+                    "reconciliations",
+                    ":reconciliationID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reconciliationID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"SUCCESSFUL\",\n  \"statusComment\": \"Manually approving reconciliation for testing purposes.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9_20240417\",\n  \"date\": \"2024-04-17\",\n  \"status\": \"APPROVED\",\n  \"statusComment\": \"Finished processing breakdown\",\n  \"amounts\": {\n    \"total\": -1263.56,\n    \"purchases\": -1680.07,\n    \"sales\": 416.51,\n    \"dividends\": 0,\n    \"fees\": 0,\n    \"other\": 0\n  },\n  \"transferAmounts\": {\n    \"currency\": \"USD\",\n    \"payablesToDW\": 1263.56,\n    \"receivablesFromDW\": 0\n  },\n  \"reconciliationBreakdown\": {\n    \"JSON\": \"https://d3k101jzh5wilt.cloudfront.net/reconciliation_2e901d48-dd17-42fe-8225-32d2ca6b633e_20190322.json?Policy=eyJTdGF0ddiOiBbeyJSZXNvdXJjZSI6Imh0dHBzOi8vZDNrMTAxanpoNXdpbHQuY2xvdWRmcm9udC5uZXQvcmVjb25jaWxpYXRpb25fMmU5ffdasdamA17ggVl6C40gHkKsr2HLfmjTd9BevcYRPh-QDKA1J~76INZ3nfada4ROS6OUR66A%22\"\n  },\n  \"partnerID\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n  \"created\": \"2024-04-15T22:28:21.810Z\",\n  \"updated\": \"2024-04-17T22:28:21.810Z\",\n  \"updatedBy\": \"SYSTEM REPORT SERVICE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f7d902b-73b4-4a55-8678-007adb546e7e",
+          "name": "Create DVP RVP Report",
+          "request": {
+            "name": "Create DVP RVP Report",
+            "description": {
+              "content": "Creates a job to generate a DVP RVP Report.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "reports",
+                "daily-trade-summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tradeDate\": \"<date>\",\n  \"note\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4867905d-d0c4-47a8-88c1-c5fa259891b0",
+              "name": "Creating the job to generate a DVP/RVP Report was successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "reports",
+                    "daily-trade-summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tradeDate\": \"<date>\",\n  \"note\": \"Hey! Welcome to DriveWealth Developer Docs!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"bsr_040fb9cc-84e8-4f20-bf09-d398dacd458d.1622745430469_20210604\",\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"accountNo\": \"DWBG000052\",\n  \"tradeDate\": \"yyyy-MM-dd\",\n  \"note\": \"Hey! Welcome to DriveWealth Developer Docs!\",\n  \"partnerID\": \"80f9b672-120d-4b73-9ccv9-42fb3262c4b9\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2020b771-6340-46ae-a9c5-e065b22a76a8",
+          "name": "List DVP RVP Reports",
+          "request": {
+            "name": "List DVP RVP Reports",
+            "description": {
+              "content": "Lists DVP RVP reports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "reports",
+                "daily-trade-summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "A filter, to filter on the status of the DVP/RVP."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<date>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<date>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "29cc99f1-a03e-4d39-9e82-9ab76a460f0a",
+              "name": "Fetching DVP/RVP List was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "reports",
+                    "daily-trade-summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "Processing"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"bsr_040fb9cc-84e8-4f20-bf09-d398dacd458d.1622745430469_20210604\",\n    \"tradeDate\": \"yyyy-MM-dd\",\n    \"status\": \"SUCCESSFUL\",\n    \"note\": \"Hey! Welcome to DriveWealth Developer Docs!\",\n    \"partnerID\": \"80f9b672-120d-4b73-9ccv9-42fb3262c4b9\",\n    \"created\": \"2022-12-11T22:28:21.810Z\",\n    \"updated\": \"2022-12-11T22:28:21.810Z\",\n    \"updatedBy\": \"INSTANT FUNDING BREAKDOWN JOB\",\n    \"source\": \"MANUAL\"\n  },\n  {\n    \"id\": \"bsr_040fb9cc-84e8-4f20-bf09-d398dacd458d.1622745430469_20210604\",\n    \"tradeDate\": \"yyyy-MM-dd\",\n    \"status\": \"SUCCESSFUL\",\n    \"note\": \"Hey! Welcome to DriveWealth Developer Docs!\",\n    \"partnerID\": \"80f9b672-120d-4b73-9ccv9-42fb3262c4b9\",\n    \"created\": \"2022-12-11T22:28:21.810Z\",\n    \"updated\": \"2022-12-11T22:28:21.810Z\",\n    \"updatedBy\": \"SYSTEM REPORT SERVICE\",\n    \"source\": \"MANUAL\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea636680-e93f-4ba4-8187-a0edce39a88a",
+          "name": "Retrieve DVP RVP",
+          "request": {
+            "name": "Retrieve DVP RVP",
+            "description": {
+              "content": "Retrieves a DVP RVP by reportID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "reports",
+                "daily-trade-summary",
+                ":reportID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reportID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "48981df2-a8ae-4017-ba2e-807b5c8ec8b3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "reports",
+                    "daily-trade-summary",
+                    ":reportID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reportID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"bsr_040fb9cc-84e8-4f20-bf09-d398dacd458d.1622745430469_20210604\",\n  \"tradeDate\": \"yyyy-MM-dd\",\n  \"status\": \"SUCCESSFUL\",\n  \"note\": \"Hey! Welcome to DriveWealth Developer Docs!\",\n  \"partnerID\": \"80f9b672-120d-4b73-9ccv9-42fb3262c4b9\",\n  \"created\": \"2022-12-11T22:28:21.810Z\",\n  \"updated\": \"2022-12-11T22:28:21.810Z\",\n  \"updatedBy\": \"INSTANT FUNDING BREAKDOWN JOB\",\n  \"source\": \"MANUAL\",\n  \"amount\": {\n    \"totalBuy\": {\n      \"quantity\": 10.71358941,\n      \"notional\": 144.26,\n      \"orders\": 30\n    },\n    \"totalSell\": {\n      \"quantity\": 0,\n      \"notional\": 0,\n      \"orders\": 0\n    }\n  },\n  \"breakdownJson\": \"https://du2c4wzqz90h1.cloudfront.net/buySellTradesReport....\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76d03cbb-3a34-4fa5-9011-fe0fa0949bfe",
+          "name": "Retrieve Settlements",
+          "request": {
+            "name": "Retrieve Settlements",
+            "description": {
+              "content": "Retrieves a list of Settlements.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "settlements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) The date to start from."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) The date to end at."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filters, the settlements by the status."
+                },
+                {
+                  "disabled": false,
+                  "key": "settlementProfileID",
+                  "value": "<string>",
+                  "description": "Filters, the settlements by the settlement profile."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "The number of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "",
+                  "description": "Used for pagination. Set this to the first/last id value of your payload to get the prev/next page of results respectively."
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "The direction of the pagination."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "db9b1ff6-e784-4591-b208-85cc7350642d",
+              "name": "Retrieving a list of Settlements was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "settlements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "2022-12-08"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2022-12-25"
+                    },
+                    {
+                      "key": "status",
+                      "value": "PENDING"
+                    },
+                    {
+                      "key": "settlementProfileID",
+                      "value": "settlement-profile-bank-account-1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": ""
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pageSize\": 1,\n  \"limit\": 50,\n  \"settlements\": [\n    {\n      \"id\": \"sett_63ccb073-a7b6-4b33-af77-5baec5cc4494_settle-profile-usa_20221224\",\n      \"settlementDate\": \"2022-12-25\",\n      \"partnerID\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n      \"status\": \"PENDING\",\n      \"totalAmount\": -14250,\n      \"createdAt\": \"2022-12-11T22:28:21.810Z\",\n      \"updatedAt\": \"2022-12-11T22:28:21.810Z\",\n      \"settlementProfileID\": \"settlement-profile-bank-account-1\"\n    },\n    {\n      \"id\": \"sett_63ccb073-a7b6-4b33-af77-5baec5cc4494_settle-profile-usa_20221224\",\n      \"settlementDate\": \"2022-12-25\",\n      \"partnerID\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n      \"status\": \"PENDING\",\n      \"totalAmount\": -14250,\n      \"createdAt\": \"2022-12-11T22:28:21.810Z\",\n      \"updatedAt\": \"2022-12-11T22:28:21.810Z\",\n      \"settlementProfileID\": \"settlement-profile-bank-account-1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8140597a-d9d3-49b2-b491-9ae392dee9f5",
+          "name": "Retrieve Settlement",
+          "request": {
+            "name": "Retrieve Settlement",
+            "description": {
+              "content": "Retrieves Settlement by settlementID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "settlements",
+                ":settlementID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "settlementID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "917d2d46-848f-4e61-b699-516fd3b549bb",
+              "name": "Retrieving Settlement by settlementID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "settlements",
+                    ":settlementID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "settlementID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"sett_63ccb073-a7b6-4b33-af77-5baec5cc4494_settle-profile-usa_20221224\",\n  \"settlementDate\": \"2022-12-25\",\n  \"status\": \"PENDING\",\n  \"statusComment\": \"Finished processing breakdown\",\n  \"amount\": {\n    \"total\": 5000.45,\n    \"credits\": 6000.45,\n    \"debits\": -1000\n  },\n  \"breakdownReport\": \"https://du2c4wzqz90h1.cloudfront.net/singleSettlementReport....\",\n  \"partnerID\": \"80f9b672-120d-4b73-9ccv9-42fb3262c4b9\",\n  \"settlementProfileID\": \"settlement-profile-bank-account-1\",\n  \"updatedBy\": \"SYSTEM REPORT SERVICE\",\n  \"createdAt\": \"2022-12-11T22:28:21.810Z\",\n  \"updatedAt\": \"2022-12-11T22:28:21.810Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34efff15-e3ac-443a-b2d2-facba0d2a8f1",
+              "name": "The settlement for given settlementID doesn't exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "settlements",
+                    ":settlementID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "settlementID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dec5e202-1bee-4fd4-b10f-502a212b82f6",
+    "name": "DriveWealth Accounts Settlements API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

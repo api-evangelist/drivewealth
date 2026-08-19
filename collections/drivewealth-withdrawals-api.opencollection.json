@@ -1,0 +1,140 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Withdrawals API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Withdrawals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Account Withdrawals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/funding/redemptions",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of Account Withdrawals by accountID"
+        },
+        {
+          "info": {
+            "name": "List Withdrawals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/funding/redemptions",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "The current status of the withdrawal; to filter by."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The type of withdrawal; to filter by."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of Withdrawals."
+        },
+        {
+          "info": {
+            "name": "Create Withdrawal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bo-api.drivewealth.io/back-office/funding/redemptions",
+            "headers": [
+              {
+                "name": "Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a Withdrawal."
+        },
+        {
+          "info": {
+            "name": "Retrieve Withdrawal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/funding/redemptions/:redemptionID",
+            "params": [
+              {
+                "name": "redemptionID",
+                "value": "cc07f91b-7ee1-4868-b8fc-823c70a1b932",
+                "type": "path",
+                "description": "A unique identifier for the user's account redemption/withdrawal."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a Withdrawal by redemptionID."
+        },
+        {
+          "info": {
+            "name": "List User Withdrawals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/users/:userID/funding/redemptions",
+            "params": [
+              {
+                "name": "userID",
+                "value": "cc07f91b-7ee1-4868-b8fc-823c70a1b932",
+                "type": "path",
+                "description": "The User's unique identifier."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of User Withdrawals by userID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

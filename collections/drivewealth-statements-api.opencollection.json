@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Statements API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Statements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Account Statements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/statements",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrives a list of Account Statements by accountID."
+        },
+        {
+          "info": {
+            "name": "List Account Tax Statements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/taxforms",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "2022-06-16",
+                "type": "query",
+                "description": "The date to start the filter."
+              },
+              {
+                "name": "to",
+                "value": "2022-07-16",
+                "type": "query",
+                "description": "The date to end the filter."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of Account Tax Statements by accountID."
+        },
+        {
+          "info": {
+            "name": "List Account Trade Confirmations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/confirms",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "2018-09-18",
+                "type": "query",
+                "description": "Filter, the date from which to start the search."
+              },
+              {
+                "name": "to",
+                "value": "2019-09-18",
+                "type": "query",
+                "description": "Filter, the date to which to end the search."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of Account Trade Confirmations by accountID."
+        },
+        {
+          "info": {
+            "name": "Retrieve Statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/statements/:accountID/:fileKey",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fileKey",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves an Account Statement (Monthly, Trade Confirms, Tax Forms, etc.) by accountID and fileKey."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

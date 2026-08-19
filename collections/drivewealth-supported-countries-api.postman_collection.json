@@ -1,0 +1,130 @@
+{
+  "item": [
+    {
+      "id": "8265272b-1504-4542-b46b-0c097ce74167",
+      "name": "Supported Countries",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2055c138-8263-451c-9d6f-e0c675f0213e",
+          "name": "List Supported Countries",
+          "request": {
+            "name": "List Supported Countries",
+            "description": {
+              "content": "Retrieves a list of allowed countries for which users can be onboard from.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "countries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "(Required) Filters on the returned countries list has inactive or active countries inside it."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1c36dfab-0516-4e15-9ceb-e8d0daba6611",
+              "name": "Retrieving a list of Supported Countries was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "countries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "ACTIVE"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"ALA\",\n    \"name\": \"Aland Islands\",\n    \"code2\": \"AX\",\n    \"code3\": \"ALA\",\n    \"active\": true,\n    \"expatsAllowed\": false,\n    \"foreignTINNotRequired\": false,\n    \"fpslProhibited\": false,\n    \"supportDomicile\": false,\n    \"taxTreatyCountry\": false\n  },\n  {\n    \"id\": \"ALA\",\n    \"name\": \"Aland Islands\",\n    \"code2\": \"AX\",\n    \"code3\": \"ALA\",\n    \"active\": true,\n    \"expatsAllowed\": false,\n    \"foreignTINNotRequired\": false,\n    \"fpslProhibited\": false,\n    \"supportDomicile\": false,\n    \"taxTreatyCountry\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "af743c59-566c-4170-86c2-ffe16d0ed96d",
+    "name": "DriveWealth Accounts Supported Countries API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

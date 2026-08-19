@@ -1,0 +1,566 @@
+{
+  "item": [
+    {
+      "id": "05483650-e007-4b25-9b3d-1f616614fbe7",
+      "name": "Exchanges",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c842580e-79af-471f-9226-528e6e6e5caf",
+          "name": "Create Instrument Exchange",
+          "request": {
+            "name": "Create Instrument Exchange",
+            "description": {
+              "content": "Creates an Instrument Exchange. The ability to sale of a held instrument and purchase of another.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "exchanges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNo\": \"<string>\",\n  \"sellSymbol\": \"<string>\",\n  \"buySymbol\": \"<string>\",\n  \"amountCash\": \"<number>\",\n  \"quantity\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c61eccda-7b99-4d7a-9755-8fec1cc61bfd",
+              "name": "Creating an Exchange was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "exchanges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountNo\": \"DWPH000003\",\n  \"sellSymbol\": \"VTSMX\",\n  \"buySymbol\": \"VTSAX\",\n  \"amountCash\": 100,\n  \"quantity\": 10\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"IC.0e352bb7-9869-4233-9861-1173544efedd\",\n  \"exchangeNo\": \"ICDU023727\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6cd5cdf3-e1c0-4da7-8e65-1c8558b51021",
+          "name": "Update Instrument Exchange",
+          "request": {
+            "name": "Update Instrument Exchange",
+            "description": {
+              "content": "Updates an Instrument Exchange.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "exchanges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "32cbd75d-8d0c-413a-88ad-252f87db92b4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "exchanges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"method\": \"CANCEL\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"IC.0e352bb7-9869-4233-9861-1173544efedd\",\n  \"exchangeNo\": \"ICDU023727\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b651b64c-2f6b-4ca3-aed2-73205f2c0709",
+          "name": "Retrieve Exchange",
+          "request": {
+            "name": "Retrieve Exchange",
+            "description": {
+              "content": "To retrieve specific exchange details the exchange endpoint can be used. In addition the underlying buy and sell trades, which make up the exchange order, will be available through the existing get order endpoint. ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "exchanges",
+                ":exchangeIdentifier"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "exchangeIdentifier",
+                  "description": "(Required) The Exchange ID (id) or Exchange Number (exchangeNo)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8a66ff20-cd2b-402e-8939-1b6eac6f1ccb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "exchanges",
+                    ":exchangeIdentifier"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "exchangeIdentifier",
+                      "description": "(Required) The Exchange ID (id) or Exchange Number (exchangeNo)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"GC.f7590a52-75c7-4f3a-92c7-6b03e02dc44f\",\n  \"exchangeNo\": \"ICDU023727\",\n  \"status\": \"FILLED\",\n  \"sellSymbol\": \"VTSMX\",\n  \"sellOrderId\": \"GC.f7590a52-75c7-4f3a-92c7-6b03e02d111\",\n  \"sellOrderNo\": \"EFXM000103\",\n  \"buySymbol\": \"VTSAX\",\n  \"buyOrderId\": \"GC.f7590a52-75c7-4f3a-92c7-6b03e02d222\",\n  \"buyOrderNo\": \"EFXM001102\",\n  \"sellAveragePrice\": 10,\n  \"sellCumulativeQuantity\": 100,\n  \"buyAveragePrice\": 50,\n  \"buyCumulativeQuantity\": 20,\n  \"amountCash\": 1000,\n  \"fees\": 0,\n  \"orderExpires\": \"2019-03-29T20:00:00.000Z\",\n  \"createdBy\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd\",\n  \"userID\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd\",\n  \"accountID\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd.1403540676095\",\n  \"accountNo\": \"DWZR000001\",\n  \"created\": \"2019-03-28T22:40:03.240Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "40ed134d-b08f-45bc-89dc-74d76eb04f16",
+          "name": "List Account Instrument Exchanges.",
+          "request": {
+            "name": "List Account Instrument Exchanges.",
+            "description": {
+              "content": "Retrives a list of Account Instrument Exchanges by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "summary",
+                "exchanges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) The account id of the user where the order was placed"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "121acb24-53e3-46c7-8cc4-60320166b1a7",
+              "name": "Retrieving a list of Account Instrument Exchanges by accountID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "summary",
+                    "exchanges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) The account id of the user where the order was placed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountID\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd.1403540676095\",\n  \"accountNo\": \"DWBG000052\",\n  \"tradingType\": \"CASH\",\n  \"updated\": \"2021-04-23T18:41:32.440Z\",\n  \"exchanges\": [\n    {\n      \"id\": \"GC.f7590a52-75c7-4f3a-92c7-6b03e02dc11f\",\n      \"exchangeNo\": \"ICDU023727\",\n      \"status\": \"NEW\",\n      \"sellSymbol\": \"VTSMX\",\n      \"sellOrderId\": \"GC.f7590a52-75c7-4f3a-92c7-6b03e02d112\",\n      \"sellOrderNo\": \"EFXM000203\",\n      \"buySymbol\": \"VTSAX\",\n      \"buyOrderId\": \"GC.f7590a52-75c7-4f3a-92c7-6b03e02d223\",\n      \"buyOrderNo\": \"EFXM002102\",\n      \"amountCash\": 0,\n      \"sellAveragePrice\": 0,\n      \"sellCumulativeQuantity\": 0,\n      \"buyAveragePrice\": 0,\n      \"buyCumulativeQuantity\": 0,\n      \"fees\": 0,\n      \"orderExpires\": \"2019-03-29T20:00:00.000Z\",\n      \"createdBy\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd\",\n      \"userID\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd\",\n      \"accountID\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd.1403540676095\",\n      \"accountNo\": \"DWZR000001\",\n      \"created\": \"2019-03-28T22:40:03.240Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad5f55b8-72fb-4c87-a483-1142e2438f54",
+          "name": "Retrieve Account Instrument Exchange History",
+          "request": {
+            "name": "Retrieve Account Instrument Exchange History",
+            "description": {
+              "content": "Retrieves a list of Account Instrument Exchange History by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "reports",
+                "exchange-history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) The account id of the user where the order was placed"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "05990d6c-dcd4-4c41-b7f2-ccec98ba3ab0",
+              "name": "Retrieving Account Instrument Exchange History was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "reports",
+                    "exchange-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) The account id of the user where the order was placed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountID\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd.1403540676095\",\n  \"accountNo\": \"DWBG000052\",\n  \"tradingType\": \"CASH\",\n  \"updated\": \"2021-04-23T18:41:32.440Z\",\n  \"exchanges\": [\n    {\n      \"id\": \"GC.f7590a52-75c7-4f3a-92c7-6b03e02dc11f\",\n      \"exchangeNo\": \"ICDU023727\",\n      \"status\": \"FILLED\",\n      \"sellSymbol\": \"VTSMX\",\n      \"sellOrderId\": \"GC.f7590a52-75c7-4f3a-92c7-6b03e02d112\",\n      \"sellOrderNo\": \"EFXM000203\",\n      \"buySymbol\": \"VTSAX\",\n      \"buyOrderId\": \"GC.f7590a52-75c7-4f3a-92c7-6b03e02d223\",\n      \"buyOrderNo\": \"EFXM002102\",\n      \"amountCash\": 1000,\n      \"sellAveragePrice\": 10,\n      \"sellCumulativeQuantity\": 100,\n      \"buyAveragePrice\": 50,\n      \"buyCumulativeQuantity\": 20,\n      \"fees\": 0,\n      \"orderExpires\": \"2019-03-29T20:00:00.000Z\",\n      \"createdBy\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd\",\n      \"userID\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd\",\n      \"accountID\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd.1403540676095\",\n      \"accountNo\": \"DWZR000001\",\n      \"created\": \"2019-03-28T22:40:03.240Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "43608206-98dd-42c1-af64-4bbe0fb54dc3",
+    "name": "DriveWealth Accounts Exchanges API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

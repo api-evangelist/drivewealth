@@ -1,0 +1,207 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Deposits API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deposits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Account Deposits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/funding/deposits",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of Account Deposits by accountID."
+        },
+        {
+          "info": {
+            "name": "Create Deposit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bo-api.drivewealth.io/back-office/funding/deposits",
+            "headers": [
+              {
+                "name": "Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a Deposit."
+        },
+        {
+          "info": {
+            "name": "Retrieve Deposit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/funding/deposits/:depositID",
+            "params": [
+              {
+                "name": "depositID",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for the user's account deposit."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves Deposit details by depositID."
+        },
+        {
+          "info": {
+            "name": "Retrieve Recurring Deposits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/funding/recurring-deposits/:recurringID",
+            "params": [
+              {
+                "name": "recurringID",
+                "value": "recurring_98be6652-6361-4d4c-905b-06e9ec38d060",
+                "type": "path",
+                "description": "A unique identifier for the user's recurring bank deposit."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves Recurring Deposits details by recurringID."
+        },
+        {
+          "info": {
+            "name": "Update Recurring Deposit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://bo-api.drivewealth.io/back-office/funding/recurring-deposits/:recurringID",
+            "params": [
+              {
+                "name": "recurringID",
+                "value": "recurring_98be6652-6361-4d4c-905b-06e9ec38d060",
+                "type": "path",
+                "description": "A unique identifier for the user's recurring bank deposit."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates Recurring Deposit details by recurringID."
+        },
+        {
+          "info": {
+            "name": "Delete Recurring Deposit",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://bo-api.drivewealth.io/back-office/funding/recurring-deposits/:recurringID",
+            "params": [
+              {
+                "name": "recurringID",
+                "value": "recurring_98be6652-6361-4d4c-905b-06e9ec38d060",
+                "type": "path",
+                "description": "A unique identifier for the user's recurring bank deposit."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deactivates Recurring Deposit details by recurringID."
+        },
+        {
+          "info": {
+            "name": "List User Recurring Deposits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/users/:userID/recurring-deposits",
+            "params": [
+              {
+                "name": "userID",
+                "value": "cc07f91b-7ee1-4868-b8fc-823c70a1b932",
+                "type": "path",
+                "description": "The User's unique identifier."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of User Recurring Deposits by userID."
+        },
+        {
+          "info": {
+            "name": "List User Deposits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/users/:userID/funding/deposits",
+            "params": [
+              {
+                "name": "userID",
+                "value": "cc07f91b-7ee1-4868-b8fc-823c70a1b932",
+                "type": "path",
+                "description": "The User's unique identifier."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of User Deposits by userID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

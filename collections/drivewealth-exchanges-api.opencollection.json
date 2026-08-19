@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Exchanges API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Exchanges",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Instrument Exchange",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bo-api.drivewealth.io/back-office/exchanges",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates an Instrument Exchange. The ability to sale of a held instrument and purchase of another."
+        },
+        {
+          "info": {
+            "name": "Update Instrument Exchange",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://bo-api.drivewealth.io/back-office/exchanges",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an Instrument Exchange."
+        },
+        {
+          "info": {
+            "name": "Retrieve Exchange",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/exchanges/:exchangeIdentifier",
+            "params": [
+              {
+                "name": "exchangeIdentifier",
+                "value": "",
+                "type": "path",
+                "description": "The Exchange ID (id) or Exchange Number (exchangeNo)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "To retrieve specific exchange details the exchange endpoint can be used. In addition the underlying buy and sell trades, which make up the exchange order, will be available through the existing get order endpoint. "
+        },
+        {
+          "info": {
+            "name": "List Account Instrument Exchanges.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/summary/exchanges",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path",
+                "description": "The account id of the user where the order was placed"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrives a list of Account Instrument Exchanges by accountID."
+        },
+        {
+          "info": {
+            "name": "Retrieve Account Instrument Exchange History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/reports/exchange-history",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path",
+                "description": "The account id of the user where the order was placed"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of Account Instrument Exchange History by accountID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

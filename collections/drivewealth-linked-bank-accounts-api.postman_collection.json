@@ -1,0 +1,138 @@
+{
+  "item": [
+    {
+      "id": "73d562d6-2f8f-450c-8cda-24af27a75f8c",
+      "name": "Linked Bank Accounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b2d5eeab-bc99-4c9c-ab15-b5efc6a45e7a",
+          "name": "List User Linked Bank Accounts",
+          "request": {
+            "name": "List User Linked Bank Accounts",
+            "description": {
+              "content": "Retrieves a list of User Linked Bank Accounts by userID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID",
+                "bank-accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) Unique ID of the User to fetch their stored bank accounts."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "20070404-6bdd-41ba-b2ae-fe4bed9264c8",
+              "name": "Retrieving a list of User Linked Bank Accounts was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID",
+                    "bank-accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) Unique ID of the User to fetch their stored bank accounts."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"bank_a4656e60-321e-425b-aa0d-a2e75c38885f\",\n    \"bankAccountDetails\": {\n      \"bankAccountNickName\": \"PREFERRED CHECKING\",\n      \"bankAccountNumber\": \"****3174\",\n      \"bankRoutingNumber\": \"110000000\"\n    },\n    \"default\": \"string\",\n    \"status\": \"ACTIVE\",\n    \"created\": \"2022-12-11T22:28:21.810Z\",\n    \"updated\": \"2022-12-11T22:28:21.810Z\"\n  },\n  {\n    \"id\": \"bank_a4656e60-321e-425b-aa0d-a2e75c38885f\",\n    \"bankAccountDetails\": {\n      \"bankAccountNickName\": \"PREFERRED CHECKING\",\n      \"bankAccountNumber\": \"****3174\",\n      \"bankRoutingNumber\": \"110000000\"\n    },\n    \"default\": \"string\",\n    \"status\": \"ACTIVE\",\n    \"created\": \"2022-12-11T22:28:21.810Z\",\n    \"updated\": \"2022-12-11T22:28:21.810Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0a9e5246-2208-4ba3-8d2b-33a7517c6561",
+    "name": "DriveWealth Accounts Linked Bank Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Supported Countries API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Supported Countries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Supported Countries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/countries",
+            "params": [
+              {
+                "name": "status",
+                "value": "ACTIVE",
+                "type": "query",
+                "description": "Filters on the returned countries list has inactive or active countries inside it."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of allowed countries for which users can be onboard from."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

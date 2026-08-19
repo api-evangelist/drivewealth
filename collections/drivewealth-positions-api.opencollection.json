@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Positions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Positions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Account Positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/summary/positions",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrives a list of Account Positions by accountID"
+        },
+        {
+          "info": {
+            "name": "Retrieve Account Option Positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/options/positions",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filterBy",
+                "value": "expirationDate",
+                "type": "query",
+                "description": "The expiration date of options; to filter by."
+              },
+              {
+                "name": "from",
+                "value": "2023-02-16",
+                "type": "query",
+                "description": "The start date of the range of option's expiration."
+              },
+              {
+                "name": "to",
+                "value": "2023-02-16",
+                "type": "query",
+                "description": "The end date of the range of option's expiration."
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "The number of results to be returned."
+              },
+              {
+                "name": "offset",
+                "value": "86572e14-84ae-4f0c-9533-3c9432637f8e.1627500314555#65d1aee9-9a6c-4720-9879-71c4fcf43060.2023-12-07T21:17:45.743Z",
+                "type": "query",
+                "description": "The identifier of the page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves Account Option Positions"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

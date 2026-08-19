@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Trade Allocations API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Trade Allocations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Trade Allocation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bo-api.drivewealth.io/back-office/managed/allocations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a Trade Allocation."
+        },
+        {
+          "info": {
+            "name": "Retrieve Trade Allocation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/managed/allocations/:allocationID",
+            "params": [
+              {
+                "name": "allocationID",
+                "value": "JL.allocation.SomeRIACompany.9d6def3b-14d7-4934-8a64-57d443e67ce6",
+                "type": "path",
+                "description": "The unique identifier returned when a Trade Allocation request is made."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves Trade Allocation by allocationID."
+        },
+        {
+          "info": {
+            "name": "List Trade Allocations by Advisor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/users/:userID/managed/allocations",
+            "params": [
+              {
+                "name": "userID",
+                "value": "cc07f91b-7ee1-4868-b8fc-823c70a1b932",
+                "type": "path",
+                "description": "The User's unique identifier."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetches a list of an User's allocations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

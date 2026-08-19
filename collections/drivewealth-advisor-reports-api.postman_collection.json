@@ -1,0 +1,392 @@
+{
+  "item": [
+    {
+      "id": "c8210dab-8ec4-4d07-8ff5-d81a76b778a8",
+      "name": "Advisor Reports",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e404814f-7819-4836-884b-5c681847d7ad",
+          "name": "List Orders by Advisor",
+          "request": {
+            "name": "List Orders by Advisor",
+            "description": {
+              "content": "Fetches a User's sub account orders allocations summary by date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID",
+                "managed",
+                "orders",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<string>",
+                  "description": "The specific request date in format YYYY-MM-DD."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) The User's unique identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "789857bf-8b95-40f2-9b45-d784fd991724",
+              "name": "Fetching A User's Sub Account Orders Allocations Summary By Date was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID",
+                    "managed",
+                    "orders",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "2022-12-25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) The User's unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"JF.allocation.TendiesTradingCo.e61f512a-ed9c-4047-9ccf-224a5864158d\",\n  \"accountNo\": \"DWBG000052\",\n  \"date\": \"2022-12-25\",\n  \"orders\": [\n    {\n      \"id\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n      \"orderNo\": \"ICDU023727\",\n      \"type\": \"MARKET\",\n      \"status\": \"FILLED\",\n      \"created\": \"2022-12-11T22:28:21.810Z\",\n      \"instrument\": {\n        \"id\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"symbol\": \"MS\"\n      },\n      \"side\": \"B\",\n      \"averagePrice\": 1038.81,\n      \"orderQuantity\": 0.7219,\n      \"cumulativeQuantity\": 0.7219,\n      \"allocatedQuantity\": 0.7219,\n      \"unallocatedQuantity\": 302,\n      \"unallocatedNotional\": 5320,\n      \"allocations\": [\n        {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"created\": \"2022-12-22T16:04:46.724Z\",\n          \"status\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"allocationsRequested\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"allocationsCompleted\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"unallocatedQuantity\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"unallocatedNotional\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"comment\": \"All allocated and accounted for. 1::1::0 client note[empty], . timeMs=667 ratePerSec=1.50 msPerItem=667.00\"\n        },\n        {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"created\": \"2022-12-22T16:04:46.724Z\",\n          \"status\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"allocationsRequested\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"allocationsCompleted\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"unallocatedQuantity\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"unallocatedNotional\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"comment\": \"All allocated and accounted for. 1::1::0 client note[empty], . timeMs=667 ratePerSec=1.50 msPerItem=667.00\"\n        }\n      ]\n    },\n    {\n      \"id\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n      \"orderNo\": \"ICDU023727\",\n      \"type\": \"MARKET\",\n      \"status\": \"FILLED\",\n      \"created\": \"2022-12-11T22:28:21.810Z\",\n      \"instrument\": {\n        \"id\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n        \"symbol\": \"MS\"\n      },\n      \"side\": \"B\",\n      \"averagePrice\": 1038.81,\n      \"orderQuantity\": 0.7219,\n      \"cumulativeQuantity\": 0.7219,\n      \"allocatedQuantity\": 0.7219,\n      \"unallocatedQuantity\": 302,\n      \"unallocatedNotional\": 5320,\n      \"allocations\": [\n        {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"created\": \"2022-12-22T16:04:46.724Z\",\n          \"status\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"allocationsRequested\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"allocationsCompleted\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"unallocatedQuantity\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"unallocatedNotional\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"comment\": \"All allocated and accounted for. 1::1::0 client note[empty], . timeMs=667 ratePerSec=1.50 msPerItem=667.00\"\n        },\n        {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"created\": \"2022-12-22T16:04:46.724Z\",\n          \"status\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"allocationsRequested\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"allocationsCompleted\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"unallocatedQuantity\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"unallocatedNotional\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"comment\": \"All allocated and accounted for. 1::1::0 client note[empty], . timeMs=667 ratePerSec=1.50 msPerItem=667.00\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee0f7a77-ce9f-4ba2-8a58-2365debc782f",
+          "name": "List Allocations by Advisor",
+          "request": {
+            "name": "List Allocations by Advisor",
+            "description": {
+              "content": "Fetches a user's sub account orders allocations by userID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID",
+                "managed",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) The date and time in which to start from."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) The date and time in which to end at."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) The User's unique identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9d0c0878-0f8f-4cb1-a6af-d2606ecbc9c7",
+              "name": "Fetching A user's Sub Account Orders Allocations By userID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID",
+                    "managed",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "2022-12-08T18:36:40.609Z"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2022-12-25T18:36:40.609Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) The User's unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"riaID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"orderID\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n    \"orderNo\": \"ICDU023727\",\n    \"orderType\": \"MARKET\",\n    \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n    \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n    \"symbol\": \"MS\",\n    \"side\": \"B\",\n    \"orderQty\": 0.7219,\n    \"cumQty\": 0.7219,\n    \"avgPx\": 1038.81,\n    \"allocations\": [\n      {\n        \"id\": \"JF.allocation.TendiesTradingCo.e61f512a-ed9c-4047-9ccf-224a5864158d\",\n        \"status\": \"NEW\",\n        \"unallocatedNotional\": 5320,\n        \"unallocatedQuantity\": 302\n      },\n      {\n        \"id\": \"JF.allocation.TendiesTradingCo.e61f512a-ed9c-4047-9ccf-224a5864158d\",\n        \"status\": \"NEW\",\n        \"unallocatedNotional\": 5320,\n        \"unallocatedQuantity\": 302\n      }\n    ]\n  },\n  {\n    \"riaID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"orderID\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n    \"orderNo\": \"ICDU023727\",\n    \"orderType\": \"MARKET\",\n    \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n    \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n    \"symbol\": \"MS\",\n    \"side\": \"B\",\n    \"orderQty\": 0.7219,\n    \"cumQty\": 0.7219,\n    \"avgPx\": 1038.81,\n    \"allocations\": [\n      {\n        \"id\": \"JF.allocation.TendiesTradingCo.e61f512a-ed9c-4047-9ccf-224a5864158d\",\n        \"status\": \"NEW\",\n        \"unallocatedNotional\": 5320,\n        \"unallocatedQuantity\": 302\n      },\n      {\n        \"id\": \"JF.allocation.TendiesTradingCo.e61f512a-ed9c-4047-9ccf-224a5864158d\",\n        \"status\": \"NEW\",\n        \"unallocatedNotional\": 5320,\n        \"unallocatedQuantity\": 302\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab0fbd98-eb91-4db4-9346-12a76b5ef0ab",
+          "name": "Retrieve Beginning Of Day (BOD) by Advisor",
+          "request": {
+            "name": "Retrieve Beginning Of Day (BOD) by Advisor",
+            "description": {
+              "content": "Fetches a list of sub accounts beginning of day holdings by userID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID",
+                "managed",
+                "bod"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) The User's unique identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f51f8f36-9fde-4b16-8aef-a707d9aafacb",
+              "name": "Fetching A List Of Sub Accounts Beginning Of Day Holding By userID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID",
+                    "managed",
+                    "bod"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) The User's unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"'https://dtygu59lw0as9.cloudfront.net/_bod...\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "46dbceb4-0ca7-4a3a-ab63-d07b946ad723",
+    "name": "DriveWealth Accounts Advisor Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

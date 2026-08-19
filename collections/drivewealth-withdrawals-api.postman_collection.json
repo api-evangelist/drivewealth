@@ -1,0 +1,585 @@
+{
+  "item": [
+    {
+      "id": "f9f1f087-3ef9-4ff1-bb30-6102eb6690cb",
+      "name": "Withdrawals",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "912902d8-3337-4312-9129-1b17d4fefb29",
+          "name": "List Account Withdrawals",
+          "request": {
+            "name": "List Account Withdrawals",
+            "description": {
+              "content": "Retrieves a list of Account Withdrawals by accountID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "funding",
+                "redemptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "691d7ef1-94bb-4275-8c52-5185a358308b",
+              "name": "Retrieving a list of Account Withdrawals was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "funding",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"DWUV000006-1593451797743-R8CC7\",\n    \"paymentID\": \"DWUV000006-1593451797743-R8CC7\",\n    \"amount\": 250.25,\n    \"currency\": {\n      \"name\": \"USD\",\n      \"description\": \"US Dollar\",\n      \"symbol\": \"$\"\n    },\n    \"status\": {\n      \"id\": 1,\n      \"message\": \"PENDING\",\n      \"updated\": \"2022-12-11T22:28:21.810Z\"\n    },\n    \"accountDetails\": {\n      \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n      \"accountNo\": \"DWBG000052\",\n      \"accountType\": {\n        \"name\": \"LIVE\",\n        \"description\": \"Live Account\"\n      },\n      \"accountManagementType\": {\n        \"name\": \"SELF\",\n        \"description\": \"Self Directed Account\"\n      }\n    },\n    \"fees\": [\n      {\n        \"type\": \"FEE_ACH\",\n        \"amount\": -5.99,\n        \"description\": \"Fee - ACH\",\n        \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n        \"transactionCode\": \"JOURNAL\",\n        \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n        \"created\": \"2022-12-11T22:28:21.810Z\",\n        \"currency\": \"USD\",\n        \"symbol\": \"$\"\n      },\n      {\n        \"type\": \"FEE_ACH\",\n        \"amount\": -5.99,\n        \"description\": \"Fee - ACH\",\n        \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n        \"transactionCode\": \"JOURNAL\",\n        \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n        \"created\": \"2022-12-11T22:28:21.810Z\",\n        \"currency\": \"USD\",\n        \"symbol\": \"$\"\n      }\n    ],\n    \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n    \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n    \"timestamp\": \"2022-12-11T22:28:21.810Z\"\n  },\n  {\n    \"id\": \"DWUV000006-1593451797743-R8CC7\",\n    \"paymentID\": \"DWUV000006-1593451797743-R8CC7\",\n    \"amount\": 250.25,\n    \"currency\": {\n      \"name\": \"USD\",\n      \"description\": \"US Dollar\",\n      \"symbol\": \"$\"\n    },\n    \"status\": {\n      \"id\": 1,\n      \"message\": \"PENDING\",\n      \"updated\": \"2022-12-11T22:28:21.810Z\"\n    },\n    \"accountDetails\": {\n      \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n      \"accountNo\": \"DWBG000052\",\n      \"accountType\": {\n        \"name\": \"LIVE\",\n        \"description\": \"Live Account\"\n      },\n      \"accountManagementType\": {\n        \"name\": \"SELF\",\n        \"description\": \"Self Directed Account\"\n      }\n    },\n    \"fees\": [\n      {\n        \"type\": \"FEE_ACH\",\n        \"amount\": -5.99,\n        \"description\": \"Fee - ACH\",\n        \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n        \"transactionCode\": \"JOURNAL\",\n        \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n        \"created\": \"2022-12-11T22:28:21.810Z\",\n        \"currency\": \"USD\",\n        \"symbol\": \"$\"\n      },\n      {\n        \"type\": \"FEE_ACH\",\n        \"amount\": -5.99,\n        \"description\": \"Fee - ACH\",\n        \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n        \"transactionCode\": \"JOURNAL\",\n        \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n        \"created\": \"2022-12-11T22:28:21.810Z\",\n        \"currency\": \"USD\",\n        \"symbol\": \"$\"\n      }\n    ],\n    \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n    \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n    \"timestamp\": \"2022-12-11T22:28:21.810Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23f44c77-cf19-40dc-803a-c3958228a892",
+          "name": "Create Withdrawal",
+          "request": {
+            "name": "Create Withdrawal",
+            "description": {
+              "content": "Creates a Withdrawal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "funding",
+                "redemptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A unique key (UUID) that is used to prevent duplicate requests. Should a network interruption occur, or you otherwise lost a response from the API, you can safely perform the request provided that you send the same value as the Idempotency-Key. DriveWealth Idempotency Keys are saved for 4 days. Within this time period, sending any request with a duplicate key will return the exact same response as the original request, including the same status code and payload.",
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNo\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"type\": \"<string>\",\n  \"details\": {\n    \"beneficiaryName\": \"<string>\",\n    \"beneficiaryAccountNumber\": \"<string>\",\n    \"beneficiaryAccountType\": \"<string>\",\n    \"beneficiaryRoutingNumber\": \"<string>\",\n    \"beneficiarySwiftABA\": \"<string>\",\n    \"beneficiaryBankName\": \"<string>\",\n    \"beneficiaryBankAddress\": \"<string>\",\n    \"beneficiaryBankCity\": \"<string>\",\n    \"beneficiaryBankProvince\": \"<string>\",\n    \"beneficiaryBankZip\": \"<string>\",\n    \"beneficiaryBankCountry\": \"<string>\",\n    \"intermediarySwift\": \"<string>\",\n    \"intermediaryBankName\": \"<string>\"\n  },\n  \"bankAccountID\": \"<string>\",\n  \"iraDistribution\": \"<string>\",\n  \"iraTaxWithholdings\": {\n    \"federalTaxPercentage\": \"<number>\"\n  },\n  \"liquidate\": \"<boolean>\",\n  \"fees\": [\n    {\n      \"type\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"wlpFinTranTypeID\": \"<string>\",\n      \"transactionCode\": \"<string>\",\n      \"finTranReference\": \"<string>\",\n      \"created\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"symbol\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"wlpFinTranTypeID\": \"<string>\",\n      \"transactionCode\": \"<string>\",\n      \"finTranReference\": \"<string>\",\n      \"created\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"symbol\": \"<string>\"\n    }\n  ],\n  \"note\": \"<string>\",\n  \"settlementProfileID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aae20f99-d1c9-4b15-b807-9b0820267960",
+              "name": "Creating a User's Account Withdrawal was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A unique key (UUID) that is used to prevent duplicate requests. Should a network interruption occur, or you otherwise lost a response from the API, you can safely perform the request provided that you send the same value as the Idempotency-Key. DriveWealth Idempotency Keys are saved for 4 days. Within this time period, sending any request with a duplicate key will return the exact same response as the original request, including the same status code and payload.",
+                    "key": "Idempotency-Key",
+                    "value": "a1b2c3d4-5e6f-7g8h-9i0j-1k2l3m4n5o6"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountNo\": \"DWBG000052\",\n  \"amount\": 125.92,\n  \"currency\": \"USD\",\n  \"type\": \"ACH\",\n  \"details\": {\n    \"beneficiaryName\": \"Justin Smith\",\n    \"beneficiaryAccountNumber\": \"<string>\",\n    \"beneficiaryAccountType\": \"CHECKING\",\n    \"beneficiaryRoutingNumber\": \"021000322\",\n    \"beneficiarySwiftABA\": \"BOFAUS3NXXX\",\n    \"beneficiaryBankName\": \"Bank of America\",\n    \"beneficiaryBankAddress\": \"222 BROADWAY\",\n    \"beneficiaryBankCity\": \"New York City\",\n    \"beneficiaryBankProvince\": \"New York\",\n    \"beneficiaryBankZip\": \"10038\",\n    \"beneficiaryBankCountry\": \"USA\",\n    \"intermediarySwift\": \"CHASUS3AXXX\",\n    \"intermediaryBankName\": \"J.P Morgan Chase & Co.\"\n  },\n  \"bankAccountID\": \"bank_a4656e60-321e-425b-aa0d-a2e75c38885f\",\n  \"iraDistribution\": \"PREMATURE\",\n  \"iraTaxWithholdings\": {\n    \"federalTaxPercentage\": 0.1\n  },\n  \"liquidate\": false,\n  \"fees\": [\n    {\n      \"type\": \"FEE_ACH\",\n      \"amount\": -5.99,\n      \"description\": \"Fee - ACH\",\n      \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n      \"transactionCode\": \"JOURNAL\",\n      \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n      \"created\": \"2022-12-11T22:28:21.810Z\",\n      \"currency\": \"USD\",\n      \"symbol\": \"$\"\n    },\n    {\n      \"type\": \"FEE_ACH\",\n      \"amount\": -5.99,\n      \"description\": \"Fee - ACH\",\n      \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n      \"transactionCode\": \"JOURNAL\",\n      \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n      \"created\": \"2022-12-11T22:28:21.810Z\",\n      \"currency\": \"USD\",\n      \"symbol\": \"$\"\n    }\n  ],\n  \"note\": \"Hey! Welcome to DriveWealth Developer Docs!\",\n  \"settlementProfileID\": \"settlement-profile-bank-account-1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ZYNN000001-1672169822525-RIUIN\",\n  \"accountNo\": \"DWBG000052\",\n  \"category\": \"REDEMPTION\",\n  \"currency\": \"USD\",\n  \"amount\": -560.36,\n  \"status\": {\n    \"id\": 1,\n    \"message\": \"PENDING\",\n    \"updated\": \"2022-12-11T22:28:21.810Z\"\n  },\n  \"source\": {\n    \"id\": \"ACH\",\n    \"meta_info\": \"Hey! Welcome to DriveWealth Developer Docs!\"\n  },\n  \"paymentRef\": \"ZYNN000001-1672169822525-RIUIN\",\n  \"created\": \"2022-12-08T18:36:40.609Z\",\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"transactionCode\": \"JOURNAL\",\n  \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n  \"batch\": true,\n  \"account_number\": \"DWBG000052\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4d36be3-97c5-4048-8c11-5c7e2f1915bf",
+          "name": "List Withdrawals",
+          "request": {
+            "name": "List Withdrawals",
+            "description": {
+              "content": "Retrieves a list of Withdrawals.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "funding",
+                "redemptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "(Required) The current status of the withdrawal; to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) The type of withdrawal; to filter by."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "362853fa-9128-4352-beae-db88cb63c61f",
+              "name": "Retrieving a list of Withdrawals was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "PENDING"
+                    },
+                    {
+                      "key": "type",
+                      "value": "ACH"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"ZYNN000001-1672169822525-RIUIN\",\n    \"paymentID\": \"ZYNN000001-1672169822525-RIUIN\",\n    \"type\": \"ACH\",\n    \"amount\": 125.92,\n    \"currency\": {\n      \"name\": \"USD\",\n      \"description\": \"US Dollar\",\n      \"symbol\": \"$\"\n    },\n    \"status\": {\n      \"id\": 1,\n      \"message\": \"PENDING\",\n      \"updated\": \"2022-12-11T22:28:21.810Z\"\n    },\n    \"userDetails\": {\n      \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n      \"username\": \"ttc.user.justin\",\n      \"firstName\": \"Justin\",\n      \"lastName\": \"Smith\",\n      \"email\": \"jj@drivewealth.dev\",\n      \"parentIBID\": {\n        \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n        \"name\": \"Tendies Trading Company\"\n      },\n      \"wlpID\": \"TTC\"\n    },\n    \"accountDetails\": {\n      \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n      \"accountNo\": \"DWBG000052\",\n      \"accountType\": {\n        \"name\": \"LIVE\",\n        \"description\": \"Live Account\"\n      },\n      \"accountManagementType\": {\n        \"name\": \"SELF\",\n        \"description\": \"Self Directed Account\"\n      }\n    },\n    \"fees\": [\n      {\n        \"type\": \"FEE_ACH\",\n        \"amount\": -5.99,\n        \"description\": \"Fee - ACH\",\n        \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n        \"transactionCode\": \"JOURNAL\",\n        \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n        \"created\": \"2022-12-11T22:28:21.810Z\",\n        \"currency\": \"USD\",\n        \"symbol\": \"$\"\n      },\n      {\n        \"type\": \"FEE_ACH\",\n        \"amount\": -5.99,\n        \"description\": \"Fee - ACH\",\n        \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n        \"transactionCode\": \"JOURNAL\",\n        \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n        \"created\": \"2022-12-11T22:28:21.810Z\",\n        \"currency\": \"USD\",\n        \"symbol\": \"$\"\n      }\n    ],\n    \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n    \"transactionCode\": {\n      \"code\": \"JOURNAL\",\n      \"type\": \"CSR\",\n      \"description\": \"Cash Receipt - ACH\"\n    }\n  },\n  {\n    \"id\": \"ZYNN000001-1672169822525-RIUIN\",\n    \"paymentID\": \"ZYNN000001-1672169822525-RIUIN\",\n    \"type\": \"ACH\",\n    \"amount\": 125.92,\n    \"currency\": {\n      \"name\": \"USD\",\n      \"description\": \"US Dollar\",\n      \"symbol\": \"$\"\n    },\n    \"status\": {\n      \"id\": 1,\n      \"message\": \"PENDING\",\n      \"updated\": \"2022-12-11T22:28:21.810Z\"\n    },\n    \"userDetails\": {\n      \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n      \"username\": \"ttc.user.justin\",\n      \"firstName\": \"Justin\",\n      \"lastName\": \"Smith\",\n      \"email\": \"jj@drivewealth.dev\",\n      \"parentIBID\": {\n        \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n        \"name\": \"Tendies Trading Company\"\n      },\n      \"wlpID\": \"TTC\"\n    },\n    \"accountDetails\": {\n      \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n      \"accountNo\": \"DWBG000052\",\n      \"accountType\": {\n        \"name\": \"LIVE\",\n        \"description\": \"Live Account\"\n      },\n      \"accountManagementType\": {\n        \"name\": \"SELF\",\n        \"description\": \"Self Directed Account\"\n      }\n    },\n    \"fees\": [\n      {\n        \"type\": \"FEE_ACH\",\n        \"amount\": -5.99,\n        \"description\": \"Fee - ACH\",\n        \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n        \"transactionCode\": \"JOURNAL\",\n        \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n        \"created\": \"2022-12-11T22:28:21.810Z\",\n        \"currency\": \"USD\",\n        \"symbol\": \"$\"\n      },\n      {\n        \"type\": \"FEE_ACH\",\n        \"amount\": -5.99,\n        \"description\": \"Fee - ACH\",\n        \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n        \"transactionCode\": \"JOURNAL\",\n        \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n        \"created\": \"2022-12-11T22:28:21.810Z\",\n        \"currency\": \"USD\",\n        \"symbol\": \"$\"\n      }\n    ],\n    \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n    \"transactionCode\": {\n      \"code\": \"JOURNAL\",\n      \"type\": \"CSR\",\n      \"description\": \"Cash Receipt - ACH\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea2ceb42-298e-424b-bca3-962cfe18eba6",
+          "name": "Retrieve Withdrawal",
+          "request": {
+            "name": "Retrieve Withdrawal",
+            "description": {
+              "content": "Retrieves a Withdrawal by redemptionID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "funding",
+                "redemptions",
+                ":redemptionID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "redemptionID",
+                  "description": "(Required) A unique identifier for the user's account redemption/withdrawal."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "60e1b147-af6a-4c51-a64f-3e68985e83e7",
+              "name": "Retrieving a Withdrawal by redemptionID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding",
+                    "redemptions",
+                    ":redemptionID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "redemptionID",
+                      "description": "(Required) A unique identifier for the user's account redemption/withdrawal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ZYNN000001-1672169822525-RIUIN\",\n  \"category\": \"REDEMPTION\",\n  \"currency\": {\n    \"name\": \"USD\",\n    \"description\": \"US Dollar\",\n    \"symbol\": \"$\"\n  },\n  \"status\": {\n    \"id\": 1,\n    \"message\": \"PENDING\",\n    \"updated\": \"2022-12-11T22:28:21.810Z\"\n  },\n  \"created\": \"2022-12-11T22:28:21.810Z\",\n  \"userDetails\": {\n    \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"username\": \"ttc.user.justin\",\n    \"firstName\": \"Justin\",\n    \"lastName\": \"Smith\",\n    \"email\": \"jj@drivewealth.dev\",\n    \"parentIBID\": {\n      \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n      \"name\": \"Tendies Trading Company\"\n    },\n    \"wlpID\": \"TTC\"\n  },\n  \"accountDetails\": {\n    \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n    \"accountNo\": \"DWBG000052\",\n    \"accountType\": {\n      \"name\": \"LIVE\",\n      \"description\": \"Live Account\"\n    },\n    \"accountManagementType\": {\n      \"name\": \"SELF\",\n      \"description\": \"Self Directed Account\"\n    }\n  },\n  \"batch\": true,\n  \"transactionCode\": {\n    \"code\": \"JOURNAL\",\n    \"type\": \"CSR\",\n    \"description\": \"Cash Receipt - ACH\"\n  },\n  \"statusHistory\": [\n    {\n      \"status\": 1,\n      \"statusMessage\": \"PENDING\",\n      \"created\": \"2022-12-11T22:28:21.810Z\",\n      \"updatedBy\": \"SYSTEM REPORT SERVICE\",\n      \"comment\": \"New redemption request from the back-office\"\n    },\n    {\n      \"status\": 1,\n      \"statusMessage\": \"PENDING\",\n      \"created\": \"2022-12-11T22:28:21.810Z\",\n      \"updatedBy\": \"SYSTEM REPORT SERVICE\",\n      \"comment\": \"New redemption request from the back-office\"\n    }\n  ],\n  \"details\": {\n    \"beneficiaryName\": \"Justin Smith\",\n    \"beneficiaryAccountNumber\": \"<string>\",\n    \"beneficiaryAccountType\": \"CHECKING\",\n    \"beneficiaryRoutingNumber\": \"021000322\",\n    \"beneficiarySwiftABA\": \"BOFAUS3NXXX\",\n    \"beneficiaryBankName\": \"Bank of America\",\n    \"beneficiaryBankAddress\": \"222 BROADWAY\",\n    \"beneficiaryBankCity\": \"New York City\",\n    \"beneficiaryBankProvince\": \"New York\",\n    \"beneficiaryBankZip\": \"10038\",\n    \"beneficiaryBankCountry\": \"USA\",\n    \"intermediarySwift\": \"CHASUS3AXXX\",\n    \"intermediaryBankName\": \"J.P Morgan Chase & Co.\"\n  },\n  \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n  \"fees\": [\n    {\n      \"type\": \"FEE_ACH\",\n      \"amount\": -5.99,\n      \"description\": \"Fee - ACH\",\n      \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n      \"transactionCode\": \"JOURNAL\",\n      \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n      \"created\": \"2022-12-11T22:28:21.810Z\",\n      \"currency\": \"USD\",\n      \"symbol\": \"$\"\n    },\n    {\n      \"type\": \"FEE_ACH\",\n      \"amount\": -5.99,\n      \"description\": \"Fee - ACH\",\n      \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n      \"transactionCode\": \"JOURNAL\",\n      \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n      \"created\": \"2022-12-11T22:28:21.810Z\",\n      \"currency\": \"USD\",\n      \"symbol\": \"$\"\n    }\n  ],\n  \"note\": \"Hey! Welcome to DriveWealth Developer Docs!\",\n  \"type\": \"ACH\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0cfabad7-deaf-4aac-a18c-8ee4dd5c139f",
+          "name": "List User Withdrawals",
+          "request": {
+            "name": "List User Withdrawals",
+            "description": {
+              "content": "Retrieves a list of User Withdrawals by userID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID",
+                "funding",
+                "redemptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) The User's unique identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "056674c8-95da-4361-9e0b-af0a79b9aeaf",
+              "name": "Retrieving a list of User Withdrawals by userID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID",
+                    "funding",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) The User's unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"paymentID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"amount\": 250.25,\n    \"currency\": {\n      \"name\": \"USD\",\n      \"description\": \"US Dollar\",\n      \"symbol\": \"$\"\n    },\n    \"status\": {\n      \"id\": 1,\n      \"message\": \"PENDING\",\n      \"updated\": \"2022-12-11T22:28:21.810Z\"\n    },\n    \"accountDetails\": {\n      \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n      \"accountNo\": \"DWBG000052\",\n      \"accountType\": {\n        \"name\": \"LIVE\",\n        \"description\": \"Live Account\"\n      },\n      \"accountManagementType\": {\n        \"name\": \"SELF\",\n        \"description\": \"Self Directed Account\"\n      }\n    },\n    \"fees\": [\n      {\n        \"type\": \"FEE_ACH\",\n        \"amount\": -5.99,\n        \"description\": \"Fee - ACH\",\n        \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n        \"transactionCode\": \"JOURNAL\",\n        \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n        \"created\": \"2022-12-11T22:28:21.810Z\",\n        \"currency\": \"USD\",\n        \"symbol\": \"$\"\n      },\n      {\n        \"type\": \"FEE_ACH\",\n        \"amount\": -5.99,\n        \"description\": \"Fee - ACH\",\n        \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n        \"transactionCode\": \"JOURNAL\",\n        \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n        \"created\": \"2022-12-11T22:28:21.810Z\",\n        \"currency\": \"USD\",\n        \"symbol\": \"$\"\n      }\n    ],\n    \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n    \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n    \"timestamp\": \"2022-12-11T22:28:21.810Z\"\n  },\n  {\n    \"id\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"paymentID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"amount\": 250.25,\n    \"currency\": {\n      \"name\": \"USD\",\n      \"description\": \"US Dollar\",\n      \"symbol\": \"$\"\n    },\n    \"status\": {\n      \"id\": 1,\n      \"message\": \"PENDING\",\n      \"updated\": \"2022-12-11T22:28:21.810Z\"\n    },\n    \"accountDetails\": {\n      \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n      \"accountNo\": \"DWBG000052\",\n      \"accountType\": {\n        \"name\": \"LIVE\",\n        \"description\": \"Live Account\"\n      },\n      \"accountManagementType\": {\n        \"name\": \"SELF\",\n        \"description\": \"Self Directed Account\"\n      }\n    },\n    \"fees\": [\n      {\n        \"type\": \"FEE_ACH\",\n        \"amount\": -5.99,\n        \"description\": \"Fee - ACH\",\n        \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n        \"transactionCode\": \"JOURNAL\",\n        \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n        \"created\": \"2022-12-11T22:28:21.810Z\",\n        \"currency\": \"USD\",\n        \"symbol\": \"$\"\n      },\n      {\n        \"type\": \"FEE_ACH\",\n        \"amount\": -5.99,\n        \"description\": \"Fee - ACH\",\n        \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n        \"transactionCode\": \"JOURNAL\",\n        \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n        \"created\": \"2022-12-11T22:28:21.810Z\",\n        \"currency\": \"USD\",\n        \"symbol\": \"$\"\n      }\n    ],\n    \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n    \"finTranReference\": \"HG.cd22a78a-8a48-441c-89d2-ea400964a34b\",\n    \"timestamp\": \"2022-12-11T22:28:21.810Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2467c826-c8fb-47a4-88b2-53f028c811c7",
+    "name": "DriveWealth Accounts Withdrawals API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

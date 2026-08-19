@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Portfolios API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Portfolios",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Portfolio",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bo-api.drivewealth.io/back-office/managed/portfolios",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a Portfolio."
+        },
+        {
+          "info": {
+            "name": "Retrieve Portfolio",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/managed/portfolios/:portfolioID",
+            "params": [
+              {
+                "name": "portfolioID",
+                "value": "portfolio_4a22340a-31f8-4f0e-b5ee-24ddfbc66727",
+                "type": "path",
+                "description": "A unique identifier associated with a specific Portfolio."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a Portfolio by portfolioID."
+        },
+        {
+          "info": {
+            "name": "Update Portfolio",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://bo-api.drivewealth.io/back-office/managed/portfolios/:portfolioID",
+            "params": [
+              {
+                "name": "portfolioID",
+                "value": "portfolio_4a22340a-31f8-4f0e-b5ee-24ddfbc66727",
+                "type": "path",
+                "description": "A unique identifier associated with a specific Portfolio."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a Profolio by portfolioID."
+        },
+        {
+          "info": {
+            "name": "List Portfolios by Advisor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/users/:userID/managed/portfolio",
+            "params": [
+              {
+                "name": "userID",
+                "value": "cc07f91b-7ee1-4868-b8fc-823c70a1b932",
+                "type": "path",
+                "description": "The User's unique identifier."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetches a list of portfolios by userID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

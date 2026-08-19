@@ -1,0 +1,596 @@
+{
+  "item": [
+    {
+      "id": "56499869-7848-456d-b026-3679fe29d39b",
+      "name": "Asset Transfer",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "171e3f2f-e5a1-40b3-9b80-fc2d5e71e19a",
+          "name": "Create ACATS Transfer",
+          "request": {
+            "name": "Create ACATS Transfer",
+            "description": {
+              "content": "The Automated Customer Account Transfer Service (ACATS) is a system that facilitates the transfer of securities from one trading account to another at a different brokerage firm or bank.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "asset-transfers",
+                "acats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source\": \"<string>\",\n  \"destination\": \"<string>\",\n  \"clearingNo\": \"<string>\",\n  \"sourceAccountType\": \"<string>\",\n  \"acatType\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"metadata\": \"<object>\",\n  \"cash\": 0,\n  \"positions\": [\n    {\n      \"quantity\": \"<number>\",\n      \"symbol\": \"<string>\",\n      \"instrumentID\": \"<uuid>\"\n    },\n    {\n      \"quantity\": \"<number>\",\n      \"symbol\": \"<string>\",\n      \"instrumentID\": \"<uuid>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7ea47b81-eb0b-4941-8f3a-9d4d5346eaa8",
+              "name": "Initiating a transfer was successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asset-transfers",
+                    "acats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source\": \"DWBG000052\",\n  \"destination\": \"LKKZ000004\",\n  \"clearingNo\": \"0001\",\n  \"sourceAccountType\": \"<string>\",\n  \"acatType\": \"<string>\",\n  \"comment\": \"Hey! Welcome to DriveWealth Developer Docs!\",\n  \"metadata\": {\n    \"myCustomKey\": \"myCustomValue\"\n  },\n  \"cash\": 0,\n  \"positions\": [\n    {\n      \"quantity\": \"<number>\",\n      \"symbol\": \"MS\",\n      \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\"\n    },\n    {\n      \"quantity\": \"<number>\",\n      \"symbol\": \"MS\",\n      \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"acats_41eb5bdd-8ce2-4471-8fc6-9892da089cd1\",\n  \"source\": \"BROKER0001\",\n  \"sourceAccountID\": \"d6a776bc-be5c-47df-94eb-baf914f1847c.1738660911962\",\n  \"destination\": \"DWXR001004\",\n  \"destinationAccountID\": \"c815c129-27cd-46f2-b316-ab6bde9aff62.1737384219426\",\n  \"clearingNo\": \"0001\",\n  \"status\": {\n    \"name\": \"PENDING\",\n    \"description\": \"Asset transfer request is pending\"\n  },\n  \"type\": {\n    \"name\": \"ACAT\",\n    \"description\": \"ACAT transfer\"\n  },\n  \"acatType\": {\n    \"name\": \"FULL\",\n    \"description\": \"Full Acats Transfer\"\n  },\n  \"sourceAccountType\": {\n    \"name\": \"INDIVIDUAL\",\n    \"description\": \"Individual Account\"\n  },\n  \"positions\": [],\n  \"metadata\": {},\n  \"auditDetails\": [\n    {\n      \"timestamp\": \"2023-07-28T23:56:10.507Z\",\n      \"status\": {\n        \"name\": \"STARTED\",\n        \"description\": \"Asset transfer request has been initiated.\"\n      },\n      \"comment\": \"Transfer request has been submitted in queue\"\n    },\n    {\n      \"timestamp\": \"2023-07-28T23:56:10.645Z\",\n      \"status\": {\n        \"name\": \"PENDING\",\n        \"description\": \"Asset transfer request is pending\"\n      },\n      \"comment\": \"<string>\"\n    }\n  ],\n  \"created\": \"2023-07-28T23:56:10.491Z\",\n  \"updated\": \"2023-07-28T23:56:10.667Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6bb12b3-a3f7-4a69-b5ac-44566d20ac39",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asset-transfers",
+                    "acats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source\": \"DWBG000052\",\n  \"destination\": \"LKKZ000004\",\n  \"clearingNo\": \"0001\",\n  \"sourceAccountType\": \"<string>\",\n  \"acatType\": \"<string>\",\n  \"comment\": \"Hey! Welcome to DriveWealth Developer Docs!\",\n  \"metadata\": {\n    \"myCustomKey\": \"myCustomValue\"\n  },\n  \"cash\": 0,\n  \"positions\": [\n    {\n      \"quantity\": \"<number>\",\n      \"symbol\": \"MS\",\n      \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\"\n    },\n    {\n      \"quantity\": \"<number>\",\n      \"symbol\": \"MS\",\n      \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"A012\",\n  \"message\": \"A required accountNo is missing or invalid. Refer to the API documentation for details.\",\n  \"errorDetails\": {\n    \"field\": \"destination\",\n    \"type\": \"STRING\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55e0b2e0-0ae9-4d04-a4bf-c46fe7f8872a",
+          "name": "Create Minor Graduation Transfer",
+          "request": {
+            "name": "Create Minor Graduation Transfer",
+            "description": {
+              "content": "If an Account is opened for the purpose of allowing a minor to invest, this API will allow for the transfer of assets from this account to the minor's own named account once they reach the age of majority.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "asset-transfers",
+                "minor-graduation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source\": \"<string>\",\n  \"destination\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"metadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aad79e15-72ac-41da-9749-70567232dea6",
+              "name": "Initiating a transfer was successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asset-transfers",
+                    "minor-graduation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source\": \"LKGE000001\",\n  \"destination\": \"LKKZ000004\",\n  \"comment\": \"Migrating Teen account to Individual account.\",\n  \"metadata\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"grad_28d08c72-3d0f-4c6e-8961-2dc6491c28a8\",\n  \"source\": \"LKGE000001\",\n  \"destination\": \"LKKZ000004\",\n  \"status\": {\n    \"name\": \"STARTED\",\n    \"description\": \"Asset transfer request has been initiated.\"\n  },\n  \"type\": {\n    \"name\": \"TEEN\",\n    \"description\": \"Teen Account Transfer\"\n  },\n  \"created\": \"2023-07-26T14:05:18.518Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ea497e5-30e7-4a16-a008-43f13ec7b549",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asset-transfers",
+                    "minor-graduation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source\": \"LKGE000001\",\n  \"destination\": \"LKKZ000004\",\n  \"comment\": \"Migrating Teen account to Individual account.\",\n  \"metadata\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"E033\",\n  \"message\": \"Invalid parameter in message body. Refer to the API documentation for details.\",\n  \"errorDetails\": {\n    \"field\": \"source\",\n    \"type\": \"STRING\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d96ce85-cef0-46a6-babb-9abd79fd3f01",
+          "name": "Retrieve Transfer",
+          "request": {
+            "name": "Retrieve Transfer",
+            "description": {
+              "content": "Get a Transfer's current details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "asset-transfers",
+                ":assetTransferID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "assetTransferID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b8aea5cf-9426-4055-879e-23a919f93973",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asset-transfers",
+                    ":assetTransferID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "assetTransferID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"acats_385621f4-ef89-4a4e-8cc1-ef1295549ca4\",\n  \"source\": \"FA-IJKE001\",\n  \"destination\": \"DWWFP000907\",\n  \"destinationAccountID\": \"deb66500-168a-4432-9b1c-05a58e1d563f.1742485154193\",\n  \"clearingNo\": \"0123\",\n  \"status\": {\n    \"name\": \"PENDING\",\n    \"description\": \"Asset transfer request is pending\"\n  },\n  \"type\": {\n    \"name\": \"ACAT\",\n    \"description\": \"ACAT transfer\"\n  },\n  \"acatType\": {\n    \"name\": \"FULL\",\n    \"description\": \"Full Acats Transfer\"\n  },\n  \"acatTransit\": {\n    \"name\": \"ACAT_IN\",\n    \"description\": \"Incoming ACAT Transfer\"\n  },\n  \"sourceAccountType\": {\n    \"name\": \"INDIVIDUAL\",\n    \"description\": \"Individual Account\"\n  },\n  \"partner\": {\n    \"id\": \"ac5de50f-2297-e2e7-7b31-2c54872ae231\",\n    \"name\": \"Test\"\n  },\n  \"incomingCash\": 10000,\n  \"positions\": [],\n  \"incomingPositions\": [\n    {\n      \"symbol\": \"AMD\",\n      \"cusip\": 7903107,\n      \"instrumentID\": \"0bfd8059-8456-4b1b-1491-b394992409df\",\n      \"quantity\": 8\n    },\n    {\n      \"symbol\": \"SBSI\",\n      \"cusip\": \"84470P109\",\n      \"instrumentID\": \"1c6c1625-a84b-4dd3-8146-c6a97cd74bcf\",\n      \"quantity\": 7\n    },\n    {\n      \"symbol\": \"TSLA\",\n      \"cusip\": \"88160R101\",\n      \"instrumentID\": \"5b85fabb-a7f6-44e6-d57c-a3efc760226c\",\n      \"quantity\": 9\n    }\n  ],\n  \"outgoingPositions\": [],\n  \"settlementInfo\": {\n    \"controlNo\": \"20250320013533\",\n    \"status724\": \"310\",\n    \"status\": \"ACAT_SETTLED\",\n    \"positions\": {\n      \"accepted\": [\n        7903107,\n        \"84470P109\",\n        \"88160R101\"\n      ]\n    },\n    \"cash\": 10000\n  },\n  \"auditDetails\": [\n    {\n      \"timestamp\": \"2025-03-20T15:39:19.319Z\",\n      \"status\": {\n        \"name\": \"STARTED\",\n        \"description\": \"Asset transfer request has been initiated.\"\n      },\n      \"comment\": \"Transfer request has been submitted in queue\"\n    },\n    {\n      \"timestamp\": \"2025-03-20T15:43:09.252Z\",\n      \"status\": {\n        \"name\": \"PENDING\",\n        \"description\": \"Asset transfer request is pending\"\n      },\n      \"comment\": \"TIF has been created\",\n      \"updatedBy\": \"ACAT_TRANSFER_SYSTEM\"\n    },\n    {\n      \"timestamp\": \"2025-03-20T15:44:26.852Z\",\n      \"status\": {\n        \"name\": \"PENDING\",\n        \"description\": \"Asset transfer request is pending\"\n      },\n      \"comment\": \"Transfer is under review\",\n      \"updatedBy\": \"ACAT_STATUS_UPDATE_SYSTEM\"\n    },\n    {\n      \"timestamp\": \"2025-03-20T15:45:03.041Z\",\n      \"status\": {\n        \"name\": \"PENDING\",\n        \"description\": \"Asset transfer request is pending\"\n      },\n      \"status724\": \"230\",\n      \"comment\": \"ACAT auto-review completed. Ready for sending to DTCC.\",\n      \"updatedBy\": \"ACAT_REVIEW_SYSTEM\"\n    },\n    {\n      \"timestamp\": \"2023-10-20T18:00:04.185Z\",\n      \"status\": {\n        \"name\": \"PENDING\",\n        \"description\": \"Asset transfer request is pending\"\n      },\n      \"status724\": \"500\",\n      \"comment\": \"Partial transfer in progress\",\n      \"updatedBy\": \"ACAT_STATUS_UPDATE_SYSTEM\"\n    },\n    {\n      \"timestamp\": \"2023-10-21T00:01:19.340Z\",\n      \"status\": {\n        \"name\": \"SUCCESSFUL\",\n        \"description\": \"Asset transfer request has been successfully completed\"\n      },\n      \"status724\": \"310\",\n      \"comment\": \"Transfer Settled\",\n      \"updatedBy\": \"ACAT_STATUS_UPDATE_SYSTEM\"\n    }\n  ],\n  \"created\": \"2025-03-20T15:39:19.226Z\",\n  \"updated\": \"2025-03-20T15:44:27.029Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6138f32-c54c-4db6-96c3-00b2c1fa7afd",
+          "name": "List Transfers",
+          "request": {
+            "name": "List Transfers",
+            "description": {
+              "content": "Lists all of your Transfers across all Accounts. This can be filtered by type of Transfer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "asset-transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "A status to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) A Transfer type to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "Maximum number of records to be returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<string>",
+                  "description": "Specify an identifier from last API response to go to the next page or prev page"
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "Go to the next page or prev page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "26a0b5d0-4cd9-4ad0-8d63-74817254faad",
+              "name": "Listing Transfers was successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asset-transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"grad_ba9522d8-0f3a-43bd-bb16-9efc0ad1a913\",\n      \"source\": \"DWCW001118\",\n      \"destination\": \"DWYE001127\",\n      \"status\": {\n        \"name\": \"SUCCESSFUL\",\n        \"description\": \"Asset transfer request has been successfully completed\"\n      },\n      \"type\": {\n        \"name\": \"TEEN\",\n        \"description\": \"Teen Account Transfer\"\n      },\n      \"partner\": {\n        \"id\": \"25f77a3e-2a4b-48bf-bea2-1b8bcd541621\",\n        \"name\": \"Stark House\"\n      },\n      \"auditDetails\": [\n        {\n          \"timestamp\": \"2023-10-25T16:00:42.126Z\",\n          \"status\": {\n            \"name\": \"STARTED\",\n            \"description\": \"Asset transfer request has been initiated.\"\n          },\n          \"comment\": \"Transfer request has been submitted in queue\"\n        },\n        {\n          \"timestamp\": \"2023-10-25T16:00:42.257Z\",\n          \"status\": {\n            \"name\": \"PENDING\",\n            \"description\": \"Asset transfer request is pending\"\n          },\n          \"comment\": \"Transfer process started\"\n        },\n        {\n          \"timestamp\": \"2023-10-27T21:00:07.959Z\",\n          \"status\": {\n            \"name\": \"ON_HOLD\",\n            \"description\": \"Asset transfer request is on hold.\"\n          },\n          \"comment\": \"Transfer is on hold for DWCW001118. Settlement is not finished yet.\"\n        },\n        {\n          \"timestamp\": \"2023-10-28T14:00:02.453Z\",\n          \"status\": {\n            \"name\": \"SUCCESSFUL\",\n            \"description\": \"Asset transfer request has been successfully completed\"\n          },\n          \"comment\": \"Transfer Completed\"\n        }\n      ],\n      \"created\": \"2023-10-25T16:00:42.126Z\",\n      \"updated\": \"2023-10-28T14:00:02.453Z\"\n    },\n    {\n      \"id\": \"grad_47edac5a-57f0-456a-83ca-128205fcdf3d\",\n      \"source\": \"DWXG000976\",\n      \"destination\": \"DWHZ001105\",\n      \"status\": {\n        \"name\": \"ON_HOLD\",\n        \"description\": \"Asset transfer request is on hold.\"\n      },\n      \"type\": {\n        \"name\": \"TEEN\",\n        \"description\": \"Teen Account Transfer\"\n      },\n      \"partner\": {\n        \"id\": \"25f77a3e-2a4b-48bf-bea2-1b8bcd541621\",\n        \"name\": \"Stark House\"\n      },\n      \"auditDetails\": [\n        {\n          \"timestamp\": \"2023-10-29T04:00:56.167Z\",\n          \"status\": {\n            \"name\": \"STARTED\",\n            \"description\": \"Asset transfer request has been initiated.\"\n          },\n          \"comment\": \"Transfer request has been submitted in queue\"\n        },\n        {\n          \"timestamp\": \"2023-10-29T04:00:56.309Z\",\n          \"status\": {\n            \"name\": \"PENDING\",\n            \"description\": \"Asset transfer request is pending\"\n          },\n          \"comment\": \"Transfer process started\"\n        },\n        {\n          \"timestamp\": \"2023-11-01T21:00:02.207Z\",\n          \"status\": {\n            \"name\": \"ON_HOLD\",\n            \"description\": \"Asset transfer request is on hold.\"\n          },\n          \"comment\": \"Transfer is on hold for DWXG000976. Settlement is not finished yet.\"\n        }\n      ],\n      \"created\": \"2023-10-29T04:00:56.167Z\",\n      \"updated\": \"2023-11-01T21:00:02.207Z\"\n    }\n  ],\n  \"nextPageOffset\": \"25f77a3e-2a4b-48bf-bea2-1b8bcd541621#grad_47edac5a-57f0-456a-83ca-128205fcdf3d#2023-07-28T23:55:34.142Z\",\n  \"prevPageOffset\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d8fb8500-a2ec-48a6-a69a-58c4afda69b2",
+    "name": "DriveWealth Accounts Asset Transfer API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

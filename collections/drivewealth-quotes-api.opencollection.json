@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Quotes API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Quotes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Quote (referential feed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/quotes",
+            "headers": [
+              {
+                "name": "dw-customer-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "symbols",
+                "value": "MS",
+                "type": "query",
+                "description": "The ticker symbol of the associated instrument. Multiple ticker symbols separated by a comma may also be used."
+              },
+              {
+                "name": "exchangeOverride",
+                "value": "15MinDelayed",
+                "type": "query",
+                "description": "The quote details will be 15 minutes delayed."
+              },
+              {
+                "name": "instrumentIDs",
+                "value": "1179e8dd-2781-4ce9-842c-f05ded6a40d7",
+                "type": "query",
+                "description": "The id of an instrument. Multiple instrumentIDs separated by a comma may also be used."
+              },
+              {
+                "name": "isins",
+                "value": "US912810RC45",
+                "type": "query",
+                "description": "The unique identifier of the instrument. Multiple instrumentIDs separated by a comma may also be used."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch the realtime or 15 minute delayed Referential quote details for a specific security."
+        },
+        {
+          "info": {
+            "name": "Retrieve Quote (consolidated feed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/quotes/vdr",
+            "headers": [
+              {
+                "name": "dw-customer-user-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "symbols",
+                "value": "MS",
+                "type": "query",
+                "description": "The ticker symbol of the associated instrument."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch the NBBO quote details for a specific security."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

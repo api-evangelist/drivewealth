@@ -1,0 +1,216 @@
+{
+  "item": [
+    {
+      "id": "36dd8fff-eba4-47b8-9e8a-97fc3c201164",
+      "name": "Auth",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a58be460-32b0-40e4-8635-d8c29aff2a0d",
+          "name": "Create Authentication Token",
+          "request": {
+            "name": "Create Authentication Token",
+            "description": {
+              "content": "Creates an authentication token for an implementer to utilize for subsequent API requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"appTypeID\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "510813bd-c0f5-4fff-a2fd-37523a8df9cb",
+              "name": "Creating Authentication Token was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"bo.sample.api\",\n  \"password\": \"188ff5b0-8f13-4676-8bb2-305b9e08a3ba\",\n  \"appTypeID\": 4\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"username\": \"bo.sample.api\",\n  \"authToken\": \"acb33c99-3a6f-4494-85bf-8dae70977552.2018-07-26T14:45:47.391Z\",\n  \"expiresAt\": \"2022-12-28T01:09:33.714Z\",\n  \"security\": {\n    \"description\": \"Partner Principal\",\n    \"permissionSet\": [\n      \"ACCOUNTS_CREATE_LIVE\",\n      \"ACCOUNTS_CREATE_MANAGED\",\n      \"ACCOUNTS_CREATE_MARGIN\",\n      \"ACCOUNTS_CREATE_PRACTICE\",\n      \"ACCOUNTS_CREATE_RIA_MANAGED\",\n      \"ACCOUNTS_EDIT\"\n    ],\n    \"permissionID\": \"4380ee75-5acd-f5af-4347-04146bb3f61a\"\n  },\n  \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"firstName\": \"Tendies Trading Company\",\n  \"lastName\": \"LLC\",\n  \"parentIBID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae391953-1b8b-4adf-8f40-abd6ea599049",
+          "name": "Create Session Token",
+          "request": {
+            "name": "Create Session Token",
+            "description": {
+              "content": "Creates a session token for an implementer to utilize for subsequent API requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clientID\": \"<string>\",\n  \"clientSecret\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8d015c79-31b3-4cfd-907e-0b322b5ec482",
+              "name": "Creating Session Token was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientID\": \"0oafccTendies67BTx113\",\n  \"clientSecret\": \"8WfNzC4oTendiesTradingCompanyPuQNwg7BPByWqQOj\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token_type\": \"Bearer\",\n  \"expires_in\": \"3600\",\n  \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\",\n  \"scope\": \"all_trading\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "90f8f801-bfc8-42fe-ba87-4bf3295d7da4",
+    "name": "DriveWealth Accounts Auth API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

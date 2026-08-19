@@ -1,0 +1,355 @@
+{
+  "item": [
+    {
+      "id": "1cff76f8-1b64-4ddd-b268-2a797a465c2a",
+      "name": "Trade Allocations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "de42c089-2358-4c57-a4f9-4e60c91abb43",
+          "name": "Create Trade Allocation",
+          "request": {
+            "name": "Create Trade Allocation",
+            "description": {
+              "content": "Create a Trade Allocation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed",
+                "allocations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userID\": \"<string>\",\n  \"orders\": [\n    {\n      \"orderID\": \"<string>\",\n      \"allocations\": [\n        {\n          \"accountID\": \"<string>\",\n          \"accountNo\": \"<string>\",\n          \"qty\": \"<string>\",\n          \"useClientFunds\": \"<boolean>\",\n          \"comment\": \"<string>\"\n        },\n        {\n          \"accountID\": \"<string>\",\n          \"accountNo\": \"<string>\",\n          \"qty\": \"<string>\",\n          \"useClientFunds\": \"<boolean>\",\n          \"comment\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"orderID\": \"<string>\",\n      \"allocations\": [\n        {\n          \"accountID\": \"<string>\",\n          \"accountNo\": \"<string>\",\n          \"qty\": \"<string>\",\n          \"useClientFunds\": \"<boolean>\",\n          \"comment\": \"<string>\"\n        },\n        {\n          \"accountID\": \"<string>\",\n          \"accountNo\": \"<string>\",\n          \"qty\": \"<string>\",\n          \"useClientFunds\": \"<boolean>\",\n          \"comment\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"clientListID\": \"<string>\",\n  \"note\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "80211686-1ac4-4c8a-b64b-0f77e02a98aa",
+              "name": "Creating a Trade Allocation was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed",
+                    "allocations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userID\": \"66304da9-3h6f-2234-935f-ac6b7933d706\",\n  \"orders\": [\n    {\n      \"orderID\": \"JL.562f3719-7c8f-50ee-b234-db7775715a99\",\n      \"allocations\": [\n        {\n          \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n          \"accountNo\": \"ZYXC000008\",\n          \"qty\": \"27\",\n          \"useClientFunds\": true,\n          \"comment\": \"Suds boapi test to 1st\"\n        },\n        {\n          \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n          \"accountNo\": \"ZYXC000008\",\n          \"qty\": \"27\",\n          \"useClientFunds\": true,\n          \"comment\": \"Suds boapi test to 1st\"\n        }\n      ]\n    },\n    {\n      \"orderID\": \"JL.562f3719-7c8f-50ee-b234-db7775715a99\",\n      \"allocations\": [\n        {\n          \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n          \"accountNo\": \"ZYXC000008\",\n          \"qty\": \"27\",\n          \"useClientFunds\": true,\n          \"comment\": \"Suds boapi test to 1st\"\n        },\n        {\n          \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n          \"accountNo\": \"ZYXC000008\",\n          \"qty\": \"27\",\n          \"useClientFunds\": true,\n          \"comment\": \"Suds boapi test to 1st\"\n        }\n      ]\n    }\n  ],\n  \"clientListID\": \"SUMS_CUSTOM_ALLOCATION_TEST\",\n  \"note\": \"Allocating via api allocation test\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"JL.allocation.SomeRIACompany.9d6def3b-14d7-4934-8a64-57d443e67ce6\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c1f887e-b0dc-482e-bbd8-b58e8da3daf2",
+          "name": "Retrieve Trade Allocation",
+          "request": {
+            "name": "Retrieve Trade Allocation",
+            "description": {
+              "content": "Retrieves Trade Allocation by allocationID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed",
+                "allocations",
+                ":allocationID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "allocationID",
+                  "description": "(Required) The unique identifier returned when a Trade Allocation request is made."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "29f0ba47-cf07-423a-992e-72b6b8e52f11",
+              "name": "Retrieving Trade Allocation by allocationID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed",
+                    "allocations",
+                    ":allocationID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "allocationID",
+                      "description": "(Required) The unique identifier returned when a Trade Allocation request is made."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"JL.allocation.SomeRIACompany.9d6def3b-14d7-4934-8a64-57d443e67ce6\",\n  \"status\": \"COMPLETE\",\n  \"clientListID\": \"SUMS_CUSTOM_ALLOCATION_TEST\",\n  \"accountID\": \"66304da9-3d6f-4253-935f-ac6b7933d701.1619201263789\",\n  \"accountNo\": \"ZYXB000008\",\n  \"createdWhen\": \"2022-12-22T16:04:46.724Z\",\n  \"allocations\": [\n    {\n      \"accountID\": \"743a1018-e292-449c-a43f-58d657990db0.1671689261882\",\n      \"accountNo\": \"ZYXC000008\",\n      \"status\": \"FILLED\",\n      \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n      \"symbol\": \"MS\",\n      \"side\": \"B\",\n      \"clientComment\": \"Foo test allocation\",\n      \"qtyRequested\": 10,\n      \"qtyAllocated\": 10,\n      \"avgPx\": 126.52,\n      \"fees\": {\n        \"total\": 3992.2815381543674,\n        \"sec\": 794.3049505915744,\n        \"taf\": 4805.197709156984,\n        \"commission\": 7429.403483727294,\n        \"other\": 5432.0638046283975\n      }\n    },\n    {\n      \"accountID\": \"743a1018-e292-449c-a43f-58d657990db0.1671689261882\",\n      \"accountNo\": \"ZYXC000008\",\n      \"status\": \"FILLED\",\n      \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n      \"symbol\": \"MS\",\n      \"side\": \"B\",\n      \"clientComment\": \"Foo test allocation\",\n      \"qtyRequested\": 10,\n      \"qtyAllocated\": 10,\n      \"avgPx\": 126.52,\n      \"fees\": {\n        \"total\": 7396.340052034671,\n        \"sec\": 4747.806549595598,\n        \"taf\": 9216.566324892465,\n        \"commission\": 4188.729139835117,\n        \"other\": 3699.907550619824\n      }\n    }\n  ],\n  \"comment\": \"All allocated and accounted for. 1::1::0 client note[allocating via bo api 1st allocation test]. timeMs=423 ratePerSec=2.36 msPerItem=423.00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "379b03de-8443-4e7a-9e73-4b7175744cae",
+          "name": "List Trade Allocations by Advisor",
+          "request": {
+            "name": "List Trade Allocations by Advisor",
+            "description": {
+              "content": "Fetches a list of an User's allocations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID",
+                "managed",
+                "allocations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) The User's unique identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e21d7b41-7b85-4859-ad65-378e34991869",
+              "name": "Fetching A List Of A User's Allocation was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID",
+                    "managed",
+                    "allocations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) The User's unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"JF.allocation.TendiesTradingCo.e61f512a-ed9c-4047-9ccf-224a5864158d\",\n    \"clientListID\": \"Hey! Welcome to DriveWealth Developer Docs!\",\n    \"status\": \"NEW\",\n    \"allocationsRequested\": 500,\n    \"allocationsCompleted\": 25,\n    \"unallocatedNotional\": 5320,\n    \"unallocatedQuantity\": 302,\n    \"comment\": \"All allocated and accounted for. 1::1::0 client note[empty], . timeMs=667 ratePerSec=1.50 msPerItem=667.00\",\n    \"createdWhen\": \"2022-12-22T16:04:46.724Z\"\n  },\n  {\n    \"id\": \"JF.allocation.TendiesTradingCo.e61f512a-ed9c-4047-9ccf-224a5864158d\",\n    \"clientListID\": \"Hey! Welcome to DriveWealth Developer Docs!\",\n    \"status\": \"NEW\",\n    \"allocationsRequested\": 500,\n    \"allocationsCompleted\": 25,\n    \"unallocatedNotional\": 5320,\n    \"unallocatedQuantity\": 302,\n    \"comment\": \"All allocated and accounted for. 1::1::0 client note[empty], . timeMs=667 ratePerSec=1.50 msPerItem=667.00\",\n    \"createdWhen\": \"2022-12-22T16:04:46.724Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4aa82c8c-a504-43b6-b305-059cbb8deda9",
+    "name": "DriveWealth Accounts Trade Allocations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

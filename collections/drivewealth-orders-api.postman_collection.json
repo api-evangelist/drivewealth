@@ -1,0 +1,950 @@
+{
+  "item": [
+    {
+      "id": "fa7faaff-8595-439a-b082-aacb2df56b5c",
+      "name": "Orders",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "09765c1b-b9fe-4d28-96e0-5f430930b6a2",
+          "name": "List Account resting Orders",
+          "request": {
+            "name": "List Account resting Orders",
+            "description": {
+              "content": "Retrives a list of Account Orders by accountID. The orders returned will all be currently pending Orders that are awaiting a fill or cancellation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "summary",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a60b7e5f-ced4-4b45-9219-4b71c0dc91a1",
+              "name": "Retrieving a list of Account Orders was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "summary",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"accountNo\": \"DWBG000052\",\n  \"tradingType\": \"CASH\",\n  \"updated\": \"2021-04-23T18:41:32.440Z\",\n  \"orders\": [\n    {\n      \"orderID\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n      \"orderNo\": \"ICDU023727\",\n      \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"symbol\": \"MS\",\n      \"cumQty\": 0.7219,\n      \"orderStatus\": \"2\",\n      \"orderType\": \"1\",\n      \"orderQty\": 0.7219,\n      \"isoTimeRestingOrderExpires\": \"string\",\n      \"limitPrice\": 8719.34575898264,\n      \"side\": \"B\",\n      \"orderCashAmt\": 3339.7345443260006,\n      \"stopPrice\": 200,\n      \"ISIN\": \"US023135BX34\",\n      \"salesCredit\": {\n        \"currency\": \"USD\",\n        \"amount\": 14\n      },\n      \"instrumentType\": \"EQUITY\"\n    },\n    {\n      \"orderID\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n      \"orderNo\": \"ICDU023727\",\n      \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"symbol\": \"MS\",\n      \"cumQty\": 0.7219,\n      \"orderStatus\": \"2\",\n      \"orderType\": \"1\",\n      \"orderQty\": 0.7219,\n      \"isoTimeRestingOrderExpires\": \"string\",\n      \"limitPrice\": 9602.692576897358,\n      \"side\": \"B\",\n      \"orderCashAmt\": 8726.601199773206,\n      \"stopPrice\": 200,\n      \"ISIN\": \"US023135BX34\",\n      \"salesCredit\": {\n        \"currency\": \"USD\",\n        \"amount\": 14\n      },\n      \"instrumentType\": \"EQUITY\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b1d08a49-4539-4194-9601-a3ee24599165",
+          "name": "List Account historical Orders",
+          "request": {
+            "name": "List Account historical Orders",
+            "description": {
+              "content": "Retrieves a list of Account Orders by accountID. The orders returned are ones that have been previously closed, either by being filled or by being canceled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "reports",
+                "order-history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) Date start time of data. Follow [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601)"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) Date end time of data. Follow [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>",
+                  "description": "The number of orders to be returned per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<string>",
+                  "description": "Follow [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601)"
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "The direction of pagination."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8fcdf865-2a8f-4788-b779-b566c46abcd6",
+              "name": "Retrieving a list of Account Orders was Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "reports",
+                    "order-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "2022-06-16"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2022-07-16"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "2022-07-16"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "prev"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"accountNo\": \"DWBG000052\",\n  \"tradingType\": \"CASH\",\n  \"updated\": \"2017-06-16T15:35:30.617Z\",\n  \"orders\": [\n    {\n      \"orderID\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n      \"orderNo\": \"ICDU023727\",\n      \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"symbol\": \"MS\",\n      \"cumQty\": 0.7219,\n      \"orderStatus\": 2,\n      \"orderType\": \"MARKET\",\n      \"orderQty\": 0.7219,\n      \"isoTimeRestingOrderExpires\": \"string\",\n      \"limitPrice\": 1191.5414957777882,\n      \"side\": \"B\",\n      \"mitTriggerPrice\": 0,\n      \"triggered\": 0,\n      \"averagePriceRaw\": 147.45,\n      \"orderCashAmt\": 5453.662097982094,\n      \"stopPrice\": 200,\n      \"ISIN\": \"US023135BX34\"\n    },\n    {\n      \"orderID\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n      \"orderNo\": \"ICDU023727\",\n      \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"symbol\": \"MS\",\n      \"cumQty\": 0.7219,\n      \"orderStatus\": 2,\n      \"orderType\": \"MARKET\",\n      \"orderQty\": 0.7219,\n      \"isoTimeRestingOrderExpires\": \"string\",\n      \"limitPrice\": 65.89241009022695,\n      \"side\": \"B\",\n      \"mitTriggerPrice\": 0,\n      \"triggered\": 0,\n      \"averagePriceRaw\": 147.45,\n      \"orderCashAmt\": 9731.512238609863,\n      \"stopPrice\": 200,\n      \"ISIN\": \"US023135BX34\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b55e2d37-02fb-4815-88b8-784102c23ee9",
+          "name": "Create Order",
+          "request": {
+            "name": "Create Order",
+            "description": {
+              "content": "Create an Order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNo\": \"<string>\",\n  \"orderType\": \"<string>\",\n  \"side\": \"<string>\",\n  \"limitType\": \"<string>\",\n  \"symbol\": \"<string>\",\n  \"instrumentID\": \"<uuid>\",\n  \"ISIN\": \"<string>\",\n  \"quantity\": \"<double>\",\n  \"amountCash\": \"<double>\",\n  \"price\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"commission\": \"<double>\",\n  \"commissionRate\": \"<BigDecimal>\",\n  \"clientNotes\": \"<string>\",\n  \"preventQueuing\": \"<boolean>\",\n  \"extendedHours\": \"<boolean>\",\n  \"metadata\": \"<object>\",\n  \"timeInForce\": \"<string>\",\n  \"expiration\": \"<date>\",\n  \"salesCredit\": {\n    \"currency\": \"<string>\",\n    \"amount\": \"<integer>\"\n  },\n  \"dccs\": \"<boolean>\",\n  \"taxLotDisposition\": [\n    {\n      \"taxLotID\": \"<string>\"\n    },\n    {\n      \"taxLotID\": \"<string>\"\n    }\n  ],\n  \"travelRuleBankAccountID\": \"<string>\",\n  \"traderID\": \"<string>\",\n  \"clientOrderTransactionTime\": \"<string>\",\n  \"clientOrderID\": \"<string>\",\n  \"deptType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "606ab16a-51e9-421d-89fb-4968fab7a415",
+              "name": "Creating an Order was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountNo\": \"DWFS001102\",\n  \"orderType\": \"MARKET\",\n  \"symbol\": \"SBUX\",\n  \"side\": \"BUY\",\n  \"amountCash\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderId\": \"EF.418a5506-256c-4c3c-9d4d-f491522cf7f2\",\n  \"orderNo\": \"EFXM000103\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5015c023-cf28-4b21-8948-e0fb12604067",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountNo\": \"DWFS001102\",\n  \"orderType\": \"MARKET\",\n  \"symbol\": \"SBUX\",\n  \"side\": \"BUY\",\n  \"amountCash\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"E032\",\n  \"message\": \"Invalid or missing parameters in the request body. Refer to the API documentation for details.\",\n  \"errorDetails\": {\n    \"detail\": \"Cannot specify both 'commission' and 'commissionRate'. Provide either 'commission' or 'commissionRate'\",\n    \"field\": \"commission/commissionRate\",\n    \"type\": \"DECIMAL\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e77efe99-94ea-4987-b0ae-bea52ded3dfd",
+              "name": "Account restricted to make day trades",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountNo\": \"DWFS001102\",\n  \"orderType\": \"MARKET\",\n  \"symbol\": \"SBUX\",\n  \"side\": \"BUY\",\n  \"amountCash\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"A051\",\n  \"message\": \"Account has been restricted. Check account status and notes for details. Forbidden: Account is restricted from making day trades. accountID=<accountID>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1da57f5a-a984-4bd9-a155-708daf9a6a0d",
+          "name": "Retrieve Order",
+          "request": {
+            "name": "Retrieve Order",
+            "description": {
+              "content": "Retrieves an Order details by orderID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eb65dd03-fb3a-49b9-9fe2-82c7248d0b6b",
+              "name": "Fetching Order status was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n  \"orderNo\": \"ICDU023727\",\n  \"type\": \"MARKET\",\n  \"side\": \"BUY\",\n  \"status\": \"FILLED\",\n  \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n  \"ISIN\": \"US023135BX34\",\n  \"CUSIP\": \"E09876AA7\",\n  \"symbol\": \"MS\",\n  \"averagePrice\": 1038.81,\n  \"currency\": \"USD\",\n  \"totalOrderAmount\": 800,\n  \"cumulativeQuantity\": 0.7219,\n  \"quantity\": 0.7219,\n  \"fees\": 0.01,\n  \"ptpWithholdingFee\": 0.01,\n  \"createdBy\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407776996299\",\n  \"accountNo\": \"CSSW000001\",\n  \"created\": \"2019-02-14T18:56:07.411Z\",\n  \"statusMessage\": {\n    \"errorCode\": {},\n    \"message\": \"string\",\n    \"reason\": \"string\"\n  },\n  \"amountCash\": \"<double>\",\n  \"OrderExpires\": \"string\",\n  \"salesCredit\": {\n    \"currency\": \"USD\",\n    \"amount\": 14\n  },\n  \"instrumentType\": \"EQUITY\",\n  \"dccs\": true,\n  \"openQuantity\": 1,\n  \"availableForTradingQuantity\": 1,\n  \"travelRuleBankAccountID\": \"bank_485ba18c-009d-4c4a-a6e9-99b104c800b2\",\n  \"clientOrderTransactionTime\": \"2024-07-30T22:13:18.000Z\",\n  \"clientOrderID\": \"5a1762d5-4562\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbe95ffb-c7de-43c4-a073-62fc2a991b58",
+          "name": "Update Order",
+          "request": {
+            "name": "Update Order",
+            "description": {
+              "content": "Updates an Order by orderID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"<string>\",\n  \"traderID\": \"<string>\",\n  \"clientOrderTransactionTime\": \"<string>\",\n  \"clientOrderID\": \"<string>\",\n  \"cancelDetails\": {\n    \"initiator\": \"<string>\",\n    \"requestedTimestamp\": \"<string>\",\n    \"manualCancel\": \"<boolean>\",\n    \"comment\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ce70da2b-ed91-406d-be67-cd8d4baaa9d6",
+              "name": "The Order was Successfully Updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"method\": \"CANCEL\",\n  \"traderID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"clientOrderTransactionTime\": \"2024-07-30T22:13:18.000Z\",\n  \"clientOrderID\": \"5a1762d5-4562\",\n  \"cancelDetails\": {\n    \"initiator\": \"C\",\n    \"requestedTimestamp\": \"2023-07-30T22:13:18.000Z\",\n    \"manualCancel\": true,\n    \"comment\": \"This order has been cancelled\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderId\": \"EF.418a5506-256c-4c3c-9d4d-f491522cf7f2\",\n  \"orderNo\": \"EFXM000103\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8407aa6-68fe-468e-984b-7a1e37865055",
+          "name": "Retrieve Order by Order Number",
+          "request": {
+            "name": "Retrieve Order by Order Number",
+            "description": {
+              "content": "Retrieves an Order by OrderNo.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                "byOrderNo",
+                ":orderNo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderNo",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9398c0d9-b48d-4c06-b041-4a9e50801b3d",
+              "name": " Retrieving an Order by OrderNo was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    "byOrderNo",
+                    ":orderNo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNo",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"IC.0e352bb7-9869-4233-9861-9673544efedd\",\n  \"orderNo\": \"ICDU023727\",\n  \"type\": \"MARKET\",\n  \"side\": \"BUY\",\n  \"status\": \"FILLED\",\n  \"instrumentID\": \"3fb1e8a9-f7d5-4d90-95e2-43e7326b5636\",\n  \"ISIN\": \"US023135BX34\",\n  \"CUSIP\": \"E09876AA7\",\n  \"symbol\": \"MS\",\n  \"averagePrice\": 1038.81,\n  \"currency\": \"USD\",\n  \"totalOrderAmount\": 800,\n  \"cumulativeQuantity\": 0.7219,\n  \"quantity\": 0.7219,\n  \"fees\": 0.01,\n  \"ptpWithholdingFee\": 0.01,\n  \"createdBy\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407776996299\",\n  \"accountNo\": \"CSSW000001\",\n  \"created\": \"2019-02-14T18:56:07.411Z\",\n  \"statusMessage\": {\n    \"errorCode\": {},\n    \"message\": \"string\",\n    \"reason\": \"string\"\n  },\n  \"amountCash\": \"<double>\",\n  \"OrderExpires\": \"string\",\n  \"salesCredit\": {\n    \"currency\": \"USD\",\n    \"amount\": 14\n  },\n  \"instrumentType\": \"EQUITY\",\n  \"dccs\": true,\n  \"openQuantity\": 1,\n  \"availableForTradingQuantity\": 1,\n  \"travelRuleBankAccountID\": \"bank_485ba18c-009d-4c4a-a6e9-99b104c800b2\",\n  \"clientOrderTransactionTime\": \"2024-07-30T22:13:18.000Z\",\n  \"clientOrderID\": \"5a1762d5-4562\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b105254-3d63-4cc8-af09-a272a637424e",
+          "name": "Retrieve Order Audit Details",
+          "request": {
+            "name": "Retrieve Order Audit Details",
+            "description": {
+              "content": "Retrieves an Order Audit Details by Order",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderID",
+                "audit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6ca75adc-d59e-458f-805e-639a9e1daae2",
+              "name": "Retrieving an Order Audit by OrderID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderID",
+                    "audit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderID\": \"LL.203309cd-91c7-4f9a-9f33-632d0109cc77\",\n  \"orderNo\": \"LLFE048977\",\n  \"accountID\": \"a8888112-92d3-65d9-h20a-f333aeb4ae76.1646639525528\",\n  \"accountNo\": \"XXXR000004\",\n  \"quantities\": {\n    \"requestedQuantity\": 10,\n    \"totalFilledQuantity\": 10\n  },\n  \"ordStatus\": \"FILLED\",\n  \"side\": \"SELL\",\n  \"symbol\": \"HOOD\",\n  \"ordType\": \"LIMIT\",\n  \"amountCash\": 0,\n  \"violationExempt\": false,\n  \"preventQueuing\": false,\n  \"extendedHours\": false,\n  \"pricing\": {\n    \"avgPxRaw\": 44.22,\n    \"avgPx\": 44.22,\n    \"stopPx\": 0,\n    \"mitTriggerPrice\": 0\n  },\n  \"instrumentID\": \"4ab39131-2ca0-466c-b96c-332357bc0826\",\n  \"orderExpires\": \"2025-03-07T21:00:00.000Z\",\n  \"commissionOverride\": {\n    \"commissionOverrideType\": \"RAW_COMMISSION\",\n    \"commissionID\": null,\n    \"commissionOverrideDesc\": \"Standard Commission\",\n    \"commissionAmount\": 1.28,\n    \"secOverride\": 0.01,\n    \"tafOverride\": 0.01\n  },\n  \"commissionAndFees\": {\n    \"total\": 1.3,\n    \"tefra\": 0,\n    \"ptp\": 0\n  },\n  \"auditOrders\": [\n    {\n      \"status\": \"NEW\",\n      \"quantities\": {\n        \"cumulativeQuantity\": 0,\n        \"filledQuantity\": 0,\n        \"remainingQuantity\": 0\n      },\n      \"pricing\": {\n        \"averagePrice\": 0,\n        \"averagePriceRaw\": 0,\n        \"lastPrice\": 0,\n        \"rateAsk\": 0,\n        \"rateBid\": 0\n      },\n      \"commissionAndFees\": {\n        \"commission\": 1.28,\n        \"feeSec\": 0,\n        \"feeTaf\": 0,\n        \"feeBase\": 0,\n        \"feeXtraShares\": 0,\n        \"feeExchange\": 0\n      },\n      \"pnl\": 0,\n      \"transactTime\": \"2024-12-10T01:57:53.109Z\",\n      \"comment\": \"NOS started\",\n      \"createdWhen\": \"2024-12-10T01:57:53.109Z\"\n    },\n    {\n      \"status\": \"CANCELED\",\n      \"quantities\": {\n        \"cumulativeQuantity\": 0,\n        \"filledQuantity\": 0,\n        \"remainingQuantity\": 0\n      },\n      \"pricing\": {\n        \"averagePrice\": 0,\n        \"averagePriceRaw\": 0,\n        \"lastPrice\": 0,\n        \"rateAsk\": 37.44,\n        \"rateBid\": 37.4\n      },\n      \"commissionAndFees\": {\n        \"commission\": 0,\n        \"feeSec\": 0,\n        \"feeTaf\": 0,\n        \"feeBase\": 0,\n        \"feeXtraShares\": 0,\n        \"feeExchange\": 0\n      },\n      \"pnl\": 0,\n      \"transactTime\": \"2024-12-10T21:25:00.358Z\",\n      \"comment\": \"oNo LLFE048977 aNo RAXR000004\",\n      \"eventID\": \"event_cc97eaa0-a245-469b-83f4-1f5b8374f77e\",\n      \"createdWhen\": \"2024-12-10T21:25:00.375Z\"\n    },\n    {\n      \"status\": \"NEW\",\n      \"quantities\": {\n        \"cumulativeQuantity\": 0,\n        \"filledQuantity\": 0,\n        \"remainingQuantity\": 10\n      },\n      \"pricing\": {\n        \"averagePrice\": 0,\n        \"averagePriceRaw\": 0,\n        \"lastPrice\": 0,\n        \"rateAsk\": 38.74,\n        \"rateBid\": 38.7\n      },\n      \"commissionAndFees\": {\n        \"commission\": 0,\n        \"feeSec\": 0,\n        \"feeTaf\": 0,\n        \"feeBase\": 0,\n        \"feeXtraShares\": 0,\n        \"feeExchange\": 0\n      },\n      \"pnl\": 0,\n      \"transactTime\": \"2024-12-11T14:05:32.600Z\",\n      \"comment\": \"NOS Sending to sor when open\",\n      \"createdWhen\": \"2024-12-11T14:05:32.600Z\"\n    },\n    {\n      \"status\": \"FILLED\",\n      \"quantities\": {\n        \"cumulativeQuantity\": 0,\n        \"filledQuantity\": 0,\n        \"remainingQuantity\": 0\n      },\n      \"pricing\": {\n        \"averagePrice\": 44.22,\n        \"averagePriceRaw\": 44.22,\n        \"lastPrice\": 0,\n        \"rateAsk\": 38,\n        \"rateBid\": 37.84\n      },\n      \"commissionAndFees\": {\n        \"commission\": 0,\n        \"feeSec\": 0,\n        \"feeTaf\": 0,\n        \"feeBase\": 0,\n        \"feeXtraShares\": 0,\n        \"feeExchange\": 0\n      },\n      \"pnl\": 0,\n      \"transactTime\": \"2024-12-11T21:00:05.494Z\",\n      \"comment\": \"oNo LLFE048977 aNo RAXR000004\",\n      \"eventID\": \"event_539cae86-9c77-48a1-b2d7-5efe111a638c\",\n      \"createdWhen\": \"2024-12-11T21:00:05.523Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "11c554f2-8323-4b60-a970-b39b4e1ce000",
+    "name": "DriveWealth Accounts Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Asset Transfer API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Asset Transfer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create ACATS Transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bo-api.drivewealth.io/back-office/asset-transfers/acats",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The Automated Customer Account Transfer Service (ACATS) is a system that facilitates the transfer of securities from one trading account to another at a different brokerage firm or bank."
+        },
+        {
+          "info": {
+            "name": "Create Minor Graduation Transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bo-api.drivewealth.io/back-office/asset-transfers/minor-graduation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "If an Account is opened for the purpose of allowing a minor to invest, this API will allow for the transfer of assets from this account to the minor's own named account once they reach the age of majority."
+        },
+        {
+          "info": {
+            "name": "Retrieve Transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/asset-transfers/:assetTransferID",
+            "params": [
+              {
+                "name": "assetTransferID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a Transfer's current details."
+        },
+        {
+          "info": {
+            "name": "List Transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/asset-transfers",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "A status to filter by"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "A Transfer type to filter by"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to be returned"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Specify an identifier from last API response to go to the next page or prev page"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Go to the next page or prev page"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all of your Transfers across all Accounts. This can be filtered by type of Transfer."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

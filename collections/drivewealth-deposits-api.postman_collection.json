@@ -1,0 +1,920 @@
+{
+  "item": [
+    {
+      "id": "b57fb053-e2f5-4525-9258-95142c41fd50",
+      "name": "Deposits",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5df7982c-9d6a-48dd-bee7-23c1c947b776",
+          "name": "List Account Deposits",
+          "request": {
+            "name": "List Account Deposits",
+            "description": {
+              "content": "Retrieves a list of Account Deposits by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "funding",
+                "deposits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d0f0db0d-2691-4f17-95ff-2e639ffe5adb",
+              "name": "Retrieving a list of Account Deposits was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "funding",
+                    "deposits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"CKDQ000001-1671085040913-DMIQY\",\n  \"paymentID\": \"CKDQ000001-1671085040913-DMIQY\",\n  \"amount\": 125.22,\n  \"currency\": {\n    \"name\": \"USD\",\n    \"description\": \"US Dollar\",\n    \"symbol\": \"$\"\n  },\n  \"status\": {\n    \"id\": 1,\n    \"message\": \"PENDING\",\n    \"updated\": \"2022-12-11T22:28:21.810Z\"\n  },\n  \"accountDetails\": {\n    \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n    \"accountNo\": \"DWBG000052\",\n    \"accountType\": {\n      \"name\": \"LIVE\",\n      \"description\": \"Live Account\"\n    },\n    \"accountManagementType\": {\n      \"name\": \"SELF\",\n      \"description\": \"Self Directed Account\"\n    }\n  },\n  \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n  \"note\": \"Hey! Welcome to DriveWealth Developer Docs!\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36b55c6a-f8ed-43b3-b435-b225558bd585",
+          "name": "Create Deposit",
+          "request": {
+            "name": "Create Deposit",
+            "description": {
+              "content": "Creates a Deposit.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "funding",
+                "deposits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A unique key (UUID) that is used to prevent duplicate requests. Should a network interruption occur, or you otherwise lost a response from the API, you can safely perform the request provided that you send the same value as the Idempotency-Key. DriveWealth Idempotency Keys are saved for 4 days. Within this time period, sending any request with a duplicate key will return the exact same response as the original request, including the same status code and payload.",
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNo\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"type\": \"<string>\",\n  \"bankAccountID\": \"<string>\",\n  \"note\": \"<string>\",\n  \"iraContribution\": \"<string>\",\n  \"recurringFrequency\": \"<string>\",\n  \"startDate\": \"<string>\",\n  \"settlementProfileID\": \"<string>\",\n  \"originatorBankDetails\": {\n    \"bankAccountNumber\": \"<string>\",\n    \"bankRoutingNumber\": \"<string>\",\n    \"bankName\": \"<string>\",\n    \"bankAddress\": \"<string>\",\n    \"bankAccountCountry\": \"<string>\",\n    \"accountHolderName\": \"<string>\",\n    \"accountHolderAddress\": \"<string>\",\n    \"accountHolderCountry\": \"<string>\"\n  },\n  \"metadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6bc642bc-f30e-4644-b961-4c0343ff1f86",
+              "name": "Creating a User's Account Deposit was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding",
+                    "deposits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A unique key (UUID) that is used to prevent duplicate requests. Should a network interruption occur, or you otherwise lost a response from the API, you can safely perform the request provided that you send the same value as the Idempotency-Key. DriveWealth Idempotency Keys are saved for 4 days. Within this time period, sending any request with a duplicate key will return the exact same response as the original request, including the same status code and payload.",
+                    "key": "Idempotency-Key",
+                    "value": "a1b2c3d4-5e6f-7g8h-9i0j-1k2l3m4n5o6"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountNo\": \"DWFS001102\",\n  \"amount\": 100.25,\n  \"currency\": \"USD\",\n  \"type\": \"ACH\",\n  \"bankAccountID\": \"bank_a4656e60-321e-425b-aa0d-a2e75c38885f\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"CKDQ000001-1671085040913-DMIQY\",\n  \"accountNo\": \"DWBG000052\",\n  \"category\": \"DEPOSIT\",\n  \"currency\": \"USD\",\n  \"amount\": 250.25,\n  \"status\": \"PENDING\",\n  \"source\": {\n    \"id\": \"ACH\",\n    \"brand\": \"ACH\",\n    \"meta_info\": \"Hey! Welcome to DriveWealth Developer Docs!\"\n  },\n  \"created\": \"2022-12-11T22:28:21.810Z\",\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"transactionCode\": \"JOURNAL\",\n  \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n  \"batch\": true,\n  \"recurring\": {\n    \"id\": \"recurring_98be6652-6361-4d4c-905b-06e9ec38d060\",\n    \"nextDeposit\": \"2019-01-15\",\n    \"active\": false,\n    \"frequency\": \"MONTHLY_FIRST\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6eadf025-be0e-4ec5-aee6-749e703282ab",
+          "name": "Retrieve Deposit",
+          "request": {
+            "name": "Retrieve Deposit",
+            "description": {
+              "content": "Retrieves Deposit details by depositID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "funding",
+                "deposits",
+                ":depositID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "depositID",
+                  "description": "(Required) A unique identifier for the user's account deposit."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4197de3a-5b7a-489f-a379-07f4ecf47a01",
+              "name": "Retrieving a Deposit by depositID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding",
+                    "deposits",
+                    ":depositID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "depositID",
+                      "description": "(Required) A unique identifier for the user's account deposit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"category\": \"DEPOSIT\",\n  \"amount\": 250.25,\n  \"currency\": {\n    \"name\": \"USD\",\n    \"description\": \"US Dollar\",\n    \"symbol\": \"$\"\n  },\n  \"status\": \"PENDING\",\n  \"created\": \"2022-12-11T22:28:21.810Z\",\n  \"userDetails\": {\n    \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"username\": \"ttc.user.justin\",\n    \"firstName\": \"Justin\",\n    \"lastName\": \"Smith\",\n    \"email\": \"jj@drivewealth.dev\",\n    \"parentIBID\": {\n      \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n      \"name\": \"Tendies Trading Company\"\n    },\n    \"wlpID\": \"TTC\"\n  },\n  \"accountDetails\": [\n    {\n      \"id\": \"8b8ba3fd-74dc-45dc-b2dc-7de683bd713c.1556222995391\",\n      \"accountNo\": \"DWBG000052\",\n      \"nickname\": \"Justin's Self Directed Account\",\n      \"status\": {\n        \"name\": \"PENDING\",\n        \"description\": \"Pending\"\n      },\n      \"accountType\": \"LIVE\",\n      \"accountManagementType\": \"SELF\",\n      \"tradingType\": {\n        \"name\": \"CASH\",\n        \"description\": \"Cash Account\"\n      },\n      \"leverage\": 1,\n      \"commissionID\": \"449d41b9-3940-41ff-b0e6-334adfb443f8\",\n      \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n      \"restricted\": false,\n      \"goodFaithViolations\": 0,\n      \"patternDayTrades\": 0,\n      \"freeTradeBalance\": 0,\n      \"gfvPdtExempt\": false,\n      \"buyingPowerOverride\": false,\n      \"bod\": {\n        \"moneyMarket\": 3028.98,\n        \"equityValue\": 12071.5,\n        \"cashAvailableForWithdrawal\": 3028.98,\n        \"cashAvailableForTrading\": 3028.98,\n        \"updatedWhen\": \"2022-12-12T21:13:12.391Z\"\n      },\n      \"cashBalance\": 3028.98,\n      \"sweepInd\": true,\n      \"interestFree\": false,\n      \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"updatedWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"lastActivityDate\": \"2024-07-23\",\n      \"interestedParties\": [\n        {\n          \"type\": \"AUTHORIZED_USERS\",\n          \"data\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"type\": \"AUTHORIZED_USERS\",\n          \"data\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": \"8b8ba3fd-74dc-45dc-b2dc-7de683bd713c.1556222995391\",\n      \"accountNo\": \"DWBG000052\",\n      \"nickname\": \"Justin's Self Directed Account\",\n      \"status\": {\n        \"name\": \"PENDING\",\n        \"description\": \"Pending\"\n      },\n      \"accountType\": \"LIVE\",\n      \"accountManagementType\": \"SELF\",\n      \"tradingType\": {\n        \"name\": \"CASH\",\n        \"description\": \"Cash Account\"\n      },\n      \"leverage\": 1,\n      \"commissionID\": \"449d41b9-3940-41ff-b0e6-334adfb443f8\",\n      \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n      \"restricted\": false,\n      \"goodFaithViolations\": 0,\n      \"patternDayTrades\": 0,\n      \"freeTradeBalance\": 0,\n      \"gfvPdtExempt\": false,\n      \"buyingPowerOverride\": false,\n      \"bod\": {\n        \"moneyMarket\": 3028.98,\n        \"equityValue\": 12071.5,\n        \"cashAvailableForWithdrawal\": 3028.98,\n        \"cashAvailableForTrading\": 3028.98,\n        \"updatedWhen\": \"2022-12-12T21:13:12.391Z\"\n      },\n      \"cashBalance\": 3028.98,\n      \"sweepInd\": true,\n      \"interestFree\": false,\n      \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"updatedWhen\": \"2022-12-11T22:28:21.810Z\",\n      \"lastActivityDate\": \"2024-07-23\",\n      \"interestedParties\": [\n        {\n          \"type\": \"AUTHORIZED_USERS\",\n          \"data\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"type\": \"AUTHORIZED_USERS\",\n          \"data\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"batch\": true,\n  \"transactionCode\": {\n    \"code\": \"JOURNAL\",\n    \"type\": \"CSR\",\n    \"description\": \"Cash Receipt - ACH\"\n  },\n  \"note\": \"Hey! Welcome to DriveWealth Developer Docs!\",\n  \"details\": {\n    \"country\": \"USA\",\n    \"bankAccountNumber\": \"****3174\",\n    \"bankRoutingNumber\": \"****0000\",\n    \"accountHolderName\": \"Justin Smith\"\n  },\n  \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n  \"statusHistory\": [\n    {\n      \"status\": 1,\n      \"statusMessage\": \"PENDING\",\n      \"updatedBy\": \"INSTANT FUNDING BREAKDOWN JOB\",\n      \"comment\": \"Valid request. Auto-move to Pending\"\n    },\n    {\n      \"status\": 1,\n      \"statusMessage\": \"PENDING\",\n      \"updatedBy\": \"SYSTEM REPORT SERVICE\",\n      \"comment\": \"Valid request. Auto-move to Pending\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a20174f3-b6f1-4edc-bf7e-5e6f03332bf0",
+          "name": "Retrieve Recurring Deposits",
+          "request": {
+            "name": "Retrieve Recurring Deposits",
+            "description": {
+              "content": "Retrieves Recurring Deposits details by recurringID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "funding",
+                "recurring-deposits",
+                ":recurringID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recurringID",
+                  "description": "(Required) A unique identifier for the user's recurring bank deposit."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bbb007f2-bb4f-43e7-b965-fcb33e9e149d",
+              "name": "Fetching recurring deposit schedule was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding",
+                    "recurring-deposits",
+                    ":recurringID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recurringID",
+                      "description": "(Required) A unique identifier for the user's recurring bank deposit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"recurring_98be6652-6361-4d4c-905b-06e9ec38d060\",\n  \"currency\": \"USD\",\n  \"amount\": 1075.25,\n  \"frequency\": \"MONTHLY_FIRST\",\n  \"bankAccountID\": \"bank_a4656e60-321e-425b-aa0d-a2e75c38885f\",\n  \"active\": true,\n  \"nextDeposit\": \"2019-01-15\",\n  \"depositHistory\": [\n    {\n      \"depositID\": \"CKDQ000001-1671085040913-DMIQY\",\n      \"currency\": \"USD\",\n      \"status\": \"PENDING\",\n      \"created\": \"2022-12-11T22:28:21.810Z\",\n      \"updated\": \"2022-12-11T22:28:21.810Z\",\n      \"createdBy\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd\",\n      \"metaAccountInfo\": \"Automated DAILY recurring deposit for b25f0d3... |MyBank Premier Checking|****5204\"\n    },\n    {\n      \"depositID\": \"CKDQ000001-1671085040913-DMIQY\",\n      \"currency\": \"USD\",\n      \"status\": \"PENDING\",\n      \"created\": \"2022-12-11T22:28:21.810Z\",\n      \"updated\": \"2022-12-11T22:28:21.810Z\",\n      \"createdBy\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd\",\n      \"metaAccountInfo\": \"Automated DAILY recurring deposit for b25f0d3... |MyBank Premier Checking|****5204\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "180147d1-f3b0-4fd5-81b9-0629cf68392f",
+          "name": "Update Recurring Deposit",
+          "request": {
+            "name": "Update Recurring Deposit",
+            "description": {
+              "content": "Updates Recurring Deposit details by recurringID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "funding",
+                "recurring-deposits",
+                ":recurringID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recurringID",
+                  "description": "(Required) A unique identifier for the user's recurring bank deposit."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"frequency\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cc4f270a-38f5-431e-8cbb-de54bcf6637d",
+              "name": "Updating a User's recurring deposit was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding",
+                    "recurring-deposits",
+                    ":recurringID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recurringID",
+                      "description": "(Required) A unique identifier for the user's recurring bank deposit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 330.25,\n  \"frequency\": \"MONTHLY_FIRST\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": 330.25,\n  \"frequency\": \"MONTHLY_FIRST\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ca777be-653b-4f50-ba32-701d34c09102",
+          "name": "Delete Recurring Deposit",
+          "request": {
+            "name": "Delete Recurring Deposit",
+            "description": {
+              "content": "Deactivates Recurring Deposit details by recurringID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "funding",
+                "recurring-deposits",
+                ":recurringID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recurringID",
+                  "description": "(Required) A unique identifier for the user's recurring bank deposit."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c568d646-0b1d-4060-9543-6eb96b9ab4e3",
+              "name": "Deactivating Recurring Deposit was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding",
+                    "recurring-deposits",
+                    ":recurringID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recurringID",
+                      "description": "(Required) A unique identifier for the user's recurring bank deposit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"recurring_98be6652-6361-4d4c-905b-06e9ec38d060\",\n  \"currency\": \"USD\",\n  \"amount\": 1075.25,\n  \"frequency\": \"MONTHLY_FIRST\",\n  \"bankAccountID\": \"bank_a4656e60-321e-425b-aa0d-a2e75c38885f\",\n  \"active\": false,\n  \"nextDeposit\": \"string\",\n  \"depositHistory\": [\n    {\n      \"depositID\": \"CKDQ000001-1671085040913-DMIQY\",\n      \"currency\": \"USD\",\n      \"status\": \"PENDING\",\n      \"created\": \"2022-12-11T22:28:21.810Z\",\n      \"updated\": \"2022-12-11T22:28:21.810Z\",\n      \"createdBy\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd\",\n      \"metaAccountInfo\": \"Automated DAILY recurring deposit for b25f0d3... |MyBank Premier Checking|****5204\"\n    },\n    {\n      \"depositID\": \"CKDQ000001-1671085040913-DMIQY\",\n      \"currency\": \"USD\",\n      \"status\": \"PENDING\",\n      \"created\": \"2022-12-11T22:28:21.810Z\",\n      \"updated\": \"2022-12-11T22:28:21.810Z\",\n      \"createdBy\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd\",\n      \"metaAccountInfo\": \"Automated DAILY recurring deposit for b25f0d3... |MyBank Premier Checking|****5204\"\n    }\n  ],\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"created\": \"2022-12-11T22:28:21.810Z\",\n  \"updated\": \"2022-12-11T22:28:21.810Z\",\n  \"createdBy\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a3b4980-6b5a-4f7a-b3b3-3b2300e9d906",
+          "name": "List User Recurring Deposits",
+          "request": {
+            "name": "List User Recurring Deposits",
+            "description": {
+              "content": "Retrieves a list of User Recurring Deposits by userID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID",
+                "recurring-deposits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) The User's unique identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e87410c9-b38a-468e-8fe5-02dc99e1bcc6",
+              "name": "Fetching All User's Recurring Deposits was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID",
+                    "recurring-deposits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) The User's unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"recurring_98be6652-6361-4d4c-905b-06e9ec38d060\",\n    \"currency\": \"USD\",\n    \"amount\": 1075.25,\n    \"frequency\": \"MONTHLY_FIRST\",\n    \"bankAccountID\": \"bank_a4656e60-321e-425b-aa0d-a2e75c38885f\",\n    \"active\": true,\n    \"nextDeposit\": \"2019-01-15\",\n    \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n    \"created\": \"2022-12-11T22:28:21.810Z\",\n    \"updated\": \"2022-12-11T22:28:21.810Z\",\n    \"createdBy\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd\"\n  },\n  {\n    \"id\": \"recurring_98be6652-6361-4d4c-905b-06e9ec38d060\",\n    \"currency\": \"USD\",\n    \"amount\": 1075.25,\n    \"frequency\": \"MONTHLY_FIRST\",\n    \"bankAccountID\": \"bank_a4656e60-321e-425b-aa0d-a2e75c38885f\",\n    \"active\": true,\n    \"nextDeposit\": \"2019-01-15\",\n    \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n    \"created\": \"2022-12-11T22:28:21.810Z\",\n    \"updated\": \"2022-12-11T22:28:21.810Z\",\n    \"createdBy\": \"b25f0d36-b4e4-41f8-b3d9-9249e46402cd\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8565589a-61d1-4e03-9cf5-dedb94cbadb6",
+          "name": "List User Deposits",
+          "request": {
+            "name": "List User Deposits",
+            "description": {
+              "content": "Retrieves a list of User Deposits by userID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID",
+                "funding",
+                "deposits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) The User's unique identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e259bd06-7f98-4d28-8b2d-525acbe01e76",
+              "name": "Retrieving a list User Deposits by userID was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID",
+                    "funding",
+                    "deposits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) The User's unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"CKDQ000001-1671085040913-DMIQY\",\n    \"paymentID\": \"CKDQ000001-1671085040913-DMIQY\",\n    \"amount\": 125.22,\n    \"currency\": {\n      \"name\": \"USD\",\n      \"description\": \"US Dollar\",\n      \"symbol\": \"$\"\n    },\n    \"status\": {\n      \"id\": 1,\n      \"message\": \"PENDING\",\n      \"updated\": \"2022-12-11T22:28:21.810Z\"\n    },\n    \"accountDetails\": {\n      \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n      \"accountNo\": \"DWBG000052\",\n      \"accountType\": {\n        \"name\": \"LIVE\",\n        \"description\": \"Live Account\"\n      },\n      \"accountManagementType\": {\n        \"name\": \"SELF\",\n        \"description\": \"Self Directed Account\"\n      }\n    },\n    \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n    \"note\": \"Hey! Welcome to DriveWealth Developer Docs!\"\n  },\n  {\n    \"id\": \"CKDQ000001-1671085040913-DMIQY\",\n    \"paymentID\": \"CKDQ000001-1671085040913-DMIQY\",\n    \"amount\": 125.22,\n    \"currency\": {\n      \"name\": \"USD\",\n      \"description\": \"US Dollar\",\n      \"symbol\": \"$\"\n    },\n    \"status\": {\n      \"id\": 1,\n      \"message\": \"PENDING\",\n      \"updated\": \"2022-12-11T22:28:21.810Z\"\n    },\n    \"accountDetails\": {\n      \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n      \"accountNo\": \"DWBG000052\",\n      \"accountType\": {\n        \"name\": \"LIVE\",\n        \"description\": \"Live Account\"\n      },\n      \"accountManagementType\": {\n        \"name\": \"SELF\",\n        \"description\": \"Self Directed Account\"\n      }\n    },\n    \"wlpFinTranTypeID\": \"c43bab85-2916-4831-a0db-66215150a6e4\",\n    \"note\": \"Hey! Welcome to DriveWealth Developer Docs!\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5017d880-1437-4dc5-b9f8-0f39b56a6c0c",
+    "name": "DriveWealth Accounts Deposits API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,339 @@
+{
+  "item": [
+    {
+      "id": "c9c38491-870b-4fcb-ab2e-497482f7e251",
+      "name": "Subscriptions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e09e8569-aaf0-4cf8-8a51-4bfd2dfb2da1",
+          "name": "Create Subscription",
+          "request": {
+            "name": "Create Subscription",
+            "description": {
+              "content": "Creates a Subscription charge for a User's Linked Bank Account.\n\nThis API is now deprecated as the Subscriptions product is no longer supported.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountID\": \"<string>\",\n  \"bankAccountID\": \"<string>\",\n  \"planID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e30019b1-3a6e-4f96-b165-0f1e159a1e56",
+              "name": "Creating a Subscription for a User's Linked Bank Account was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n  \"bankAccountID\": \"bank_a4656e60-321e-425b-aa0d-a2e75c38885f\",\n  \"planID\": \"plan_1d3e1630-9107-47c2-a9c4-6cca93821cb7\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"subscriptionID\": \"subscription_4451b62e-0e88-46ce-9eab-f0a54ccdc599\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e2b84941-9cf0-470e-9f1e-2ad2b675a850",
+          "name": "Delete Subscription",
+          "request": {
+            "name": "Delete Subscription",
+            "description": {
+              "content": "Removes a User's Subscription by Subscription.\n\nThis API is now deprecated as the Subscriptions product is no longer supported.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions",
+                ":subscriptionID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionID",
+                  "description": "(Required) The unique identifier that identifies the user's subscription."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0d8a2771-3e02-49be-98a3-7a79db2690e4",
+              "name": "User's Subscription removal was Received.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionID",
+                      "description": "(Required) The unique identifier that identifies the user's subscription."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a992b4be-5dc0-47d6-abe5-baf4ff9ae241",
+          "name": "List Subscriptions by User",
+          "request": {
+            "name": "List Subscriptions by User",
+            "description": {
+              "content": "Retrieves all User's Subscriptions by User\n\nThis API is now deprecated as the Subscriptions product is no longer supported.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID",
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) The User's unique identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6bffb6ab-e50d-4faf-9549-49d778cb6fb3",
+              "name": "Retrieving all User's Subscription was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) The User's unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"subscription_4451b62e-0e88-46ce-9eab-f0a54ccdc599\",\n    \"accountDetails\": {\n      \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n      \"accountNo\": \"DWBG000052\",\n      \"accountType\": \"LIVE\",\n      \"accountManagementType\": {\n        \"name\": \"SELF\",\n        \"description\": \"Self Directed Account\"\n      },\n      \"status\": \"ACTIVE\",\n      \"paymentSource\": {\n        \"source\": \"string\",\n        \"sourceType\": \"bank_a4656e60-321e-425b-aa0d-a2e75c38885f\"\n      },\n      \"plan\": {\n        \"planID\": \"plan_1d3e1630-9107-47c2-a9c4-6cca93821cb7\",\n        \"name\": \"Monthly Subscription\",\n        \"interval\": \"QUARTERLY\",\n        \"intervalCount\": 1,\n        \"amount\": 4.99,\n        \"currency\": \"USD\"\n      },\n      \"created\": \"2022-12-11T22:28:21.810Z\",\n      \"started\": \"2022-12-11T22:28:21.810Z\",\n      \"expires\": \"2022-12-11T22:28:21.810Z\"\n    }\n  },\n  {\n    \"id\": \"subscription_4451b62e-0e88-46ce-9eab-f0a54ccdc599\",\n    \"accountDetails\": {\n      \"accountID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759\",\n      \"accountNo\": \"DWBG000052\",\n      \"accountType\": \"LIVE\",\n      \"accountManagementType\": {\n        \"name\": \"SELF\",\n        \"description\": \"Self Directed Account\"\n      },\n      \"status\": \"ACTIVE\",\n      \"paymentSource\": {\n        \"source\": \"string\",\n        \"sourceType\": \"bank_a4656e60-321e-425b-aa0d-a2e75c38885f\"\n      },\n      \"plan\": {\n        \"planID\": \"plan_1d3e1630-9107-47c2-a9c4-6cca93821cb7\",\n        \"name\": \"Monthly Subscription\",\n        \"interval\": \"MONTHLY\",\n        \"intervalCount\": 1,\n        \"amount\": 4.99,\n        \"currency\": \"USD\"\n      },\n      \"created\": \"2022-12-11T22:28:21.810Z\",\n      \"started\": \"2022-12-11T22:28:21.810Z\",\n      \"expires\": \"2022-12-11T22:28:21.810Z\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9a0c016b-c541-4526-9751-4473a34b3632",
+    "name": "DriveWealth Accounts Subscriptions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

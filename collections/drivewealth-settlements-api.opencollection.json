@@ -1,0 +1,280 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Settlements API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Settlements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Cashless Reconciliations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/funding/reconciliations",
+            "params": [
+              {
+                "name": "to",
+                "value": "2022-12-25T18:36:40.609Z",
+                "type": "query",
+                "description": "The date and time in which to end at."
+              },
+              {
+                "name": "from",
+                "value": "2022-12-08T18:36:40.609Z",
+                "type": "query",
+                "description": "The date and time in which to start from."
+              },
+              {
+                "name": "type",
+                "value": "CRYPTO",
+                "type": "query",
+                "description": "Filters the reconciliations reports by the type of reconciliation."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filters the reconciliations reports by the status of reconciliation."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetches a list of daily reconciliations for a firm using cashless settlement."
+        },
+        {
+          "info": {
+            "name": "Retrieve Cashless Reconciliation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/funding/reconciliations/:reconciliationID",
+            "params": [
+              {
+                "name": "reconciliationID",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the reconciliation report."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetches reconciliations details for a firm using cashless settlement."
+        },
+        {
+          "info": {
+            "name": "Update Cashless Reconciliation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://bo-api.drivewealth.io/back-office/funding/reconciliations/:reconciliationID",
+            "params": [
+              {
+                "name": "reconciliationID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a Cashless Reconciliation by reconciliationID."
+        },
+        {
+          "info": {
+            "name": "List DVP RVP Reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/reports/daily-trade-summary",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "A filter, to filter on the status of the DVP/RVP."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists DVP RVP reports."
+        },
+        {
+          "info": {
+            "name": "Create DVP RVP Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/reports/daily-trade-summary",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a job to generate a DVP RVP Report."
+        },
+        {
+          "info": {
+            "name": "Retrieve DVP RVP",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/accounts/:accountID/reports/daily-trade-summary/:reportID",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "reportID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a DVP RVP by reportID."
+        },
+        {
+          "info": {
+            "name": "Retrieve Settlements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/settlements",
+            "params": [
+              {
+                "name": "from",
+                "value": "2022-12-08",
+                "type": "query",
+                "description": "The date to start from."
+              },
+              {
+                "name": "to",
+                "value": "2022-12-25",
+                "type": "query",
+                "description": "The date to end at."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filters, the settlements by the status."
+              },
+              {
+                "name": "settlementProfileID",
+                "value": "",
+                "type": "query",
+                "description": "Filters, the settlements by the settlement profile."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Used for pagination. Set this to the first/last id value of your payload to get the prev/next page of results respectively."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "The direction of the pagination."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of Settlements."
+        },
+        {
+          "info": {
+            "name": "Retrieve Settlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/settlements/:settlementID",
+            "params": [
+              {
+                "name": "settlementID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves Settlement by settlementID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,138 @@
+{
+  "item": [
+    {
+      "id": "58cad689-2edc-4e91-904c-39a8926a51bf",
+      "name": "Commission Schedules",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "008965e0-5b78-49b5-b414-ab4e48d91a82",
+          "name": "List Commission Schedules",
+          "request": {
+            "name": "List Commission Schedules",
+            "description": {
+              "content": "Retrieves a list of Commissions Schedules by accountID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountID",
+                "commissions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "57578e39-2325-43be-ad06-59473e3421db",
+              "name": "Retrieving a list of Commissions Schedules was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountID",
+                    "commissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"active\": true,\n    \"commissionID\": \"b3e985dd-9679-63dc-5dd5-9bd7982efecd\",\n    \"description\": \"Free\",\n    \"assignmentCriteria\": {\n      \"wplID\": \"TTC\",\n      \"countries\": \"USA\",\n      \"defaultStatus\": true,\n      \"accountMgmtType\": \"string\"\n    },\n    \"rates\": {\n      \"fractional\": {\n        \"schema\": {\n          \"rate\": 1.49,\n          \"passThroughFees\": true,\n          \"shareAmountRounding\": \"CEIL\",\n          \"minimumRate\": 1.49\n        }\n      },\n      \"default\": {\n        \"schema\": {\n          \"rate\": 1.49,\n          \"passThroughFees\": true,\n          \"shareAmountRounding\": \"CEIL\",\n          \"minimumRate\": 1.49\n        }\n      }\n    }\n  },\n  {\n    \"active\": true,\n    \"commissionID\": \"b3e985dd-9679-63dc-5dd5-9bd7982efecd\",\n    \"description\": \"Free\",\n    \"assignmentCriteria\": {\n      \"wplID\": \"TTC\",\n      \"countries\": \"USA\",\n      \"defaultStatus\": true,\n      \"accountMgmtType\": \"string\"\n    },\n    \"rates\": {\n      \"fractional\": {\n        \"schema\": {\n          \"rate\": 1.49,\n          \"passThroughFees\": true,\n          \"shareAmountRounding\": \"CEIL\",\n          \"minimumRate\": 1.49\n        }\n      },\n      \"default\": {\n        \"schema\": {\n          \"rate\": 1.49,\n          \"passThroughFees\": true,\n          \"shareAmountRounding\": \"CEIL\",\n          \"minimumRate\": 1.49\n        }\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2282a41f-48f1-4b59-9b13-872f9e2c992e",
+    "name": "DriveWealth Accounts Commission Schedules API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

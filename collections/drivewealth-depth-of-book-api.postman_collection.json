@@ -1,0 +1,141 @@
+{
+  "item": [
+    {
+      "id": "226537cd-7b89-4df2-990b-7dfd79fcb057",
+      "name": "Depth of Book",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d42282d8-ccdb-49ea-bac5-b2efc2ae337b",
+          "name": "Retrieve Depth of Book",
+          "request": {
+            "name": "Retrieve Depth of Book",
+            "description": {
+              "content": "Get the Depth of Book for an Instrument.\n\nFor now, this API only works with debt instruments, but will expand in the future.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "quotes",
+                "depth"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"instrumentID\": \"<uuid>\",\n  \"quantity\": \"<double>\",\n  \"salesCredit\": {\n    \"currency\": \"<string>\",\n    \"amount\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2ac7c92c-192a-423b-9cd2-b869a7fc17e8",
+              "name": "Fetching Market data was successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes",
+                    "depth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instrumentID\": \"f6d3e213-4e6f-4ee3-8a9a-793027c62c57\",\n  \"quantity\": 3.14\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"f61b3240-6ab4-48bb-8f30-c160b7fba999\",\n    \"instrumentID\": \"206b06c2-6d46-4515-9340-678cb131f2cc\",\n    \"ISIN\": \"US105756BB58\",\n    \"CUSIP\": \"105756BB5\",\n    \"quantity\": 3,\n    \"salesCredit\": {\n      \"currency\": \"USD\",\n      \"amount\": 14\n    },\n    \"bidPrices\": [\n      {\n        \"bidPrice\": 98.882,\n        \"bidSize\": 100000,\n        \"bidYield\": 4.799,\n        \"minQty\": 150\n      },\n      {\n        \"bidPrice\": 98.872,\n        \"bidSize\": 230000,\n        \"bidYield\": 4.812,\n        \"minQty\": 112\n      }\n    ],\n    \"askPrices\": [\n      {\n        \"askPrice\": 98.884,\n        \"askSize\": 1000,\n        \"askYield\": 4.793,\n        \"minQty\": 150\n      },\n      {\n        \"askPrice\": 98.889,\n        \"askSize\": 250000,\n        \"askYield\": 4.768,\n        \"minQty\": 150\n      }\n    ],\n    \"effectiveBidPrices\": [\n      {\n        \"bidPrice\": 99.022,\n        \"bidSize\": 100000,\n        \"bidYield\": 4.739,\n        \"minQty\": 112\n      },\n      {\n        \"bidPrice\": 99.012,\n        \"bidSize\": 230000,\n        \"bidYield\": 4.812,\n        \"minQty\": 112\n      }\n    ],\n    \"effectiveAskPrices\": [\n      {\n        \"askPrice\": 98.744,\n        \"askSize\": 1000,\n        \"askYield\": 4.793,\n        \"minQty\": 150\n      },\n      {\n        \"askPrice\": 98.749,\n        \"askSize\": 250000,\n        \"askYield\": 4.768,\n        \"minQty\": 150\n      }\n    ],\n    \"recentTrades\": [\n      {\n        \"price\": 98.992,\n        \"quantity\": 10000,\n        \"yield\": 4.799,\n        \"side\": \"buy\",\n        \"date\": \"2017-07-21T17:32:28Z\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5f72eab7-2fa8-45ec-8239-d0ef60213803",
+    "name": "DriveWealth Accounts Depth of Book API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

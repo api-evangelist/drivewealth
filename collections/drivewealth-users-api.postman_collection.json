@@ -1,0 +1,474 @@
+{
+  "item": [
+    {
+      "id": "692d5ba6-8335-4e98-ba46-c5517951dc39",
+      "name": "Users",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6e0345b4-d2af-4579-a538-b9d311a5df55",
+          "name": "Create User",
+          "request": {
+            "name": "Create User",
+            "description": {
+              "content": "Creates a User.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userType\": \"<string>\",\n  \"documents\": [\n    {\n      \"type\": \"<string>\",\n      \"data\": {\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"country\": \"<string>\",\n        \"phone\": \"<string>\",\n        \"emailAddress\": \"<string>\",\n        \"language\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"data\": {\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"country\": \"<string>\",\n        \"phone\": \"<string>\",\n        \"emailAddress\": \"<string>\",\n        \"language\": \"<string>\"\n      }\n    }\n  ],\n  \"wlpID\": \"<string>\",\n  \"parentIBID\": \"<string>\",\n  \"metadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9a1571ee-d8e9-42b7-b02c-e7afb723889d",
+              "name": "Creating a User was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userType\": \"INDIVIDUAL_TRADER\",\n  \"documents\": [\n    {\n      \"type\": \"BASIC_INFO\",\n      \"data\": {\n        \"firstName\": \"Justin\",\n        \"lastName\": \"Smith\",\n        \"country\": \"USA\",\n        \"phone\": \"18004612680\",\n        \"emailAddress\": \"jj@drivewealth.dev\",\n        \"language\": \"en_US\"\n      }\n    },\n    {\n      \"type\": \"BASIC_INFO\",\n      \"data\": {\n        \"firstName\": \"Justin\",\n        \"lastName\": \"Smith\",\n        \"country\": \"USA\",\n        \"phone\": \"18004612680\",\n        \"emailAddress\": \"jj@drivewealth.dev\",\n        \"language\": \"en_US\"\n      }\n    }\n  ],\n  \"wlpID\": \"TTCC\",\n  \"parentIBID\": \"95c98ed5-e29e-4d55-90bf-8898fcf6af85\",\n  \"metadata\": {\n    \"myCustomKey\": \"myCustomValue\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"userType\": {\n    \"name\": \"INDIVIDUAL_TRADER\",\n    \"description\": \"Individual Trader\"\n  },\n  \"status\": {\n    \"name\": \"PENDING\",\n    \"description\": \"User is pending approval.\"\n  },\n  \"parentIBID\": {\n    \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n    \"name\": \"Tendies Trading Company\"\n  },\n  \"documents\": [\n    {\n      \"type\": \"BASIC_INFO\",\n      \"data\": {\n        \"firstName\": \"Justin\",\n        \"lastName\": \"Smith\",\n        \"country\": \"USA\",\n        \"phone\": \"18004612680\",\n        \"emailAddress\": \"jj@drivewealth.dev\",\n        \"language\": \"en_US\"\n      }\n    },\n    {\n      \"type\": \"BASIC_INFO\",\n      \"data\": {\n        \"firstName\": \"Justin\",\n        \"lastName\": \"Smith\",\n        \"country\": \"USA\",\n        \"phone\": \"18004612680\",\n        \"emailAddress\": \"jj@drivewealth.dev\",\n        \"language\": \"en_US\"\n      }\n    }\n  ],\n  \"wlpID\": \"TTC\",\n  \"referralCode\": \"71J000\",\n  \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n  \"updatedWhen\": \"2022-12-11T22:28:21.810Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87c25120-832d-4fa5-8eb1-038d556dbcb1",
+          "name": "Retrieve User",
+          "request": {
+            "name": "Retrieve User",
+            "description": {
+              "content": "Retrieves a User details by userID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) Unique ID of the User to fetch."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c46d980e-b168-4746-9827-378c47fc4174",
+              "name": "Retrieving a User was Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) Unique ID of the User to fetch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": {\n    \"id\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"ackSignedWhen\": \"2022-12-11T22:28:21.666Z\",\n    \"addressLine1\": \"15 Exchange Place\",\n    \"addressLine2\": \"Suite 1000\",\n    \"city\": \"Jersey City\",\n    \"countryID\": \"USA\",\n    \"displayName\": \"JSmith\",\n    \"dob\": \"2000-12-3\",\n    \"email\": \"jj@drivewealth.dev\",\n    \"firstName\": \"Justin\",\n    \"gender\": {\n      \"name\": \"MALE\"\n    },\n    \"languageID\": \"en_US\",\n    \"lastname\": \"Smith\",\n    \"parentIBID\": {\n      \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n      \"name\": \"Tendies Trading Company\"\n    },\n    \"phone\": \"18004612680\",\n    \"referralCode\": \"71J000\",\n    \"stateProvince\": \"NJ\",\n    \"wlpID\": \"TTC\",\n    \"zipPostalCode\": \"string\",\n    \"idNo\": \"****-4444\",\n    \"status\": {\n      \"name\": \"PENDING\",\n      \"description\": \"User is pending approval.\"\n    },\n    \"userType\": {\n      \"name\": \"INDIVIDUAL_TRADER\",\n      \"description\": \"Individual Trader\"\n    },\n    \"usCitizen\": true,\n    \"updatedWhen\": \"2022-12-11T22:28:21.810Z\",\n    \"brandAmbassador\": false,\n    \"employerBusiness\": \"FINANCE\",\n    \"employementStatus\": {\n      \"name\": \"EMPLOYED\",\n      \"description\": \"Employed\"\n    },\n    \"citizenship\": \"USA\",\n    \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n    \"marginDefault\": 0,\n    \"maritalStatus\": {\n      \"name\": \"SINGLE\",\n      \"description\": \"Single\"\n    },\n    \"ackCustomerAgreement\": true,\n    \"ackFixedIncomeAgreement\": false,\n    \"ackFindersFee\": false,\n    \"ackForeignFindersFee\": false,\n    \"ackJointCustomerAgreement\": true,\n    \"ackJointFindersFee\": false,\n    \"ackJointForeignFindersFee\": false,\n    \"ackJointMarketData\": false,\n    \"ackMarketData\": false,\n    \"ackExtendedHoursAgreement\": false,\n    \"ackOptionsAgreement\": true,\n    \"dependents\": 0,\n    \"termsOfUse\": true,\n    \"badPasswordCount\": true,\n    \"director\": false,\n    \"employerCompany\": \"DriveWealth LLC\",\n    \"employerCompanyID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n    \"employerCompanyStartDate\": \"2014-09-29\",\n    \"employerCompanyEndDate\": \"2022-12-25\",\n    \"employerIsBroker\": true,\n    \"employmentPosition\": \"ENGINEER\",\n    \"employmentYears\": 0,\n    \"jointEmployerIsBroker\": false,\n    \"investmentObjectives\": {\n      \"name\": \"FREQUENT\",\n      \"description\": \"Frequent trader, depending on the market\"\n    },\n    \"investmentExperience\": {\n      \"name\": \"YRS_10_\",\n      \"description\": \"10+ yrs\"\n    },\n    \"politicallyExposed\": false,\n    \"riskTolerance\": \"HIGH\",\n    \"userNoteQty\": 0,\n    \"validTaxForm\": true,\n    \"taxTreatyWithUS\": true,\n    \"avatarURL\": \"https://secure.gravatar.com/avatar/2076105f6efe7c11e285add95f514b9a.jpg\",\n    \"annualIncomeRange\": \"$0 - $24,999\",\n    \"ackDisclosureRule14b\": true,\n    \"ackJointDisclosureRule14b\": false,\n    \"networthLiquidRange\": \"$25,000 - $49,999\",\n    \"networthTotalRange\": \"$25,000 - $49,999\",\n    \"investmentEquitiesExperience\": \"LIMITED\",\n    \"investmentEquitiesYears\": \"YRS_10_PLUS\",\n    \"investmentEquitiesTradesPerYear\": \"YRS_10_14\",\n    \"investmentEquitiesAverageTradeSize\": \"AVG_0_9999\",\n    \"investmentOptionsExperience\": \"LIMITED\",\n    \"investmentOptionsYears\": \"YRS_10_PLUS\",\n    \"investmentOptionsTradesPerYear\": \"YRS_10_14\",\n    \"investmentOptionsAverageTradeSize\": \"AVG_0_9999\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e58dca1-8bf6-4078-95f6-26fdfec9325c",
+          "name": "Update User",
+          "request": {
+            "name": "Update User",
+            "description": {
+              "content": "Updates a User details by userID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) Unique ID of the User to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documents\": [\n    {\n      \"type\": \"<string>\",\n      \"data\": {\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"country\": \"<string>\",\n        \"phone\": \"<string>\",\n        \"emailAddress\": \"<string>\",\n        \"language\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"data\": {\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"country\": \"<string>\",\n        \"phone\": \"<string>\",\n        \"emailAddress\": \"<string>\",\n        \"language\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fc8ba453-674c-4167-9ff8-c53fd5ab3066",
+              "name": "Fetching a User is Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) Unique ID of the User to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documents\": [\n    {\n      \"type\": \"BASIC_INFO\",\n      \"data\": {\n        \"firstName\": \"Justin\",\n        \"lastName\": \"Smith\",\n        \"country\": \"USA\",\n        \"phone\": \"18004612680\",\n        \"emailAddress\": \"jj@drivewealth.dev\",\n        \"language\": \"en_US\"\n      }\n    },\n    {\n      \"type\": \"BASIC_INFO\",\n      \"data\": {\n        \"firstName\": \"Justin\",\n        \"lastName\": \"Smith\",\n        \"country\": \"USA\",\n        \"phone\": \"18004612680\",\n        \"emailAddress\": \"jj@drivewealth.dev\",\n        \"language\": \"en_US\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"ackSignedWhen\": \"2022-12-11T22:28:21.666Z\",\n  \"addressLine1\": \"15 Exchange Place\",\n  \"addressLine2\": \"Suite 1000\",\n  \"city\": \"Jersey City\",\n  \"countryID\": \"USA\",\n  \"displayName\": \"JSmith\",\n  \"dob\": \"2000-12-3\",\n  \"email\": \"jj@drivewealth.dev\",\n  \"firstName\": \"Justin\",\n  \"gender\": {\n    \"name\": \"MALE\"\n  },\n  \"languageID\": \"en_US\",\n  \"lastname\": \"Smith\",\n  \"parentIBID\": {\n    \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n    \"name\": \"Tendies Trading Company\"\n  },\n  \"phone\": \"18004612680\",\n  \"referralCode\": \"71J000\",\n  \"stateProvince\": \"NJ\",\n  \"wlpID\": \"TTC\",\n  \"zipPostalCode\": \"94105\",\n  \"idNo\": \"****-4444\",\n  \"status\": {\n    \"name\": \"PENDING\",\n    \"description\": \"User is pending approval.\"\n  },\n  \"userType\": {\n    \"name\": \"INDIVIDUAL_TRADER\",\n    \"description\": \"Individual Trader\"\n  },\n  \"usCitizen\": true,\n  \"updatedWhen\": \"2022-12-11T22:28:21.810Z\",\n  \"brandAmbassador\": false,\n  \"employerBusiness\": \"FINANCE\",\n  \"employementStatus\": {\n    \"name\": \"EMPLOYED\",\n    \"description\": \"Employed\"\n  },\n  \"citizenship\": \"US\",\n  \"createdWhen\": \"2022-12-11T22:28:21.810Z\",\n  \"marginDefault\": 0,\n  \"maritalStatus\": {\n    \"name\": \"SINGLE\",\n    \"description\": \"Single\"\n  },\n  \"ackCustomerAgreement\": true,\n  \"ackFindersFee\": false,\n  \"ackFixedIncomeAgreement\": true,\n  \"ackForeignFindersFee\": false,\n  \"ackJointCustomerAgreement\": true,\n  \"ackJointFindersFee\": false,\n  \"ackJointForeignFindersFee\": false,\n  \"ackJointMarketData\": false,\n  \"ackMarketData\": false,\n  \"ackExtendedHoursAgreement\": false,\n  \"ackOptionsAgreement\": true,\n  \"dependents\": 0,\n  \"termsOfUse\": true,\n  \"director\": false,\n  \"employerCompany\": \"DriveWealth LLC\",\n  \"employerCompanyID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"employerCompanyStartDate\": \"2014-09-29\",\n  \"employerCompanyEndDate\": \"2022-12-25\",\n  \"employerIsBroker\": true,\n  \"employmentPosition\": \"ENGINEER\",\n  \"employmentYears\": 0,\n  \"jointEmployerIsBroker\": false,\n  \"investmentObjectives\": {\n    \"name\": \"FREQUENT\",\n    \"description\": \"Frequent trader, depending on the market\"\n  },\n  \"investmentExperience\": {\n    \"name\": \"YRS_10_\",\n    \"description\": \"10+ yrs\"\n  },\n  \"politicallyExposed\": false,\n  \"riskTolerance\": \"HIGH\",\n  \"userNoteQty\": 0,\n  \"validTaxForm\": false,\n  \"taxTreatyWithUS\": true,\n  \"avatarURL\": \"https://secure.gravatar.com/avatar/2076105f6efe7c11e285add95f514b9a.jpg\",\n  \"annualIncomeRange\": \"$0 - $24,999\",\n  \"ackDisclosureRule14b\": true,\n  \"ackJointDisclosureRule14b\": false,\n  \"networthLiquidRange\": \"$0 - $24,999\",\n  \"networthTotalRange\": \"$0 - $24,999\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3285162a-c9b8-4ba7-819f-0d84b3984118",
+          "name": "Retrieve KYC",
+          "request": {
+            "name": "Retrieve KYC",
+            "description": {
+              "content": "Retrives a User KYC by userID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":userID",
+                "kyc-status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userID",
+                  "description": "(Required) Unique ID of the User to fetch their profile & kyc status."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d16365d6-949a-4088-ac21-455462ce588a",
+              "name": "Fetching User's Profile Details & KYC is Successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":userID",
+                    "kyc-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userID",
+                      "description": "(Required) Unique ID of the User to fetch their profile & kyc status."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"userID\": \"cc07f91b-7ee1-4868-b8fc-823c70a1b932\",\n  \"firstName\": \"Justin\",\n  \"lastName\": \"Smith\",\n  \"identity\": {\n    \"number\": \"****-4444\",\n    \"dob\": \"2000-12-03\"\n  },\n  \"accounts\": [\n    {\n      \"id\": \"8b8ba3fd-74dc-45dc-b2dc-7de683bd713c.1556222995391\",\n      \"accountNo\": \"DWBG000052\",\n      \"nickname\": \"Justin's Self Directed Account\",\n      \"accountStatus\": {\n        \"name\": \"PENDING\",\n        \"description\": \"Pending\"\n      },\n      \"accountType\": \"LIVE\",\n      \"accountManagementType\": \"SELF\",\n      \"tradingType\": \"CASH\",\n      \"leverage\": 1\n    },\n    {\n      \"id\": \"8b8ba3fd-74dc-45dc-b2dc-7de683bd713c.1556222995391\",\n      \"accountNo\": \"DWBG000052\",\n      \"nickname\": \"Justin's Self Directed Account\",\n      \"accountStatus\": {\n        \"name\": \"PENDING\",\n        \"description\": \"Pending\"\n      },\n      \"accountType\": \"LIVE\",\n      \"accountManagementType\": \"SELF\",\n      \"tradingType\": \"CASH\",\n      \"leverage\": 1\n    }\n  ],\n  \"kyc\": {\n    \"status\": {\n      \"name\": \"KYC_INFO_REQUIRED\",\n      \"code\": \"K102\",\n      \"description\": \"User's PII not matched. Please revisit user's PII Info.\"\n    },\n    \"approved\": {\n      \"timestamp\": \"2022-12-12T21:13:12.391Z\",\n      \"approvedBy\": \"0ef9ef36-3720-4b76-a938-dac4501a7f95\"\n    },\n    \"accepted\": {\n      \"acceptedBy\": \"SYSTEM PRINCIPAL APPROVER\",\n      \"timeStamp\": \"2022-12-12T21:13:12.391Z\"\n    }\n  },\n  \"status\": {\n    \"name\": \"APPROVED\",\n    \"description\": \"User approved.\"\n  },\n  \"partnerID\": {\n    \"id\": \"80f9b672-120d-4b73-9cc9-42fb3262c4b9\",\n    \"name\": \"Tendies Trading Company\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bo-api.drivewealth.io/back-office",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8495f95c-2504-4f47-a939-191ca721aa44",
+    "name": "DriveWealth Accounts Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Advisor Reports API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Advisor Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Orders by Advisor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/users/:userID/managed/orders/summary",
+            "params": [
+              {
+                "name": "userID",
+                "value": "cc07f91b-7ee1-4868-b8fc-823c70a1b932",
+                "type": "path",
+                "description": "The User's unique identifier."
+              },
+              {
+                "name": "date",
+                "value": "2022-12-25",
+                "type": "query",
+                "description": "The specific request date in format YYYY-MM-DD."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetches a User's sub account orders allocations summary by date."
+        },
+        {
+          "info": {
+            "name": "List Allocations by Advisor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/users/:userID/managed/orders",
+            "params": [
+              {
+                "name": "userID",
+                "value": "cc07f91b-7ee1-4868-b8fc-823c70a1b932",
+                "type": "path",
+                "description": "The User's unique identifier."
+              },
+              {
+                "name": "from",
+                "value": "2022-12-08T18:36:40.609Z",
+                "type": "query",
+                "description": "The date and time in which to start from."
+              },
+              {
+                "name": "to",
+                "value": "2022-12-25T18:36:40.609Z",
+                "type": "query",
+                "description": "The date and time in which to end at."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetches a user's sub account orders allocations by userID"
+        },
+        {
+          "info": {
+            "name": "Retrieve Beginning Of Day (BOD) by Advisor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/users/:userID/managed/bod",
+            "params": [
+              {
+                "name": "userID",
+                "value": "cc07f91b-7ee1-4868-b8fc-823c70a1b932",
+                "type": "path",
+                "description": "The User's unique identifier."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetches a list of sub accounts beginning of day holdings by userID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

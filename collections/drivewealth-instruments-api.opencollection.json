@@ -1,0 +1,200 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DriveWealth Accounts Instruments API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Instruments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Instruments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/instruments",
+            "params": [
+              {
+                "name": "status",
+                "value": "ACTIVE",
+                "type": "query",
+                "description": "The instrument status; to filter by."
+              },
+              {
+                "name": "isOptionsEnabled",
+                "value": "true",
+                "type": "query",
+                "description": "The ability to trade options for this instrument; to filter by."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrives a list of Instruments."
+        },
+        {
+          "info": {
+            "name": "Retrieve Instrument",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/instruments/:symbolOrInstrumentID",
+            "params": [
+              {
+                "name": "symbolOrInstrumentID",
+                "value": "3fb1e8a9-f7d5-4d90-95e2-43e7326b5636",
+                "type": "path",
+                "description": "A unique ID created by DriveWealth to identify a specific Equity Instrument or Option Instrument, also accept the market symbols like Ticker for Equities and OSI for Options."
+              },
+              {
+                "name": "options",
+                "value": "Fundamentals",
+                "type": "query",
+                "description": "This query parameter will add an additional property; `fundamentalDataModel` to the response object for an Equity Instrument only. This data consists of financial data model specs for a specific Instrument."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves an Instrument details by symbol or instrumentID."
+        },
+        {
+          "info": {
+            "name": "Retrieve Instrument Options Chain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/instruments/:symbolOrInstrumentID/options",
+            "params": [
+              {
+                "name": "symbolOrInstrumentID",
+                "value": "AAPL",
+                "type": "path",
+                "description": "Symbol or instrumentID of the underlying equity security"
+              },
+              {
+                "name": "expirationDate",
+                "value": "2022-05-15",
+                "type": "query",
+                "description": "The expiration date of the option security; to filter by."
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "20",
+                "type": "query",
+                "description": "The number of option instruments to be returned per page."
+              },
+              {
+                "name": "sortOrder",
+                "value": "asc",
+                "type": "query",
+                "description": "The sorting order of option instruments."
+              },
+              {
+                "name": "noOfStrikes",
+                "value": "5",
+                "type": "query",
+                "description": "The number of option instruments to be returned above and below market price."
+              },
+              {
+                "name": "minStrikePrice",
+                "value": "20",
+                "type": "query",
+                "description": "The option instruments to be returned above the strike price."
+              },
+              {
+                "name": "maxStrikePrice",
+                "value": "100",
+                "type": "query",
+                "description": "The option instruments to be returned below the strike price."
+              },
+              {
+                "name": "optionType",
+                "value": "CALL",
+                "type": "query",
+                "description": "The type of option instruments to be returned."
+              },
+              {
+                "name": "id",
+                "value": "3fb1e8a9-f7d5-4d90-95e2-43e7326b5636",
+                "type": "query",
+                "description": "The instrument ID of the option security."
+              },
+              {
+                "name": "filterBy",
+                "value": "expirationDate",
+                "type": "query",
+                "description": "The expiration dates for the given underlying security; to filter by."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves an Instrument Options Chain by symbol or instrumentID."
+        },
+        {
+          "info": {
+            "name": "Retrieve Instrument Option Expiration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bo-api.drivewealth.io/back-office/instruments/:symbolOrInstrumentID/options/expiration-dates",
+            "params": [
+              {
+                "name": "symbolOrInstrumentID",
+                "value": "AAPL",
+                "type": "path",
+                "description": "Symbol or instrumentID of the underlying equity security."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve an Instrument Option Expiration details by symbol or instrumentID."
+        },
+        {
+          "info": {
+            "name": "Search Instruments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bo-api.drivewealth.io/back-office/instruments/filter",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Searches Instruments based on the filter criteria provided."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
