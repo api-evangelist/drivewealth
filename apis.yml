@@ -38,6 +38,21 @@ tags:
   - Options
   - Fixed Income
   - Mutual Funds
+  - Portfolio-Management
+  - Account Opening
+  - KYC
+  - Financial-Services
+tags_raw:
+  - Brokerage-as-a-Service
+  - Embedded Investing
+  - Fractional Shares
+  - Trading
+  - Fintech
+  - Equities
+  - ETFs
+  - Options
+  - Fixed Income
+  - Mutual Funds
   - Portfolio Management
   - Account Opening
   - KYC
@@ -65,6 +80,8 @@ apis:
   humanURL: https://developer.drivewealth.com/apis/reference/introduction
   baseURL: https://api.drivewealth.net
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -101,6 +118,8 @@ apis:
   humanURL: https://developer.drivewealth.com/apis/reference/introduction
   baseURL: https://api.drivewealth.net
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -113,6 +132,8 @@ apis:
   humanURL: https://developer.drivewealth.com/apis/reference/introduction
   baseURL: https://api.drivewealth.net
   tags:
+  - Autopilot
+  tags_raw:
   - AutoPilot
   properties:
   - type: OpenAPI
@@ -246,6 +267,8 @@ apis:
   humanURL: https://developer.drivewealth.com/apis/reference/introduction
   baseURL: https://api.drivewealth.net
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -270,6 +293,8 @@ apis:
   humanURL: https://developer.drivewealth.com/apis/reference/introduction
   baseURL: https://api.drivewealth.net
   tags:
+  - Portfolio
+  tags_raw:
   - Portfolios
   properties:
   - type: OpenAPI
@@ -306,6 +331,8 @@ apis:
   humanURL: https://developer.drivewealth.com/apis/reference/introduction
   baseURL: https://api.drivewealth.net
   tags:
+  - Settlement
+  tags_raw:
   - Settlements
   properties:
   - type: OpenAPI
@@ -330,6 +357,8 @@ apis:
   humanURL: https://developer.drivewealth.com/apis/reference/introduction
   baseURL: https://api.drivewealth.net
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
@@ -366,6 +395,8 @@ apis:
   humanURL: https://developer.drivewealth.com/apis/reference/introduction
   baseURL: https://api.drivewealth.net
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
@@ -378,6 +409,8 @@ apis:
   humanURL: https://developer.drivewealth.com/apis/reference/introduction
   baseURL: https://api.drivewealth.net
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
