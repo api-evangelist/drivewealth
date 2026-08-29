@@ -467,6 +467,9 @@ apis:
   - type: Documentation
     url: https://developer.drivewealth.com/apis/docs/opening-accounts
 common:
+  - type: CapabilityMap
+    url: capabilities/drivewealth-capability-edges.yml
+    name: DriveWealth Business Capability Map
   - type: AgenticAccess
     url: agentic-access/drivewealth-agentic-access.yml
   - type: DomainSecurity

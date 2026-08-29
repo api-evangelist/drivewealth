@@ -1,0 +1,88 @@
+slug: drivewealth
+provider: DriveWealth
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 7
+edges:
+- tag: Orders
+  spec_file: drivewealth-orders-api-openapi.yml
+  capability_id: BC-1370.30
+  capability_id_l1: BC-1370
+  capability_name: Trading Order Management
+  confidence: 0.94
+  evidence: POST /orders Create Order; PATCH /orders/{orderID} Update Order; GET /accounts/{accountID}/summary/orders
+    List Account resting Orders
+  reason: Full securities order lifecycle — capture, amend, retrieve resting and historical orders with
+    order audit — which is trading order management on a brokerage platform.
+- tag: Settlements
+  spec_file: drivewealth-settlements-api-openapi.yml
+  capability_id: BC-1380.30
+  capability_id_l1: BC-1380
+  capability_name: Settlement Management
+  confidence: 0.82
+  evidence: GET /settlements Retrieve Settlements; POST /accounts/{accountID}/reports/daily-trade-summary
+    Create DVP RVP Report; GET /funding/reconciliations List Cashless Reconciliations
+  reason: Securities settlement surface — settlement records plus DVP/RVP daily trade summaries and cashless
+    reconciliations, i.e. post-trade settlement operations.
+- tag: Users
+  spec_file: drivewealth-users-api-openapi.yml
+  capability_id: BC-1300.10
+  capability_id_l1: BC-1300
+  capability_name: Customer Onboarding Management
+  confidence: 0.78
+  evidence: POST /users "Create User"; GET /users/{userID}/kyc-status "Retrieve KYC"; schemas Personal_Info,
+    Employment_Info, Tax_Info, Documents, userStatus
+  reason: Creating an end investor record with personal/employment/tax data plus KYC status retrieval
+    is customer onboarding with identity verification for a brokerage/financial account; L2 onboarding
+    chosen over pure KYC because create/update user dominates the surface.
+- tag: AutoPilot
+  spec_file: drivewealth-autopilot-api-openapi.yml
+  capability_id: BC-1390.20
+  capability_id_l1: BC-1390
+  capability_name: Discretionary Portfolio Management
+  confidence: 0.75
+  evidence: POST /managed/autopilot/{partnerID} Create Autopilot Run; GET /accounts/{accountID}/portfolio
+    Retrieve Portfolio by Account; schemas autoPilotRebalanceID, portfolioHoldings, fundTarget, riaID
+  reason: Automated rebalancing runs against model portfolios/fund targets for RIA-managed accounts —
+    discretionary portfolio construction and rebalancing.
+- tag: Portfolios
+  spec_file: drivewealth-portfolios-api-openapi.yml
+  capability_id: BC-1390.20
+  capability_id_l1: BC-1390
+  capability_name: Discretionary Portfolio Management
+  confidence: 0.72
+  evidence: POST /managed/portfolios Create Portfolio; GET /users/{userID}/managed/portfolio List Portfolios
+    by Advisor; schemas portfolioTriggers, holdingsObject, portfolioLowerBound
+  reason: Advisor-managed portfolio definition with target holdings and rebalancing triggers under /managed
+    — discretionary portfolio construction and maintenance for managed accounts.
+- tag: Statements
+  spec_file: drivewealth-statements-api-openapi.yml
+  capability_id: BC-1390.30
+  capability_id_l1: BC-1390
+  capability_name: Client Reporting Management
+  confidence: 0.7
+  evidence: GET /accounts/{accountID}/statements List Account Statements; GET /accounts/{accountID}/taxforms
+    List Account Tax Statements; GET /accounts/{accountID}/confirms List Account Trade Confirmations
+  reason: Production and retrieval of client-facing account statements, tax forms and trade confirmations
+    — client reporting for investment accounts. Some overlap with trade confirmation processing, hence
+    0.7.
+- tag: Trade Allocations
+  spec_file: drivewealth-trade-allocations-api-openapi.yml
+  capability_id: BC-1380
+  capability_id_l1: BC-1380
+  capability_name: Capital Markets Operations Management
+  confidence: 0.7
+  evidence: POST /managed/allocations "Create Trade Allocation"; GET /users/{userID}/managed/allocations
+    "List Trade Allocations by Advisor"; schemas unallocatedQuantity, allocationStatus
+  reason: Post-trade allocation of block/managed-account orders across advisor client accounts is a capital-markets
+    post-trade operations function (trade capture/booking/allocation). Ambiguous between trade confirmation/booking
+    and discretionary managed-account operations, so only the L1 is asserted.
