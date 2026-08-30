@@ -144,7 +144,7 @@ apis:
   humanURL: https://developer.drivewealth.com/apis/reference/introduction
   baseURL: https://api.drivewealth.net
   tags:
-  - Autopilot
+  - AutoPilot
   tags_raw:
   - AutoPilot
   properties:
@@ -514,8 +514,6 @@ common:
     url: examples/drivewealth-place-order-example.json
   - type: Examples
     url: examples/drivewealth-deposit-example.json
-  - type: Blog
-    url: blogs/blogs.json
 
 maintainers:
   - FN: Kin Lane
