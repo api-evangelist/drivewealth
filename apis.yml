@@ -144,7 +144,7 @@ apis:
   humanURL: https://developer.drivewealth.com/apis/reference/introduction
   baseURL: https://api.drivewealth.net
   tags:
-  - AutoPilot
+  - Autopilot
   tags_raw:
   - AutoPilot
   properties:
