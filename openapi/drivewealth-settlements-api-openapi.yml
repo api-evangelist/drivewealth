@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: DriveWealth Accounts Settlements API
+  title: DriveWealth Settlements API
   version: '1.0'
 servers:
 - url: https://bo-api.drivewealth.io/back-office
@@ -57,6 +57,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getFundingReconciliations
+      x-operation-id-source: derived
   /funding/reconciliations/{reconciliationID}:
     get:
       tags:
@@ -83,6 +85,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getFundingReconciliationsByReconciliationID
+      x-operation-id-source: derived
     patch:
       tags:
       - Settlements
@@ -112,6 +116,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: patchFundingReconciliationsByReconciliationID
+      x-operation-id-source: derived
   /accounts/{accountID}/reports/daily-trade-summary:
     post:
       tags:
@@ -141,6 +147,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: postAccountsByAccountIDReportsDailyTradeSummary
+      x-operation-id-source: derived
     get:
       tags:
       - Settlements
@@ -179,6 +187,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getAccountsByAccountIDReportsDailyTradeSummary
+      x-operation-id-source: derived
   /accounts/{accountID}/reports/daily-trade-summary/{reportID}:
     get:
       summary: Retrieve DVP RVP
@@ -210,6 +220,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getAccountsByAccountIDReportsDailyTradeSummaryByReportID
+      x-operation-id-source: derived
   /settlements:
     get:
       tags:
@@ -279,6 +291,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getSettlements
+      x-operation-id-source: derived
   /settlements/{settlementID}:
     get:
       tags:
@@ -305,8 +319,106 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getSettlementsBySettlementID
+      x-operation-id-source: derived
 components:
   schemas:
+    DVPRVP:
+      type: object
+      properties:
+        id:
+          type: string
+          example: bsr_040fb9cc-84e8-4f20-bf09-d398dacd458d.1622745430469_20210604
+          description: The DVP/RVP report identifier.
+        tradeDate:
+          type: string
+          format: date
+          example: '2021-06-04'
+          pattern: yyyy-MM-dd
+          description: The date for which the DVP/RVP was run for.
+        status:
+          type: string
+          example: SUCCESSFUL
+          description: The status of the generated report.
+          enum:
+          - PROCESSING
+          - SUCCESSFUL
+        note:
+          $ref: '#/components/schemas/note'
+        partnerID:
+          $ref: '#/components/schemas/partnerID'
+        created:
+          $ref: '#/components/schemas/created'
+        updated:
+          $ref: '#/components/schemas/updated'
+        updatedBy:
+          $ref: '#/components/schemas/updatedBy'
+        source:
+          type: string
+          example: MANUAL
+          enum:
+          - MANUAL
+          - SYSTEM
+          description: The method type in which the report was generated.
+    SingleSettlementReports:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          example: 1
+          description: The amount of results on the page.
+        limit:
+          type: integer
+          example: 50
+          description: The maximum number of results per page.
+        settlements:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/SingleSettlementDetails'
+    from:
+      type: string
+      format: date
+      pattern: yyyy-MM-dd
+      example: '2022-12-25'
+      description: A filter, the start date.
+    ReconciliationUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+          example: SUCCESSFUL
+          description: The status to update the reconciliation report to.
+          enum:
+          - SUCCESSFUL
+        statusComment:
+          type: string
+          example: Manually approving reconciliation for testing purposes.
+          description: A custom comment about the status.
+    singleSettlementID:
+      type: string
+      example: sett_63ccb073-a7b6-4b33-af77-5baec5cc4494_settle-profile-usa_20221224
+      description: A unique identifier that identifies the settlement.
+    parentIBID:
+      type: string
+      example: 80f9b672-120d-4b73-9cc9-42fb3262c4b9
+      description: The unique identifier of the firm.
+    to:
+      type: string
+      format: date
+      pattern: yyyy-MM-dd
+      example: '2022-12-26'
+      description: A filter, the end date.
+    reconciliationStatus:
+      type: string
+      example: APPROVED
+      description: The current status of the reconciliation report.
+      enum:
+      - PENDING
+      - APPROVED
+      - PROCESSING
+      - SUCCESSFUL
+      - FAILED
     SingleSettlementDetails:
       type: object
       properties:
@@ -331,155 +443,22 @@ components:
           description: The date and time the settlement was last updated.
         settlementProfileID:
           $ref: '#/components/schemas/settlementProfileID'
-    reconciliationID:
+    date:
       type: string
-      example: 80f9b672-120d-4b73-9cc9-42fb3262c4b9_20240417
-      description: The unique identifier of the reconciliation report.
-    CreateDVPRVPRes:
-      type: object
-      properties:
-        id:
-          type: string
-          example: bsr_040fb9cc-84e8-4f20-bf09-d398dacd458d.1622745430469_20210604
-          description: The DVP/RVP report identifier.
-        accountID:
-          $ref: '#/components/schemas/accountID'
-        accountNo:
-          $ref: '#/components/schemas/accountNo'
-        tradeDate:
-          type: string
-          format: date
-          example: '2021-06-04'
-          pattern: yyyy-MM-dd
-          description: The date for which the DVP/RVP was run for.
-        note:
-          $ref: '#/components/schemas/note'
-        partnerID:
-          $ref: '#/components/schemas/partnerID'
-    CreateDVPRVP:
-      type: object
-      required:
-      - tradeDate
-      properties:
-        tradeDate:
-          type: string
-          format: date
-          example: '2021-06-04'
-          pattern: yyyy-MM-dd
-          description: The date to generate the DVP/RVP report for.
-        note:
-          $ref: '#/components/schemas/note'
-    note:
-      type: string
-      example: Hey! Welcome to DriveWealth Developer Docs!
-      description: A way to store a message/comment on the this object.
-    reconciliationStatus:
-      type: string
-      example: APPROVED
-      description: The current status of the reconciliation report.
-      enum:
-      - PENDING
-      - APPROVED
-      - PROCESSING
-      - SUCCESSFUL
-      - FAILED
+      example: '2022-12-25'
+      description: ''
     settlementProfileID:
       type: string
       example: settlement-profile-bank-account-1
       description: A settlement profile identifier that links to a specific bank account for fund settlement.
-    updated:
+    reconciliationID:
       type: string
-      example: '2022-12-11T22:28:21.810Z'
-      description: ''
-    SingleSettlementReports:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          example: 1
-          description: The amount of results on the page.
-        limit:
-          type: integer
-          example: 50
-          description: The maximum number of results per page.
-        settlements:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/SingleSettlementDetails'
-    SingleSettlementByID:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/singleSettlementID'
-        settlementDate:
-          $ref: '#/components/schemas/date'
-          description: The date the settlement was generated for.
-        status:
-          $ref: '#/components/schemas/singleSettlementStatus'
-        statusComment:
-          type: string
-          example: Finished processing breakdown
-          description: A custom comment about the current status of the settlement.
-        amount:
-          type: object
-          properties:
-            total:
-              type: number
-              example: 5000.45
-              description: The aggregated sum of all the transactions settling on the settlement date.
-            credits:
-              type: number
-              example: 6000.45
-              description: The aggregated sum of all the credit transactions settling on the settlement date.
-            debits:
-              type: number
-              example: -1000
-              description: The aggregated sum of all the debit transactions settling on the settlement date.
-        breakdownReport:
-          type: string
-          format: url
-          example: https://du2c4wzqz90h1.cloudfront.net/singleSettlementReport....
-          description: A breakdown of all the deposits or withdrawals across sub accounts over the course of the settlement date.
-        partnerID:
-          $ref: '#/components/schemas/partnerID'
-        settlementProfileID:
-          $ref: '#/components/schemas/settlementProfileID'
-        updatedBy:
-          $ref: '#/components/schemas/updatedBy'
-        createdAt:
-          $ref: '#/components/schemas/created'
-          description: The date and time of when the settlement was created.
-        updatedAt:
-          $ref: '#/components/schemas/updated'
-          description: The date and time of when the settlement was last updated.
-    created:
+      example: 80f9b672-120d-4b73-9cc9-42fb3262c4b9_20240417
+      description: The unique identifier of the reconciliation report.
+    partnerID:
       type: string
-      example: '2022-12-11T22:28:21.810Z'
-      description: ''
-    singleSettlementID:
-      type: string
-      example: sett_63ccb073-a7b6-4b33-af77-5baec5cc4494_settle-profile-usa_20221224
-      description: A unique identifier that identifies the settlement.
-    from:
-      type: string
-      format: date
-      pattern: yyyy-MM-dd
-      example: '2022-12-25'
-      description: A filter, the start date.
-    singleSettlementStatus:
-      type: string
-      example: PENDING
-      description: The current status of the settlement.
-      enum:
-      - PENDING
-      - APPROVED
-      - SUCCESSFUL
-      - REJECTED
-    accountID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
+      example: 80f9b672-120d-4b73-9ccv9-42fb3262c4b9
+      description: The partner's unique identifier.
     DailyReconciliation:
       type: object
       properties:
@@ -509,29 +488,27 @@ components:
           description: The date and time the reconciliation report was last updated.
         updatedBy:
           $ref: '#/components/schemas/updatedBy'
-    to:
-      type: string
-      format: date
-      pattern: yyyy-MM-dd
-      example: '2022-12-26'
-      description: A filter, the end date.
-    ReconciliationUpdate:
+    CreateDVPRVPRes:
       type: object
       properties:
-        status:
+        id:
           type: string
-          example: SUCCESSFUL
-          description: The status to update the reconciliation report to.
-          enum:
-          - SUCCESSFUL
-        statusComment:
+          example: bsr_040fb9cc-84e8-4f20-bf09-d398dacd458d.1622745430469_20210604
+          description: The DVP/RVP report identifier.
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        tradeDate:
           type: string
-          example: Manually approving reconciliation for testing purposes.
-          description: A custom comment about the status.
-    parentIBID:
-      type: string
-      example: 80f9b672-120d-4b73-9cc9-42fb3262c4b9
-      description: The unique identifier of the firm.
+          format: date
+          example: '2021-06-04'
+          pattern: yyyy-MM-dd
+          description: The date for which the DVP/RVP was run for.
+        note:
+          $ref: '#/components/schemas/note'
+        partnerID:
+          $ref: '#/components/schemas/partnerID'
     ReconciliationDetails:
       type: object
       properties:
@@ -608,78 +585,74 @@ components:
           description: The date and time when the reconciliation report was last updated.
         updatedBy:
           $ref: '#/components/schemas/updatedBy'
-    accountNo:
-      type: string
-      example: DWBG000052
-      description: The user's unique account number, that is human readable.
-    DVPRVP:
+    CreateDVPRVP:
       type: object
+      required:
+      - tradeDate
       properties:
-        id:
-          type: string
-          example: bsr_040fb9cc-84e8-4f20-bf09-d398dacd458d.1622745430469_20210604
-          description: The DVP/RVP report identifier.
         tradeDate:
           type: string
           format: date
           example: '2021-06-04'
           pattern: yyyy-MM-dd
-          description: The date for which the DVP/RVP was run for.
-        status:
-          type: string
-          example: SUCCESSFUL
-          description: The status of the generated report.
-          enum:
-          - PROCESSING
-          - SUCCESSFUL
+          description: The date to generate the DVP/RVP report for.
         note:
           $ref: '#/components/schemas/note'
+    SingleSettlementByID:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/singleSettlementID'
+        settlementDate:
+          $ref: '#/components/schemas/date'
+          description: The date the settlement was generated for.
+        status:
+          $ref: '#/components/schemas/singleSettlementStatus'
+        statusComment:
+          type: string
+          example: Finished processing breakdown
+          description: A custom comment about the current status of the settlement.
+        amount:
+          type: object
+          properties:
+            total:
+              type: number
+              example: 5000.45
+              description: The aggregated sum of all the transactions settling on the settlement date.
+            credits:
+              type: number
+              example: 6000.45
+              description: The aggregated sum of all the credit transactions settling on the settlement date.
+            debits:
+              type: number
+              example: -1000
+              description: The aggregated sum of all the debit transactions settling on the settlement date.
+        breakdownReport:
+          type: string
+          format: url
+          example: https://du2c4wzqz90h1.cloudfront.net/singleSettlementReport....
+          description: A breakdown of all the deposits or withdrawals across sub accounts over the course of the settlement date.
         partnerID:
           $ref: '#/components/schemas/partnerID'
-        created:
-          $ref: '#/components/schemas/created'
-        updated:
-          $ref: '#/components/schemas/updated'
+        settlementProfileID:
+          $ref: '#/components/schemas/settlementProfileID'
         updatedBy:
           $ref: '#/components/schemas/updatedBy'
-        source:
-          type: string
-          example: MANUAL
-          enum:
-          - MANUAL
-          - SYSTEM
-          description: The method type in which the report was generated.
-    date:
+        createdAt:
+          $ref: '#/components/schemas/created'
+          description: The date and time of when the settlement was created.
+        updatedAt:
+          $ref: '#/components/schemas/updated'
+          description: The date and time of when the settlement was last updated.
+    singleSettlementStatus:
       type: string
-      example: '2022-12-25'
-      description: ''
-    partnerID:
-      type: string
-      example: 80f9b672-120d-4b73-9ccv9-42fb3262c4b9
-      description: The partner's unique identifier.
-    ListOfDailyReconciliations:
-      type: array
-      description: A list of daily reconciliations for a firm.
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/DailyReconciliation'
-    ListDVPRVP:
-      type: array
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/DVPRVP'
-    updatedBy:
-      type: string
-      example: SYSTEM
+      example: PENDING
+      description: The current status of the settlement.
       enum:
-      - SYSTEM REPORT SERVICE
-      - INSTANT FUNDING BREAKDOWN JOB
-    DVPRVPStatus:
-      type: string
-      example: Processing
-      enum:
-      - Processing
-      - Successful
+      - PENDING
+      - APPROVED
+      - SUCCESSFUL
+      - REJECTED
     DVPRVPDetails:
       type: object
       allOf:
@@ -724,6 +697,49 @@ components:
             format: url
             description: A json file of the trade breakdown of all the purchases and sale transactions.
             example: https://du2c4wzqz90h1.cloudfront.net/buySellTradesReport....
+    created:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    ListOfDailyReconciliations:
+      type: array
+      description: A list of daily reconciliations for a firm.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/DailyReconciliation'
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    updatedBy:
+      type: string
+      example: SYSTEM
+      enum:
+      - SYSTEM REPORT SERVICE
+      - INSTANT FUNDING BREAKDOWN JOB
+    updated:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    ListDVPRVP:
+      type: array
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/DVPRVP'
+    DVPRVPStatus:
+      type: string
+      example: Processing
+      enum:
+      - Processing
+      - Successful
+    accountNo:
+      type: string
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
+    note:
+      type: string
+      example: Hey! Welcome to DriveWealth Developer Docs!
+      description: A way to store a message/comment on the this object.
   securitySchemes:
     bearerAuth:
       type: http

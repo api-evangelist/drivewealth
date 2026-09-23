@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: DriveWealth Accounts Commission Schedules API
+  title: DriveWealth Commission Schedules API
   version: '1.0'
 servers:
 - url: https://bo-api.drivewealth.io/back-office
@@ -35,12 +35,10 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getAccountsByAccountIDCommissions
+      x-operation-id-source: derived
 components:
   schemas:
-    commissionID:
-      type: string
-      example: b3e985dd-9679-63dc-5dd5-9bd7982efecd
-      description: The unique identifier associated with a specific commission related to the account.
     assignmentCriteria:
       type: object
       properties:
@@ -58,10 +56,37 @@ components:
           type: string
           example: null
           description: NEEDS DESCRIPTION
-    CommissionsRes:
-      type: array
-      items:
-        $ref: '#/components/schemas/CommissionObject'
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    ratesObject:
+      type: object
+      properties:
+        rate:
+          type: number
+          example: 1.49
+          description: Commission rate in USD.
+        passThroughFees:
+          type: boolean
+          example: true
+          description: If true, SEC and TAF fees are passed through to the client.
+        shareAmountRounding:
+          type: string
+          example: CEIL
+          description: Share amount rounding method. Options:`FLOOR` - Share quantity rounded down `CEIL` - Share quantity rounded up `NEAREST` - Share quantity rounded to nearest integer.
+          enum:
+          - FLOOR
+          - CEIL
+          - NEAREST
+        minimumRate:
+          type: number
+          example: 1.49
+          description: Minimum commission rate.
+    commissionID:
+      type: string
+      example: b3e985dd-9679-63dc-5dd5-9bd7982efecd
+      description: The unique identifier associated with a specific commission related to the account.
     CommissionObject:
       type: object
       properties:
@@ -93,37 +118,14 @@ components:
               properties:
                 schema:
                   $ref: '#/components/schemas/ratesObject'
-    ratesObject:
-      type: object
-      properties:
-        rate:
-          type: number
-          example: 1.49
-          description: Commission rate in USD.
-        passThroughFees:
-          type: boolean
-          example: true
-          description: If true, SEC and TAF fees are passed through to the client.
-        shareAmountRounding:
-          type: string
-          example: CEIL
-          description: Share amount rounding method. Options:`FLOOR` - Share quantity rounded down `CEIL` - Share quantity rounded up `NEAREST` - Share quantity rounded to nearest integer.
-          enum:
-          - FLOOR
-          - CEIL
-          - NEAREST
-        minimumRate:
-          type: number
-          example: 1.49
-          description: Minimum commission rate.
-    accountID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
     wlpID:
       type: string
       example: TTC
       description: The wlpID is a deep backoffice ID that identifies each partner from each other.
+    CommissionsRes:
+      type: array
+      items:
+        $ref: '#/components/schemas/CommissionObject'
   securitySchemes:
     bearerAuth:
       type: http

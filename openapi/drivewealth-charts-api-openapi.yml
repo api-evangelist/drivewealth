@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: DriveWealth Accounts Charts API
+  title: DriveWealth Charts API
   version: '1.0'
 servers:
 - url: https://bo-api.drivewealth.io/back-office
@@ -123,17 +123,51 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getBars
+      x-operation-id-source: derived
 components:
   schemas:
-    ErrorCode:
-      type: string
-      description: The error code that is returned when an error occurs.
-      example: E032
+    ErrorDetails:
+      type: object
+      properties:
+        field:
+          type: string
+          description: JSON field name from the request body that caused an error
+        type:
+          type: string
+          enum:
+          - STRING
+          - ARRAY
+          - INT
+          - DECIMAL
+          - BOOL
+          - TEXT
+          - UUID
+          - DATE
+          - MAP
+          - OBJECT
+          description: Expected data type of the field
+        allowedValues:
+          type: string
+          description: Example values which are allowed in the field
     instrumentID:
       type: string
       format: uuid
       example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
       description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    ErrorResponseModel:
+      type: object
+      description: The error response model that is returned when an error occurs.
+      required:
+      - errorCode
+      - message
+      properties:
+        errorCode:
+          $ref: '#/components/schemas/ErrorCode'
+        message:
+          $ref: '#/components/schemas/ErrorCodeMessage'
+        errorDetails:
+          $ref: '#/components/schemas/ErrorDetails'
     Bars:
       type: object
       properties:
@@ -165,42 +199,10 @@ components:
     ErrorCodeMessage:
       type: string
       description: The error message that is returned when an error occurs.
-    ErrorDetails:
-      type: object
-      properties:
-        field:
-          type: string
-          description: JSON field name from the request body that caused an error
-        type:
-          type: string
-          enum:
-          - STRING
-          - ARRAY
-          - INT
-          - DECIMAL
-          - BOOL
-          - TEXT
-          - UUID
-          - DATE
-          - MAP
-          - OBJECT
-          description: Expected data type of the field
-        allowedValues:
-          type: string
-          description: Example values which are allowed in the field
-    ErrorResponseModel:
-      type: object
-      description: The error response model that is returned when an error occurs.
-      required:
-      - errorCode
-      - message
-      properties:
-        errorCode:
-          $ref: '#/components/schemas/ErrorCode'
-        message:
-          $ref: '#/components/schemas/ErrorCodeMessage'
-        errorDetails:
-          $ref: '#/components/schemas/ErrorDetails'
+    ErrorCode:
+      type: string
+      description: The error code that is returned when an error occurs.
+      example: E032
   securitySchemes:
     bearerAuth:
       type: http

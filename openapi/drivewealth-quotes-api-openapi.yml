@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: DriveWealth Accounts Quotes API
+  title: DriveWealth Quotes API
   version: '1.0'
 servers:
 - url: https://bo-api.drivewealth.io/back-office
@@ -158,6 +158,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getQuotes
+      x-operation-id-source: derived
   /quotes/vdr:
     get:
       tags:
@@ -190,8 +192,28 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getQuotesVdr
+      x-operation-id-source: derived
 components:
   schemas:
+    highPrice:
+      type: number
+      example: 86.85
+      description: The highest price in the current trading day.
+    instrumentSymbol:
+      type:
+      - string
+      - 'null'
+      example: MS
+      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
+    bidPrice:
+      type: number
+      example: 86.12
+      description: The current price buyers are prepared to pay for a security.
+    openPrice:
+      type: number
+      example: 86.53
+      description: Most recent opening price of the instrument.
     FixedIncomeQuote:
       type: array
       properties:
@@ -254,6 +276,63 @@ components:
         timeOffset:
           type: number
           example: 0
+    Referential:
+      type: array
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/EquityQuote'
+        - $ref: '#/components/schemas/FixedIncomeQuote'
+    lowPrice:
+      type: number
+      example: 85.83
+      description: The lowest price in the current trading day.
+    EquityQuote:
+      type: object
+      properties:
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        bid:
+          $ref: '#/components/schemas/bidPrice'
+        ask:
+          $ref: '#/components/schemas/askPrice'
+        lastTrade:
+          type: number
+          example: 86.47
+          description: The NBBO quote of the most recent trade.
+        change:
+          type: number
+          example: -1.33
+          description: The percentage change in trade price relative to the previous days close.
+        open:
+          $ref: '#/components/schemas/openPrice'
+        high:
+          $ref: '#/components/schemas/highPrice'
+        low:
+          $ref: '#/components/schemas/lowPrice'
+        close:
+          type: number
+          example: 0
+          description: The close price populated after market close, price updates overnight if a corporate action occurs.
+        priorClose:
+          type: number
+          example: 86.86
+          description: The closing price of the current symbol for the prior trading day.
+        volume:
+          type: number
+          example: 2779731
+          description: The total trading volume of the security for the current day in quantity of shares.
+        marketCondition:
+          type: string
+          example: NORMAL
+          description: The trading status of the symbol.
+          enum:
+          - NORMAL
+          - TRADING_HALT
+          - UNKNOWN
+        dataProvider:
+          type: string
+          example: NYSE
+          description: The exchange venue providing the quote.
     askPrice:
       type: number
       example: 85.14
@@ -332,80 +411,6 @@ components:
           type: number
           example: 86.86
           description: The closing price of the current symbol for the prior trading day.
-    lowPrice:
-      type: number
-      example: 85.83
-      description: The lowest price in the current trading day.
-    highPrice:
-      type: number
-      example: 86.85
-      description: The highest price in the current trading day.
-    bidPrice:
-      type: number
-      example: 86.12
-      description: The current price buyers are prepared to pay for a security.
-    EquityQuote:
-      type: object
-      properties:
-        symbol:
-          $ref: '#/components/schemas/instrumentSymbol'
-        bid:
-          $ref: '#/components/schemas/bidPrice'
-        ask:
-          $ref: '#/components/schemas/askPrice'
-        lastTrade:
-          type: number
-          example: 86.47
-          description: The NBBO quote of the most recent trade.
-        change:
-          type: number
-          example: -1.33
-          description: The percentage change in trade price relative to the previous days close.
-        open:
-          $ref: '#/components/schemas/openPrice'
-        high:
-          $ref: '#/components/schemas/highPrice'
-        low:
-          $ref: '#/components/schemas/lowPrice'
-        close:
-          type: number
-          example: 0
-          description: The close price populated after market close, price updates overnight if a corporate action occurs.
-        priorClose:
-          type: number
-          example: 86.86
-          description: The closing price of the current symbol for the prior trading day.
-        volume:
-          type: number
-          example: 2779731
-          description: The total trading volume of the security for the current day in quantity of shares.
-        marketCondition:
-          type: string
-          example: NORMAL
-          description: The trading status of the symbol.
-          enum:
-          - NORMAL
-          - TRADING_HALT
-          - UNKNOWN
-        dataProvider:
-          type: string
-          example: NYSE
-          description: The exchange venue providing the quote.
-    openPrice:
-      type: number
-      example: 86.53
-      description: Most recent opening price of the instrument.
-    Referential:
-      type: array
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/EquityQuote'
-        - $ref: '#/components/schemas/FixedIncomeQuote'
-    instrumentSymbol:
-      type: string
-      nullable: true
-      example: MS
-      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
   securitySchemes:
     bearerAuth:
       type: http

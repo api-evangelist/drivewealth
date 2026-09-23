@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: DriveWealth Accounts Supported Countries API
+  title: DriveWealth Supported Countries API
   version: '1.0'
 servers:
 - url: https://bo-api.drivewealth.io/back-office
@@ -40,6 +40,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getCountries
+      x-operation-id-source: derived
 components:
   schemas:
     ListOfAllowedCountry:

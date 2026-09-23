@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: DriveWealth Accounts Instruments API
+  title: DriveWealth Instruments API
   version: '1.0'
 servers:
 - url: https://bo-api.drivewealth.io/back-office
@@ -44,6 +44,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getInstruments
+      x-operation-id-source: derived
   /instruments/{symbolOrInstrumentID}:
     get:
       tags:
@@ -88,6 +90,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getInstrumentsBySymbolOrInstrumentID
+      x-operation-id-source: derived
   /instruments/{symbolOrInstrumentID}/options:
     get:
       tags:
@@ -211,6 +215,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getInstrumentsBySymbolOrInstrumentIDOptions
+      x-operation-id-source: derived
   /instruments/{symbolOrInstrumentID}/options/expiration-dates:
     get:
       tags:
@@ -237,6 +243,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getInstrumentsBySymbolOrInstrumentIDOptionsExpirationDates
+      x-operation-id-source: derived
   /instruments/filter:
     post:
       tags:
@@ -317,238 +325,10 @@ components:
       format: date
       example: '2022-05-10'
       readOnly: true
-    askPrice:
-      type: number
-      example: 85.14
-      description: The current price sellers are prepared to sell a security.
-    Instruments:
-      type: array
-      items:
-        anyOf:
-        - $ref: '#/components/schemas/InstrumentInList'
-        - $ref: '#/components/schemas/DebtInstrumentDetails'
-    CouponRate:
-      description: The annual rate of interest currently applicable to the instrument.
-      type: number
-      format: double
-      example: 0.05
-      readOnly: true
     bidPrice:
       type: number
       example: 86.12
       description: The current price buyers are prepared to pay for a security.
-    FilterCriteria:
-      description: The filter criteria, Criterion with different field names are ANDed. Criterion with same field names are ORed.
-      type: array
-      items:
-        $ref: '#/components/schemas/FilterCriterion'
-    fundamentalDataModel:
-      type: object
-      nullable: true
-      properties:
-        id:
-          $ref: '#/components/schemas/instrumentID'
-        symbol:
-          $ref: '#/components/schemas/instrumentSymbol'
-        openPrice:
-          $ref: '#/components/schemas/openPrice'
-        bidPrice:
-          $ref: '#/components/schemas/bidPrice'
-        askPrice:
-          $ref: '#/components/schemas/askPrice'
-        lowPrice:
-          $ref: '#/components/schemas/lowPrice'
-        highPrice:
-          $ref: '#/components/schemas/highPrice'
-        fiftyTwoWeekLowPrice:
-          type: number
-          example: 72.05
-          description: The lowest price of the instrument in the past 52 weeks.
-        fiftyTwoWeekHighPrice:
-          type: number
-          example: 109.73
-          description: The highest price of the instrument in the past 52 weeks.
-        cumulativeVolume:
-          type: number
-          example: 3970567
-          description: Cumulative Volume is a running total of daily trade volume. This measures the cumulative inflow and outflow of trading volume for the instrument. Measured in quantity of shares.
-        marketCap:
-          type: number
-          example: 148374700000
-          description: The total market cap of the instrument measured in USD.
-        peRatio:
-          type: number
-          example: 12.7434
-          description: The Price-earnings ratio for the instrument.
-        dividendYield:
-          type: number
-          example: 3.5312
-          description: The percentage of a company's share price that is payed out in dividends each year.
-        earningsPerShare:
-          type: number
-          example: 6.889
-          description: The earnings per share of the instrument measured in USD. EPS is company's profit divided by the outstanding shares of its common stock.
-        dividend:
-          type: number
-          example: 3.1
-          description: The annual dividend amount paid out per share measured in USD.
-        sharesOutstanding:
-          type: number
-          example: 1307993346
-          description: The total shares outstanding for the instrument. Shares outstanding are all the shares of an instrument that have been authorized, issued and purchased by investors.
-        timeLastUpdate:
-          type: string
-          example: '18:28:00'
-          description: The last time the instruments data was updated.
-        bookValuePerShare:
-          type: string
-          example: '59.49634'
-          description: The book value per share of the instrument measured in USD. The BVPS is the ratio of equity available to common shareholders divided by the number of outstanding shares.
-        cashFlowPerShare:
-          type: string
-          example: '10.40132'
-          description: The cash flow per share measured in USD. Cash flow per share is the after-tax earnings plus depreciation on a per-share basis that functions as a measure of a firm's financial strength.
-        operatingIncome:
-          type: string
-          example: '19668000000'
-          description: The operating income of an instrument measured in USD. Operating income is an accounting figure that measures the amount of profit realized from a business's operations after deducting operating expenses such as wages, depreciation, and cost of goods sold.
-        pbRatio:
-          type: string
-          example: '1.61196'
-          description: The Price-to-Book ratio of the instrument measured USD per share. The Price-to-Bok ratio measures the market valuation of an Instrument relative to its book  value.
-        volumeMovingAverage10Day:
-          type: number
-          example: 7791905
-          description: The volume moving average of the last 10 days for the instrument measured in quantity of shares.
-        volumeMovingAverage25Day:
-          type: number
-          example: 6768708
-          description: The volume moving average of the last 25 days for the instrument measured in quantity of shares.
-        volumeMovingAverage50Day:
-          type: number
-          example: 7307176
-          description: The volume moving average of the last 50 days for the instrument measured in quantity of shares.
-        priceMovingAverage50Day:
-          type: number
-          example: 85.3034
-          description: The price moving average of the last 50 days for the instrument measured in (USD) per share.
-        priceMovingAverage150Day:
-          type: number
-          example: 83.6295
-          description: The price moving average of the last 150 days for the instrument measured in (USD) per share.
-        priceMovingAverage200Day:
-          type: number
-          example: 84.3036
-          description: The price moving average of the last 200 days for the instrument measured in (USD) per share.
-        roe:
-          type: string
-          example: '0.15315'
-          description: Return on equity of the instrument measured as a fraction, multiply by 100 to get percentage value. ROE is a measure of financial performance calculated by dividing net income by shareholders' equity.
-        percentchangeWTD:
-          type: number
-          example: 2.31
-          description: The percentage change between the most recent market closing price and the closing price at the week start.
-        percentchangeMTD:
-          type: number
-          example: 2.3
-          description: The price percentage change for the instrument Month to Date.
-        percentchangeYTD:
-          type: number
-          example: 10.11
-          description: The price percentage change for the instrument Year to Date.
-        percentchange4week:
-          type: number
-          example: 21.22
-          description: The price percentage change for the instrument in last 4 Weeks.
-        percentchange13week:
-          type: number
-          example: 6.67
-          description: The price percentage change for the instrument in last 13 Weeks.
-        percentchange26week:
-          type: number
-          example: 8.26
-          description: The price percentage change for the instrument in last 26 Weeks.
-        percentchange52week:
-          type: number
-          example: 12.1
-          description: The price percentage change for the instrument in last 52 Weeks.
-        percentchange5day:
-          type: number
-          example: 10.11
-          description: The 5 Day Price Percent Change is the percentage change in the company's stock price over the last 5 tradable (business) days.
-        percentchangeYTDrelsnp:
-          type: number
-          example: 9.11
-          description: The percentage change in price since the close of the last trading day of the previous year as compared to the change in price of the S&P 500 during that same period.
-        percentchange5weekrelsnp:
-          type: number
-          example: 16.62
-          description: The percentage change in price over the last four weeks as compared to the change in price of the S&P 500 during that same period
-        percentchange13weekrelsnp:
-          type: number
-          example: 5.67
-          description: The percentage change in price over the last thirteen weeks as compared to the change in price of the S&P 500 during that same period
-        percentchange26weekrelsnp:
-          type: number
-          example: 2.66
-          description: The percentage change in price over the last twenty six weeks as compared to the change in price of the S&P 500 during that same period.
-        percentchange52weekrelsnp:
-          type: number
-          example: 11.12
-          description: The percentage change in price over the last fifty two weeks as compared to the change in price of the S&P 500 during that same period.
-    SpRating:
-      description: The long term S&P Rating of the issuer.
-      type: string
-      example: AAA
-      readOnly: true
-    instrumentStatus:
-      type: string
-      example: ACTIVE
-      description: The current status of the instrument.
-      enum:
-      - ACTIVE
-      - INACTIVE
-      - CLOSE_ONLY
-      - HALTED
-    DenominationAmounts:
-      description: A set of amounts that represent denomination amounts for the security
-      properties:
-        incrementAmount:
-          description: The increment amount for the security.
-          readOnly: true
-          type: number
-          format: double
-        incrementAmountSecondary:
-          description: The secondary increment amount for the security.
-          readOnly: true
-          type: number
-          format: double
-        minimumAmount:
-          description: ' The minimum denomination amount for the security.'
-          readOnly: true
-          type: number
-          format: double
-    ExpirationDateList:
-      type: object
-      properties:
-        symbol:
-          type: string
-          example: AAPL
-          description: The Symbol of the underlying equity security.
-        expiration:
-          type: array
-          example:
-          - '2022-05-10'
-          - '2022-05-11'
-          description: The date the Option Contract will expire.
-          items:
-            type: string
-    SpRatingDate:
-      description: The date on which the S&P Rating was last updated.
-      type: string
-      format: date
-      example: '2018-05-10'
-      readOnly: true
     PayFrequency:
       description: The anticipated frequency of scheduled interest payments under the Bonds.
       type: string
@@ -570,6 +350,521 @@ components:
       - NOT_APPLICABLE
       example: SEMI_ANNUALLY
       readOnly: true
+    Issuer:
+      description: The entity name (in the XML/Web Service) or organization_id (in the Database) of the insurer who has been contracted to provide payments to bondholders in the event of a default by the issuer. In the Database, the entity name can be looked up by using the organization_id in conjunction with the Organization_Master.primary_name field'
+      type: object
+      properties:
+        primaryName:
+          description: A field containing the root symbol assigned by an exchange to the derivative product.
+          type: string
+          example: Coca Cola Corp
+          readOnly: true
+        country:
+          $ref: '#/components/schemas/country'
+        domicileCountry:
+          $ref: '#/components/schemas/country'
+    lowPrice:
+      type: number
+      example: 85.83
+      description: The lowest price in the current trading day.
+    instrumentType:
+      type: string
+      example: EQUITY
+      description: The classification of the instrument.
+      enum:
+      - EQUITY
+      - ALTERNATIVE_ASSET
+      - MUTUAL_FUND
+      - DEBT
+      - OPTION
+      - CRYPTO
+    Indicators:
+      description: Indicators that provide additional information about the security
+      example:
+        callIndicator: false
+        convertibleIndicator: false
+        defaultIndicator: false
+        dtcIndicator: true
+        oidIndicator: false
+        putIndicator: false
+        sinkIndicator: false
+        tipsIndicator: false
+        floaterIndicator: false
+        traceEligible: true
+        capitalizedIndicator: false
+        childIndicator: false
+        defeasanceIndicator: false
+        equityLinkedNoteIndicator: false
+        pikIndicator: false
+        tenderExchangeOfferIndicator: false
+        warrantsIndicator: false
+        tradingRestrictionsType: None
+      properties:
+        callIndicator:
+          description: Indicates if the security is eligible to be redeemed by the issuer on a call basis
+          readOnly: true
+          type: boolean
+        convertibleIndicator:
+          description: Specifies whether an issue is convertible or exchangeable
+          readOnly: true
+          type: boolean
+        defaultIndicator:
+          description: Specifies whether the security is in default or not
+          readOnly: true
+          type: boolean
+        dtcIndicator:
+          description: Indicates whether the security is acceptable for clearing by the DTCC.
+          readOnly: true
+          type: boolean
+        oidIndicator:
+          description: Specifies whether or not this issue qualifies for Original Issue Discount status
+          readOnly: true
+          type: boolean
+        putIndicator:
+          description: Indicates whether the security carries provisions that allow for redemption at the request of owners of the security
+          readOnly: true
+          type: boolean
+        sinkIndicator:
+          description: Indicates whether the security carries a sinking fund as part of its terms and conditions
+          readOnly: true
+          type: boolean
+        tipsIndicator:
+          description: Indicates whether the security is a Treasury Inflation Protected Security
+          readOnly: true
+          type: boolean
+        traceEligible:
+          description: Indicates whether the security is considered TRACE eligible for price reporting
+          readOnly: true
+          type: boolean
+        capitalizedIndicator:
+          description: Specifies whether a bond issuer has set aside some of the proceeds from a bond sale to cover a certain number of interest payments
+          readOnly: true
+          type: boolean
+        childIndicator:
+          description: Indicates whether the security is created as the result of a corporate action or other event (the child instrument) from a previously issued instrument (the parent)
+          readOnly: true
+          type: boolean
+        defeasanceIndicator:
+          description: Indicates whether the security contains a provision that voids a bond or loan when the borrower sets aside cash or bonds sufficient enough to service the borrower's debt (a process called defeasance)
+          readOnly: true
+          type: boolean
+        equityLinkedNoteIndicator:
+          description: Indicates whether the security is an Equity Linked Note
+          readOnly: true
+          type: boolean
+        pikIndicator:
+          description: Indicates whether the security carries provisions to make Payment In Kind (PIK) to owners of the security
+          readOnly: true
+          type: boolean
+        tenderExchangeOfferIndicator:
+          description: Indicates whether the security has an associated exchange or tender offer
+          readOnly: true
+          type: boolean
+        warrantsIndicator:
+          description: Indicates whether there is a warrant associated with the particular security
+          readOnly: true
+          type: boolean
+        floaterIndicator:
+          description: Indicates whether the security has a floating or adjustable rate issue
+          readOnly: true
+          type: boolean
+        tradingRestrictionsType:
+          description: Indicates whether any trading restrictions are in effect for the security
+          enum:
+          - None
+          - 144A
+          - REG_S
+          - PRIVATE_PLACEMENT
+          - ACCREDITED_INVESTORS
+          - REG_D
+          - SEC_ACT_OF_1933
+          readOnly: true
+          type: string
+    OptionInstrumentBase:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/instrumentID'
+        symbol:
+          type: string
+          example: AAPL220517P00016000
+          description: The Option OSI symbol
+        type:
+          $ref: '#/components/schemas/instrumentType'
+        name:
+          type: string
+          example: Morgan Stanley
+          description: A friendly name of the Instrument, like the Company name for an equity
+        exchange:
+          type: string
+          example: NYQ
+          description: The stock exchange the instrument is listed on.
+        orderSizeMax:
+          type: number
+          example: 20000
+          description: The maximum share amount for any order of this Instrument.
+        orderSizeMin:
+          type: number
+          example: 0.1
+          description: The minimum share amount for any order of this Instrument.
+        orderSizeStep:
+          type: number
+          example: 0.01
+          description: Increment amount on order of this Instrument.
+    DenominationAmounts:
+      description: A set of amounts that represent denomination amounts for the security
+      properties:
+        incrementAmount:
+          description: The increment amount for the security.
+          readOnly: true
+          type: number
+          format: double
+        incrementAmountSecondary:
+          description: The secondary increment amount for the security.
+          readOnly: true
+          type: number
+          format: double
+        minimumAmount:
+          description: ' The minimum denomination amount for the security.'
+          readOnly: true
+          type: number
+          format: double
+    indexMembers:
+      type: string
+      description: The index members of the instrument.
+      example: S&P 500
+      enum:
+      - TR Equity United States Index
+      - S&P 600 Small Cap
+      - S&P 500
+      - S&P 400 Mid Cap
+      - NASDAQ 100 Index
+      - Dow Transportation
+      - Toronto SE 300 Composite Index
+      - Dow Industry
+      - TR Equity Israel Index
+      - Safrica-JSE-FTSE-AllShare-Index
+      - Shanghai SE Composite Index
+      - Dow Utility
+      - SX All Share PI Market Index
+      - OSL All-share Index
+      - CAC 40 Index
+      - DAX Index
+      - Swiss Market Index
+      - FTSE 100 Index
+      - FTSE All Share Index
+      - Denmark-OMX-Copenhagen-All-Share-Index
+      - ASE Main General Index
+    country:
+      type: string
+      example: US
+      description: The ISO standard country alpha-2 code.
+    SpRatingDate:
+      description: The date on which the S&P Rating was last updated.
+      type: string
+      format: date
+      example: '2018-05-10'
+      readOnly: true
+    ExpirationDateList:
+      type: object
+      properties:
+        symbol:
+          type: string
+          example: AAPL
+          description: The Symbol of the underlying equity security.
+        expiration:
+          type: array
+          example:
+          - '2022-05-10'
+          - '2022-05-11'
+          description: The date the Option Contract will expire.
+          items:
+            type: string
+    askPrice:
+      type: number
+      example: 85.14
+      description: The current price sellers are prepared to sell a security.
+    DebtReferenceData:
+      type: object
+      properties:
+        payFrequency:
+          $ref: '#/components/schemas/PayFrequency'
+        couponRate:
+          $ref: '#/components/schemas/CouponRate'
+        maturityDate:
+          $ref: '#/components/schemas/MaturityDate'
+        spRating:
+          $ref: '#/components/schemas/SpRating'
+        spRatingDate:
+          $ref: '#/components/schemas/SpRatingDate'
+        minimumInvestmentAmount:
+          description: The minimum initial investment in the security.
+          type: integer
+          format: int64
+          example: 1000
+          readOnly: true
+        incrementalInvestmentAmount:
+          description: The minimum additional investment in the security.
+          type: integer
+          format: int64
+          example: 1000
+          readOnly: true
+        issueDate:
+          description: The date on which the instrument was first made available to the market.
+          type: string
+          format: date
+          example: '2018-05-10'
+          readOnly: true
+        datedDate:
+          description: The date of a Bond Issue from which Interest begins to accrue.
+          type: string
+          format: date
+          example: '2018-05-10'
+          readOnly: true
+        issueAmount:
+          description: The total value of the security at issue.
+          type: number
+          format: double
+          example: 1000000
+          readOnly: true
+        issuePricePercent:
+          description: The nominal value associated with a financial instrument at the time of issuance.
+          type: number
+          format: double
+          example: 100
+          readOnly: true
+        accruedInterest:
+          description: The amount of interest that has accumulated since the last coupon payment.
+          type: number
+          format: double
+          example: 0.05
+          readOnly: true
+        debtType:
+          description: The code for the type fixed income instrument.
+          type: integer
+          readOnly: true
+        bondType:
+          $ref: '#/components/schemas/BondType'
+        debtTypeDescription:
+          type: string
+          description: The description for the type fixed income instrument.
+          enum:
+          - NONE
+          - BANK_LOAN
+          - ASSET-BACKED_SECURITY_(ABS)
+          - BOND
+          - CERTIFICATE_OF_DEPOSIT_(CD)
+          - DEMAND_NOTE
+          - EMPLOYEE_STOCK_OWNERSHIP_PLAN_(ESOP)
+          - FHLMC_REFERENCE_NOTES
+          - GUARANTEED_INVESTMENT_CERTIFICATE_(GIC)
+          - SCHULDSCHEIN
+          - INCOME
+          - MORTGAGE-BACKED_SECURITY_(MBS)
+          - BANKER'S_ACCEPTANCE
+          - COLLATERALISED_LOAN_OBLIGATION_(CLO)
+          - COLLATERALIZED_MORTGAGE_OBLIGATION_(CMO)
+          - NOTE
+          - COLLATERALISED_BOND_OBLIGATION_(CBO)
+          - COMMERCIAL_PAPER
+          - PFANDBRIEF
+          - PROMISSORY_NOTES
+          - STRUCTURED_ASSETS
+          - TRUST_CERTIFICATE
+          - PARTICIPATION_UNIT
+          - SAVINGS_BOND
+          - PASS_THRU_CERTIFICATES
+          - UNKNOWN
+          - STRIP
+          - ANNUITY
+          - BILL
+          - CERTIFICATE
+          - DEPOSIT_NOTE
+          - EQUIPMENT_TRUST_CERTIFICATE
+          - FNMA_BENCHMARK_ISSUES
+          - MORTGAGE/UK_DEBENTURE
+          - SCHATZANWEISUNGEN
+          - DISCOUNT_NOTE
+          - PERMANENT_INTEREST_BEARING_SECURITY
+          - OTHER_MONEY_MARKETS
+          - LOAN_NOTE
+          - MERCHANT_MARINE
+          - MORTGAGE_NOTE
+          - COLLATERALIZED_DEBT_OBLIGATION_(CDO)
+          - PRIVATE_PLACEMENT
+          - EXCHANGE_TRADED_NOTE
+          - PREMIUM_BOND
+          - SECURITY
+          - UNIT
+          - SAVINGS_NOTES
+          - PARTICIPATION_CERTIFICATES
+          - DISCOUNT_DEBENTURE
+          - DEBENTURE_-_UNSECURED
+          - EXCHANGE_TRADED_COMMODITY
+          - ASSET-BACKED_COMMERCIAL_PAPER
+          - SUKUK
+          - DEBENTURE_-_SECURED
+          - LETTER_OF_CREDIT
+          - GLOBAL_DEPOSITORY_NOTE
+          example: BOND
+          readOnly: true
+        sector:
+          type: string
+          example: FINANCE_AND_INSURANCE
+          description: The categorization of the sector pertaining to the Instrument.
+          enum:
+          - AGRICULTURE_FORESTRY_FISHING_AND_HUNTING
+          - MINING_QUARRYING_AND_OIL_AND_GAS_EXTRACTION
+          - UTILITIES
+          - CONSTRUCTION
+          - MANUFACTURING
+          - WHOLESALE_TRADE
+          - RETAIL_TRADE
+          - TRANSPORTATION_AND_WAREHOUSING
+          - INFORMATION
+          - FINANCE_AND_INSURANCE
+          - REAL_ESTATE_AND_RENTAL_AND_LEASING
+          - PROFESSIONAL_SCIENTIFIC_AND_TECHNICAL_SERVICES
+          - MANAGEMENT_OF_COMPANIES_AND_ENTERPRISES
+          - ADMINISTRATIVE_AND_SUPPORT_AND_WASTE_MANAGEMENT_AND_REMEDIATION_SERVICES
+          - EDUCATIONAL_SERVICES
+          - HEALTH_CARE_AND_SOCIAL_ASSISTANCE
+          - ARTS_ENTERTAINMENT_AND_RECREATION
+          - ACCOMMODATION_AND_FOOD_SERVICES
+          - OTHER_SERVICES_EXCEPT_PUBLIC_ADMINISTRATION
+          - PUBLIC_ADMINISTRATION
+        duration:
+          description: The duration of the bond.
+          type:
+          - number
+          - 'null'
+          format: double
+          example: '10.5'
+          readOnly: true
+        nextCallDate:
+          description: The next call date of the bond.
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2018-05-10'
+          readOnly: true
+        debtRankType:
+          description: The debt rank type of the bond.
+          type: string
+          example: SENIOR
+          readOnly: true
+          enum:
+          - UNKNOWN
+          - SECOND_MORTGAGE
+          - 'FIRST_MORTGAGE '
+          - JUNIOR
+          - MEZZANINE
+          - SENIOR_SUBORDINATED
+          - SUBORDINATED
+          - THIRD_MORTGAGE
+          - UNSUBORDINATED
+          - JUNIOR_SUBORDINATED
+          - SENIOR
+          - NOT_APPLICABLE
+          - TIER_I
+          - LOWER_TIER_II
+          - UPPER_TIER_II
+          - TIER_III
+          - SENIOR_SECURED
+          - ALTERNATIVE_ADDITIONAL_TIER_I
+          - SENIOR_NON_PREFERRED
+        spRatingType:
+          type: string
+          example: INVESTMENT_GRADE
+          description: The spRating type of the bond.
+          enum:
+          - INVESTMENT_GRADE
+          - HIGH_YIELD
+        coupon:
+          $ref: '#/components/schemas/Coupon'
+        issuer:
+          $ref: '#/components/schemas/Issuer'
+        indicators:
+          $ref: '#/components/schemas/Indicators'
+        denominationAmounts:
+          $ref: '#/components/schemas/DenominationAmounts'
+    FilterCriterion:
+      type: object
+      required:
+      - field
+      - operator
+      - value1
+      properties:
+        field:
+          description: The name of the field to be filtered on.
+          type: string
+          example: spRating
+          enum:
+          - id
+          - ISIN
+          - CUSIP
+          - CINS
+          - payFrequency
+          - payFrequencyDescription
+          - couponRate
+          - maturityDate
+          - spRating
+          - assetClassCode
+          - assetClassDescription
+          - accrualDate
+          - bidPrice
+          - askPrice
+          - meanPrice
+          - askYieldToMaturity
+          - bidYieldToMaturity
+          - status
+          - statusDescription
+          - issuer.primaryName
+          - issuer.country
+          - issuer.domicileCountry
+          - features.minimumInvestmentAmount
+          - features.incrementalInvestmentAmount
+          - coupon.dayCountDescription
+          - coupon.couponTypeDescription
+          - details.nextCouponDate
+          - statusCode
+          - longOnly
+          - coupon.dayCount
+          - coupon.couponType
+          - coupon.nextCouponDate
+          - sector
+          - price
+          - minimumAmount
+          - orderBook.liquidityRetail
+          - orderBook.liquidityInstitutional
+          - orderBook.liquidityMicro
+          - orderBook.onlyLiveQuotes
+          - orderBook.price
+          - orderBook.yieldToWorst
+          - details.debtTypeDescription
+          - denominationAmounts.incrementAmount
+          - indicators.tradingRestrictionsType
+        operator:
+          description: 'Filters, operator`= equal to``!= not equal to``< less than``<= less than or equal to``> greater than``>= greater than or equal to``>< in between``() contains` '
+          type: string
+          enum:
+          - '='
+          - '!='
+          - <
+          - <=
+          - '>='
+          - '>'
+          - '><'
+          - ()
+        value1:
+          description: The value of the field that should be filtered
+          type: string
+          example: AA
+        value2:
+          description: The value of the field that should be filtered. Should be provided when filtering ranges (between "><")
+          type: string
+          example: A
     BondType:
       description: The type of bond.
       type: string
@@ -604,37 +899,6 @@ components:
       - MBS_GENERIC
       example: CORPORATE_BOND
       readOnly: true
-    EquityInstrumentDetails:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/InstrumentBase'
-      - $ref: '#/components/schemas/InstrumentsProperties'
-    indexMembers:
-      type: string
-      description: The index members of the instrument.
-      example: S&P 500
-      enum:
-      - TR Equity United States Index
-      - S&P 600 Small Cap
-      - S&P 500
-      - S&P 400 Mid Cap
-      - NASDAQ 100 Index
-      - Dow Transportation
-      - Toronto SE 300 Composite Index
-      - Dow Industry
-      - TR Equity Israel Index
-      - Safrica-JSE-FTSE-AllShare-Index
-      - Shanghai SE Composite Index
-      - Dow Utility
-      - SX All Share PI Market Index
-      - OSL All-share Index
-      - CAC 40 Index
-      - DAX Index
-      - Swiss Market Index
-      - FTSE 100 Index
-      - FTSE All Share Index
-      - Denmark-OMX-Copenhagen-All-Share-Index
-      - ASE Main General Index
     OptionsList:
       type: object
       properties:
@@ -646,30 +910,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OptionInstrumentDetails'
-    Issuer:
-      description: The entity name (in the XML/Web Service) or organization_id (in the Database) of the insurer who has been contracted to provide payments to bondholders in the event of a default by the issuer. In the Database, the entity name can be looked up by using the organization_id in conjunction with the Organization_Master.primary_name field'
-      type: object
-      properties:
-        primaryName:
-          description: A field containing the root symbol assigned by an exchange to the derivative product.
-          type: string
-          example: Coca Cola Corp
-          readOnly: true
-        country:
-          $ref: '#/components/schemas/country'
-        domicileCountry:
-          $ref: '#/components/schemas/country'
-    instrumentType:
+    instrumentStatus:
       type: string
-      example: EQUITY
-      description: The classification of the instrument.
+      example: ACTIVE
+      description: The current status of the instrument.
       enum:
-      - EQUITY
-      - ALTERNATIVE_ASSET
-      - MUTUAL_FUND
-      - DEBT
-      - OPTION
-      - CRYPTO
+      - ACTIVE
+      - INACTIVE
+      - CLOSE_ONLY
+      - HALTED
     InstrumentsProperties:
       type: object
       properties:
@@ -1413,87 +1662,6 @@ components:
           type: boolean
           example: false
           description: True, if the Instrument is a publicly traded partnership (PTP).
-    highPrice:
-      type: number
-      example: 86.85
-      description: The highest price in the current trading day.
-    InstrumentBase:
-      type: object
-      properties:
-        symbol:
-          $ref: '#/components/schemas/instrumentSymbol'
-        name:
-          type: string
-          example: Morgan Stanley
-          description: A friendly name of the Instrument, like the Company name for an equity
-        orderSizeMax:
-          type: number
-          example: 20000
-          description: The maximum share amount for any order of this Instrument.
-        orderSizeMin:
-          type: number
-          example: 0.1
-          description: The minimum share amount for any order of this Instrument.
-        orderSizeStep:
-          type: number
-          example: 0.01
-          description: Increment amount on order of this Instrument.
-        id:
-          $ref: '#/components/schemas/instrumentID'
-        instrumentType:
-          $ref: '#/components/schemas/instrumentType'
-        exchange:
-          type: string
-          example: NYQ
-          description: The stock exchange the instrument is listed on.
-        status:
-          $ref: '#/components/schemas/instrumentStatus'
-        ISIN:
-          $ref: '#/components/schemas/instrumentISIN'
-        CUSIP:
-          $ref: '#/components/schemas/instrumentCUSIP'
-        settlementDays:
-          type: integer
-          description: Number of days for the instrument to settle
-          example: 1
-    openPrice:
-      type: number
-      example: 86.53
-      description: Most recent opening price of the instrument.
-    DebtInstrumentDetails:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/InstrumentBase'
-      properties:
-        debtData:
-          $ref: '#/components/schemas/DebtReferenceData'
-    country:
-      type: string
-      example: US
-      description: The ISO standard country alpha-2 code.
-    instrumentSymbol:
-      type: string
-      nullable: true
-      example: MS
-      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
-    instrumentCUSIP:
-      description: 'CUSIP stands for `Committee on Uniform Securities Identification Procedures`.
-
-        A CUSIP number identifies most financial instruments, including: stocks of all registered U.S. and Canadian companies, commercial paper, and U.S. government and municipal bonds.
-
-        The CUSIP system facilitates the clearance and settlement process of securities.
-
-        CUSIP numbers consist of nine characters (including letters and numbers) that uniquely identify a company or issuer and the type of financial instrument.
-
-        A similar system is used to identify foreign securities (`CUSIP International Numbering System or CINS`).
-
-        CINS employs the same nine character identifier as CUSIP, but also contains a letter in the first position to signify the issuer''s country or geographic region.
-
-        '
-      type: string
-      minLength: 9
-      maxLength: 9
-      example: E09876AA7
     OptionInstrumentDetails:
       type: object
       allOf:
@@ -1536,6 +1704,350 @@ components:
               example: 100
               default: 100
               description: The premium/strike Multiplier, available for stock and index options, provides the premium/strike multiplier for an option contract.
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    EquityInstrumentDetails:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/InstrumentBase'
+      - $ref: '#/components/schemas/InstrumentsProperties'
+    fundamentalDataModel:
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          $ref: '#/components/schemas/instrumentID'
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        openPrice:
+          $ref: '#/components/schemas/openPrice'
+        bidPrice:
+          $ref: '#/components/schemas/bidPrice'
+        askPrice:
+          $ref: '#/components/schemas/askPrice'
+        lowPrice:
+          $ref: '#/components/schemas/lowPrice'
+        highPrice:
+          $ref: '#/components/schemas/highPrice'
+        fiftyTwoWeekLowPrice:
+          type: number
+          example: 72.05
+          description: The lowest price of the instrument in the past 52 weeks.
+        fiftyTwoWeekHighPrice:
+          type: number
+          example: 109.73
+          description: The highest price of the instrument in the past 52 weeks.
+        cumulativeVolume:
+          type: number
+          example: 3970567
+          description: Cumulative Volume is a running total of daily trade volume. This measures the cumulative inflow and outflow of trading volume for the instrument. Measured in quantity of shares.
+        marketCap:
+          type: number
+          example: 148374700000
+          description: The total market cap of the instrument measured in USD.
+        peRatio:
+          type: number
+          example: 12.7434
+          description: The Price-earnings ratio for the instrument.
+        dividendYield:
+          type: number
+          example: 3.5312
+          description: The percentage of a company's share price that is payed out in dividends each year.
+        earningsPerShare:
+          type: number
+          example: 6.889
+          description: The earnings per share of the instrument measured in USD. EPS is company's profit divided by the outstanding shares of its common stock.
+        dividend:
+          type: number
+          example: 3.1
+          description: The annual dividend amount paid out per share measured in USD.
+        sharesOutstanding:
+          type: number
+          example: 1307993346
+          description: The total shares outstanding for the instrument. Shares outstanding are all the shares of an instrument that have been authorized, issued and purchased by investors.
+        timeLastUpdate:
+          type: string
+          example: '18:28:00'
+          description: The last time the instruments data was updated.
+        bookValuePerShare:
+          type: string
+          example: '59.49634'
+          description: The book value per share of the instrument measured in USD. The BVPS is the ratio of equity available to common shareholders divided by the number of outstanding shares.
+        cashFlowPerShare:
+          type: string
+          example: '10.40132'
+          description: The cash flow per share measured in USD. Cash flow per share is the after-tax earnings plus depreciation on a per-share basis that functions as a measure of a firm's financial strength.
+        operatingIncome:
+          type: string
+          example: '19668000000'
+          description: The operating income of an instrument measured in USD. Operating income is an accounting figure that measures the amount of profit realized from a business's operations after deducting operating expenses such as wages, depreciation, and cost of goods sold.
+        pbRatio:
+          type: string
+          example: '1.61196'
+          description: The Price-to-Book ratio of the instrument measured USD per share. The Price-to-Bok ratio measures the market valuation of an Instrument relative to its book  value.
+        volumeMovingAverage10Day:
+          type: number
+          example: 7791905
+          description: The volume moving average of the last 10 days for the instrument measured in quantity of shares.
+        volumeMovingAverage25Day:
+          type: number
+          example: 6768708
+          description: The volume moving average of the last 25 days for the instrument measured in quantity of shares.
+        volumeMovingAverage50Day:
+          type: number
+          example: 7307176
+          description: The volume moving average of the last 50 days for the instrument measured in quantity of shares.
+        priceMovingAverage50Day:
+          type: number
+          example: 85.3034
+          description: The price moving average of the last 50 days for the instrument measured in (USD) per share.
+        priceMovingAverage150Day:
+          type: number
+          example: 83.6295
+          description: The price moving average of the last 150 days for the instrument measured in (USD) per share.
+        priceMovingAverage200Day:
+          type: number
+          example: 84.3036
+          description: The price moving average of the last 200 days for the instrument measured in (USD) per share.
+        roe:
+          type: string
+          example: '0.15315'
+          description: Return on equity of the instrument measured as a fraction, multiply by 100 to get percentage value. ROE is a measure of financial performance calculated by dividing net income by shareholders' equity.
+        percentchangeWTD:
+          type: number
+          example: 2.31
+          description: The percentage change between the most recent market closing price and the closing price at the week start.
+        percentchangeMTD:
+          type: number
+          example: 2.3
+          description: The price percentage change for the instrument Month to Date.
+        percentchangeYTD:
+          type: number
+          example: 10.11
+          description: The price percentage change for the instrument Year to Date.
+        percentchange4week:
+          type: number
+          example: 21.22
+          description: The price percentage change for the instrument in last 4 Weeks.
+        percentchange13week:
+          type: number
+          example: 6.67
+          description: The price percentage change for the instrument in last 13 Weeks.
+        percentchange26week:
+          type: number
+          example: 8.26
+          description: The price percentage change for the instrument in last 26 Weeks.
+        percentchange52week:
+          type: number
+          example: 12.1
+          description: The price percentage change for the instrument in last 52 Weeks.
+        percentchange5day:
+          type: number
+          example: 10.11
+          description: The 5 Day Price Percent Change is the percentage change in the company's stock price over the last 5 tradable (business) days.
+        percentchangeYTDrelsnp:
+          type: number
+          example: 9.11
+          description: The percentage change in price since the close of the last trading day of the previous year as compared to the change in price of the S&P 500 during that same period.
+        percentchange5weekrelsnp:
+          type: number
+          example: 16.62
+          description: The percentage change in price over the last four weeks as compared to the change in price of the S&P 500 during that same period
+        percentchange13weekrelsnp:
+          type: number
+          example: 5.67
+          description: The percentage change in price over the last thirteen weeks as compared to the change in price of the S&P 500 during that same period
+        percentchange26weekrelsnp:
+          type: number
+          example: 2.66
+          description: The percentage change in price over the last twenty six weeks as compared to the change in price of the S&P 500 during that same period.
+        percentchange52weekrelsnp:
+          type: number
+          example: 11.12
+          description: The percentage change in price over the last fifty two weeks as compared to the change in price of the S&P 500 during that same period.
+    instrumentCUSIP:
+      description: 'CUSIP stands for `Committee on Uniform Securities Identification Procedures`.
+
+        A CUSIP number identifies most financial instruments, including: stocks of all registered U.S. and Canadian companies, commercial paper, and U.S. government and municipal bonds.
+
+        The CUSIP system facilitates the clearance and settlement process of securities.
+
+        CUSIP numbers consist of nine characters (including letters and numbers) that uniquely identify a company or issuer and the type of financial instrument.
+
+        A similar system is used to identify foreign securities (`CUSIP International Numbering System or CINS`).
+
+        CINS employs the same nine character identifier as CUSIP, but also contains a letter in the first position to signify the issuer''s country or geographic region.
+
+        '
+      type: string
+      minLength: 9
+      maxLength: 9
+      example: E09876AA7
+    CouponRate:
+      description: The annual rate of interest currently applicable to the instrument.
+      type: number
+      format: double
+      example: 0.05
+      readOnly: true
+    instrumentISIN:
+      description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
+      type: string
+      minLength: 12
+      maxLength: 14
+      example: US023135BX34
+    Coupon:
+      description: A coupon or coupon payment is the annual interest rate paid on a bond, expressed as a percentage of the face value and paid from issue date until maturity.
+      type: object
+      properties:
+        couponType:
+          description: The method by which the coupon rate of the instrument is determined.
+          type: string
+          enum:
+          - UNKNOWN
+          - SHORT_TERM_DISCOUNT
+          - FIXED_RATE_-_UNCONFIRMED
+          - ADJUSTABLE_RATE
+          - ZERO_COUPON
+          - FLOATING_RATE
+          - INDEX_LINKED
+          - STEPPED_COUPON
+          - FIXED_RATE
+          - STRIPPED_CONVERTIBLE
+          - DEFERRED_INTEREST
+          - FLOATING_RATE_@_FLOOR
+          - STRIPPED_TAX_CREDIT
+          - INVERSE_FLOATING
+          - STRIPPED_COUPON_PRINCIPAL
+          - LINKED_INVERSE_FLOATER
+          - FLEXIBLE_RATE
+          - ORIGINAL_ISSUE_DISCOUNT
+          - STRIPPED_PRINCIPAL
+          - RESERVE_CUSIP
+          - VARIABLE_RATE
+          - STRIPPED_COUPON
+          - FLOATING_AUCTION_RATE
+          - TAX_CREDIT
+          - TAX_CREDIT_OID
+          - STRIPPED_COUPON_PAYMENT
+          - STEPPED_UP_STEPPED_DOWN
+          - CREDIT_SENSITIVE
+          - PAY_IN_KIND
+          - RANGE
+          - DIGITAL
+          - RESET
+          example: FIXED_RATE
+          readOnly: true
+        currentRateDate:
+          description: The annual rate of interest currently applicable to the instrument.
+          type: string
+          format: date
+          minLength: 0
+          maxLength: 10
+          example: '2018-05-10'
+          readOnly: true
+        dayCount:
+          description: The method of calculating interest accrual associated with the instrument.
+          type: string
+          enum:
+          - UNKNOWN_INTEREST_CALCULATION_METHOD
+          - ACTUAL/ACTUAL
+          - ACTUAL/360
+          - 30/360
+          - 30_DAYS_PER_MONTH_/_ACTUAL
+          - ACTUAL/365_(FIXED)
+          - CHANGEABLE
+          - ACTUAL/365_(366_LEAP_YEAR_-_ISDA)
+          - 30/360_(COMPOUNDED_INTEREST)
+          - 30/365
+          - FUTURE_DATA_-_NOT_AVAILABLE
+          - HISTORICAL_DATA_-_NOT_AVAILABLE
+          - 30/360_(ICMA)
+          - ACTUAL/365_(366_LEAP_YEAR)
+          - ACTUAL/364
+          - BUS/252
+          - 365/365
+          - ACTUAL/ACTUAL_(ICMA)
+          - 28/360
+          - 30/360_US
+          - 30/360_US_(NASD)
+          - 30/360_BMA
+          - 30/360_(ISDA)
+          - 30/360_IT
+          - 30/360_SIA
+          - 30E/360
+          - 30E/360_(ISDA)
+          - 30E+/360
+          - NL/365_(NO_LEAP_YEAR)
+          - 7/360
+          - 30/360_WITH_GROSS_UP
+          - NOT_APPLICABLE
+          example: 30/360
+          readOnly: true
+        benchmark:
+          description: The identifier the index against which the interest rate for an Index Linked Bond is reset.
+          type: string
+          example: US CPI
+          readOnly: true
+        benchmarkFormula:
+          description: The multiple in the floating rate formula that is applied to the benchmark in order to calculate the reset rate on a floating rate instrument.
+          type: string
+          example: '1.5'
+          readOnly: true
+        nextResetDate:
+          description: The date of the next interest rate reset of the instrument
+          type: string
+          format: date
+          example: '2018-05-10'
+          readOnly: true
+        minimumRate:
+          description: The minimum interest rate that an instrument will pay.
+          type: number
+          format: double
+          example: 0.05
+          readOnly: true
+        maximumRate:
+          description: The maximum interest rate that an instrument will pay.
+          type: number
+          format: double
+          example: 0.05
+          readOnly: true
+        firstCouponDate:
+          description: The date on which the first payment of interest is made.
+          type: string
+          format: date
+          example: '2018-05-10'
+          readOnly: true
+        nextCouponDate:
+          description: The next date on which a payment of interest will be made.
+          type: string
+          format: date
+          example: '2018-05-10'
+          readOnly: true
+        finalCouponDate:
+          description: The date on which the final interest payment is scheduled to be made to owners of the security.
+          type: string
+          format: date
+          example: '2018-05-10'
+          readOnly: true
+    SpRating:
+      description: The long term S&P Rating of the issuer.
+      type: string
+      example: AAA
+      readOnly: true
+    highPrice:
+      type: number
+      example: 86.85
+      description: The highest price in the current trading day.
+    instrumentSymbol:
+      type:
+      - string
+      - 'null'
+      example: MS
+      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
     MutualFundInstrumentDetails:
       type: object
       allOf:
@@ -1782,567 +2294,10 @@ components:
               type: boolean
               description: True, if the investment funds regulated at European Union level.
               example: true
-    instrumentISIN:
-      description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
-      type: string
-      minLength: 12
-      maxLength: 14
-      example: US023135BX34
-    Coupon:
-      description: A coupon or coupon payment is the annual interest rate paid on a bond, expressed as a percentage of the face value and paid from issue date until maturity.
-      type: object
-      properties:
-        couponType:
-          description: The method by which the coupon rate of the instrument is determined.
-          type: string
-          enum:
-          - UNKNOWN
-          - SHORT_TERM_DISCOUNT
-          - FIXED_RATE_-_UNCONFIRMED
-          - ADJUSTABLE_RATE
-          - ZERO_COUPON
-          - FLOATING_RATE
-          - INDEX_LINKED
-          - STEPPED_COUPON
-          - FIXED_RATE
-          - STRIPPED_CONVERTIBLE
-          - DEFERRED_INTEREST
-          - FLOATING_RATE_@_FLOOR
-          - STRIPPED_TAX_CREDIT
-          - INVERSE_FLOATING
-          - STRIPPED_COUPON_PRINCIPAL
-          - LINKED_INVERSE_FLOATER
-          - FLEXIBLE_RATE
-          - ORIGINAL_ISSUE_DISCOUNT
-          - STRIPPED_PRINCIPAL
-          - RESERVE_CUSIP
-          - VARIABLE_RATE
-          - STRIPPED_COUPON
-          - FLOATING_AUCTION_RATE
-          - TAX_CREDIT
-          - TAX_CREDIT_OID
-          - STRIPPED_COUPON_PAYMENT
-          - STEPPED_UP_STEPPED_DOWN
-          - CREDIT_SENSITIVE
-          - PAY_IN_KIND
-          - RANGE
-          - DIGITAL
-          - RESET
-          example: FIXED_RATE
-          readOnly: true
-        currentRateDate:
-          description: The annual rate of interest currently applicable to the instrument.
-          type: string
-          format: date
-          minLength: 0
-          maxLength: 10
-          example: '2018-05-10'
-          readOnly: true
-        dayCount:
-          description: The method of calculating interest accrual associated with the instrument.
-          type: string
-          enum:
-          - UNKNOWN_INTEREST_CALCULATION_METHOD
-          - ACTUAL/ACTUAL
-          - ACTUAL/360
-          - 30/360
-          - 30_DAYS_PER_MONTH_/_ACTUAL
-          - ACTUAL/365_(FIXED)
-          - CHANGEABLE
-          - ACTUAL/365_(366_LEAP_YEAR_-_ISDA)
-          - 30/360_(COMPOUNDED_INTEREST)
-          - 30/365
-          - FUTURE_DATA_-_NOT_AVAILABLE
-          - HISTORICAL_DATA_-_NOT_AVAILABLE
-          - 30/360_(ICMA)
-          - ACTUAL/365_(366_LEAP_YEAR)
-          - ACTUAL/364
-          - BUS/252
-          - 365/365
-          - ACTUAL/ACTUAL_(ICMA)
-          - 28/360
-          - 30/360_US
-          - 30/360_US_(NASD)
-          - 30/360_BMA
-          - 30/360_(ISDA)
-          - 30/360_IT
-          - 30/360_SIA
-          - 30E/360
-          - 30E/360_(ISDA)
-          - 30E+/360
-          - NL/365_(NO_LEAP_YEAR)
-          - 7/360
-          - 30/360_WITH_GROSS_UP
-          - NOT_APPLICABLE
-          example: 30/360
-          readOnly: true
-        benchmark:
-          description: The identifier the index against which the interest rate for an Index Linked Bond is reset.
-          type: string
-          example: US CPI
-          readOnly: true
-        benchmarkFormula:
-          description: The multiple in the floating rate formula that is applied to the benchmark in order to calculate the reset rate on a floating rate instrument.
-          type: string
-          example: '1.5'
-          readOnly: true
-        nextResetDate:
-          description: The date of the next interest rate reset of the instrument
-          type: string
-          format: date
-          example: '2018-05-10'
-          readOnly: true
-        minimumRate:
-          description: The minimum interest rate that an instrument will pay.
-          type: number
-          format: double
-          example: 0.05
-          readOnly: true
-        maximumRate:
-          description: The maximum interest rate that an instrument will pay.
-          type: number
-          format: double
-          example: 0.05
-          readOnly: true
-        firstCouponDate:
-          description: The date on which the first payment of interest is made.
-          type: string
-          format: date
-          example: '2018-05-10'
-          readOnly: true
-        nextCouponDate:
-          description: The next date on which a payment of interest will be made.
-          type: string
-          format: date
-          example: '2018-05-10'
-          readOnly: true
-        finalCouponDate:
-          description: The date on which the final interest payment is scheduled to be made to owners of the security.
-          type: string
-          format: date
-          example: '2018-05-10'
-          readOnly: true
-    FilterCriterion:
-      type: object
-      required:
-      - field
-      - operator
-      - value1
-      properties:
-        field:
-          description: The name of the field to be filtered on.
-          type: string
-          example: spRating
-          enum:
-          - id
-          - ISIN
-          - CUSIP
-          - CINS
-          - payFrequency
-          - payFrequencyDescription
-          - couponRate
-          - maturityDate
-          - spRating
-          - assetClassCode
-          - assetClassDescription
-          - accrualDate
-          - bidPrice
-          - askPrice
-          - meanPrice
-          - askYieldToMaturity
-          - bidYieldToMaturity
-          - status
-          - statusDescription
-          - issuer.primaryName
-          - issuer.country
-          - issuer.domicileCountry
-          - features.minimumInvestmentAmount
-          - features.incrementalInvestmentAmount
-          - coupon.dayCountDescription
-          - coupon.couponTypeDescription
-          - details.nextCouponDate
-          - statusCode
-          - longOnly
-          - coupon.dayCount
-          - coupon.couponType
-          - coupon.nextCouponDate
-          - sector
-          - price
-          - minimumAmount
-          - orderBook.liquidityRetail
-          - orderBook.liquidityInstitutional
-          - orderBook.liquidityMicro
-          - orderBook.onlyLiveQuotes
-          - orderBook.price
-          - orderBook.yieldToWorst
-          - details.debtTypeDescription
-          - denominationAmounts.incrementAmount
-          - indicators.tradingRestrictionsType
-        operator:
-          description: 'Filters, operator`= equal to``!= not equal to``< less than``<= less than or equal to``> greater than``>= greater than or equal to``>< in between``() contains` '
-          type: string
-          enum:
-          - '='
-          - '!='
-          - <
-          - <=
-          - '>='
-          - '>'
-          - '><'
-          - ()
-        value1:
-          description: The value of the field that should be filtered
-          type: string
-          example: AA
-        value2:
-          description: The value of the field that should be filtered. Should be provided when filtering ranges (between "><")
-          type: string
-          example: A
-    Indicators:
-      description: Indicators that provide additional information about the security
-      example:
-        callIndicator: false
-        convertibleIndicator: false
-        defaultIndicator: false
-        dtcIndicator: true
-        oidIndicator: false
-        putIndicator: false
-        sinkIndicator: false
-        tipsIndicator: false
-        floaterIndicator: false
-        traceEligible: true
-        capitalizedIndicator: false
-        childIndicator: false
-        defeasanceIndicator: false
-        equityLinkedNoteIndicator: false
-        pikIndicator: false
-        tenderExchangeOfferIndicator: false
-        warrantsIndicator: false
-        tradingRestrictionsType: None
-      properties:
-        callIndicator:
-          description: Indicates if the security is eligible to be redeemed by the issuer on a call basis
-          readOnly: true
-          type: boolean
-        convertibleIndicator:
-          description: Specifies whether an issue is convertible or exchangeable
-          readOnly: true
-          type: boolean
-        defaultIndicator:
-          description: Specifies whether the security is in default or not
-          readOnly: true
-          type: boolean
-        dtcIndicator:
-          description: Indicates whether the security is acceptable for clearing by the DTCC.
-          readOnly: true
-          type: boolean
-        oidIndicator:
-          description: Specifies whether or not this issue qualifies for Original Issue Discount status
-          readOnly: true
-          type: boolean
-        putIndicator:
-          description: Indicates whether the security carries provisions that allow for redemption at the request of owners of the security
-          readOnly: true
-          type: boolean
-        sinkIndicator:
-          description: Indicates whether the security carries a sinking fund as part of its terms and conditions
-          readOnly: true
-          type: boolean
-        tipsIndicator:
-          description: Indicates whether the security is a Treasury Inflation Protected Security
-          readOnly: true
-          type: boolean
-        traceEligible:
-          description: Indicates whether the security is considered TRACE eligible for price reporting
-          readOnly: true
-          type: boolean
-        capitalizedIndicator:
-          description: Specifies whether a bond issuer has set aside some of the proceeds from a bond sale to cover a certain number of interest payments
-          readOnly: true
-          type: boolean
-        childIndicator:
-          description: Indicates whether the security is created as the result of a corporate action or other event (the child instrument) from a previously issued instrument (the parent)
-          readOnly: true
-          type: boolean
-        defeasanceIndicator:
-          description: Indicates whether the security contains a provision that voids a bond or loan when the borrower sets aside cash or bonds sufficient enough to service the borrower's debt (a process called defeasance)
-          readOnly: true
-          type: boolean
-        equityLinkedNoteIndicator:
-          description: Indicates whether the security is an Equity Linked Note
-          readOnly: true
-          type: boolean
-        pikIndicator:
-          description: Indicates whether the security carries provisions to make Payment In Kind (PIK) to owners of the security
-          readOnly: true
-          type: boolean
-        tenderExchangeOfferIndicator:
-          description: Indicates whether the security has an associated exchange or tender offer
-          readOnly: true
-          type: boolean
-        warrantsIndicator:
-          description: Indicates whether there is a warrant associated with the particular security
-          readOnly: true
-          type: boolean
-        floaterIndicator:
-          description: Indicates whether the security has a floating or adjustable rate issue
-          readOnly: true
-          type: boolean
-        tradingRestrictionsType:
-          description: Indicates whether any trading restrictions are in effect for the security
-          enum:
-          - None
-          - 144A
-          - REG_S
-          - PRIVATE_PLACEMENT
-          - ACCREDITED_INVESTORS
-          - REG_D
-          - SEC_ACT_OF_1933
-          readOnly: true
-          type: string
-    lowPrice:
+    openPrice:
       type: number
-      example: 85.83
-      description: The lowest price in the current trading day.
-    instrumentID:
-      type: string
-      format: uuid
-      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
-      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
-    DebtReferenceData:
-      type: object
-      properties:
-        payFrequency:
-          $ref: '#/components/schemas/PayFrequency'
-        couponRate:
-          $ref: '#/components/schemas/CouponRate'
-        maturityDate:
-          $ref: '#/components/schemas/MaturityDate'
-        spRating:
-          $ref: '#/components/schemas/SpRating'
-        spRatingDate:
-          $ref: '#/components/schemas/SpRatingDate'
-        minimumInvestmentAmount:
-          description: The minimum initial investment in the security.
-          type: integer
-          format: int64
-          example: 1000
-          readOnly: true
-        incrementalInvestmentAmount:
-          description: The minimum additional investment in the security.
-          type: integer
-          format: int64
-          example: 1000
-          readOnly: true
-        issueDate:
-          description: The date on which the instrument was first made available to the market.
-          type: string
-          format: date
-          example: '2018-05-10'
-          readOnly: true
-        datedDate:
-          description: The date of a Bond Issue from which Interest begins to accrue.
-          type: string
-          format: date
-          example: '2018-05-10'
-          readOnly: true
-        issueAmount:
-          description: The total value of the security at issue.
-          type: number
-          format: double
-          example: 1000000
-          readOnly: true
-        issuePricePercent:
-          description: The nominal value associated with a financial instrument at the time of issuance.
-          type: number
-          format: double
-          example: 100
-          readOnly: true
-        accruedInterest:
-          description: The amount of interest that has accumulated since the last coupon payment.
-          type: number
-          format: double
-          example: 0.05
-          readOnly: true
-        debtType:
-          description: The code for the type fixed income instrument.
-          type: integer
-          readOnly: true
-        bondType:
-          $ref: '#/components/schemas/BondType'
-        debtTypeDescription:
-          type: string
-          description: The description for the type fixed income instrument.
-          enum:
-          - NONE
-          - BANK_LOAN
-          - ASSET-BACKED_SECURITY_(ABS)
-          - BOND
-          - CERTIFICATE_OF_DEPOSIT_(CD)
-          - DEMAND_NOTE
-          - EMPLOYEE_STOCK_OWNERSHIP_PLAN_(ESOP)
-          - FHLMC_REFERENCE_NOTES
-          - GUARANTEED_INVESTMENT_CERTIFICATE_(GIC)
-          - SCHULDSCHEIN
-          - INCOME
-          - MORTGAGE-BACKED_SECURITY_(MBS)
-          - BANKER'S_ACCEPTANCE
-          - COLLATERALISED_LOAN_OBLIGATION_(CLO)
-          - COLLATERALIZED_MORTGAGE_OBLIGATION_(CMO)
-          - NOTE
-          - COLLATERALISED_BOND_OBLIGATION_(CBO)
-          - COMMERCIAL_PAPER
-          - PFANDBRIEF
-          - PROMISSORY_NOTES
-          - STRUCTURED_ASSETS
-          - TRUST_CERTIFICATE
-          - PARTICIPATION_UNIT
-          - SAVINGS_BOND
-          - PASS_THRU_CERTIFICATES
-          - UNKNOWN
-          - STRIP
-          - ANNUITY
-          - BILL
-          - CERTIFICATE
-          - DEPOSIT_NOTE
-          - EQUIPMENT_TRUST_CERTIFICATE
-          - FNMA_BENCHMARK_ISSUES
-          - MORTGAGE/UK_DEBENTURE
-          - SCHATZANWEISUNGEN
-          - DISCOUNT_NOTE
-          - PERMANENT_INTEREST_BEARING_SECURITY
-          - OTHER_MONEY_MARKETS
-          - LOAN_NOTE
-          - MERCHANT_MARINE
-          - MORTGAGE_NOTE
-          - COLLATERALIZED_DEBT_OBLIGATION_(CDO)
-          - PRIVATE_PLACEMENT
-          - EXCHANGE_TRADED_NOTE
-          - PREMIUM_BOND
-          - SECURITY
-          - UNIT
-          - SAVINGS_NOTES
-          - PARTICIPATION_CERTIFICATES
-          - DISCOUNT_DEBENTURE
-          - DEBENTURE_-_UNSECURED
-          - EXCHANGE_TRADED_COMMODITY
-          - ASSET-BACKED_COMMERCIAL_PAPER
-          - SUKUK
-          - DEBENTURE_-_SECURED
-          - LETTER_OF_CREDIT
-          - GLOBAL_DEPOSITORY_NOTE
-          example: BOND
-          readOnly: true
-        sector:
-          type: string
-          example: FINANCE_AND_INSURANCE
-          description: The categorization of the sector pertaining to the Instrument.
-          enum:
-          - AGRICULTURE_FORESTRY_FISHING_AND_HUNTING
-          - MINING_QUARRYING_AND_OIL_AND_GAS_EXTRACTION
-          - UTILITIES
-          - CONSTRUCTION
-          - MANUFACTURING
-          - WHOLESALE_TRADE
-          - RETAIL_TRADE
-          - TRANSPORTATION_AND_WAREHOUSING
-          - INFORMATION
-          - FINANCE_AND_INSURANCE
-          - REAL_ESTATE_AND_RENTAL_AND_LEASING
-          - PROFESSIONAL_SCIENTIFIC_AND_TECHNICAL_SERVICES
-          - MANAGEMENT_OF_COMPANIES_AND_ENTERPRISES
-          - ADMINISTRATIVE_AND_SUPPORT_AND_WASTE_MANAGEMENT_AND_REMEDIATION_SERVICES
-          - EDUCATIONAL_SERVICES
-          - HEALTH_CARE_AND_SOCIAL_ASSISTANCE
-          - ARTS_ENTERTAINMENT_AND_RECREATION
-          - ACCOMMODATION_AND_FOOD_SERVICES
-          - OTHER_SERVICES_EXCEPT_PUBLIC_ADMINISTRATION
-          - PUBLIC_ADMINISTRATION
-        duration:
-          description: The duration of the bond.
-          type: number
-          format: double
-          example: '10.5'
-          readOnly: true
-          nullable: true
-        nextCallDate:
-          description: The next call date of the bond.
-          type: string
-          format: date
-          example: '2018-05-10'
-          readOnly: true
-          nullable: true
-        debtRankType:
-          description: The debt rank type of the bond.
-          type: string
-          example: SENIOR
-          readOnly: true
-          enum:
-          - UNKNOWN
-          - SECOND_MORTGAGE
-          - 'FIRST_MORTGAGE '
-          - JUNIOR
-          - MEZZANINE
-          - SENIOR_SUBORDINATED
-          - SUBORDINATED
-          - THIRD_MORTGAGE
-          - UNSUBORDINATED
-          - JUNIOR_SUBORDINATED
-          - SENIOR
-          - NOT_APPLICABLE
-          - TIER_I
-          - LOWER_TIER_II
-          - UPPER_TIER_II
-          - TIER_III
-          - SENIOR_SECURED
-          - ALTERNATIVE_ADDITIONAL_TIER_I
-          - SENIOR_NON_PREFERRED
-        spRatingType:
-          type: string
-          example: INVESTMENT_GRADE
-          description: The spRating type of the bond.
-          enum:
-          - INVESTMENT_GRADE
-          - HIGH_YIELD
-        coupon:
-          $ref: '#/components/schemas/Coupon'
-        issuer:
-          $ref: '#/components/schemas/Issuer'
-        indicators:
-          $ref: '#/components/schemas/Indicators'
-        denominationAmounts:
-          $ref: '#/components/schemas/DenominationAmounts'
-    OptionInstrumentBase:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/instrumentID'
-        symbol:
-          type: string
-          example: AAPL220517P00016000
-          description: The Option OSI symbol
-        type:
-          $ref: '#/components/schemas/instrumentType'
-        name:
-          type: string
-          example: Morgan Stanley
-          description: A friendly name of the Instrument, like the Company name for an equity
-        exchange:
-          type: string
-          example: NYQ
-          description: The stock exchange the instrument is listed on.
-        orderSizeMax:
-          type: number
-          example: 20000
-          description: The maximum share amount for any order of this Instrument.
-        orderSizeMin:
-          type: number
-          example: 0.1
-          description: The minimum share amount for any order of this Instrument.
-        orderSizeStep:
-          type: number
-          example: 0.01
-          description: Increment amount on order of this Instrument.
+      example: 86.53
+      description: Most recent opening price of the instrument.
     InstrumentInList:
       type: object
       required:
@@ -2408,6 +2363,63 @@ components:
           $ref: '#/components/schemas/BondType'
         domicileCountry:
           $ref: '#/components/schemas/country'
+    Instruments:
+      type: array
+      items:
+        anyOf:
+        - $ref: '#/components/schemas/InstrumentInList'
+        - $ref: '#/components/schemas/DebtInstrumentDetails'
+    DebtInstrumentDetails:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/InstrumentBase'
+      properties:
+        debtData:
+          $ref: '#/components/schemas/DebtReferenceData'
+    InstrumentBase:
+      type: object
+      properties:
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        name:
+          type: string
+          example: Morgan Stanley
+          description: A friendly name of the Instrument, like the Company name for an equity
+        orderSizeMax:
+          type: number
+          example: 20000
+          description: The maximum share amount for any order of this Instrument.
+        orderSizeMin:
+          type: number
+          example: 0.1
+          description: The minimum share amount for any order of this Instrument.
+        orderSizeStep:
+          type: number
+          example: 0.01
+          description: Increment amount on order of this Instrument.
+        id:
+          $ref: '#/components/schemas/instrumentID'
+        instrumentType:
+          $ref: '#/components/schemas/instrumentType'
+        exchange:
+          type: string
+          example: NYQ
+          description: The stock exchange the instrument is listed on.
+        status:
+          $ref: '#/components/schemas/instrumentStatus'
+        ISIN:
+          $ref: '#/components/schemas/instrumentISIN'
+        CUSIP:
+          $ref: '#/components/schemas/instrumentCUSIP'
+        settlementDays:
+          type: integer
+          description: Number of days for the instrument to settle
+          example: 1
+    FilterCriteria:
+      description: The filter criteria, Criterion with different field names are ANDed. Criterion with same field names are ORed.
+      type: array
+      items:
+        $ref: '#/components/schemas/FilterCriterion'
   securitySchemes:
     bearerAuth:
       type: http

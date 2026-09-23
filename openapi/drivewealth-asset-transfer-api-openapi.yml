@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: DriveWealth Accounts Asset Transfer API
+  title: DriveWealth Asset Transfer API
   version: '1.0'
 servers:
 - url: https://bo-api.drivewealth.io/back-office
@@ -160,6 +160,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: postAssetTransfersAcats
+      x-operation-id-source: derived
   /asset-transfers/minor-graduation:
     post:
       tags:
@@ -248,6 +250,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: postAssetTransfersMinorGraduation
+      x-operation-id-source: derived
   /asset-transfers/{assetTransferID}:
     parameters:
     - schema:
@@ -765,6 +769,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getAssetTransfersByAssetTransferID
+      x-operation-id-source: derived
   /asset-transfers:
     get:
       summary: List Transfers
@@ -1037,139 +1043,73 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getAssetTransfers
+      x-operation-id-source: derived
 components:
   schemas:
-    AcatsAuditDetails:
+    GenericTransferResponseModel:
       type: object
       properties:
+        id:
+          $ref: '#/components/schemas/assetTransferID'
         status:
-          $ref: '#/components/schemas/AssetTransferStatus'
-        status724:
-          $ref: '#/components/schemas/Status724'
-        comment:
-          $ref: '#/components/schemas/note'
-        updatedBy:
+          $ref: '#/components/schemas/GenericTransferStatus'
+        type:
+          type: object
+          description: The type of the Transfer
+          properties:
+            name:
+              $ref: '#/components/schemas/AssetTransferType'
+            description:
+              type: string
+        partner:
+          $ref: '#/components/schemas/parentIBIDObject'
+        created:
           type: string
-          description: The user who updated the status.
+          format: date-time
+          example: '2022-12-22T06:07:41Z'
         updated:
           type: string
-          description: The date when the status was last updated.
-    RejectionInfo:
-      type: object
-      properties:
-        rejectionCode:
-          $ref: '#/components/schemas/AcatRejectionCode'
-        rejectionReason:
-          type: string
-        positions:
-          type: object
-          description: The positions which are rejected by broker after review.
-          additionalProperties:
-            type: string
-            example: Instrument not found.
-        cash:
-          type: number
-          description: The debit amount of cash which is rejected by broker after review.
-          example: -700
-    destinationAccountID:
-      type: string
-      example: c815c129-27cd-46f2-b316-ab6bde9aff62.1737384219426
-      description: It's a unique destination account id, that is human readable.
-    AcatsTransitType:
-      type: string
-      description: The transit type of ACAT transfer to be performed.
-      enum:
-      - ACAT_IN
-      - ACAT_OUT
-    note:
-      type: string
-      example: Hey! Welcome to DriveWealth Developer Docs!
-      description: A way to store a message/comment on the this object.
-    AcatsCreateRequestModelWithoutEnums:
-      type: object
-      properties:
-        clearingNo:
-          type: string
-          example: '0001'
-          description: The DTCC clearing number of the broker.
-          minLength: 1
-          maxLength: 4
-        cash:
-          type: number
-          description: The amount of cash to be moved from the source account.
-          default: 0
-        positions:
+          format: date-time
+          example: '2022-12-22T06:07:41Z'
+        auditDetails:
           type: array
-          minItems: 0
-          description: The positions to be moved from the source account to the destination account.
+          description: Audit of Transfer status changes
           items:
-            $ref: '#/components/schemas/AcatPositionModel'
-    AssetTransferType:
+            type: object
+            minProperties: 1
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+                description: Status update timestamp
+                example: '2022-12-22T06:07:41Z'
+              status:
+                $ref: '#/components/schemas/GenericTransferStatus'
+              comment:
+                type: string
+                description: Status comment added by the system
+    ErrorResponseModel:
+      type: object
+      description: The error response model that is returned when an error occurs.
+      required:
+      - errorCode
+      - message
+      properties:
+        errorCode:
+          $ref: '#/components/schemas/ErrorCode'
+        message:
+          $ref: '#/components/schemas/ErrorCodeMessage'
+        errorDetails:
+          $ref: '#/components/schemas/ErrorDetails'
+    AssetTransferStatus:
       type: string
       enum:
-      - ACAT
-      - TEEN
-      - CASH
-      - PROMOTIONAL
-      - REWARD
-      - STOCK
-    SettlementInfo:
-      title: AcatSettlementInfo
-      type: object
-      description: Settlement Info will appear when transfer gets sent to clearing custody. It consists of the controlno assigned from clearing custody and the status.
-      properties:
-        controlNo:
-          type: string
-          description: The control number assigned by the clearing custody.
-          example: '20250320013533'
-        status:
-          type: string
-          enum:
-          - ACAT_RECEIVED
-          - ACAT_READY
-          - ACAT_READY_AFTER_CUTOFF
-          - ACAT_SENT
-          - ACAT_ACK
-          - ACAT_ADJUST
-          - ACAT_IN_PROGRESS
-          - ACAT_UNDER_REVIEW
-          - ACAT_REVIEW_ACK
-          - ACAT_REVIEW_SENT
-          - ACAT_REVIEW_ADJUST
-          - ACAT_PTR_IN_PROGRESS
-          - ACAT_REVIEW_ACCEPTED
-          - ACAT_SETTLEMENT_IN_PROGRESS
-          - ACAT_REVIEW_ERROR
-          - ACAT_SETTLED
-          - ACAT_REJECTED
-          - ACAT_PURGE
-          - ACAT_PTR_REJECTED
-          - UNRECOGNISED
-          description: Enum for the status assigned by clearing custody
-          example: ACAT_REVIEW_ACCEPTED
-        status724:
-          $ref: '#/components/schemas/Status724'
-        positions:
-          type: object
-          description: The positions and cash which accepted by broker after review.
-          properties:
-            cash:
-              type: number
-              description: The amount of cash to be moved to account.
-              default: 0
-            accepted:
-              type: array
-              description: The positions which are accepted and to be moved from the account. Array is consist of cusip values.
-            excluded:
-              type: array
-              description: The positions which are excluded in transfer. Array is consist of cusip values. We will exclude the assets which are not supported by ACAT transfer.
-    ErrorCodeMessage:
-      type: string
-      description: The error message that is returned when an error occurs.
-    assetTransferID:
-      type: string
-      example: c85b231a-2bc9-11ee-be56-0242ac120002
-      description: The unique identifier of the asset transfer.
+      - STARTED
+      - PENDING
+      - FAILED
+      - SUCCESSFUL
+      - ON_HOLD
     ACATSTransferCreatedResponseModel:
       type: object
       properties:
@@ -1205,92 +1145,10 @@ components:
           description: Audit of Transfer status changes
           anyOf:
           - $ref: '#/components/schemas/AcatsAuditDetails'
-    parentIBIDObject:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 80f9b672-120d-4b73-9cc9-42fb3262c4b9
-          description: The unique identifier of an associated organization.
-        name:
-          type: string
-          example: Tendies Trading Company
-          description: The organization name.
-    AcatPositionModel:
-      title: AcatPosition
-      type: object
-      description: Position Model. Symbol or InstrumentID is required.
-      properties:
-        symbol:
-          $ref: '#/components/schemas/instrumentSymbol'
-        instrumentID:
-          $ref: '#/components/schemas/instrumentID'
-        quantity:
-          type: number
-          description: The quantity of shares to be transferred. Assets that are moving to or from an account outside of DriveWealth, can only be whole shares.
-          minimum: 1
-      required:
-      - quantity
-    GenericTransferRequest:
-      type: object
-      properties:
-        source:
-          $ref: '#/components/schemas/accountNo'
-        destination:
-          type: string
-          description: The DriveWealth destination account number where all assets will be transferred to.
-          example: LKKZ000004
-        comment:
-          $ref: '#/components/schemas/note'
-        metadata:
-          $ref: '#/components/schemas/metadata'
-    ErrorDetails:
-      type: object
-      properties:
-        field:
-          type: string
-          description: JSON field name from the request body that caused an error
-        type:
-          type: string
-          enum:
-          - STRING
-          - ARRAY
-          - INT
-          - DECIMAL
-          - BOOL
-          - TEXT
-          - UUID
-          - DATE
-          - MAP
-          - OBJECT
-          description: Expected data type of the field
-        allowedValues:
-          type: string
-          description: Example values which are allowed in the field
-    AcatRejectionCode:
+    destinationAccountID:
       type: string
-      description: The ACAT rejection reason.
-      enum:
-      - UNKNOWN
-      - SSN_NOT_MATCH
-      - ACCOUNT_NOT_MATCH
-      - DOC_REQUIRED
-      - ACCOUNT_FLAT
-      - BROKER_NOT_MATCH
-      - DUPLICATE_REQUEST
-      - ACCOUNT_IN_TRANSIT
-      - BROKER_REJECTED
-      - MISSING_AUTH_SIGN
-      - MISSING_FUND
-      - SYMBOL_NOT_SUPPORTED
-    GenericTransferStatus:
-      type: object
-      description: The status of the Transfer
-      properties:
-        name:
-          $ref: '#/components/schemas/AssetTransferStatus'
-        description:
-          type: string
+      example: c815c129-27cd-46f2-b316-ab6bde9aff62.1737384219426
+      description: It's a unique destination account id, that is human readable.
     AcatsTransferListResponseModel:
       type: object
       properties:
@@ -1330,14 +1188,186 @@ components:
           description: Audit of Transfer status changes
           anyOf:
           - $ref: '#/components/schemas/AcatsAuditDetails'
-    AssetTransferStatus:
+    AcatPositionModel:
+      title: AcatPosition
+      type: object
+      description: Position Model. Symbol or InstrumentID is required.
+      properties:
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        quantity:
+          type: number
+          description: The quantity of shares to be transferred. Assets that are moving to or from an account outside of DriveWealth, can only be whole shares.
+          minimum: 1
+      required:
+      - quantity
+    assetTransferID:
+      type: string
+      example: c85b231a-2bc9-11ee-be56-0242ac120002
+      description: The unique identifier of the asset transfer.
+    GenericTransferRequest:
+      type: object
+      properties:
+        source:
+          $ref: '#/components/schemas/accountNo'
+        destination:
+          type: string
+          description: The DriveWealth destination account number where all assets will be transferred to.
+          example: LKKZ000004
+        comment:
+          $ref: '#/components/schemas/note'
+        metadata:
+          $ref: '#/components/schemas/metadata'
+    AssetTransferType:
       type: string
       enum:
-      - STARTED
-      - PENDING
-      - FAILED
-      - SUCCESSFUL
-      - ON_HOLD
+      - ACAT
+      - TEEN
+      - CASH
+      - PROMOTIONAL
+      - REWARD
+      - STOCK
+    ErrorCodeMessage:
+      type: string
+      description: The error message that is returned when an error occurs.
+    sourceAccountID:
+      type: string
+      example: d6a776bc-be5c-47df-94eb-baf914f1847c.1738660911962
+      description: It's a unique source account id, that is human readable.
+    ErrorCode:
+      type: string
+      description: The error code that is returned when an error occurs.
+      example: E032
+    AcatsCreateRequestModel:
+      type: object
+      title: AcatsRequestModel
+      description: ACAT Request model
+      allOf:
+      - $ref: '#/components/schemas/GenericTransferRequest'
+      - $ref: '#/components/schemas/AcatsCreateRequestModelWithoutEnums'
+      properties:
+        sourceAccountType:
+          $ref: '#/components/schemas/AcatsTransferEnumValues_SourceAccountType'
+        acatType:
+          $ref: '#/components/schemas/AcatsType'
+      required:
+      - source
+      - destination
+      - clearingNo
+      - type
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    GenericTransferStatus:
+      type: object
+      description: The status of the Transfer
+      properties:
+        name:
+          $ref: '#/components/schemas/AssetTransferStatus'
+        description:
+          type: string
+    AcatsTransferEnumValues_SourceAccountType:
+      type: string
+      description: The type of account the sources account is.
+      enum:
+      - INDIVIDUAL
+      - CORPORATE
+      - JOINT
+      - CUSTODIAL
+      - IRA
+      - RIA_MANAGED
+    AcatRejectionCode:
+      type: string
+      description: The ACAT rejection reason.
+      enum:
+      - UNKNOWN
+      - SSN_NOT_MATCH
+      - ACCOUNT_NOT_MATCH
+      - DOC_REQUIRED
+      - ACCOUNT_FLAT
+      - BROKER_NOT_MATCH
+      - DUPLICATE_REQUEST
+      - ACCOUNT_IN_TRANSIT
+      - BROKER_REJECTED
+      - MISSING_AUTH_SIGN
+      - MISSING_FUND
+      - SYMBOL_NOT_SUPPORTED
+    Status724:
+      type: string
+      description: The status of the transfer in the clearing custody.
+      example: '230'
+    AcatsType:
+      type: string
+      description: The type of ACAT transfer to be performed.
+      enum:
+      - FULL
+      - PARTIAL
+    RejectionInfo:
+      type: object
+      properties:
+        rejectionCode:
+          $ref: '#/components/schemas/AcatRejectionCode'
+        rejectionReason:
+          type: string
+        positions:
+          type: object
+          description: The positions which are rejected by broker after review.
+          additionalProperties:
+            type: string
+            example: Instrument not found.
+        cash:
+          type: number
+          description: The debit amount of cash which is rejected by broker after review.
+          example: -700
+    MinorCreateRequestModel:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/GenericTransferRequest'
+      properties: {}
+    instrumentSymbol:
+      type:
+      - string
+      - 'null'
+      example: MS
+      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
+    AcatsTransitType:
+      type: string
+      description: The transit type of ACAT transfer to be performed.
+      enum:
+      - ACAT_IN
+      - ACAT_OUT
+    ErrorDetails:
+      type: object
+      properties:
+        field:
+          type: string
+          description: JSON field name from the request body that caused an error
+        type:
+          type: string
+          enum:
+          - STRING
+          - ARRAY
+          - INT
+          - DECIMAL
+          - BOOL
+          - TEXT
+          - UUID
+          - DATE
+          - MAP
+          - OBJECT
+          description: Expected data type of the field
+        allowedValues:
+          type: string
+          description: Example values which are allowed in the field
+    metadata:
+      type: object
+      example:
+        myCustomKey: myCustomValue
+      description: The metadata object allows for creating a maximum of 5 keys (max 36 characters) and each value cannot exceed more than 128 bytes.
     AcatsTransferGetResponseModel:
       type: object
       properties:
@@ -1392,130 +1422,109 @@ components:
           description: Audit of Transfer status changes
           anyOf:
           - $ref: '#/components/schemas/AcatsAuditDetails'
-    AcatsType:
-      type: string
-      description: The type of ACAT transfer to be performed.
-      enum:
-      - FULL
-      - PARTIAL
-    GenericTransferResponseModel:
+    parentIBIDObject:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/assetTransferID'
-        status:
-          $ref: '#/components/schemas/GenericTransferStatus'
-        type:
-          type: object
-          description: The type of the Transfer
-          properties:
-            name:
-              $ref: '#/components/schemas/AssetTransferType'
-            description:
-              type: string
-        partner:
-          $ref: '#/components/schemas/parentIBIDObject'
-        created:
           type: string
-          format: date-time
-          example: '2022-12-22T06:07:41Z'
+          example: 80f9b672-120d-4b73-9cc9-42fb3262c4b9
+          description: The unique identifier of an associated organization.
+        name:
+          type: string
+          example: Tendies Trading Company
+          description: The organization name.
+    SettlementInfo:
+      title: AcatSettlementInfo
+      type: object
+      description: Settlement Info will appear when transfer gets sent to clearing custody. It consists of the controlno assigned from clearing custody and the status.
+      properties:
+        controlNo:
+          type: string
+          description: The control number assigned by the clearing custody.
+          example: '20250320013533'
+        status:
+          type: string
+          enum:
+          - ACAT_RECEIVED
+          - ACAT_READY
+          - ACAT_READY_AFTER_CUTOFF
+          - ACAT_SENT
+          - ACAT_ACK
+          - ACAT_ADJUST
+          - ACAT_IN_PROGRESS
+          - ACAT_UNDER_REVIEW
+          - ACAT_REVIEW_ACK
+          - ACAT_REVIEW_SENT
+          - ACAT_REVIEW_ADJUST
+          - ACAT_PTR_IN_PROGRESS
+          - ACAT_REVIEW_ACCEPTED
+          - ACAT_SETTLEMENT_IN_PROGRESS
+          - ACAT_REVIEW_ERROR
+          - ACAT_SETTLED
+          - ACAT_REJECTED
+          - ACAT_PURGE
+          - ACAT_PTR_REJECTED
+          - UNRECOGNISED
+          description: Enum for the status assigned by clearing custody
+          example: ACAT_REVIEW_ACCEPTED
+        status724:
+          $ref: '#/components/schemas/Status724'
+        positions:
+          type: object
+          description: The positions and cash which accepted by broker after review.
+          properties:
+            cash:
+              type: number
+              description: The amount of cash to be moved to account.
+              default: 0
+            accepted:
+              type: array
+              description: The positions which are accepted and to be moved from the account. Array is consist of cusip values.
+            excluded:
+              type: array
+              description: The positions which are excluded in transfer. Array is consist of cusip values. We will exclude the assets which are not supported by ACAT transfer.
+    AcatsAuditDetails:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/AssetTransferStatus'
+        status724:
+          $ref: '#/components/schemas/Status724'
+        comment:
+          $ref: '#/components/schemas/note'
+        updatedBy:
+          type: string
+          description: The user who updated the status.
         updated:
           type: string
-          format: date-time
-          example: '2022-12-22T06:07:41Z'
-        auditDetails:
-          type: array
-          description: Audit of Transfer status changes
-          items:
-            type: object
-            minProperties: 1
-            properties:
-              timestamp:
-                type: string
-                format: date-time
-                description: Status update timestamp
-                example: '2022-12-22T06:07:41Z'
-              status:
-                $ref: '#/components/schemas/GenericTransferStatus'
-              comment:
-                type: string
-                description: Status comment added by the system
-    sourceAccountID:
-      type: string
-      example: d6a776bc-be5c-47df-94eb-baf914f1847c.1738660911962
-      description: It's a unique source account id, that is human readable.
-    ErrorResponseModel:
-      type: object
-      description: The error response model that is returned when an error occurs.
-      required:
-      - errorCode
-      - message
-      properties:
-        errorCode:
-          $ref: '#/components/schemas/ErrorCode'
-        message:
-          $ref: '#/components/schemas/ErrorCodeMessage'
-        errorDetails:
-          $ref: '#/components/schemas/ErrorDetails'
-    instrumentSymbol:
-      type: string
-      nullable: true
-      example: MS
-      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
-    AcatsTransferEnumValues_SourceAccountType:
-      type: string
-      description: The type of account the sources account is.
-      enum:
-      - INDIVIDUAL
-      - CORPORATE
-      - JOINT
-      - CUSTODIAL
-      - IRA
-      - RIA_MANAGED
+          description: The date when the status was last updated.
     accountNo:
       type: string
       example: DWBG000052
       description: The user's unique account number, that is human readable.
-    metadata:
+    note:
+      type: string
+      example: Hey! Welcome to DriveWealth Developer Docs!
+      description: A way to store a message/comment on the this object.
+    AcatsCreateRequestModelWithoutEnums:
       type: object
-      example:
-        myCustomKey: myCustomValue
-      description: The metadata object allows for creating a maximum of 5 keys (max 36 characters) and each value cannot exceed more than 128 bytes.
-    AcatsCreateRequestModel:
-      type: object
-      title: AcatsRequestModel
-      description: ACAT Request model
-      allOf:
-      - $ref: '#/components/schemas/GenericTransferRequest'
-      - $ref: '#/components/schemas/AcatsCreateRequestModelWithoutEnums'
       properties:
-        sourceAccountType:
-          $ref: '#/components/schemas/AcatsTransferEnumValues_SourceAccountType'
-        acatType:
-          $ref: '#/components/schemas/AcatsType'
-      required:
-      - source
-      - destination
-      - clearingNo
-      - type
-    instrumentID:
-      type: string
-      format: uuid
-      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
-      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
-    MinorCreateRequestModel:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/GenericTransferRequest'
-      properties: {}
-    ErrorCode:
-      type: string
-      description: The error code that is returned when an error occurs.
-      example: E032
-    Status724:
-      type: string
-      description: The status of the transfer in the clearing custody.
-      example: '230'
+        clearingNo:
+          type: string
+          example: '0001'
+          description: The DTCC clearing number of the broker.
+          minLength: 1
+          maxLength: 4
+        cash:
+          type: number
+          description: The amount of cash to be moved from the source account.
+          default: 0
+        positions:
+          type: array
+          minItems: 0
+          description: The positions to be moved from the source account to the destination account.
+          items:
+            $ref: '#/components/schemas/AcatPositionModel'
   securitySchemes:
     bearerAuth:
       type: http

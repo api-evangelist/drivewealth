@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: DriveWealth Accounts Linked Bank Accounts API
+  title: DriveWealth Linked Bank Accounts API
   version: '1.0'
 servers:
 - url: https://bo-api.drivewealth.io/back-office
@@ -37,20 +37,18 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getUsersByUserIDBankAccounts
+      x-operation-id-source: derived
 components:
   schemas:
-    created:
-      type: string
-      example: '2022-12-11T22:28:21.810Z'
-      description: ''
-    bankAccountNumberLastFour:
-      type: string
-      example: '****3174'
-      description: The last four digits of the user's external bank account number.
     bankAccountNickName:
       type: string
       example: PREFERRED CHECKING
       description: The linked bank account nickname defined by the user.
+    bankAccountNumberLastFour:
+      type: string
+      example: '****3174'
+      description: The last four digits of the user's external bank account number.
     BankAccount:
       type: object
       properties:
@@ -77,24 +75,20 @@ components:
         updated:
           $ref: '#/components/schemas/updated'
           description: The date and time the User's bank account was updated.
-    bankRoutingNumber:
-      type: string
-      example: '110000000'
-      description: The routing number of the user's external bank.
     bankAccountID:
       type: string
       example: bank_a4656e60-321e-425b-aa0d-a2e75c38885f
       description: The unique DriveWealth identifier that identifies each linked bank account.
-    updated:
-      type: string
-      example: '2022-12-11T22:28:21.810Z'
-      description: ''
     BankAccountsArray:
       type: array
       description: A list of all the User's linked bank accounts.
       items:
         oneOf:
         - $ref: '#/components/schemas/BankAccount'
+    updated:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
     bankAccountStatus:
       type: string
       example: ACTIVE
@@ -103,6 +97,14 @@ components:
       - ACTIVE
       - DELETED
       - DISABLED
+    bankRoutingNumber:
+      type: string
+      example: '110000000'
+      description: The routing number of the user's external bank.
+    created:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
   securitySchemes:
     bearerAuth:
       type: http

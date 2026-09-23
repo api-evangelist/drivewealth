@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: DriveWealth Accounts Auth API
+  title: DriveWealth Auth API
   version: '1.0'
 servers:
 - url: https://bo-api.drivewealth.io/back-office
@@ -31,6 +31,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/CreateAuthToken'
       security: []
+      operationId: postAuth
+      x-operation-id-source: derived
   /auth/tokens:
     post:
       tags:
@@ -50,8 +52,58 @@ paths:
               schema:
                 $ref: '#/components/schemas/CreateSessToken'
       security: []
+      operationId: postAuthTokens
+      x-operation-id-source: derived
 components:
   schemas:
+    CreateAuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          example: bo.sample.api
+          description: The B2B (business to business) back office username.
+        authToken:
+          type: string
+          example: acb33c99-3a6f-4494-85bf-8dae70977552.2018-07-26T14:45:47.391Z
+          description: The B2B (business to business) back office session token.
+        expiresAt:
+          type: string
+          example: '2022-12-28T01:09:33.714Z'
+          description: The date and time the session token expires.
+        security:
+          type: object
+          properties:
+            description:
+              type: string
+              example: Partner Principal
+              description: A custom description that describes the permission set.
+            permissionSet:
+              type: array
+              description: A list of the permissions the back office permissions assigned.
+              example:
+              - ACCOUNTS_CREATE_LIVE
+              - ACCOUNTS_CREATE_MANAGED
+              - ACCOUNTS_CREATE_MARGIN
+              - ACCOUNTS_CREATE_PRACTICE
+              - ACCOUNTS_CREATE_RIA_MANAGED
+              - ACCOUNTS_EDIT
+            permissionID:
+              type: string
+              example: 4380ee75-5acd-f5af-4347-04146bb3f61a
+              description: A unique identifier for the permission set.
+        userID:
+          $ref: '#/components/schemas/userID'
+        firstName:
+          type: string
+          example: Tendies Trading Company
+          description: The Firm Name.
+        lastName:
+          type: string
+          example: LLC
+          description: The Firm Type.
+        parentIBID:
+          $ref: '#/components/schemas/userID'
     CreateSessToken:
       type: object
       properties:
@@ -110,54 +162,6 @@ components:
       type: string
       example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
       description: A unique identifier created for each User on DriveWealth's platform.
-    CreateAuthToken:
-      type: object
-      properties:
-        username:
-          type: string
-          example: bo.sample.api
-          description: The B2B (business to business) back office username.
-        authToken:
-          type: string
-          example: acb33c99-3a6f-4494-85bf-8dae70977552.2018-07-26T14:45:47.391Z
-          description: The B2B (business to business) back office session token.
-        expiresAt:
-          type: string
-          example: '2022-12-28T01:09:33.714Z'
-          description: The date and time the session token expires.
-        security:
-          type: object
-          properties:
-            description:
-              type: string
-              example: Partner Principal
-              description: A custom description that describes the permission set.
-            permissionSet:
-              type: array
-              description: A list of the permissions the back office permissions assigned.
-              example:
-              - ACCOUNTS_CREATE_LIVE
-              - ACCOUNTS_CREATE_MANAGED
-              - ACCOUNTS_CREATE_MARGIN
-              - ACCOUNTS_CREATE_PRACTICE
-              - ACCOUNTS_CREATE_RIA_MANAGED
-              - ACCOUNTS_EDIT
-            permissionID:
-              type: string
-              example: 4380ee75-5acd-f5af-4347-04146bb3f61a
-              description: A unique identifier for the permission set.
-        userID:
-          $ref: '#/components/schemas/userID'
-        firstName:
-          type: string
-          example: Tendies Trading Company
-          description: The Firm Name.
-        lastName:
-          type: string
-          example: LLC
-          description: The Firm Type.
-        parentIBID:
-          $ref: '#/components/schemas/userID'
   securitySchemes:
     bearerAuth:
       type: http

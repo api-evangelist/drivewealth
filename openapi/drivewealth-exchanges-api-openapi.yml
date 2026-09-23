@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: DriveWealth Accounts Exchanges API
+  title: DriveWealth Exchanges API
   version: '1.0'
 servers:
 - url: https://bo-api.drivewealth.io/back-office
@@ -83,6 +83,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: postExchanges
+      x-operation-id-source: derived
     patch:
       tags:
       - Exchanges
@@ -126,6 +128,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: patchExchanges
+      x-operation-id-source: derived
   /exchanges/{exchangeIdentifier}:
     parameters:
     - schema:
@@ -274,12 +278,14 @@ paths:
                     accountID: b25f0d36-b4e4-41f8-b3d9-9249e46402cd.1403540676095
                     accountNo: DWZR000001
                     created: '2019-03-28T22:40:03.240Z'
-      description: 'To retrieve specific exchange details the exchange endpoint can be used. In addition the underlying buy and sell trades, which make up the exchange order, will be available through the existing get order endpoint. '
+      description: To retrieve specific exchange details the exchange endpoint can be used. In addition the underlying buy and sell trades, which make up the exchange order, will be available through the existing get order endpoint.
       security:
       - bearerAuth: []
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getExchangesByExchangeIdentifier
+      x-operation-id-source: derived
   /accounts/{accountID}/summary/exchanges:
     parameters:
     - schema:
@@ -291,7 +297,7 @@ paths:
     get:
       tags:
       - Exchanges
-      summary: List Account Instrument Exchanges.
+      summary: List Account Instrument Exchanges
       responses:
         '200':
           description: Retrieving a list of Account Instrument Exchanges by accountID was Successful.
@@ -449,6 +455,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getAccountsByAccountIDSummaryExchanges
+      x-operation-id-source: derived
   /accounts/{accountID}/reports/exchange-history:
     parameters:
     - schema:
@@ -525,12 +533,10 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getAccountsByAccountIDReportsExchangeHistory
+      x-operation-id-source: derived
 components:
   schemas:
-    userID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
-      description: A unique identifier created for each User on DriveWealth's platform.
     Exchange:
       type: object
       required:
@@ -625,14 +631,18 @@ components:
           type: string
           example: '2019-03-29T20:00:00.000Z'
           description: The timestamp the exchange expires.
-    accountNo:
-      type: string
-      example: DWBG000052
-      description: The user's unique account number, that is human readable.
     accountID:
       type: string
       example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
       description: The user's unique account identifier.
+    accountNo:
+      type: string
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
   securitySchemes:
     bearerAuth:
       type: http

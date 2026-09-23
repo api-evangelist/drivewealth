@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: DriveWealth Accounts Virtual Bank Accounts API
+  title: DriveWealth Virtual Bank Accounts API
   version: '1.0'
 servers:
 - url: https://bo-api.drivewealth.io/back-office
@@ -35,12 +35,30 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getAccountsByAccountIDFundingDepositInstructions
+      x-operation-id-source: derived
 components:
   schemas:
-    name:
+    bankAccountID:
       type: string
-      example: Tom Ace
-      description: Full name or entity name of type.
+      example: bank_a4656e60-321e-425b-aa0d-a2e75c38885f
+      description: The unique DriveWealth identifier that identifies each linked bank account.
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    bankAccountNumber:
+      type: string
+      example: '7442393174'
+      description: The account number of the user's external bank account.
+    beneficiaryBankZip:
+      type: string
+      example: '10038'
+      description: The user's external bank postal code.
+    beneficiaryBankAddress:
+      type: string
+      example: 222 BROADWAY
+      description: The user's external bank street address.
     VirtualAccountRes:
       type: object
       properties:
@@ -56,71 +74,23 @@ components:
           $ref: '#/components/schemas/achDetails'
         wireDomesticDetails:
           $ref: '#/components/schemas/wireDomesticDetails'
-    accountNo:
+    name:
       type: string
-      example: DWBG000052
-      description: The user's unique account number, that is human readable.
-    bankName:
-      type: string
-      example: JP Morgan Chase
-      description: The name of the user's bank.
-    achDetails:
+      example: Tom Ace
+      description: Full name or entity name of type.
+    bankAddress:
       type: object
       properties:
-        bankAccountNumber:
-          $ref: '#/components/schemas/bankAccountNumber'
-        bankRoutingNumber:
-          $ref: '#/components/schemas/bankRoutingNumber'
-        bankName:
-          $ref: '#/components/schemas/bankName'
-        bankAddress:
-          $ref: '#/components/schemas/bankAddress'
-        bankRoutingNumberType:
-          type: string
-          example: aba
-          description: The type of routing being used.
-          enum:
-          - ABA
-          - ACH
-        beneficiaryName:
-          $ref: '#/components/schemas/name'
-        beneficiaryAddress:
-          $ref: '#/components/schemas/bankAddress'
-        virtualAccountID:
-          type: string
-          example: bfa2e...
-          description: A unique DriveWealth virtual account identifier.
-        paymentType:
-          type: string
-          example: ACH
-          description: The type of payment.
-          enum:
-          - WIRE
-          - ACH
-    beneficiaryBankProvince:
-      type: string
-      example: New York
-      description: The user's external bank state or province.
-    beneficiaryBankCity:
-      type: string
-      example: New York City
-      description: The user's external bank city.
-    bankRoutingNumber:
-      type: string
-      example: '110000000'
-      description: The routing number of the user's external bank.
-    bankAccountID:
-      type: string
-      example: bank_a4656e60-321e-425b-aa0d-a2e75c38885f
-      description: The unique DriveWealth identifier that identifies each linked bank account.
-    beneficiaryBankZip:
-      type: string
-      example: '10038'
-      description: The user's external bank postal code.
-    bankAccountNumber:
-      type: string
-      example: '7442393174'
-      description: The account number of the user's external bank account.
+        addressLine1:
+          $ref: '#/components/schemas/beneficiaryBankAddress'
+        city:
+          $ref: '#/components/schemas/beneficiaryBankCity'
+        stateProvince:
+          $ref: '#/components/schemas/beneficiaryBankProvince'
+        zipPostalCode:
+          $ref: '#/components/schemas/beneficiaryBankZip'
+        country:
+          $ref: '#/components/schemas/beneficiaryBankCountry'
     beneficiaryBankCountry:
       type: string
       example: USA
@@ -158,10 +128,10 @@ components:
           enum:
           - WIRE
           - ACH
-    beneficiaryBankAddress:
+    bankRoutingNumber:
       type: string
-      example: 222 BROADWAY
-      description: The user's external bank street address.
+      example: '110000000'
+      description: The routing number of the user's external bank.
     wireDetails:
       type: object
       properties:
@@ -212,23 +182,55 @@ components:
           enum:
           - WIRE
           - ACH
-    accountID:
+    beneficiaryBankCity:
       type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
-    bankAddress:
+      example: New York City
+      description: The user's external bank city.
+    beneficiaryBankProvince:
+      type: string
+      example: New York
+      description: The user's external bank state or province.
+    achDetails:
       type: object
       properties:
-        addressLine1:
-          $ref: '#/components/schemas/beneficiaryBankAddress'
-        city:
-          $ref: '#/components/schemas/beneficiaryBankCity'
-        stateProvince:
-          $ref: '#/components/schemas/beneficiaryBankProvince'
-        zipPostalCode:
-          $ref: '#/components/schemas/beneficiaryBankZip'
-        country:
-          $ref: '#/components/schemas/beneficiaryBankCountry'
+        bankAccountNumber:
+          $ref: '#/components/schemas/bankAccountNumber'
+        bankRoutingNumber:
+          $ref: '#/components/schemas/bankRoutingNumber'
+        bankName:
+          $ref: '#/components/schemas/bankName'
+        bankAddress:
+          $ref: '#/components/schemas/bankAddress'
+        bankRoutingNumberType:
+          type: string
+          example: aba
+          description: The type of routing being used.
+          enum:
+          - ABA
+          - ACH
+        beneficiaryName:
+          $ref: '#/components/schemas/name'
+        beneficiaryAddress:
+          $ref: '#/components/schemas/bankAddress'
+        virtualAccountID:
+          type: string
+          example: bfa2e...
+          description: A unique DriveWealth virtual account identifier.
+        paymentType:
+          type: string
+          example: ACH
+          description: The type of payment.
+          enum:
+          - WIRE
+          - ACH
+    accountNo:
+      type: string
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
+    bankName:
+      type: string
+      example: JP Morgan Chase
+      description: The name of the user's bank.
   securitySchemes:
     bearerAuth:
       type: http

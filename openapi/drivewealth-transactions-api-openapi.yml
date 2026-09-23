@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: DriveWealth Accounts Transactions API
+  title: DriveWealth Transactions API
   version: '1.0'
 servers:
 - url: https://bo-api.drivewealth.io/back-office
@@ -39,6 +39,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getAccountsByAccountIDSummaryTransactions
+      x-operation-id-source: derived
   /accounts/{accountID}/transactions:
     get:
       tags:
@@ -101,6 +103,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getAccountsByAccountIDTransactions
+      x-operation-id-source: derived
 components:
   schemas:
     dividend:
@@ -130,62 +134,6 @@ components:
           - NON_TAXABLE
           - TAX_EXEMPT
           - 'null'
-    currency:
-      type: string
-      example: USD
-      description: The name of the currency in abbreviation form.
-      enum:
-      - USD
-    created:
-      type: string
-      example: '2022-12-11T22:28:21.810Z'
-      description: ''
-    limitPrice:
-      type: number
-      example: null
-      description: The price set for the limit order.
-    TransactionSummaryRes:
-      type: object
-      properties:
-        accountID:
-          $ref: '#/components/schemas/accountID'
-        accountNo:
-          $ref: '#/components/schemas/accountNo'
-        tradingType:
-          $ref: '#/components/schemas/tradingType'
-        updated:
-          type: string
-          example: '2017-06-16T15:35:30.617Z'
-          description: Time of last update.
-        transactions:
-          type: array
-          description: An Array of transactions.
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/transactionObj'
-    sideAbbreviated:
-      type: string
-      example: B
-      description: The side of the order.
-      enum:
-      - B
-      - S
-      - BUY_OPEN
-      - BUY_CLOSE
-      - SELL_OPEN
-      - SELL_CLOSE
-    accountID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
-    orderID:
-      type: string
-      example: IC.0e352bb7-9869-4233-9861-9673544efedd
-      description: A unique DriveWealth order identifier created when an order is placed.
-    orderCumulativeQuantity:
-      type: number
-      example: 0.7219
-      description: The amount of shares currently being transacted; larger orders may execute in chunks.
     instrumentType:
       type: string
       example: EQUITY
@@ -197,72 +145,35 @@ components:
       - DEBT
       - OPTION
       - CRYPTO
-    finTranID:
-      type: string
-      example: EF.a935f686-5567-4e10-9e71-261314207c0b
-      description: The internal and unique transaction identification number.
-    orderNo:
-      type: string
-      example: ICDU023727
-      description: A unique, human-readable DriveWealth order number.
-    orderQuantity:
+    SalesCredit:
+      type: object
+      description: If set, the unit price will be marked up or marked down based on the prescribed amount. Only applicable to Orders for Debt Instruments.
+      properties:
+        currency:
+          $ref: '#/components/schemas/currency'
+        amount:
+          type: integer
+          example: 14
+          description: The sales credit amount in cents.
+    orderCumulativeQuantity:
       type: number
       example: 0.7219
-      description: The amount of the instrument in shares.
-    accountType:
+      description: The amount of shares currently being transacted; larger orders may execute in chunks.
+    sideAbbreviated:
       type: string
-      example: LIVE
-      description: The type of account that has been created.
+      example: B
+      description: The side of the order.
       enum:
-      - LIVE
-    TransactionRes:
-      type: array
-      description: A list of transactions.
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/Transaction'
-    orderStatusNumber:
-      type: number
-      example: 2
-      description: The current status of the order, represented as a number.
-      enum:
-      - 0
-      - 1
-      - 2
-      - 4
-      - 6
-      - 7
-      - 8
-    instrumentSymbol:
+      - B
+      - S
+      - BUY_OPEN
+      - BUY_CLOSE
+      - SELL_OPEN
+      - SELL_CLOSE
+    orderID:
       type: string
-      nullable: true
-      example: MS
-      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
-    instrumentCUSIP:
-      description: 'CUSIP stands for `Committee on Uniform Securities Identification Procedures`.
-
-        A CUSIP number identifies most financial instruments, including: stocks of all registered U.S. and Canadian companies, commercial paper, and U.S. government and municipal bonds.
-
-        The CUSIP system facilitates the clearance and settlement process of securities.
-
-        CUSIP numbers consist of nine characters (including letters and numbers) that uniquely identify a company or issuer and the type of financial instrument.
-
-        A similar system is used to identify foreign securities (`CUSIP International Numbering System or CINS`).
-
-        CINS employs the same nine character identifier as CUSIP, but also contains a letter in the first position to signify the issuer''s country or geographic region.
-
-        '
-      type: string
-      minLength: 9
-      maxLength: 9
-      example: E09876AA7
-    tradingType:
-      type: string
-      example: CASH
-      description: The type of trading the account will participate in.
-      enum:
-      - CASH
-      - MARGIN
+      example: IC.0e352bb7-9869-4233-9861-9673544efedd
+      description: A unique DriveWealth order identifier created when an order is placed.
     transactionObj:
       type: object
       properties:
@@ -345,16 +256,153 @@ components:
           $ref: '#/components/schemas/SalesCredit'
         currency:
           $ref: '#/components/schemas/currency'
-    accountNo:
+    orderStatusNumber:
+      type: number
+      example: 2
+      description: The current status of the order, represented as a number.
+      enum:
+      - 0
+      - 1
+      - 2
+      - 4
+      - 6
+      - 7
+      - 8
+    currency:
       type: string
-      example: DWBG000052
-      description: The user's unique account number, that is human readable.
+      example: USD
+      description: The name of the currency in abbreviation form.
+      enum:
+      - USD
+    limitPrice:
+      type: number
+      example: null
+      description: The price set for the limit order.
+    finTranID:
+      type: string
+      example: EF.a935f686-5567-4e10-9e71-261314207c0b
+      description: The internal and unique transaction identification number.
+    accountType:
+      type: string
+      example: LIVE
+      description: The type of account that has been created.
+      enum:
+      - LIVE
+    finTranTypeID:
+      type: string
+      example: JNLC
+      description: The abbreviated transaction type identifier.
+      enum:
+      - CSR
+      - CSD
+      - FEE
+      - JNLC
+      - CADJ
+      - INT
+      - SPUR
+      - SSAL
+      - MERGER_ACQUISITION
+      - DIV
+      - DIVTAX
+      - DIVNRA
+      - STCK
+      - COMM
+      - SPINOFF
+      - STOCK_SPLIT
+      - ACATS_CASH
+      - ACATS_STOCK
+      - CCPUR
+      - CCSAL
+      - SLIP
+      - DIVM
+      - PTP_WITHHOLDING
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    orderQuantity:
+      type: number
+      example: 0.7219
+      description: The amount of the instrument in shares.
+    tradingType:
+      type: string
+      example: CASH
+      description: The type of trading the account will participate in.
+      enum:
+      - CASH
+      - MARGIN
+    orderNo:
+      type: string
+      example: ICDU023727
+      description: A unique, human-readable DriveWealth order number.
+    instrumentCUSIP:
+      description: 'CUSIP stands for `Committee on Uniform Securities Identification Procedures`.
+
+        A CUSIP number identifies most financial instruments, including: stocks of all registered U.S. and Canadian companies, commercial paper, and U.S. government and municipal bonds.
+
+        The CUSIP system facilitates the clearance and settlement process of securities.
+
+        CUSIP numbers consist of nine characters (including letters and numbers) that uniquely identify a company or issuer and the type of financial instrument.
+
+        A similar system is used to identify foreign securities (`CUSIP International Numbering System or CINS`).
+
+        CINS employs the same nine character identifier as CUSIP, but also contains a letter in the first position to signify the issuer''s country or geographic region.
+
+        '
+      type: string
+      minLength: 9
+      maxLength: 9
+      example: E09876AA7
     instrumentISIN:
       description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
       type: string
       minLength: 12
       maxLength: 14
       example: US023135BX34
+    created:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    instrumentSymbol:
+      type:
+      - string
+      - 'null'
+      example: MS
+      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    stopPrice:
+      type: number
+      example: 200
+      description: The stop price of a limit order.
+    TransactionRes:
+      type: array
+      description: A list of transactions.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/Transaction'
+    TransactionSummaryRes:
+      type: object
+      properties:
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        tradingType:
+          $ref: '#/components/schemas/tradingType'
+        updated:
+          type: string
+          example: '2017-06-16T15:35:30.617Z'
+          description: Time of last update.
+        transactions:
+          type: array
+          description: An Array of transactions.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/transactionObj'
     Transaction:
       type: object
       properties:
@@ -476,53 +524,10 @@ components:
           type: number
           description: The delta in the number of shares due to the corporate action.
           example: 0.18
-    finTranTypeID:
+    accountNo:
       type: string
-      example: JNLC
-      description: The abbreviated transaction type identifier.
-      enum:
-      - CSR
-      - CSD
-      - FEE
-      - JNLC
-      - CADJ
-      - INT
-      - SPUR
-      - SSAL
-      - MERGER_ACQUISITION
-      - DIV
-      - DIVTAX
-      - DIVNRA
-      - STCK
-      - COMM
-      - SPINOFF
-      - STOCK_SPLIT
-      - ACATS_CASH
-      - ACATS_STOCK
-      - CCPUR
-      - CCSAL
-      - SLIP
-      - DIVM
-      - PTP_WITHHOLDING
-    SalesCredit:
-      type: object
-      description: If set, the unit price will be marked up or marked down based on the prescribed amount. Only applicable to Orders for Debt Instruments.
-      properties:
-        currency:
-          $ref: '#/components/schemas/currency'
-        amount:
-          type: integer
-          example: 14
-          description: The sales credit amount in cents.
-    instrumentID:
-      type: string
-      format: uuid
-      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
-      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
-    stopPrice:
-      type: number
-      example: 200
-      description: The stop price of a limit order.
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: DriveWealth Accounts Beneficiaries API
+  title: DriveWealth Beneficiaries API
   version: '1.0'
 servers:
 - url: https://bo-api.drivewealth.io/back-office
@@ -41,6 +41,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: postAccountsByAccountIDBeneficiaries
+      x-operation-id-source: derived
     get:
       tags:
       - Beneficiaries
@@ -64,6 +66,8 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: getAccountsByAccountIDBeneficiaries
+      x-operation-id-source: derived
     delete:
       tags:
       - Beneficiaries
@@ -83,27 +87,14 @@ paths:
         dwAppKey: []
       - sessionToken: []
         dwAppKey: []
+      operationId: deleteAccountsByAccountIDBeneficiaries
+      x-operation-id-source: derived
 components:
   schemas:
-    BeneficiaryReq:
-      type: object
-      properties:
-        primary:
-          type: array
-          description: An array of objects containing the primary beneficiary details
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/beneficiariesObject'
-        contingent:
-          type: array
-          description: An array of objects containing the contingent beneficiary details.
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/beneficiariesObject'
-    name:
+    accountID:
       type: string
-      example: Tom Ace
-      description: Full name or entity name of type.
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
     BeneficiaryRes:
       type: object
       properties:
@@ -156,10 +147,25 @@ components:
           type: string
           example: '2022-12-29T18:32:15.533Z'
           description: The when the beneficiary was added to the account.
-    accountID:
+    name:
       type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
+      example: Tom Ace
+      description: Full name or entity name of type.
+    BeneficiaryReq:
+      type: object
+      properties:
+        primary:
+          type: array
+          description: An array of objects containing the primary beneficiary details
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/beneficiariesObject'
+        contingent:
+          type: array
+          description: An array of objects containing the contingent beneficiary details.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/beneficiariesObject'
   securitySchemes:
     bearerAuth:
       type: http
