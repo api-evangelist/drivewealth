@@ -101,142 +101,50 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    accountManagementTypeObject:
-      type: object
-      properties:
-        name:
-          type: string
-          example: SELF
-          description: The type of account who has trading authority.
-          enum:
-          - SELF
-          - ADVISORY
-          - RIA_MANAGED
-          - CUSTODIAL
-          - CUSTODIAL_MANAGED
-          - RESERVED
-          - RETIREMENT_TRADITIONAL_SELF
-          - RETIREMENT_TRADITIONAL_ADVISORY
-          - RETIREMENT_TRADITIONAL_RIA_MANAGED
-          - RETIREMENT_ROTH_SELF
-          - RETIREMENT_ROTH_ADVISORY
-          - RETIREMENT_ROTH_RIA_MANAGED
-          - TRUST_SELF
-          - TRUST_ADVISORY
-          - TRUST_RIA_MANAGED
-          - HSA_SELF
-          - HSA_ADVISORY
-          - HSA_RIA_MANAGED
-        description:
-          type: string
-          example: Self Directed Account
-          description: A custom description of the account management type.
-    UserSubscriptions:
-      type: array
-      description: A list of the user's current subscriptions.
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/UserSubscription'
-    dividend:
-      type: object
-      properties:
-        type:
-          type: string
-          example: CASH
-          description: The dividend type, whether a cash or stock dividend.
-          enum:
-          - CASH
-          - STOCK
-          - RETURN_OF_CAPITAL
-          - DISTRIBUTION_LONG
-          - DISTRIBUTION_SHORT
-          - OTHER
-        amountPerShare:
-          type: number
-          example: 0.65
-          description: The amount of the dividend issued, per share.
-        taxCode:
-          type: string
-          example: FULLY_TAXABLE
-          description: Whether the dividend is taxable or not.
-          enum:
-          - FULLY_TAXABLE
-          - NON_TAXABLE
-          - TAX_EXEMPT
-          - 'null'
-    subscriptionStatus:
-      type: string
-      example: ACTIVE
-      description: The current status of the user's subscription.
-      enum:
-      - ACTIVE
-      - CANCELLED
-    orderID:
-      type: string
-      example: IC.0e352bb7-9869-4233-9861-9673544efedd
-      description: A unique DriveWealth order identifier created when an order is placed.
     currency:
       type: string
       example: USD
       description: The name of the currency in abbreviation form.
       enum:
       - USD
-    subscriptionID:
+    accountID:
       type: string
-      example: subscription_4451b62e-0e88-46ce-9eab-f0a54ccdc599
-      description: The unique identifier that identifies the user's subscription.
-    finTranID:
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    SubscriptionRequest:
+      type: object
+      required:
+      - accountID
+      - bankAccountID
+      - planID
+      properties:
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        bankAccountID:
+          $ref: '#/components/schemas/bankAccountID'
+        planID:
+          type: string
+          example: plan_1d3e1630-9107-47c2-a9c4-6cca93821cb7
+          description: The unique identifier that identifies the plan schedule.
+    accountNo:
       type: string
-      example: EF.a935f686-5567-4e10-9e71-261314207c0b
-      description: The internal and unique transaction identification number.
-    accountType:
-      type: string
-      example: LIVE
-      description: The type of account that has been created.
-      enum:
-      - LIVE
-    bankAccountID:
-      type: string
-      example: bank_a4656e60-321e-425b-aa0d-a2e75c38885f
-      description: The unique DriveWealth identifier that identifies each linked bank account.
-    finTranTypeID:
-      type: string
-      example: JNLC
-      description: The abbreviated transaction type identifier.
-      enum:
-      - CSR
-      - CSD
-      - FEE
-      - JNLC
-      - CADJ
-      - INT
-      - SPUR
-      - SSAL
-      - MERGER_ACQUISITION
-      - DIV
-      - DIVTAX
-      - DIVNRA
-      - STCK
-      - COMM
-      - SPINOFF
-      - STOCK_SPLIT
-      - ACATS_CASH
-      - ACATS_STOCK
-      - CCPUR
-      - CCSAL
-      - SLIP
-      - DIVM
-      - PTP_WITHHOLDING
-    instrumentID:
-      type: string
-      format: uuid
-      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
-      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
+    UserSubscriptions:
+      type: array
+      description: A list of the user's current subscriptions.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/UserSubscription'
     Subscription:
       type: object
       properties:
         subscriptionID:
           $ref: '#/components/schemas/subscriptionID'
+    created:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
     UserSubscription:
       type: object
       properties:
@@ -311,20 +219,125 @@ components:
               items:
                 oneOf:
                 - $ref: '#/components/schemas/TransactionRes'
-    created:
+    subscriptionStatus:
       type: string
-      example: '2022-12-11T22:28:21.810Z'
-      description: ''
-    accountID:
+      example: ACTIVE
+      description: The current status of the user's subscription.
+      enum:
+      - ACTIVE
+      - CANCELLED
+    finTranID:
       type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
-    TransactionRes:
-      type: array
-      description: A list of transactions.
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/Transaction'
+      example: EF.a935f686-5567-4e10-9e71-261314207c0b
+      description: The internal and unique transaction identification number.
+    accountType:
+      type: string
+      example: LIVE
+      description: The type of account that has been created.
+      enum:
+      - LIVE
+    orderID:
+      type: string
+      example: IC.0e352bb7-9869-4233-9861-9673544efedd
+      description: A unique DriveWealth order identifier created when an order is placed.
+    finTranTypeID:
+      type: string
+      example: JNLC
+      description: The abbreviated transaction type identifier.
+      enum:
+      - CSR
+      - CSD
+      - FEE
+      - JNLC
+      - CADJ
+      - INT
+      - SPUR
+      - SSAL
+      - MERGER_ACQUISITION
+      - DIV
+      - DIVTAX
+      - DIVNRA
+      - STCK
+      - COMM
+      - SPINOFF
+      - STOCK_SPLIT
+      - ACATS_CASH
+      - ACATS_STOCK
+      - CCPUR
+      - CCSAL
+      - SLIP
+      - DIVM
+      - PTP_WITHHOLDING
+    bankAccountID:
+      type: string
+      example: bank_a4656e60-321e-425b-aa0d-a2e75c38885f
+      description: The unique DriveWealth identifier that identifies each linked bank account.
+    dividend:
+      type: object
+      properties:
+        type:
+          type: string
+          example: CASH
+          description: The dividend type, whether a cash or stock dividend.
+          enum:
+          - CASH
+          - STOCK
+          - RETURN_OF_CAPITAL
+          - DISTRIBUTION_LONG
+          - DISTRIBUTION_SHORT
+          - OTHER
+        amountPerShare:
+          type: number
+          example: 0.65
+          description: The amount of the dividend issued, per share.
+        taxCode:
+          type: string
+          example: FULLY_TAXABLE
+          description: Whether the dividend is taxable or not.
+          enum:
+          - FULLY_TAXABLE
+          - NON_TAXABLE
+          - TAX_EXEMPT
+          - 'null'
+    subscriptionID:
+      type: string
+      example: subscription_4451b62e-0e88-46ce-9eab-f0a54ccdc599
+      description: The unique identifier that identifies the user's subscription.
+    accountManagementTypeObject:
+      type: object
+      properties:
+        name:
+          type: string
+          example: SELF
+          description: The type of account who has trading authority.
+          enum:
+          - SELF
+          - ADVISORY
+          - RIA_MANAGED
+          - CUSTODIAL
+          - CUSTODIAL_MANAGED
+          - RESERVED
+          - RETIREMENT_TRADITIONAL_SELF
+          - RETIREMENT_TRADITIONAL_ADVISORY
+          - RETIREMENT_TRADITIONAL_RIA_MANAGED
+          - RETIREMENT_ROTH_SELF
+          - RETIREMENT_ROTH_ADVISORY
+          - RETIREMENT_ROTH_RIA_MANAGED
+          - TRUST_SELF
+          - TRUST_ADVISORY
+          - TRUST_RIA_MANAGED
+          - HSA_SELF
+          - HSA_ADVISORY
+          - HSA_RIA_MANAGED
+        description:
+          type: string
+          example: Self Directed Account
+          description: A custom description of the account management type.
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
     Transaction:
       type: object
       properties:
@@ -446,25 +459,12 @@ components:
           type: number
           description: The delta in the number of shares due to the corporate action.
           example: 0.18
-    accountNo:
-      type: string
-      example: DWBG000052
-      description: The user's unique account number, that is human readable.
-    SubscriptionRequest:
-      type: object
-      required:
-      - accountID
-      - bankAccountID
-      - planID
-      properties:
-        accountID:
-          $ref: '#/components/schemas/accountID'
-        bankAccountID:
-          $ref: '#/components/schemas/bankAccountID'
-        planID:
-          type: string
-          example: plan_1d3e1630-9107-47c2-a9c4-6cca93821cb7
-          description: The unique identifier that identifies the plan schedule.
+    TransactionRes:
+      type: array
+      description: A list of transactions.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/Transaction'
   securitySchemes:
     bearerAuth:
       type: http

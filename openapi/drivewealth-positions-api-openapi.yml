@@ -99,6 +99,59 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    OptPosition:
+      type: object
+      properties:
+        expirationDate:
+          type: string
+          example: '2018-09-18'
+          description: The date the Option contract will expire.
+          format: date
+        position:
+          $ref: '#/components/schemas/Position'
+        instrument:
+          $ref: '#/components/schemas/Instrument'
+    sideAbbreviated:
+      type: string
+      example: B
+      description: The side of the order.
+      enum:
+      - B
+      - S
+      - BUY_OPEN
+      - BUY_CLOSE
+      - SELL_OPEN
+      - SELL_CLOSE
+    optionsValue:
+      type: number
+      format: double
+      example: 12345.67
+      description: The current total market value of the account's open option positions.
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    OptPositionRes:
+      type: object
+      properties:
+        data:
+          type: array
+          description: An array of the options positions in the account.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/OptPosition'
+        nextPageOffset:
+          type: string
+          example: 86572e14-84ae-4f0c-9533-3c9432637f8e.1627500314555#65d1aee9-9a6c-4720-9879-71c4fcf43060.2023-12-07T21:17:45.743Z
+          description: The next page offset.
+        prevPageOffset:
+          type: string
+          example: 86572e14-84ae-4f0c-9533-3c9432637f8e.1627500314555#65d1aee9-9a6c-4720-9879-71c4fcf43060.2023-12-07T21:17:45.743Z
+          description: The previous page offset.
+    accountNo:
+      type: string
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
     Position:
       type: object
       properties:
@@ -138,122 +191,6 @@ components:
           type: string
           example: TOP
           description: A comment describing the position
-    equityValue:
-      type: number
-      format: double
-      example: 34275565.44
-      description: The current total market value of the account's open equity positions.
-    OptPositionRes:
-      type: object
-      properties:
-        data:
-          type: array
-          description: An array of the options positions in the account.
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/OptPosition'
-        nextPageOffset:
-          type: string
-          example: 86572e14-84ae-4f0c-9533-3c9432637f8e.1627500314555#65d1aee9-9a6c-4720-9879-71c4fcf43060.2023-12-07T21:17:45.743Z
-          description: The next page offset.
-        prevPageOffset:
-          type: string
-          example: 86572e14-84ae-4f0c-9533-3c9432637f8e.1627500314555#65d1aee9-9a6c-4720-9879-71c4fcf43060.2023-12-07T21:17:45.743Z
-          description: The previous page offset.
-    instrumentType:
-      type: string
-      example: EQUITY
-      description: The classification of the instrument.
-      enum:
-      - EQUITY
-      - ALTERNATIVE_ASSET
-      - MUTUAL_FUND
-      - DEBT
-      - OPTION
-      - CRYPTO
-    positionsValue:
-      type: number
-      format: double
-      example: 34287911.11
-      description: The current total market value of the account's open positions.
-    sideAbbreviated:
-      type: string
-      example: B
-      description: The side of the order.
-      enum:
-      - B
-      - S
-      - BUY_OPEN
-      - BUY_CLOSE
-      - SELL_OPEN
-      - SELL_CLOSE
-    optionsValue:
-      type: number
-      format: double
-      example: 12345.67
-      description: The current total market value of the account's open option positions.
-    debtValue:
-      type: number
-      format: double
-      example: 12345.67
-      description: The current total market value of the account's open debt positions.
-    equityPositionsObj:
-      type: object
-      properties:
-        symbol:
-          $ref: '#/components/schemas/instrumentSymbol'
-        instrumentID:
-          $ref: '#/components/schemas/instrumentID'
-        ISIN:
-          $ref: '#/components/schemas/instrumentISIN'
-        instrumentType:
-          $ref: '#/components/schemas/instrumentType'
-        openQty:
-          type: number
-          example: 31.65120151
-          description: Quantity of shares owned by the account.
-        costBasis:
-          type: number
-          example: 975.98
-          description: Cost basis of the position.
-        marketValue:
-          type: number
-          example: 4540.36
-          description: Current market value of the position.
-        side:
-          type: string
-          example: B
-          description: 'In this case, Side distinguishes the type of position. This will always return ''long''(B). '
-          enum:
-          - B
-        priorClose:
-          type: number
-          example: 144.29
-          description: The prior closing price of the security.
-        availableForTradingQty:
-          type: number
-          example: 31.65120151
-          description: The quantity of the security available for sale.
-        avgPrice:
-          type: number
-          example: 30.84
-          description: The average price of the position.
-        mktPrice:
-          type: number
-          example: 143.45
-          description: The current market price of the position.
-        unrealizedPL:
-          type: number
-          example: 3564.38
-          description: Unrealized profit and loss for position.
-        unrealizedDayPLPercent:
-          type: number
-          example: -0.58
-          description: Unrealized day profit and loss for position in percent.
-        unrealizedDayPL:
-          type: number
-          example: -26.59
-          description: Unrealized day profit and loss for position.
     optionType:
       type: string
       example: PUT
@@ -261,137 +198,12 @@ components:
       enum:
       - CALL
       - PUT
-    rootId:
-      type: string
-      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
-      description: A unique ID created by DriveWealth to identify a specific Instrument that this Option is derived from.
+    debtValue:
+      type: number
+      format: double
+      example: 12345.67
+      description: The current total market value of the account's open debt positions.
     mutualFundsPositionsObj:
-      type: object
-      properties:
-        symbol:
-          $ref: '#/components/schemas/instrumentSymbol'
-        instrumentID:
-          $ref: '#/components/schemas/instrumentID'
-        ISIN:
-          $ref: '#/components/schemas/instrumentISIN'
-        instrumentType:
-          $ref: '#/components/schemas/instrumentType'
-        openQty:
-          type: number
-          example: 31.65120151
-          description: Quantity of shares owned by the account.
-        costBasis:
-          type: number
-          example: 975.98
-          description: Cost basis of the position.
-        marketValue:
-          type: number
-          example: 4540.36
-          description: Current market value of the position.
-        side:
-          type: string
-          example: B
-          description: 'In this case, Side distinguishes the type of position. This will always return ''long''(B). '
-          enum:
-          - B
-        priorClose:
-          type: number
-          example: 144.29
-          description: The prior closing price of the security.
-        availableForTradingQty:
-          type: number
-          example: 31.65120151
-          description: The quantity of the security available for sale.
-        avgPrice:
-          type: number
-          example: 30.84
-          description: The average price of the position.
-    optionsPositionsObj:
-      type: object
-      properties:
-        symbol:
-          $ref: '#/components/schemas/instrumentSymbol'
-        instrumentID:
-          $ref: '#/components/schemas/instrumentID'
-        ISIN:
-          $ref: '#/components/schemas/instrumentISIN'
-        instrumentType:
-          $ref: '#/components/schemas/instrumentType'
-        openQty:
-          type: number
-          example: 31.65120151
-          description: Quantity of shares owned by the account.
-        costBasis:
-          type: number
-          example: 975.98
-          description: Cost basis of the position.
-        marketValue:
-          type: number
-          example: 4540.36
-          description: Current market value of the position.
-        side:
-          type: string
-          example: B
-          description: 'In this case, Side distinguishes the type of position. This will always return ''long''(B). '
-          enum:
-          - B
-        priorClose:
-          type: number
-          example: 144.29
-          description: The prior closing price of the security.
-        availableForTradingQty:
-          type: number
-          example: 31.65120151
-          description: The quantity of the security available for sale.
-        avgPrice:
-          type: number
-          example: 30.84
-          description: The average price of the position.
-        mktPrice:
-          type: number
-          example: 440.75
-          description: The current market price of the position.
-        unrealizedPL:
-          type: number
-          example: 14.24
-          description: The unrealized profit and loss for the position.
-        unrealizedDayPLPercent:
-          type: number
-          example: 1.65
-          description: The unrealized day profit and loss for position in percent.
-        unrealizedDayPL:
-          type: number
-          example: 0.54
-          description: The unrealized day profit and loss for the position.
-    instrumentID:
-      type: string
-      format: uuid
-      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
-      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
-    tradingType:
-      type: string
-      example: CASH
-      description: The type of trading the account will participate in.
-      enum:
-      - CASH
-      - MARGIN
-    instrumentISIN:
-      description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
-      type: string
-      minLength: 12
-      maxLength: 14
-      example: US023135BX34
-    instrumentSymbol:
-      type:
-      - string
-      - 'null'
-      example: MS
-      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
-    accountID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
-    debtPositionsObj:
       type: object
       properties:
         symbol:
@@ -453,6 +265,197 @@ components:
           type: number
           example: 16.5
           description: The strike price of the option.
+    instrumentISIN:
+      description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
+      type: string
+      minLength: 12
+      maxLength: 14
+      example: US023135BX34
+    debtPositionsObj:
+      type: object
+      properties:
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        ISIN:
+          $ref: '#/components/schemas/instrumentISIN'
+        instrumentType:
+          $ref: '#/components/schemas/instrumentType'
+        openQty:
+          type: number
+          example: 31.65120151
+          description: Quantity of shares owned by the account.
+        costBasis:
+          type: number
+          example: 975.98
+          description: Cost basis of the position.
+        marketValue:
+          type: number
+          example: 4540.36
+          description: Current market value of the position.
+        side:
+          type: string
+          example: B
+          description: 'In this case, Side distinguishes the type of position. This will always return ''long''(B). '
+          enum:
+          - B
+        priorClose:
+          type: number
+          example: 144.29
+          description: The prior closing price of the security.
+        availableForTradingQty:
+          type: number
+          example: 31.65120151
+          description: The quantity of the security available for sale.
+        avgPrice:
+          type: number
+          example: 30.84
+          description: The average price of the position.
+    equityPositionsObj:
+      type: object
+      properties:
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        ISIN:
+          $ref: '#/components/schemas/instrumentISIN'
+        instrumentType:
+          $ref: '#/components/schemas/instrumentType'
+        openQty:
+          type: number
+          example: 31.65120151
+          description: Quantity of shares owned by the account.
+        costBasis:
+          type: number
+          example: 975.98
+          description: Cost basis of the position.
+        marketValue:
+          type: number
+          example: 4540.36
+          description: Current market value of the position.
+        side:
+          type: string
+          example: B
+          description: 'In this case, Side distinguishes the type of position. This will always return ''long''(B). '
+          enum:
+          - B
+        priorClose:
+          type: number
+          example: 144.29
+          description: The prior closing price of the security.
+        availableForTradingQty:
+          type: number
+          example: 31.65120151
+          description: The quantity of the security available for sale.
+        avgPrice:
+          type: number
+          example: 30.84
+          description: The average price of the position.
+        mktPrice:
+          type: number
+          example: 143.45
+          description: The current market price of the position.
+        unrealizedPL:
+          type: number
+          example: 3564.38
+          description: Unrealized profit and loss for position.
+        unrealizedDayPLPercent:
+          type: number
+          example: -0.58
+          description: Unrealized day profit and loss for position in percent.
+        unrealizedDayPL:
+          type: number
+          example: -26.59
+          description: Unrealized day profit and loss for position.
+    rootId:
+      type: string
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: A unique ID created by DriveWealth to identify a specific Instrument that this Option is derived from.
+    positionsValue:
+      type: number
+      format: double
+      example: 34287911.11
+      description: The current total market value of the account's open positions.
+    instrumentType:
+      type: string
+      example: EQUITY
+      description: The classification of the instrument.
+      enum:
+      - EQUITY
+      - ALTERNATIVE_ASSET
+      - MUTUAL_FUND
+      - DEBT
+      - OPTION
+      - CRYPTO
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    equityValue:
+      type: number
+      format: double
+      example: 34275565.44
+      description: The current total market value of the account's open equity positions.
+    optionsPositionsObj:
+      type: object
+      properties:
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        ISIN:
+          $ref: '#/components/schemas/instrumentISIN'
+        instrumentType:
+          $ref: '#/components/schemas/instrumentType'
+        openQty:
+          type: number
+          example: 31.65120151
+          description: Quantity of shares owned by the account.
+        costBasis:
+          type: number
+          example: 975.98
+          description: Cost basis of the position.
+        marketValue:
+          type: number
+          example: 4540.36
+          description: Current market value of the position.
+        side:
+          type: string
+          example: B
+          description: 'In this case, Side distinguishes the type of position. This will always return ''long''(B). '
+          enum:
+          - B
+        priorClose:
+          type: number
+          example: 144.29
+          description: The prior closing price of the security.
+        availableForTradingQty:
+          type: number
+          example: 31.65120151
+          description: The quantity of the security available for sale.
+        avgPrice:
+          type: number
+          example: 30.84
+          description: The average price of the position.
+        mktPrice:
+          type: number
+          example: 440.75
+          description: The current market price of the position.
+        unrealizedPL:
+          type: number
+          example: 14.24
+          description: The unrealized profit and loss for the position.
+        unrealizedDayPLPercent:
+          type: number
+          example: 1.65
+          description: The unrealized day profit and loss for position in percent.
+        unrealizedDayPL:
+          type: number
+          example: 0.54
+          description: The unrealized day profit and loss for the position.
     PositionsRes:
       type: object
       properties:
@@ -494,22 +497,19 @@ components:
           description: An array of the debt positions in the account.
           items:
             $ref: '#/components/schemas/debtPositionsObj'
-    accountNo:
+    tradingType:
       type: string
-      example: DWBG000052
-      description: The user's unique account number, that is human readable.
-    OptPosition:
-      type: object
-      properties:
-        expirationDate:
-          type: string
-          example: '2018-09-18'
-          description: The date the Option contract will expire.
-          format: date
-        position:
-          $ref: '#/components/schemas/Position'
-        instrument:
-          $ref: '#/components/schemas/Instrument'
+      example: CASH
+      description: The type of trading the account will participate in.
+      enum:
+      - CASH
+      - MARGIN
+    instrumentSymbol:
+      type:
+      - string
+      - 'null'
+      example: MS
+      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
   securitySchemes:
     bearerAuth:
       type: http

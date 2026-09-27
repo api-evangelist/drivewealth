@@ -91,25 +91,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    accountID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
-    BeneficiaryRes:
-      type: object
-      properties:
-        primary:
-          type: array
-          description: An array of objects containing the primary beneficiary details
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/beneficiariesObject'
-        contingent:
-          type: array
-          description: An array of objects containing the contingent beneficiary details.
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/beneficiariesObject'
     beneficiariesObject:
       type: object
       description: An object containing the information of a beneficiary.
@@ -147,11 +128,30 @@ components:
           type: string
           example: '2022-12-29T18:32:15.533Z'
           description: The when the beneficiary was added to the account.
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
     name:
       type: string
       example: Tom Ace
       description: Full name or entity name of type.
     BeneficiaryReq:
+      type: object
+      properties:
+        primary:
+          type: array
+          description: An array of objects containing the primary beneficiary details
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/beneficiariesObject'
+        contingent:
+          type: array
+          description: An array of objects containing the contingent beneficiary details.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/beneficiariesObject'
+    BeneficiaryRes:
       type: object
       properties:
         primary:

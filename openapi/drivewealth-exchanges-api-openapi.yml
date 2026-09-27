@@ -635,14 +635,14 @@ components:
       type: string
       example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
       description: The user's unique account identifier.
-    accountNo:
-      type: string
-      example: DWBG000052
-      description: The user's unique account number, that is human readable.
     userID:
       type: string
       example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
       description: A unique identifier created for each User on DriveWealth's platform.
+    accountNo:
+      type: string
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
   securitySchemes:
     bearerAuth:
       type: http

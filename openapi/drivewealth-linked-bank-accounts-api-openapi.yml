@@ -41,14 +41,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    bankAccountNickName:
-      type: string
-      example: PREFERRED CHECKING
-      description: The linked bank account nickname defined by the user.
-    bankAccountNumberLastFour:
-      type: string
-      example: '****3174'
-      description: The last four digits of the user's external bank account number.
     BankAccount:
       type: object
       properties:
@@ -75,6 +67,14 @@ components:
         updated:
           $ref: '#/components/schemas/updated'
           description: The date and time the User's bank account was updated.
+    bankAccountStatus:
+      type: string
+      example: ACTIVE
+      description: The current status of the user's external linked bank account.
+      enum:
+      - ACTIVE
+      - DELETED
+      - DISABLED
     bankAccountID:
       type: string
       example: bank_a4656e60-321e-425b-aa0d-a2e75c38885f
@@ -85,26 +85,26 @@ components:
       items:
         oneOf:
         - $ref: '#/components/schemas/BankAccount'
-    updated:
+    bankAccountNickName:
       type: string
-      example: '2022-12-11T22:28:21.810Z'
-      description: ''
-    bankAccountStatus:
-      type: string
-      example: ACTIVE
-      description: The current status of the user's external linked bank account.
-      enum:
-      - ACTIVE
-      - DELETED
-      - DISABLED
-    bankRoutingNumber:
-      type: string
-      example: '110000000'
-      description: The routing number of the user's external bank.
+      example: PREFERRED CHECKING
+      description: The linked bank account nickname defined by the user.
     created:
       type: string
       example: '2022-12-11T22:28:21.810Z'
       description: ''
+    bankRoutingNumber:
+      type: string
+      example: '110000000'
+      description: The routing number of the user's external bank.
+    updated:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    bankAccountNumberLastFour:
+      type: string
+      example: '****3174'
+      description: The last four digits of the user's external bank account number.
   securitySchemes:
     bearerAuth:
       type: http

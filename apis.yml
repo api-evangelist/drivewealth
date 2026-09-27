@@ -39,6 +39,9 @@ description: >
   at $1. DriveWealth powers account opening, KYC/AML compliance, portfolio management,
   order execution, funding operations, and reporting for 100+ partners worldwide. A FIX API
   is also available alongside the primary REST API for institutional connectivity.
+x-docs-platform: readme
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-09-25
 tags:
   - Brokerage-as-a-Service
   - Embedded Investing
@@ -50,10 +53,11 @@ tags:
   - Options
   - Fixed Income
   - Mutual Funds
-  - Portfolio-Management
+  - Portfolio Management
   - Account Opening
   - KYC
-  - Financial-Services
+  - Financial Services
+  - Investing
 tags_raw:
   - Brokerage-as-a-Service
   - Embedded Investing
@@ -69,6 +73,9 @@ tags_raw:
   - Account Opening
   - KYC
   - Financial Services
+  - Portfolio-Management
+  - Financial-Services
+  - Investing
 
 apis:
 - name: DriveWealth FIX API

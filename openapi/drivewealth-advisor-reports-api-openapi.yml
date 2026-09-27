@@ -118,40 +118,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    allocationsCompleted:
-      type: number
-      example: 25
-      description: The amount of completed sub account allocations.
-      minimum: 1
-      maximum: 10000
-    accountNo:
-      type: string
-      example: DWBG000052
-      description: The user's unique account number, that is human readable.
-    unallocatedNotional:
-      type: number
-      example: 5320
-      description: The notional value of the shares that have not been allocated to sub accounts.
-    unallocatedQuantity:
-      type: number
-      example: 302
-      description: The remaining amount of shares that have not been allocated to the sub accounts.
-    allocatedQuantity:
-      type: number
-      example: 0.7219
-      description: The amount of allocated shares.
-    beginningOfDay:
-      type: object
-      properties:
-        url:
-          type: string
-          example: '''https://dtygu59lw0as9.cloudfront.net/_bod...'
-          format: url
-          description: The url to the beginning of day json file.
-    orderCumulativeQuantity:
-      type: number
-      example: 0.7219
-      description: The amount of shares currently being transacted; larger orders may execute in chunks.
     sideAbbreviated:
       type: string
       example: B
@@ -163,106 +129,20 @@ components:
       - BUY_CLOSE
       - SELL_OPEN
       - SELL_CLOSE
-    ListOrdersAllocationsByUserID:
-      type: array
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/ListOrdersAllocationsByUserID.Orders'
-    orderID:
-      type: string
-      example: IC.0e352bb7-9869-4233-9861-9673544efedd
-      description: A unique DriveWealth order identifier created when an order is placed.
-    ListOrdersAllocationsByUserID.Orders.Allocation:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/allocationID'
-        status:
-          $ref: '#/components/schemas/allocationStatus'
-        unallocatedNotional:
-          $ref: '#/components/schemas/unallocatedNotional'
-        unallocatedQuantity:
-          $ref: '#/components/schemas/unallocatedQuantity'
-    OrdersAllocationSummary:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/allocationID'
-        accountNo:
-          $ref: '#/components/schemas/accountNo'
-        date:
-          type: string
-          example: '2022-12-25'
-          description: The specific date requested in the inbound API request.
-        orders:
-          type: array
-          description: A list of order and allocations.
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/OrdersAllocationsSummary'
-    orderStatus:
-      type: string
-      example: FILLED
-      description: The current status of the order.
-      enum:
-      - NEW
-      - FILLED
-      - PARTIAL_FILL
-      - PENDING_CANCEL
-      - CANCELED
-      - REJECTED
-    ListOrdersAllocationsByUserID.Orders:
-      type: object
-      properties:
-        riaID:
-          $ref: '#/components/schemas/userID'
-        orderID:
-          $ref: '#/components/schemas/orderID'
-        orderNo:
-          $ref: '#/components/schemas/orderNo'
-        orderType:
-          $ref: '#/components/schemas/orderTypes'
-        createdWhen:
-          type: string
-          example: '2022-12-11T22:28:21.810Z'
-          description: The createdWhen is the date and time the order was created.
-        instrumentID:
-          $ref: '#/components/schemas/instrumentID'
-        symbol:
-          $ref: '#/components/schemas/instrumentSymbol'
-        side:
-          $ref: '#/components/schemas/sideAbbreviated'
-        orderQty:
-          $ref: '#/components/schemas/orderQuantity'
-        cumQty:
-          $ref: '#/components/schemas/orderCumulativeQuantity'
-        avgPx:
-          $ref: '#/components/schemas/orderAveragePrice'
-        allocations:
-          type: array
-          description: A list of a User's sub account allocations.
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/ListOrdersAllocationsByUserID.Orders.Allocation'
-    instrumentID:
-      type: string
-      format: uuid
-      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
-      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
-    orderQuantity:
+    allocationsRequested:
       type: number
-      example: 0.7219
-      description: The amount of the instrument in shares.
-    orderTypes:
-      type: string
-      example: MARKET
-      description: The type of the Order.
-      enum:
-      - MARKET
-      - LIMIT
-      - STOP
-      - STOP_LIMIT
-      - MARKET_IF_TOUCHED
+      example: 500
+      description: The amount of sub account allocations passed to the system.
+      minimum: 1
+      maximum: 10000
+    beginningOfDay:
+      type: object
+      properties:
+        url:
+          type: string
+          example: '''https://dtygu59lw0as9.cloudfront.net/_bod...'
+          format: url
+          description: The url to the beginning of day json file.
     allocationStatus:
       type: string
       example: NEW
@@ -273,14 +153,6 @@ components:
       - PART_COMPLETE
       - COMPLETED
       - REJECTED
-    orderNo:
-      type: string
-      example: ICDU023727
-      description: A unique, human-readable DriveWealth order number.
-    allocationID:
-      type: string
-      example: JF.allocation.TendiesTradingCo.e61f512a-ed9c-4047-9ccf-224a5864158d
-      description: The unique identifier that identifies the lot of the allocation.
     OrderAllocations:
       type: object
       properties:
@@ -306,16 +178,10 @@ components:
           type: string
           example: All allocated and accounted for. 1::1::0 client note[empty], . timeMs=667 ratePerSec=1.50 msPerItem=667.00
           description: A custom comment generated by DriveWealth.
-    userID:
+    accountNo:
       type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
-      description: A unique identifier created for each User on DriveWealth's platform.
-    instrumentSymbol:
-      type:
-      - string
-      - 'null'
-      example: MS
-      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
     OrdersAllocationsSummary:
       type: object
       properties:
@@ -358,20 +224,154 @@ components:
           items:
             oneOf:
             - $ref: '#/components/schemas/OrderAllocations'
-    allocationsRequested:
+    orderCumulativeQuantity:
       type: number
-      example: 500
-      description: The amount of sub account allocations passed to the system.
-      minimum: 1
-      maximum: 10000
-    allocationUrl:
+      example: 0.7219
+      description: The amount of shares currently being transacted; larger orders may execute in chunks.
+    orderQuantity:
+      type: number
+      example: 0.7219
+      description: The amount of the instrument in shares.
+    unallocatedQuantity:
+      type: number
+      example: 302
+      description: The remaining amount of shares that have not been allocated to the sub accounts.
+    ListOrdersAllocationsByUserID.Orders:
+      type: object
+      properties:
+        riaID:
+          $ref: '#/components/schemas/userID'
+        orderID:
+          $ref: '#/components/schemas/orderID'
+        orderNo:
+          $ref: '#/components/schemas/orderNo'
+        orderType:
+          $ref: '#/components/schemas/orderTypes'
+        createdWhen:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The createdWhen is the date and time the order was created.
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        side:
+          $ref: '#/components/schemas/sideAbbreviated'
+        orderQty:
+          $ref: '#/components/schemas/orderQuantity'
+        cumQty:
+          $ref: '#/components/schemas/orderCumulativeQuantity'
+        avgPx:
+          $ref: '#/components/schemas/orderAveragePrice'
+        allocations:
+          type: array
+          description: A list of a User's sub account allocations.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/ListOrdersAllocationsByUserID.Orders.Allocation'
+    orderStatus:
       type: string
-      example: /back-office/managed/allocations/JF.TENDIESTRADINGCO_20221225_120000_MOD_AUTO_LIQUIDATE
-      description: A specific URL that contains the full break down of the allocation.
+      example: FILLED
+      description: The current status of the order.
+      enum:
+      - NEW
+      - FILLED
+      - PARTIAL_FILL
+      - PENDING_CANCEL
+      - CANCELED
+      - REJECTED
     orderAveragePrice:
       type: number
       example: 1038.81
       description: The average price of the security being transacted in the order.
+    orderTypes:
+      type: string
+      example: MARKET
+      description: The type of the Order.
+      enum:
+      - MARKET
+      - LIMIT
+      - STOP
+      - STOP_LIMIT
+      - MARKET_IF_TOUCHED
+    orderID:
+      type: string
+      example: IC.0e352bb7-9869-4233-9861-9673544efedd
+      description: A unique DriveWealth order identifier created when an order is placed.
+    unallocatedNotional:
+      type: number
+      example: 5320
+      description: The notional value of the shares that have not been allocated to sub accounts.
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    allocatedQuantity:
+      type: number
+      example: 0.7219
+      description: The amount of allocated shares.
+    orderNo:
+      type: string
+      example: ICDU023727
+      description: A unique, human-readable DriveWealth order number.
+    ListOrdersAllocationsByUserID:
+      type: array
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/ListOrdersAllocationsByUserID.Orders'
+    ListOrdersAllocationsByUserID.Orders.Allocation:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/allocationID'
+        status:
+          $ref: '#/components/schemas/allocationStatus'
+        unallocatedNotional:
+          $ref: '#/components/schemas/unallocatedNotional'
+        unallocatedQuantity:
+          $ref: '#/components/schemas/unallocatedQuantity'
+    allocationID:
+      type: string
+      example: JF.allocation.TendiesTradingCo.e61f512a-ed9c-4047-9ccf-224a5864158d
+      description: The unique identifier that identifies the lot of the allocation.
+    allocationUrl:
+      type: string
+      example: /back-office/managed/allocations/JF.TENDIESTRADINGCO_20221225_120000_MOD_AUTO_LIQUIDATE
+      description: A specific URL that contains the full break down of the allocation.
+    allocationsCompleted:
+      type: number
+      example: 25
+      description: The amount of completed sub account allocations.
+      minimum: 1
+      maximum: 10000
+    OrdersAllocationSummary:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/allocationID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        date:
+          type: string
+          example: '2022-12-25'
+          description: The specific date requested in the inbound API request.
+        orders:
+          type: array
+          description: A list of order and allocations.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/OrdersAllocationsSummary'
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    instrumentSymbol:
+      type:
+      - string
+      - 'null'
+      example: MS
+      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
   securitySchemes:
     bearerAuth:
       type: http

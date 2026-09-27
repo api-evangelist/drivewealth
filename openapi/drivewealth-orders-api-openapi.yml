@@ -497,6 +497,84 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    note:
+      type: string
+      example: Hey! Welcome to DriveWealth Developer Docs!
+      description: A way to store a message/comment on the this object.
+    sideAbbreviated:
+      type: string
+      example: B
+      description: The side of the order.
+      enum:
+      - B
+      - S
+      - BUY_OPEN
+      - BUY_CLOSE
+      - SELL_OPEN
+      - SELL_CLOSE
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    currency:
+      type: string
+      example: USD
+      description: The name of the currency in abbreviation form.
+      enum:
+      - USD
+    instrumentSymbol:
+      type:
+      - string
+      - 'null'
+      example: MS
+      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
+    CancelOrderResponse:
+      type: object
+      properties:
+        orderId:
+          type: string
+          example: EF.418a5506-256c-4c3c-9d4d-f491522cf7f2
+          description: A unique identifier for the order.
+        orderNo:
+          type: string
+          example: EFXM000103
+          description: A human readable order identifier.
+    side:
+      type: string
+      example: BUY
+      description: The side of the order.
+      enum:
+      - BUY
+      - SELL
+    preventQueuing:
+      type: boolean
+      example: false
+      description: If set to `true`, Orders received when the market is closed will not be queued for the next market open, and will be rejected. Please pay attention to the spelling of queuing as there are two valid spellings of this word.
+      enum:
+      - true
+      - false
+    accountNo:
+      type: string
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
+    commissionID:
+      type: string
+      example: b3e985dd-9679-63dc-5dd5-9bd7982efecd
+      description: The unique identifier associated with a specific commission related to the account.
+    orderCumulativeQuantity:
+      type: number
+      example: 0.7219
+      description: The amount of shares currently being transacted; larger orders may execute in chunks.
+    metadata:
+      type: object
+      example:
+        myCustomKey: myCustomValue
+      description: The metadata object allows for creating a maximum of 5 keys (max 36 characters) and each value cannot exceed more than 128 bytes.
+    expiration:
+      type: string
+      format: date
+      example: YYYY-MM-DD
+      description: The date of expiration for a good-til-canceled order, in “YYYY-MM-DD” format. The order will be canceled if not executed by the market close on this date. If not set, a good-til-canceled Stop and MIT order will be assumed to expire 90 days after creation. If not set, a limit order will be considered GTD and will cancel at the end of the trading day.
     OrderHistoryRes:
       type: object
       properties:
@@ -565,217 +643,17 @@ components:
                   description: The stop price of a limit order.
                 ISIN:
                   $ref: '#/components/schemas/instrumentISIN'
-    cancelDetails:
-      type: object
-      description: Additional details to clarify when and how the cancel request was received. US broker-dealers must utilize this field for CAT compliance.
-      properties:
-        initiator:
-          type:
-          - string
-          - 'null'
-          example: C
-          description: The individual responsible for initiating the cancellation of an order. Please refer to CAT documentation and instructions for more information on the allowed values.
-          enum:
-          - C
-          - F
-        requestedTimestamp:
-          type:
-          - string
-          - 'null'
-          example: '2023-07-30T22:13:18.000Z'
-          description: The requested timestamp in ISO format by user to cancel an order
-        manualCancel:
-          type:
-          - boolean
-          - 'null'
-          example: true
-          description: Whether an order cancellation request was received from a human, manually. A false value represents that an automated system initiated the cancel.
-        comment:
-          type:
-          - string
-          - 'null'
-          example: This order has been cancelled
-          description: A freeform comment to attach to the cancel request
-    ErrorResponseModel:
-      type: object
-      description: The error response model that is returned when an error occurs.
-      required:
-      - errorCode
-      - message
-      properties:
-        errorCode:
-          $ref: '#/components/schemas/ErrorCode'
-        message:
-          $ref: '#/components/schemas/ErrorCodeMessage'
-        errorDetails:
-          $ref: '#/components/schemas/ErrorDetails'
-    preventQueuing:
-      type: boolean
-      example: false
-      description: If set to `true`, Orders received when the market is closed will not be queued for the next market open, and will be rejected. Please pay attention to the spelling of queuing as there are two valid spellings of this word.
-      enum:
-      - true
-      - false
-    limitType:
-      type: string
-      enum:
-      - PRICE
-      - YIELD
-      description: Whether the limit price represents a unit price, or a yield. Only applicable to Orders for debt Instruments.
-      example: PRICE
-    instrumentType:
-      type: string
-      example: EQUITY
-      description: The classification of the instrument.
-      enum:
-      - EQUITY
-      - ALTERNATIVE_ASSET
-      - MUTUAL_FUND
-      - DEBT
-      - OPTION
-      - CRYPTO
-    SalesCredit:
-      type: object
-      description: If set, the unit price will be marked up or marked down based on the prescribed amount. Only applicable to Orders for Debt Instruments.
-      properties:
-        currency:
-          $ref: '#/components/schemas/currency'
-        amount:
-          type: integer
-          example: 14
-          description: The sales credit amount in cents.
-    clientOrderID:
-      type: string
-      example: 5a1762d5-4562
-      description: A unique identifier that represents the order, as defined by the partner. This detail will be reported to the CAT system for US brokers to more easily reconcile reported information.
-    orderTypesRequest:
-      type: string
-      example: MARKET
-      description: The type of the Order.
-      enum:
-      - MARKET
-      - LIMIT
-      - STOP
-      - MARKET_IF_TOUCHED
-    deptType:
-      type: string
-      example: ATS
-      description: The name of the department in abbreviation form.
-      enum:
-      - A
-      - ATS
-      - DMA
-      - SA
-      - T
-      - O
-    orderCumulativeQuantity:
+    orderQuantity:
       type: number
       example: 0.7219
-      description: The amount of shares currently being transacted; larger orders may execute in chunks.
-    sideAbbreviated:
+      description: The amount of the instrument in shares.
+    commissionOverrideType:
       type: string
-      example: B
-      description: The side of the order.
       enum:
-      - B
-      - S
-      - BUY_OPEN
-      - BUY_CLOSE
-      - SELL_OPEN
-      - SELL_CLOSE
-    taxLotID:
-      type: string
-      example: 3db27e74626adac3be7b549f2bbc0ab2480852a7
-      description: A unique tax lot identifier.
-    amountCash:
-      type: number
-      format: double
-      example: null
-      description: The USD-denominated amount to purchase or sell.
-    CancelOrderResponse:
-      type: object
-      properties:
-        orderId:
-          type: string
-          example: EF.418a5506-256c-4c3c-9d4d-f491522cf7f2
-          description: A unique identifier for the order.
-        orderNo:
-          type: string
-          example: EFXM000103
-          description: A human readable order identifier.
-    orderID:
-      type: string
-      example: IC.0e352bb7-9869-4233-9861-9673544efedd
-      description: A unique DriveWealth order identifier created when an order is placed.
-    commissionRate:
-      type: number
-      format: BigDecimal
-      description: The commission rate is a percentage charge to the total amount of the order.
-      example: 0.3
-      minimum: 0.0001
-      maximum: 1
-    CreateOrderResponse:
-      type: object
-      properties:
-        orderId:
-          type: string
-          example: EF.418a5506-256c-4c3c-9d4d-f491522cf7f2
-          description: A unique identifier for the order.
-        orderNo:
-          type: string
-          example: EFXM000103
-          description: A human readable order identifier.
-    side:
-      type: string
-      example: BUY
-      description: The side of the order.
-      enum:
-      - BUY
-      - SELL
-    openQuantity:
-      type: number
-      example: 1
-      description: The number of units currently represented by the position in the Account.
-    commissionOverrideDesc:
-      type: string
-      example: Standard Commission
-      description: The description of commission override applied to the order
-    timeInForce:
-      type: string
-      example: GTC
-      description: Set to "GTC" for a good-til-canceled order. Set to "GTX" for extended hours orders. When this property is not set, market and limit orders will be good-for-day by default, while stops and market-if-touched orders will be assumed good-til-canceled.
-      enum:
-      - GTC
-      - GTX
-      - DAY
-      - FILL_OR_KILL
-    orderStatusNumber:
-      type: number
-      example: 2
-      description: The current status of the order, represented as a number.
-      enum:
-      - 0
-      - 1
-      - 2
-      - 4
-      - 6
-      - 7
-      - 8
-    currency:
-      type: string
-      example: USD
-      description: The name of the currency in abbreviation form.
-      enum:
-      - USD
-    expiration:
-      type: string
-      format: date
-      example: YYYY-MM-DD
-      description: The date of expiration for a good-til-canceled order, in “YYYY-MM-DD” format. The order will be canceled if not executed by the market close on this date. If not set, a good-til-canceled Stop and MIT order will be assumed to expire 90 days after creation. If not set, a limit order will be considered GTD and will cancel at the end of the trading day.
-    note:
-      type: string
-      example: Hey! Welcome to DriveWealth Developer Docs!
-      description: A way to store a message/comment on the this object.
+      - NO_OVERRIDE
+      - RAW_COMMISSION
+      example: RAW_COMMISSION
+      description: The type of commission override applied to the order
     PendingOrders:
       type: object
       description: A list of pending orders.
@@ -863,59 +741,100 @@ components:
                   $ref: '#/components/schemas/SalesCredit'
                 instrumentType:
                   $ref: '#/components/schemas/instrumentType'
-    ErrorCodeMessage:
+    instrumentCUSIP:
+      description: 'CUSIP stands for `Committee on Uniform Securities Identification Procedures`.
+
+        A CUSIP number identifies most financial instruments, including: stocks of all registered U.S. and Canadian companies, commercial paper, and U.S. government and municipal bonds.
+
+        The CUSIP system facilitates the clearance and settlement process of securities.
+
+        CUSIP numbers consist of nine characters (including letters and numbers) that uniquely identify a company or issuer and the type of financial instrument.
+
+        A similar system is used to identify foreign securities (`CUSIP International Numbering System or CINS`).
+
+        CINS employs the same nine character identifier as CUSIP, but also contains a letter in the first position to signify the issuer''s country or geographic region.
+
+        '
       type: string
-      description: The error message that is returned when an error occurs.
-    ErrorCode:
+      minLength: 9
+      maxLength: 9
+      example: E09876AA7
+    ErrorDetails:
+      type: object
+      properties:
+        field:
+          type: string
+          description: JSON field name from the request body that caused an error
+        type:
+          type: string
+          enum:
+          - STRING
+          - ARRAY
+          - INT
+          - DECIMAL
+          - BOOL
+          - TEXT
+          - UUID
+          - DATE
+          - MAP
+          - OBJECT
+          description: Expected data type of the field
+        allowedValues:
+          type: string
+          description: Example values which are allowed in the field
+    CreateOrderResponse:
+      type: object
+      properties:
+        orderId:
+          type: string
+          example: EF.418a5506-256c-4c3c-9d4d-f491522cf7f2
+          description: A unique identifier for the order.
+        orderNo:
+          type: string
+          example: EFXM000103
+          description: A human readable order identifier.
+    created:
       type: string
-      description: The error code that is returned when an error occurs.
-      example: E032
-    schemas-side:
-      type: string
-      example: BUY
-      description: Whether an order is to purchase or sell. Generally, the value should be set to `BUY` or `SELL`. For Options orders, `BUY_OPEN`, `BUY_CLOSE`, `SELL_OPEN`, `SELL_CLOSE` should be used.
-      enum:
-      - BUY
-      - SELL
-      - BUY_OPEN
-      - BUY_CLOSE
-      - SELL_OPEN
-      - SELL_CLOSE
-    dccs:
-      type: boolean
-      example: true
-      description: True, when the Mutual Fund HSA is classified as Defined Contribution Clearing and Settlement (DCC&S) order.
-    LotDisposition:
-      type: array
-      items:
-        allOf:
-        - $ref: '#/components/schemas/TaxLot'
-    instrumentID:
-      type: string
-      format: uuid
-      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
-      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
-    orderQuantity:
-      type: number
-      example: 0.7219
-      description: The amount of the instrument in shares.
-    orderTypes:
-      type: string
-      example: MARKET
-      description: The type of the Order.
-      enum:
-      - MARKET
-      - LIMIT
-      - STOP
-      - STOP_LIMIT
-      - MARKET_IF_TOUCHED
-    tradingType:
-      type: string
-      example: CASH
-      description: The type of trading the account will participate in.
-      enum:
-      - CASH
-      - MARGIN
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    commissionOverride:
+      oneOf:
+      - type: object
+        properties:
+          commissionOverrideType:
+            $ref: '#/components/schemas/commissionOverrideType'
+          commissionID:
+            $ref: '#/components/schemas/commissionID'
+          commissionOverrideDesc:
+            $ref: '#/components/schemas/commissionOverrideDesc'
+      - type: object
+        properties:
+          commissionOverrideType:
+            $ref: '#/components/schemas/commissionOverrideType'
+          commissionID:
+            $ref: '#/components/schemas/commissionID'
+          commissionOverrideDesc:
+            $ref: '#/components/schemas/commissionOverrideDesc'
+          commissionAmount:
+            example: 3.5
+          secOverride:
+            example: 0.01
+          tafOverride:
+            example: 0.01
+      - type: object
+        properties:
+          commissionOverrideType:
+            example: '#/components/schemas/commissionOverrideType'
+          commissionID:
+            $ref: '#/components/schemas/commissionID'
+          commissionOverrideDesc:
+            example: '#/components/schemas/commissionOverrideDesc'
+          commissionRate:
+            example: 0.5
+          secOverride:
+            example: 0.01
+          tafOverride:
+            example: 0.01
     OrderStatusResponse:
       type: object
       description: Order details for a fixed income asset trade
@@ -1021,111 +940,10 @@ components:
           $ref: '#/components/schemas/clientOrderTransactionTime'
         clientOrderID:
           $ref: '#/components/schemas/clientOrderID'
-    orderNo:
-      type: string
-      example: ICDU023727
-      description: A unique, human-readable DriveWealth order number.
-    commissionOverrideType:
-      type: string
-      enum:
-      - NO_OVERRIDE
-      - RAW_COMMISSION
-      example: RAW_COMMISSION
-      description: The type of commission override applied to the order
-    extendedHours:
-      type: boolean
-      example: false
-      description: Whether the order is eligible for Extended Hours Trading. The `timeInForce` must be set to `GTX` when this field is `true`. Only applicable to Equity Orders.
-      enum:
-      - true
-      - false
-    instrumentCUSIP:
-      description: 'CUSIP stands for `Committee on Uniform Securities Identification Procedures`.
-
-        A CUSIP number identifies most financial instruments, including: stocks of all registered U.S. and Canadian companies, commercial paper, and U.S. government and municipal bonds.
-
-        The CUSIP system facilitates the clearance and settlement process of securities.
-
-        CUSIP numbers consist of nine characters (including letters and numbers) that uniquely identify a company or issuer and the type of financial instrument.
-
-        A similar system is used to identify foreign securities (`CUSIP International Numbering System or CINS`).
-
-        CINS employs the same nine character identifier as CUSIP, but also contains a letter in the first position to signify the issuer''s country or geographic region.
-
-        '
-      type: string
-      minLength: 9
-      maxLength: 9
-      example: E09876AA7
-    instrumentISIN:
-      description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
-      type: string
-      minLength: 12
-      maxLength: 14
-      example: US023135BX34
-    CancelOrder:
-      type: object
-      required:
-      - method
-      properties:
-        method:
-          type: string
-          example: CANCEL
-          enum:
-          - CANCEL
-          description: The method in which is requested.
-        traderID:
-          type: string
-          example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
-          description: The trader ID of the individual.
-        clientOrderTransactionTime:
-          $ref: '#/components/schemas/clientOrderTransactionTime'
-        clientOrderID:
-          $ref: '#/components/schemas/clientOrderID'
-        cancelDetails:
-          $ref: '#/components/schemas/cancelDetails'
-    TaxLot:
-      type: object
-      properties:
-        taxLotID:
-          $ref: '#/components/schemas/taxLotID'
-    created:
+    updated:
       type: string
       example: '2022-12-11T22:28:21.810Z'
       description: ''
-    instrumentSymbol:
-      type:
-      - string
-      - 'null'
-      example: MS
-      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
-    accountID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
-    ErrorDetails:
-      type: object
-      properties:
-        field:
-          type: string
-          description: JSON field name from the request body that caused an error
-        type:
-          type: string
-          enum:
-          - STRING
-          - ARRAY
-          - INT
-          - DECIMAL
-          - BOOL
-          - TEXT
-          - UUID
-          - DATE
-          - MAP
-          - OBJECT
-          description: Expected data type of the field
-        allowedValues:
-          type: string
-          description: Example values which are allowed in the field
     CreateOrderRequest:
       type: object
       required:
@@ -1204,10 +1022,48 @@ components:
           $ref: '#/components/schemas/clientOrderID'
         deptType:
           $ref: '#/components/schemas/deptType'
-    updated:
+    limitType:
       type: string
-      example: '2022-12-11T22:28:21.810Z'
-      description: ''
+      enum:
+      - PRICE
+      - YIELD
+      description: Whether the limit price represents a unit price, or a yield. Only applicable to Orders for debt Instruments.
+      example: PRICE
+    commissionRate:
+      type: number
+      format: BigDecimal
+      description: The commission rate is a percentage charge to the total amount of the order.
+      example: 0.3
+      minimum: 0.0001
+      maximum: 1
+    deptType:
+      type: string
+      example: ATS
+      description: The name of the department in abbreviation form.
+      enum:
+      - A
+      - ATS
+      - DMA
+      - SA
+      - T
+      - O
+    clientOrderID:
+      type: string
+      example: 5a1762d5-4562
+      description: A unique identifier that represents the order, as defined by the partner. This detail will be reported to the CAT system for US brokers to more easily reconcile reported information.
+    orderTypesRequest:
+      type: string
+      example: MARKET
+      description: The type of the Order.
+      enum:
+      - MARKET
+      - LIMIT
+      - STOP
+      - MARKET_IF_TOUCHED
+    availableForTradingQuantity:
+      type: number
+      example: 1
+      description: The number of units that can currently be traded by the Account holder.
     OrderAuditResponse:
       type: object
       properties:
@@ -1289,6 +1145,73 @@ components:
           $ref: '#/components/schemas/clientOrderTransactionTime'
         clientOrderID:
           $ref: '#/components/schemas/clientOrderID'
+    orderAveragePrice:
+      type: number
+      example: 1038.81
+      description: The average price of the security being transacted in the order.
+    orderTypes:
+      type: string
+      example: MARKET
+      description: The type of the Order.
+      enum:
+      - MARKET
+      - LIMIT
+      - STOP
+      - STOP_LIMIT
+      - MARKET_IF_TOUCHED
+    amountCash:
+      type: number
+      format: double
+      example: null
+      description: The USD-denominated amount to purchase or sell.
+    orderID:
+      type: string
+      example: IC.0e352bb7-9869-4233-9861-9673544efedd
+      description: A unique DriveWealth order identifier created when an order is placed.
+    clientOrderTransactionTime:
+      type: string
+      example: '2024-07-30T22:13:18.000Z'
+      description: The date with a valid timestamp of when a partner received the order from the customer.
+    openQuantity:
+      type: number
+      example: 1
+      description: The number of units currently represented by the position in the Account.
+    ErrorResponseModel:
+      type: object
+      description: The error response model that is returned when an error occurs.
+      required:
+      - errorCode
+      - message
+      properties:
+        errorCode:
+          $ref: '#/components/schemas/ErrorCode'
+        message:
+          $ref: '#/components/schemas/ErrorCodeMessage'
+        errorDetails:
+          $ref: '#/components/schemas/ErrorDetails'
+    SalesCredit:
+      type: object
+      description: If set, the unit price will be marked up or marked down based on the prescribed amount. Only applicable to Orders for Debt Instruments.
+      properties:
+        currency:
+          $ref: '#/components/schemas/currency'
+        amount:
+          type: integer
+          example: 14
+          description: The sales credit amount in cents.
+    instrumentISIN:
+      description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
+      type: string
+      minLength: 12
+      maxLength: 14
+      example: US023135BX34
+    ErrorCodeMessage:
+      type: string
+      description: The error message that is returned when an error occurs.
+    orderNo:
+      type: string
+      example: ICDU023727
+      description: A unique, human-readable DriveWealth order number.
     auditLog:
       type: object
       properties:
@@ -1343,6 +1266,27 @@ components:
           description: EventID sent to client
         createdWhen:
           $ref: '#/components/schemas/created'
+    ErrorCode:
+      type: string
+      description: The error code that is returned when an error occurs.
+      example: E032
+    orderStatusNumber:
+      type: number
+      example: 2
+      description: The current status of the order, represented as a number.
+      enum:
+      - 0
+      - 1
+      - 2
+      - 4
+      - 6
+      - 7
+      - 8
+    LotDisposition:
+      type: array
+      items:
+        allOf:
+        - $ref: '#/components/schemas/TaxLot'
     localOrderStatus:
       type: string
       example: FILLED
@@ -1354,69 +1298,125 @@ components:
       - REJECTED
       - CANCELED
       - PENDING_CANCEL
-    commissionOverride:
-      oneOf:
-      - type: object
-        properties:
-          commissionOverrideType:
-            $ref: '#/components/schemas/commissionOverrideType'
-          commissionID:
-            $ref: '#/components/schemas/commissionID'
-          commissionOverrideDesc:
-            $ref: '#/components/schemas/commissionOverrideDesc'
-      - type: object
-        properties:
-          commissionOverrideType:
-            $ref: '#/components/schemas/commissionOverrideType'
-          commissionID:
-            $ref: '#/components/schemas/commissionID'
-          commissionOverrideDesc:
-            $ref: '#/components/schemas/commissionOverrideDesc'
-          commissionAmount:
-            example: 3.5
-          secOverride:
-            example: 0.01
-          tafOverride:
-            example: 0.01
-      - type: object
-        properties:
-          commissionOverrideType:
-            example: '#/components/schemas/commissionOverrideType'
-          commissionID:
-            $ref: '#/components/schemas/commissionID'
-          commissionOverrideDesc:
-            example: '#/components/schemas/commissionOverrideDesc'
-          commissionRate:
-            example: 0.5
-          secOverride:
-            example: 0.01
-          tafOverride:
-            example: 0.01
-    commissionID:
-      type: string
-      example: b3e985dd-9679-63dc-5dd5-9bd7982efecd
-      description: The unique identifier associated with a specific commission related to the account.
-    metadata:
+    dccs:
+      type: boolean
+      example: true
+      description: True, when the Mutual Fund HSA is classified as Defined Contribution Clearing and Settlement (DCC&S) order.
+    CancelOrder:
       type: object
-      example:
-        myCustomKey: myCustomValue
-      description: The metadata object allows for creating a maximum of 5 keys (max 36 characters) and each value cannot exceed more than 128 bytes.
-    clientOrderTransactionTime:
+      required:
+      - method
+      properties:
+        method:
+          type: string
+          example: CANCEL
+          enum:
+          - CANCEL
+          description: The method in which is requested.
+        traderID:
+          type: string
+          example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+          description: The trader ID of the individual.
+        clientOrderTransactionTime:
+          $ref: '#/components/schemas/clientOrderTransactionTime'
+        clientOrderID:
+          $ref: '#/components/schemas/clientOrderID'
+        cancelDetails:
+          $ref: '#/components/schemas/cancelDetails'
+    timeInForce:
       type: string
-      example: '2024-07-30T22:13:18.000Z'
-      description: The date with a valid timestamp of when a partner received the order from the customer.
-    accountNo:
+      example: GTC
+      description: Set to "GTC" for a good-til-canceled order. Set to "GTX" for extended hours orders. When this property is not set, market and limit orders will be good-for-day by default, while stops and market-if-touched orders will be assumed good-til-canceled.
+      enum:
+      - GTC
+      - GTX
+      - DAY
+      - FILL_OR_KILL
+    commissionOverrideDesc:
       type: string
-      example: DWBG000052
-      description: The user's unique account number, that is human readable.
-    orderAveragePrice:
-      type: number
-      example: 1038.81
-      description: The average price of the security being transacted in the order.
-    availableForTradingQuantity:
-      type: number
-      example: 1
-      description: The number of units that can currently be traded by the Account holder.
+      example: Standard Commission
+      description: The description of commission override applied to the order
+    extendedHours:
+      type: boolean
+      example: false
+      description: Whether the order is eligible for Extended Hours Trading. The `timeInForce` must be set to `GTX` when this field is `true`. Only applicable to Equity Orders.
+      enum:
+      - true
+      - false
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    instrumentType:
+      type: string
+      example: EQUITY
+      description: The classification of the instrument.
+      enum:
+      - EQUITY
+      - ALTERNATIVE_ASSET
+      - MUTUAL_FUND
+      - DEBT
+      - OPTION
+      - CRYPTO
+    TaxLot:
+      type: object
+      properties:
+        taxLotID:
+          $ref: '#/components/schemas/taxLotID'
+    cancelDetails:
+      type: object
+      description: Additional details to clarify when and how the cancel request was received. US broker-dealers must utilize this field for CAT compliance.
+      properties:
+        initiator:
+          type:
+          - string
+          - 'null'
+          example: C
+          description: The individual responsible for initiating the cancellation of an order. Please refer to CAT documentation and instructions for more information on the allowed values.
+          enum:
+          - C
+          - F
+        requestedTimestamp:
+          type:
+          - string
+          - 'null'
+          example: '2023-07-30T22:13:18.000Z'
+          description: The requested timestamp in ISO format by user to cancel an order
+        manualCancel:
+          type:
+          - boolean
+          - 'null'
+          example: true
+          description: Whether an order cancellation request was received from a human, manually. A false value represents that an automated system initiated the cancel.
+        comment:
+          type:
+          - string
+          - 'null'
+          example: This order has been cancelled
+          description: A freeform comment to attach to the cancel request
+    schemas-side:
+      type: string
+      example: BUY
+      description: Whether an order is to purchase or sell. Generally, the value should be set to `BUY` or `SELL`. For Options orders, `BUY_OPEN`, `BUY_CLOSE`, `SELL_OPEN`, `SELL_CLOSE` should be used.
+      enum:
+      - BUY
+      - SELL
+      - BUY_OPEN
+      - BUY_CLOSE
+      - SELL_OPEN
+      - SELL_CLOSE
+    tradingType:
+      type: string
+      example: CASH
+      description: The type of trading the account will participate in.
+      enum:
+      - CASH
+      - MARGIN
+    taxLotID:
+      type: string
+      example: 3db27e74626adac3be7b549f2bbc0ab2480852a7
+      description: A unique tax lot identifier.
   securitySchemes:
     bearerAuth:
       type: http

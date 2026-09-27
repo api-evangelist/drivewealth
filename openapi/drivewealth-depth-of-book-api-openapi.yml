@@ -99,6 +99,23 @@ paths:
         dwAppKey: []
 components:
   schemas:
+    MarketQuoteRequest:
+      type: object
+      description: Trade Quote Request for Fixed Income Securities
+      required:
+      - instrumentID
+      - quantity
+      properties:
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        quantity:
+          type: number
+          format: double
+          example: 3.14
+          description: The quantity of bonds user wishes to trade.
+          minimum: 0
+        salesCredit:
+          $ref: '#/components/schemas/SalesCredit'
     MarketQuoteResponse:
       type: object
       description: Trade Quote Response for Fixed Income Orders
@@ -183,54 +200,6 @@ components:
           description: Recent Trades
           items:
             $ref: '#/components/schemas/RecentTrade'
-    instrumentID:
-      type: string
-      format: uuid
-      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
-      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
-    BidPrice:
-      type: object
-      description: Bid Price
-      example:
-        bidPrice: 98.992
-        bidSize: 10000
-        bidYield: 4.799
-        minQty: 150
-      properties:
-        bidPrice:
-          type: number
-          format: double
-          example: 130.529
-          description: Bid value
-          readOnly: true
-        bidSize:
-          type: number
-          format: double
-          example: 150
-          description: Bid size
-          readOnly: true
-        bidYield:
-          type: number
-          format: double
-          example: 4.799
-          description: Bid yield
-          readOnly: true
-        minQty:
-          type: number
-          format: double
-          example: 150
-          description: Minimum quantity
-          readOnly: true
-    SalesCredit:
-      type: object
-      description: If set, the unit price will be marked up or marked down based on the prescribed amount. Only applicable to Orders for Debt Instruments.
-      properties:
-        currency:
-          $ref: '#/components/schemas/currency'
-        amount:
-          type: integer
-          example: 14
-          description: The sales credit amount in cents.
     currency:
       type: string
       example: USD
@@ -292,6 +261,60 @@ components:
         yield: 4.799
         side: buy
         dateTime: '2017-07-21T17:32:28Z'
+    BidPrice:
+      type: object
+      description: Bid Price
+      example:
+        bidPrice: 98.992
+        bidSize: 10000
+        bidYield: 4.799
+        minQty: 150
+      properties:
+        bidPrice:
+          type: number
+          format: double
+          example: 130.529
+          description: Bid value
+          readOnly: true
+        bidSize:
+          type: number
+          format: double
+          example: 150
+          description: Bid size
+          readOnly: true
+        bidYield:
+          type: number
+          format: double
+          example: 4.799
+          description: Bid yield
+          readOnly: true
+        minQty:
+          type: number
+          format: double
+          example: 150
+          description: Minimum quantity
+          readOnly: true
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    SalesCredit:
+      type: object
+      description: If set, the unit price will be marked up or marked down based on the prescribed amount. Only applicable to Orders for Debt Instruments.
+      properties:
+        currency:
+          $ref: '#/components/schemas/currency'
+        amount:
+          type: integer
+          example: 14
+          description: The sales credit amount in cents.
+    instrumentISIN:
+      description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
+      type: string
+      minLength: 12
+      maxLength: 14
+      example: US023135BX34
     AskPrice:
       type: object
       description: Ask Price
@@ -325,29 +348,6 @@ components:
           example: 150
           description: Minimum quantity
           readOnly: true
-    MarketQuoteRequest:
-      type: object
-      description: Trade Quote Request for Fixed Income Securities
-      required:
-      - instrumentID
-      - quantity
-      properties:
-        instrumentID:
-          $ref: '#/components/schemas/instrumentID'
-        quantity:
-          type: number
-          format: double
-          example: 3.14
-          description: The quantity of bonds user wishes to trade.
-          minimum: 0
-        salesCredit:
-          $ref: '#/components/schemas/SalesCredit'
-    instrumentISIN:
-      description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
-      type: string
-      minLength: 12
-      maxLength: 14
-      example: US023135BX34
   securitySchemes:
     bearerAuth:
       type: http

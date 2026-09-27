@@ -39,41 +39,26 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    beneficiaryBankCountry:
+      type: string
+      example: USA
+      description: The user's external bank country.
     bankAccountID:
       type: string
       example: bank_a4656e60-321e-425b-aa0d-a2e75c38885f
       description: The unique DriveWealth identifier that identifies each linked bank account.
-    accountID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
     bankAccountNumber:
       type: string
       example: '7442393174'
       description: The account number of the user's external bank account.
-    beneficiaryBankZip:
+    accountID:
       type: string
-      example: '10038'
-      description: The user's external bank postal code.
-    beneficiaryBankAddress:
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    beneficiaryBankCity:
       type: string
-      example: 222 BROADWAY
-      description: The user's external bank street address.
-    VirtualAccountRes:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/bankAccountID'
-        accountID:
-          $ref: '#/components/schemas/accountID'
-        accountNo:
-          $ref: '#/components/schemas/accountNo'
-        wireDetails:
-          $ref: '#/components/schemas/wireDetails'
-        achDetails:
-          $ref: '#/components/schemas/achDetails'
-        wireDomesticDetails:
-          $ref: '#/components/schemas/wireDomesticDetails'
+      example: New York City
+      description: The user's external bank city.
     name:
       type: string
       example: Tom Ace
@@ -91,10 +76,6 @@ components:
           $ref: '#/components/schemas/beneficiaryBankZip'
         country:
           $ref: '#/components/schemas/beneficiaryBankCountry'
-    beneficiaryBankCountry:
-      type: string
-      example: USA
-      description: The user's external bank country.
     wireDomesticDetails:
       type: object
       properties:
@@ -128,10 +109,10 @@ components:
           enum:
           - WIRE
           - ACH
-    bankRoutingNumber:
+    bankName:
       type: string
-      example: '110000000'
-      description: The routing number of the user's external bank.
+      example: JP Morgan Chase
+      description: The name of the user's bank.
     wireDetails:
       type: object
       properties:
@@ -182,14 +163,6 @@ components:
           enum:
           - WIRE
           - ACH
-    beneficiaryBankCity:
-      type: string
-      example: New York City
-      description: The user's external bank city.
-    beneficiaryBankProvince:
-      type: string
-      example: New York
-      description: The user's external bank state or province.
     achDetails:
       type: object
       properties:
@@ -223,14 +196,41 @@ components:
           enum:
           - WIRE
           - ACH
+    bankRoutingNumber:
+      type: string
+      example: '110000000'
+      description: The routing number of the user's external bank.
     accountNo:
       type: string
       example: DWBG000052
       description: The user's unique account number, that is human readable.
-    bankName:
+    VirtualAccountRes:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/bankAccountID'
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        wireDetails:
+          $ref: '#/components/schemas/wireDetails'
+        achDetails:
+          $ref: '#/components/schemas/achDetails'
+        wireDomesticDetails:
+          $ref: '#/components/schemas/wireDomesticDetails'
+    beneficiaryBankProvince:
       type: string
-      example: JP Morgan Chase
-      description: The name of the user's bank.
+      example: New York
+      description: The user's external bank state or province.
+    beneficiaryBankAddress:
+      type: string
+      example: 222 BROADWAY
+      description: The user's external bank street address.
+    beneficiaryBankZip:
+      type: string
+      example: '10038'
+      description: The user's external bank postal code.
   securitySchemes:
     bearerAuth:
       type: http
