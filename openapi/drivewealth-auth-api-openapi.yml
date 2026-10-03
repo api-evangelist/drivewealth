@@ -56,6 +56,43 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    CreateAuthTokenReq:
+      type: object
+      required:
+      - username
+      - password
+      - appTypeID
+      properties:
+        username:
+          type: string
+          example: bo.sample.api
+          description: The B2B (business to business) back office username.
+        password:
+          type: string
+          example: 188ff5b0-8f13-4676-8bb2-305b9e08a3ba
+          description: The B2B (business to business) back office password.
+        appTypeID:
+          type: number
+          example: 4
+          description: The version type identifier.
+    CreateSessTokenReq:
+      type: object
+      required:
+      - clientID
+      - clientSecret
+      properties:
+        clientID:
+          type: string
+          example: 0oafccTendies67BTx113
+          description: The identifier of the client accessing the DriveWealth system.
+        clientSecret:
+          type: string
+          example: 8WfNzC4oTendiesTradingCompanyPuQNwg7BPByWqQOj
+          description: The secret of the client accessing the DriveWealth system.
     CreateAuthToken:
       type: object
       properties:
@@ -104,29 +141,6 @@ components:
           description: The Firm Type.
         parentIBID:
           $ref: '#/components/schemas/userID'
-    CreateAuthTokenReq:
-      type: object
-      required:
-      - username
-      - password
-      - appTypeID
-      properties:
-        username:
-          type: string
-          example: bo.sample.api
-          description: The B2B (business to business) back office username.
-        password:
-          type: string
-          example: 188ff5b0-8f13-4676-8bb2-305b9e08a3ba
-          description: The B2B (business to business) back office password.
-        appTypeID:
-          type: number
-          example: 4
-          description: The version type identifier.
-    userID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
-      description: A unique identifier created for each User on DriveWealth's platform.
     CreateSessToken:
       type: object
       properties:
@@ -148,20 +162,6 @@ components:
           type: string
           example: all_trading
           description: The scope of permission set for the JSON Web Token (JWT).
-    CreateSessTokenReq:
-      type: object
-      required:
-      - clientID
-      - clientSecret
-      properties:
-        clientID:
-          type: string
-          example: 0oafccTendies67BTx113
-          description: The identifier of the client accessing the DriveWealth system.
-        clientSecret:
-          type: string
-          example: 8WfNzC4oTendiesTradingCompanyPuQNwg7BPByWqQOj
-          description: The secret of the client accessing the DriveWealth system.
   securitySchemes:
     bearerAuth:
       type: http

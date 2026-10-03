@@ -149,160 +149,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    fundTarget:
+    fundMaxAllowed:
       type: number
-      example: 0.75
-      description: The individual targeted weight of the instrument.
-    portfolioID:
+      example: 0.05
+      description: The total drift amount for this instrument.
+    triggerTypes:
       type: string
-      example: portfolio_87fec25f-c350-4a53-83a0-fc6be0c2989e
-      description: The unique identifier of a portfolio.
-    managedAccountsUserID:
-      type: string
-      example: 66304da9-3h6f-2234-935f-ac6b7933d706
-      description: The unique identifier of the registered investment advisors account.
-    FundByUserID:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/fundID'
-        userID:
-          $ref: '#/components/schemas/userID'
-        name:
-          $ref: '#/components/schemas/fundName'
-        type:
-          $ref: '#/components/schemas/fundType'
-        clientFundID:
-          $ref: '#/components/schemas/clientFundID'
-        description:
-          $ref: '#/components/schemas/fundDescription'
-        holdings:
-          type: array
-          description: A list of instruments to make up the fund.
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/FundByUserID.Holdings'
-        triggers:
-          type: array
-          description: A list of the individual triggers for each instrument.
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/FundByUserID.Triggers'
-    fundType:
-      type: string
-      example: FUND
-      description: The type of fund.
+      example: TOTAL_DRIFT
+      description: The type of trigger associated to the fund as a whole or an individual instrument.
       enum:
-      - FUND
-      - CASH_RESERVE
-    PortfoliosByUserID:
-      type: array
-      description: A list of portfolios by userID.
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/PortfolioByUserID'
-    portfolioName:
-      type: string
-      example: Go Getter Portfolio
-      description: A user defined name that describes the underlying portfolio.
-    portfolioRes:
-      type: object
-      properties:
-        id:
-          type: string
-          example: portfolio_4a22340a-31f8-4f0e-b5ee-24ddfbc66727
-          description: The unique identifier associated with a portfolio.
-        name:
-          type: string
-          example: Recession Proof
-          description: A name given to the Portfolio by the RIA.
-        clientPortfolioID:
-          $ref: '#/components/schemas/clientPortfolioID'
-        description:
-          type: string
-          example: A portifolio description
-          description: A short description for the Portfolio.
-        holdings:
-          type: array
-          description: An array of objects that hold the type of Funds in the Portfolio.
-          items:
-            $ref: '#/components/schemas/portfolioResHoldingsObject'
-        userID:
-          $ref: '#/components/schemas/managedAccountsUserID'
-        triggers:
-          type: array
-          description: An array of objects that hold information on when to trigger a rebalance in the Portfolio.
-          items:
-            $ref: '#/components/schemas/portfolioTriggers'
-        isFundTargetsChanged:
-          type: boolean
-          example: false
-        fundsTargetsChanged:
-          type: boolean
-          example: false
-    fundDescription:
-      type: string
-      example: This fund is comprised of large cap stocks weight like the S&P 500.
-      description: A user defined description that describes the underlying fund.
-    fundID:
-      type: string
-      example: fund_4c16152c-f8e7-4a5a-af6b-c36f4e5cc6e7
-      description: The unique identifier of a fund.
-    fundLowerBound:
-      type: number
-      example: 0.1
-    holdingsObject:
-      type: object
-      description: An object in the holdings array that holds the instrumentID and target.
-      properties:
-        instrumentID:
-          type: string
-          example: 5b85fabb-d57c-44e6-a7f6-a3efc760226c
-          description: A unique ID created by DriveWealth to identify a specific instrument.
-        target:
-          type: number
-          example: 0.5
-          description: The target percentage for the specific instrumentID within a fund.
-    portfolioDescription:
-      type: string
-      example: This portfolio is comprised different funds that make up an aggressive portfolio.
-      description: A user defined description that describes the underlying portfolio.
-    portfolioLowerBound:
-      type: number
-      example: 0.1
-    portfolioTriggers:
-      type: object
-      description: An object that holds the details of when to trigger a rebalance of a Portfolio.
-      required:
-      - type
-      - child
-      - maxAllowed
-      - lowerBound
-      - upperBound
-      properties:
-        type:
-          type: string
-          example: TOTAL_DRIFT
-          description: The type of trigger specified to enable a rebalance.
-          enum:
-          - TOTAL_DRIFT
-          - RELATIVE_DRIFT
-          - ABSOLUTE_DRIFT
-        maxAllowed:
-          type: number
-          example: 0.05
-          description: The maximum allowed drift for the Portfolio.
-        child:
-          type: string
-          example: null
-        lowerBound:
-          type: number
-          example: 0.01
-          description: The lowest bound range of the drift parameters.
-        upperBound:
-          type: number
-          example: 0.02
-          description: The highest bound range of the drift parameter.
+      - TOTAL_DRIFT
+      - RELATIVE_DRIFT
+      - ABSOLUTE_DRIFT
     PortfolioByUserID:
       type: object
       properties:
@@ -328,63 +186,6 @@ components:
           description: A list of the individual triggers for each fund and or cash.
           items:
             $ref: '#/components/schemas/PortfolioByUserID.Triggers'
-    portfolioMaxAllowed:
-      type: number
-      example: 0.05
-      description: The total drift amount for this fund or cash.
-    FundByUserID.Triggers:
-      type: object
-      properties:
-        child:
-          $ref: '#/components/schemas/instrumentID'
-        maxAllowed:
-          $ref: '#/components/schemas/fundMaxAllowed'
-        lowerBound:
-          $ref: '#/components/schemas/fundLowerBound'
-        upperBound:
-          $ref: '#/components/schemas/fundUpperLowerBound'
-        type:
-          $ref: '#/components/schemas/triggerTypes'
-    PortfolioByUserID.Triggers:
-      type: object
-      properties:
-        child:
-          $ref: '#/components/schemas/fundID'
-        maxAllowed:
-          $ref: '#/components/schemas/portfolioMaxAllowed'
-        lowerBound:
-          $ref: '#/components/schemas/portfolioLowerBound'
-        upperBound:
-          $ref: '#/components/schemas/portfolioUpperLowerBound'
-        type:
-          $ref: '#/components/schemas/triggerTypes'
-    fundUpperLowerBound:
-      type: number
-      example: 0.25
-    portfolioUpperLowerBound:
-      type: number
-      example: 0.25
-    portfolioReqHoldings:
-      type: object
-      required:
-      - type
-      - target
-      properties:
-        type:
-          type: string
-          example: FUND
-          description: The type of asset in a Portfolio.
-          enum:
-          - FUND
-          - CASH_RESERVE
-        id:
-          type: string
-          example: fund_3d9d00d1-f06e-4f86-9cbf-893c75cf77fe
-          description: The unique fundID.
-        target:
-          type: number
-          example: 0.95
-          description: The percentage of a Fund within a Portfolio.
     triggersObject:
       type: object
       description: An object that holds the details of when to trigger a rebalance of the Fund.
@@ -418,18 +219,6 @@ components:
           type: number
           example: 0.02
           description: The highest bound range of the drift parameter.
-    userID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
-      description: A unique identifier created for each User on DriveWealth's platform.
-    fundMaxAllowed:
-      type: number
-      example: 0.05
-      description: The total drift amount for this instrument.
-    fundName:
-      type: string
-      example: Large Capitalization Fund
-      description: A user defined name that describes the underlying fund.
     clientPortfolioID:
       type: string
       example: AAABBB-1222-3344.123456789
@@ -466,25 +255,86 @@ components:
           description: An array of objects that hold a list if triggers associated with a portfolio.
           items:
             $ref: '#/components/schemas/portfolioTriggers'
-    clientFundID:
-      type: string
-      example: AAABBB-1222-3344.123456789
-      description: A user defined identifier attached to the fund.
-    triggerTypes:
-      type: string
-      example: TOTAL_DRIFT
-      description: The type of trigger associated to the fund as a whole or an individual instrument.
-      enum:
-      - TOTAL_DRIFT
-      - RELATIVE_DRIFT
-      - ABSOLUTE_DRIFT
-    FundByUserID.Holdings:
+    portfolioRes:
       type: object
       properties:
-        instrumentID:
-          $ref: '#/components/schemas/instrumentID'
+        id:
+          type: string
+          example: portfolio_4a22340a-31f8-4f0e-b5ee-24ddfbc66727
+          description: The unique identifier associated with a portfolio.
+        name:
+          type: string
+          example: Recession Proof
+          description: A name given to the Portfolio by the RIA.
+        clientPortfolioID:
+          $ref: '#/components/schemas/clientPortfolioID'
+        description:
+          type: string
+          example: A portifolio description
+          description: A short description for the Portfolio.
+        holdings:
+          type: array
+          description: An array of objects that hold the type of Funds in the Portfolio.
+          items:
+            $ref: '#/components/schemas/portfolioResHoldingsObject'
+        userID:
+          $ref: '#/components/schemas/managedAccountsUserID'
+        triggers:
+          type: array
+          description: An array of objects that hold information on when to trigger a rebalance in the Portfolio.
+          items:
+            $ref: '#/components/schemas/portfolioTriggers'
+        isFundTargetsChanged:
+          type: boolean
+          example: false
+        fundsTargetsChanged:
+          type: boolean
+          example: false
+    portfolioLowerBound:
+      type: number
+      example: 0.1
+    PortfolioByUserID.Holdings.CashReserve:
+      type: object
+      properties:
+        type:
+          type: string
+          example: CASH_RESERVE
+          description: The type of collection making up the portfolio
+          enum:
+          - CASH_RESERVE
+          - FUND
         target:
-          $ref: '#/components/schemas/fundTarget'
+          type: string
+          example: 0.25
+          description: The individual targeted weight of the cash portion of the portfolio.
+    fundUpperLowerBound:
+      type: number
+      example: 0.25
+    portfolioReqHoldings:
+      type: object
+      required:
+      - type
+      - target
+      properties:
+        type:
+          type: string
+          example: FUND
+          description: The type of asset in a Portfolio.
+          enum:
+          - FUND
+          - CASH_RESERVE
+        id:
+          type: string
+          example: fund_3d9d00d1-f06e-4f86-9cbf-893c75cf77fe
+          description: The unique fundID.
+        target:
+          type: number
+          example: 0.95
+          description: The percentage of a Fund within a Portfolio.
+    fundDescription:
+      type: string
+      example: This fund is comprised of large cap stocks weight like the S&P 500.
+      description: A user defined description that describes the underlying fund.
     portfolioResHoldingsObject:
       type: object
       description: An array of objects that hold details of a Fund in a Portfolio.
@@ -524,25 +374,175 @@ components:
           description: The triggers associated with a Portfolio.
           items:
             $ref: '#/components/schemas/triggersObject'
+    portfolioID:
+      type: string
+      example: portfolio_87fec25f-c350-4a53-83a0-fc6be0c2989e
+      description: The unique identifier of a portfolio.
+    portfolioDescription:
+      type: string
+      example: This portfolio is comprised different funds that make up an aggressive portfolio.
+      description: A user defined description that describes the underlying portfolio.
+    FundByUserID.Triggers:
+      type: object
+      properties:
+        child:
+          $ref: '#/components/schemas/instrumentID'
+        maxAllowed:
+          $ref: '#/components/schemas/fundMaxAllowed'
+        lowerBound:
+          $ref: '#/components/schemas/fundLowerBound'
+        upperBound:
+          $ref: '#/components/schemas/fundUpperLowerBound'
+        type:
+          $ref: '#/components/schemas/triggerTypes'
+    FundByUserID.Holdings:
+      type: object
+      properties:
+        instrumentID:
+          $ref: '#/components/schemas/instrumentID'
+        target:
+          $ref: '#/components/schemas/fundTarget'
+    fundTarget:
+      type: number
+      example: 0.75
+      description: The individual targeted weight of the instrument.
+    fundLowerBound:
+      type: number
+      example: 0.1
+    portfolioName:
+      type: string
+      example: Go Getter Portfolio
+      description: A user defined name that describes the underlying portfolio.
+    holdingsObject:
+      type: object
+      description: An object in the holdings array that holds the instrumentID and target.
+      properties:
+        instrumentID:
+          type: string
+          example: 5b85fabb-d57c-44e6-a7f6-a3efc760226c
+          description: A unique ID created by DriveWealth to identify a specific instrument.
+        target:
+          type: number
+          example: 0.5
+          description: The target percentage for the specific instrumentID within a fund.
+    fundName:
+      type: string
+      example: Large Capitalization Fund
+      description: A user defined name that describes the underlying fund.
     instrumentID:
       type: string
       format: uuid
       example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
       description: 'A unique ID created by DriveWealth to identify a specific instrument. '
-    PortfolioByUserID.Holdings.CashReserve:
+    portfolioTriggers:
       type: object
+      description: An object that holds the details of when to trigger a rebalance of a Portfolio.
+      required:
+      - type
+      - child
+      - maxAllowed
+      - lowerBound
+      - upperBound
       properties:
         type:
           type: string
-          example: CASH_RESERVE
-          description: The type of collection making up the portfolio
+          example: TOTAL_DRIFT
+          description: The type of trigger specified to enable a rebalance.
           enum:
-          - CASH_RESERVE
-          - FUND
-        target:
+          - TOTAL_DRIFT
+          - RELATIVE_DRIFT
+          - ABSOLUTE_DRIFT
+        maxAllowed:
+          type: number
+          example: 0.05
+          description: The maximum allowed drift for the Portfolio.
+        child:
           type: string
-          example: 0.25
-          description: The individual targeted weight of the cash portion of the portfolio.
+          example: null
+        lowerBound:
+          type: number
+          example: 0.01
+          description: The lowest bound range of the drift parameters.
+        upperBound:
+          type: number
+          example: 0.02
+          description: The highest bound range of the drift parameter.
+    fundType:
+      type: string
+      example: FUND
+      description: The type of fund.
+      enum:
+      - FUND
+      - CASH_RESERVE
+    PortfoliosByUserID:
+      type: array
+      description: A list of portfolios by userID.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/PortfolioByUserID'
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    fundID:
+      type: string
+      example: fund_4c16152c-f8e7-4a5a-af6b-c36f4e5cc6e7
+      description: The unique identifier of a fund.
+    portfolioMaxAllowed:
+      type: number
+      example: 0.05
+      description: The total drift amount for this fund or cash.
+    PortfolioByUserID.Triggers:
+      type: object
+      properties:
+        child:
+          $ref: '#/components/schemas/fundID'
+        maxAllowed:
+          $ref: '#/components/schemas/portfolioMaxAllowed'
+        lowerBound:
+          $ref: '#/components/schemas/portfolioLowerBound'
+        upperBound:
+          $ref: '#/components/schemas/portfolioUpperLowerBound'
+        type:
+          $ref: '#/components/schemas/triggerTypes'
+    FundByUserID:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/fundID'
+        userID:
+          $ref: '#/components/schemas/userID'
+        name:
+          $ref: '#/components/schemas/fundName'
+        type:
+          $ref: '#/components/schemas/fundType'
+        clientFundID:
+          $ref: '#/components/schemas/clientFundID'
+        description:
+          $ref: '#/components/schemas/fundDescription'
+        holdings:
+          type: array
+          description: A list of instruments to make up the fund.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/FundByUserID.Holdings'
+        triggers:
+          type: array
+          description: A list of the individual triggers for each instrument.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/FundByUserID.Triggers'
+    portfolioUpperLowerBound:
+      type: number
+      example: 0.25
+    clientFundID:
+      type: string
+      example: AAABBB-1222-3344.123456789
+      description: A user defined identifier attached to the fund.
+    managedAccountsUserID:
+      type: string
+      example: 66304da9-3h6f-2234-935f-ac6b7933d706
+      description: The unique identifier of the registered investment advisors account.
   securitySchemes:
     bearerAuth:
       type: http

@@ -160,136 +160,126 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    note:
+    finTranReference:
       type: string
-      example: Hey! Welcome to DriveWealth Developer Docs!
-      description: A way to store a message/comment on the this object.
+      example: HG.cd22a78a-8a48-441c-89d2-ea400964a34b
+      description: The unique identifier that references back to the specific transaction.
+    withdrawalUserDetails:
+      type: object
+      properties:
+        userID:
+          $ref: '#/components/schemas/userID'
+        username:
+          $ref: '#/components/schemas/username'
+        firstName:
+          $ref: '#/components/schemas/firstName'
+        lastName:
+          $ref: '#/components/schemas/lastName'
+        email:
+          $ref: '#/components/schemas/email'
+        parentIBID:
+          $ref: '#/components/schemas/parentIBIDObject'
+        wlpID:
+          $ref: '#/components/schemas/wlpID'
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
+    accountManagementTypeObject:
+      type: object
+      properties:
+        name:
+          type: string
+          example: SELF
+          description: The type of account who has trading authority.
+          enum:
+          - SELF
+          - ADVISORY
+          - RIA_MANAGED
+          - CUSTODIAL
+          - CUSTODIAL_MANAGED
+          - RESERVED
+          - RETIREMENT_TRADITIONAL_SELF
+          - RETIREMENT_TRADITIONAL_ADVISORY
+          - RETIREMENT_TRADITIONAL_RIA_MANAGED
+          - RETIREMENT_ROTH_SELF
+          - RETIREMENT_ROTH_ADVISORY
+          - RETIREMENT_ROTH_RIA_MANAGED
+          - TRUST_SELF
+          - TRUST_ADVISORY
+          - TRUST_RIA_MANAGED
+          - HSA_SELF
+          - HSA_ADVISORY
+          - HSA_RIA_MANAGED
+        description:
+          type: string
+          example: Self Directed Account
+          description: A custom description of the account management type.
+    accountNo:
+      type: string
+      example: DWBG000052
+      description: The user's unique account number, that is human readable.
     ListAllWithdrawalsForTheFirm:
       type: array
       description: A list of all redemptions for the firm.
       items:
         oneOf:
         - $ref: '#/components/schemas/WithdrawalForTheFirm'
+    withdrawalStatusHistoryObject:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/withdrawalStatusNumber'
+        statusMessage:
+          $ref: '#/components/schemas/withdrawalStatus'
+        created:
+          $ref: '#/components/schemas/created'
+          description: The date and time the withdrawal move into this step.
+        updatedBy:
+          $ref: '#/components/schemas/updatedBy'
+        comment:
+          type: string
+          example: New redemption request from the back-office
+          description: A custom description that describes the current status of the redemption/withdrawal.
+    WithdrawalForTheFirm:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/withdrawalID'
+        paymentID:
+          $ref: '#/components/schemas/withdrawalID'
+        type:
+          $ref: '#/components/schemas/withdrawalTypes'
+        amount:
+          type: number
+          example: 125.92
+          description: The amount of the withdrawal
+        currency:
+          $ref: '#/components/schemas/currencyObject'
+        status:
+          $ref: '#/components/schemas/redemptionStatusObject'
+        userDetails:
+          $ref: '#/components/schemas/withdrawalUserDetails'
+        accountDetails:
+          $ref: '#/components/schemas/withdrawalAccountDetails'
+        fees:
+          type: array
+          description: A list of fees associated to the withdrawal.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/feeObject'
+        wlpFinTranTypeID:
+          $ref: '#/components/schemas/wlpFinTranTypeID'
+        transactionCode:
+          $ref: '#/components/schemas/transactionCodeObject'
     username:
       type: string
       example: ttc.user.justin
       description: The username of the user.
-    WithdrawalFromUserAccount:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/withdrawalID'
-        accountNo:
-          $ref: '#/components/schemas/accountNo'
-        category:
-          type: string
-          example: REDEMPTION
-          description: The category of the withdrawal.
-        currency:
-          $ref: '#/components/schemas/currency'
-        amount:
-          type: number
-          example: -560.36
-          description: The amount of the withdrawal.
-        status:
-          $ref: '#/components/schemas/redemptionStatusObject'
-        source:
-          type: object
-          properties:
-            id:
-              $ref: '#/components/schemas/withdrawalTypes'
-            meta_info:
-              $ref: '#/components/schemas/note'
-        paymentRef:
-          $ref: '#/components/schemas/withdrawalID'
-        created:
-          type: string
-          example: '2022-12-08T18:36:40.609Z'
-          description: The date and time the when the withdrawal was created.
-        accountID:
-          $ref: '#/components/schemas/accountID'
-        userID:
-          $ref: '#/components/schemas/userID'
-        transactionCode:
-          $ref: '#/components/schemas/transactionCode'
-        wlpFinTranTypeID:
-          $ref: '#/components/schemas/wlpFinTranTypeID'
-        batch:
-          type: boolean
-          example: true
-          description: True, if the withdrawal will be batched.
-        account_number:
-          $ref: '#/components/schemas/accountNo'
-    withdrawalTypes:
+    lastName:
       type: string
-      example: ACH
-      description: The method/form in which the redemption/withdrawal will be sent back to the user's external account.
-      enum:
-      - ACH
-      - WIRE
-      - CASH_TRANSFER
-      - BULK_FUNDING
-    currency:
-      type: string
-      example: USD
-      description: The name of the currency in abbreviation form.
-      enum:
-      - USD
-    accountID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
-    iraDistribution:
-      type: string
-      example: PREMATURE
-      description: The type of redemption/withdrawal from an IRA type of account.
-      enum:
-      - PREMATURE
-      - QUALIFIED
-      - RMD
-      deprecated: true
-    wlpFinTranTypeID:
-      type: string
-      example: c43bab85-2916-4831-a0db-66215150a6e4
-      description: A unique identifier to id different type of transactions.
-    parentIBIDObject:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 80f9b672-120d-4b73-9cc9-42fb3262c4b9
-          description: The unique identifier of an associated organization.
-        name:
-          type: string
-          example: Tendies Trading Company
-          description: The organization name.
-    iraTaxWithHoldings:
-      type: object
-      properties:
-        federalTaxPercentage:
-          type: number
-          example: 0.1
-          description: The percentage amount that should be withheld for federal taxes.
-    accountNo:
-      type: string
-      example: DWBG000052
-      description: The user's unique account number, that is human readable.
-    updatedBy:
-      type: string
-      example: SYSTEM
-      enum:
-      - SYSTEM REPORT SERVICE
-      - INSTANT FUNDING BREAKDOWN JOB
-    currencySymbol:
-      type: string
-      example: $
-      description: The currency symbol.
-      enum:
-      - $
-    beneficiaryBankProvince:
-      type: string
-      example: New York
-      description: The user's external bank state or province.
+      example: Smith
+      description: The last (family) name of the user.
     WithdrawalFromUserAccountReq:
       type: object
       required:
@@ -332,178 +322,22 @@ components:
           $ref: '#/components/schemas/note'
         settlementProfileID:
           $ref: '#/components/schemas/settlementProfileID'
-    withdrawalAccountDetails:
-      type: object
-      properties:
-        accountID:
-          $ref: '#/components/schemas/accountID'
-        accountNo:
-          $ref: '#/components/schemas/accountNo'
-        accountType:
-          $ref: '#/components/schemas/accountTypeObject'
-        accountManagementType:
-          $ref: '#/components/schemas/accountManagementTypeObject'
-    accountTypeObject:
-      type: object
-      properties:
-        name:
-          type: string
-          example: LIVE
-          description: The type of account that has been created.
-        description:
-          type: string
-          example: Live Account
-          description: A custom description of the account type.
-    redemptionStatusObject:
-      type: object
-      properties:
-        id:
-          type: number
-          example: 1
-          description: The current status of the user's brokerage account withdraw in integer form.
-        message:
-          type: string
-          example: PENDING
-          description: The current status of the user's brokerage account redemption/withdrawal.
-          enum:
-          - STARTED
-          - PENDING
-          - SUCCESSFUL
-          - FAILED
-          - OTHER
-          - RIA_PENDING
-          - RIA_APPROVED
-          - RIA_APPROVED
-          - APPROVED
-          - REJECTED
-          - '-'
-        updated:
-          type: string
-          example: '2022-12-11T22:28:21.810Z'
-          description: The last updated timestamp of the status of the user's brokerage account redemption/withdrawal.
-    withdrawalUserDetails:
-      type: object
-      properties:
-        userID:
-          $ref: '#/components/schemas/userID'
-        username:
-          $ref: '#/components/schemas/username'
-        firstName:
-          $ref: '#/components/schemas/firstName'
-        lastName:
-          $ref: '#/components/schemas/lastName'
-        email:
-          $ref: '#/components/schemas/email'
-        parentIBID:
-          $ref: '#/components/schemas/parentIBIDObject'
-        wlpID:
-          $ref: '#/components/schemas/wlpID'
-    Redemptions:
-      type: array
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/Redemption'
-    WithdrawalByRedemptionID:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/withdrawalID'
-        category:
-          $ref: '#/components/schemas/withdrawalCategories'
-        currency:
-          $ref: '#/components/schemas/currencyObject'
-        status:
-          $ref: '#/components/schemas/redemptionStatusObject'
-        created:
-          $ref: '#/components/schemas/created'
-          description: The date and time the redemption/withdrawal was created.
-        userDetails:
-          $ref: '#/components/schemas/withdrawalUserDetails'
-        accountDetails:
-          $ref: '#/components/schemas/withdrawalAccountDetails'
-        batch:
-          $ref: '#/components/schemas/batch'
-        transactionCode:
-          $ref: '#/components/schemas/transactionCodeObject'
-        statusHistory:
-          type: array
-          description: A list of the status history of the withdrawal.
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/withdrawalStatusHistoryObject'
-        details:
-          $ref: '#/components/schemas/withdrawalDetailsObject'
-        wlpFinTranTypeID:
-          $ref: '#/components/schemas/wlpFinTranTypeID'
-        fees:
-          type: array
-          description: A list of fees associated to the withdrawal.
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/feeObject'
-        note:
-          $ref: '#/components/schemas/note'
-        type:
-          $ref: '#/components/schemas/withdrawalTypes'
-    feeObject:
-      type: object
-      required:
-      - type
-      - amount
-      properties:
-        type:
-          type: string
-          example: FEE_ACH
-          description: The type of fee that is being applied.
-          enum:
-          - FEE_ACH
-          - FEE_FEDERAL_TAX
-          - FEE_STATE_TAX
-        description:
-          type: string
-          example: Fee - ACH
-          description: A custom description that describes the fee type.
-        amount:
-          type: number
-          example: -5.99
-          description: The amount of the fee that is being applied.
-        wlpFinTranTypeID:
-          $ref: '#/components/schemas/wlpFinTranTypeID'
-        transactionCode:
-          $ref: '#/components/schemas/transactionCode'
-        finTranReference:
-          $ref: '#/components/schemas/finTranReference'
-        created:
-          type: string
-          example: '2022-12-11T22:28:21.810Z'
-          description: The timestamp of when the fee was charged.
-        currency:
-          $ref: '#/components/schemas/currency'
-        symbol:
-          $ref: '#/components/schemas/currencySymbol'
-    withdrawalCategories:
-      type: string
-      example: REDEMPTION
-      description: The category of the withdrawal.
-    settlementProfileID:
-      type: string
-      example: settlement-profile-bank-account-1
-      description: A settlement profile identifier that links to a specific bank account for fund settlement.
-    created:
-      type: string
-      example: '2022-12-11T22:28:21.810Z'
-      description: ''
-    lastName:
-      type: string
-      example: Smith
-      description: The last (family) name of the user.
-    wlpID:
-      type: string
-      example: TTC
-      description: The wlpID is a deep backoffice ID that identifies each partner from each other.
-    batch:
-      type: boolean
-      example: true
+    withdrawalStatusNumber:
+      type: number
+      example: 1
+      description: The current status of the user's redemption/withdrawal in integer form.
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+      - 16
+      - -1
     transactionCodeObject:
       type: object
       properties:
@@ -515,17 +349,10 @@ components:
           type: string
           example: Cash Receipt - ACH
           description: A custom description about the transaction code.
-    transactionCode:
+    note:
       type: string
-      example: JOURNAL
-      enum:
-      - JOURNAL
-      - FEE_ACH
-      - DISBURSEMENT_ACH_SVB
-    email:
-      type: string
-      example: jj@drivewealth.dev
-      description: The user's email address.
+      example: Hey! Welcome to DriveWealth Developer Docs!
+      description: A way to store a message/comment on the this object.
     withdrawalDetailsObject:
       type: object
       properties:
@@ -574,10 +401,35 @@ components:
           type: string
           example: J.P Morgan Chase & Co.
           description: The full name of the intermediary bank that is facilitating the international wire transfer.
-    userID:
+    created:
       type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
-      description: A unique identifier created for each User on DriveWealth's platform.
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    transactionCodeType:
+      type: string
+      example: CSR
+      enum:
+      - CSR
+      - CSD
+    redemptionID:
+      type: string
+      example: DWUV000006-1593451797743-R8CC7
+      description: A unique identifier for the user's account redemption/withdrawal.
+    wlpID:
+      type: string
+      example: TTC
+      description: The wlpID is a deep backoffice ID that identifies each partner from each other.
+    parentIBIDObject:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 80f9b672-120d-4b73-9cc9-42fb3262c4b9
+          description: The unique identifier of an associated organization.
+        name:
+          type: string
+          example: Tendies Trading Company
+          description: The organization name.
     withdrawalStatus:
       type: string
       example: PENDING
@@ -594,53 +446,6 @@ components:
       - APPROVED
       - REJECTED
       - '-'
-    WithdrawalForTheFirm:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/withdrawalID'
-        paymentID:
-          $ref: '#/components/schemas/withdrawalID'
-        type:
-          $ref: '#/components/schemas/withdrawalTypes'
-        amount:
-          type: number
-          example: 125.92
-          description: The amount of the withdrawal
-        currency:
-          $ref: '#/components/schemas/currencyObject'
-        status:
-          $ref: '#/components/schemas/redemptionStatusObject'
-        userDetails:
-          $ref: '#/components/schemas/withdrawalUserDetails'
-        accountDetails:
-          $ref: '#/components/schemas/withdrawalAccountDetails'
-        fees:
-          type: array
-          description: A list of fees associated to the withdrawal.
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/feeObject'
-        wlpFinTranTypeID:
-          $ref: '#/components/schemas/wlpFinTranTypeID'
-        transactionCode:
-          $ref: '#/components/schemas/transactionCodeObject'
-    withdrawalID:
-      type: string
-      example: ZYNN000001-1672169822525-RIUIN
-      description: The unique identifier of the redemption/withdrawal.
-    beneficiaryBankCountry:
-      type: string
-      example: USA
-      description: The user's external bank country.
-    bankAccountID:
-      type: string
-      example: bank_a4656e60-321e-425b-aa0d-a2e75c38885f
-      description: The unique DriveWealth identifier that identifies each linked bank account.
-    beneficiaryBankCity:
-      type: string
-      example: New York City
-      description: The user's external bank city.
     Redemption:
       type: object
       properties:
@@ -680,60 +485,111 @@ components:
           type: string
           example: '2022-12-11T22:28:21.810Z'
           description: The date and time of when the redemption was created.
-    accountManagementTypeObject:
+    iraTaxWithHoldings:
+      type: object
+      properties:
+        federalTaxPercentage:
+          type: number
+          example: 0.1
+          description: The percentage amount that should be withheld for federal taxes.
+    bankAccountID:
+      type: string
+      example: bank_a4656e60-321e-425b-aa0d-a2e75c38885f
+      description: The unique DriveWealth identifier that identifies each linked bank account.
+    batch:
+      type: boolean
+      example: true
+    Redemptions:
+      type: array
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/Redemption'
+    transactionCode:
+      type: string
+      example: JOURNAL
+      enum:
+      - JOURNAL
+      - FEE_ACH
+      - DISBURSEMENT_ACH_SVB
+    redemptionStatusObject:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+          description: The current status of the user's brokerage account withdraw in integer form.
+        message:
+          type: string
+          example: PENDING
+          description: The current status of the user's brokerage account redemption/withdrawal.
+          enum:
+          - STARTED
+          - PENDING
+          - SUCCESSFUL
+          - FAILED
+          - OTHER
+          - RIA_PENDING
+          - RIA_APPROVED
+          - RIA_APPROVED
+          - APPROVED
+          - REJECTED
+          - '-'
+        updated:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The last updated timestamp of the status of the user's brokerage account redemption/withdrawal.
+    firstName:
+      type: string
+      example: Justin
+      description: The first name of the user.
+    beneficiaryBankCity:
+      type: string
+      example: New York City
+      description: The user's external bank city.
+    beneficiaryBankCountry:
+      type: string
+      example: USA
+      description: The user's external bank country.
+    beneficiaryBankProvince:
+      type: string
+      example: New York
+      description: The user's external bank state or province.
+    updatedBy:
+      type: string
+      example: SYSTEM
+      enum:
+      - SYSTEM REPORT SERVICE
+      - INSTANT FUNDING BREAKDOWN JOB
+    beneficiaryBankZip:
+      type: string
+      example: '10038'
+      description: The user's external bank postal code.
+    iraDistribution:
+      type: string
+      example: PREMATURE
+      description: The type of redemption/withdrawal from an IRA type of account.
+      enum:
+      - PREMATURE
+      - QUALIFIED
+      - RMD
+      deprecated: true
+    accountTypeObject:
       type: object
       properties:
         name:
           type: string
-          example: SELF
-          description: The type of account who has trading authority.
-          enum:
-          - SELF
-          - ADVISORY
-          - RIA_MANAGED
-          - CUSTODIAL
-          - CUSTODIAL_MANAGED
-          - RESERVED
-          - RETIREMENT_TRADITIONAL_SELF
-          - RETIREMENT_TRADITIONAL_ADVISORY
-          - RETIREMENT_TRADITIONAL_RIA_MANAGED
-          - RETIREMENT_ROTH_SELF
-          - RETIREMENT_ROTH_ADVISORY
-          - RETIREMENT_ROTH_RIA_MANAGED
-          - TRUST_SELF
-          - TRUST_ADVISORY
-          - TRUST_RIA_MANAGED
-          - HSA_SELF
-          - HSA_ADVISORY
-          - HSA_RIA_MANAGED
+          example: LIVE
+          description: The type of account that has been created.
         description:
           type: string
-          example: Self Directed Account
-          description: A custom description of the account management type.
-    finTranReference:
+          example: Live Account
+          description: A custom description of the account type.
+    currency:
       type: string
-      example: HG.cd22a78a-8a48-441c-89d2-ea400964a34b
-      description: The unique identifier that references back to the specific transaction.
-    redemptionID:
-      type: string
-      example: DWUV000006-1593451797743-R8CC7
-      description: A unique identifier for the user's account redemption/withdrawal.
-    withdrawalStatusNumber:
-      type: number
-      example: 1
-      description: The current status of the user's redemption/withdrawal in integer form.
+      example: USD
+      description: The name of the currency in abbreviation form.
       enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      - 11
-      - 12
-      - 13
-      - 14
-      - 15
-      - 16
-      - -1
+      - USD
     currencyObject:
       type: object
       properties:
@@ -745,40 +601,184 @@ components:
           description: A custom description about the currency.
         symbol:
           $ref: '#/components/schemas/currencySymbol'
-    transactionCodeType:
+    withdrawalTypes:
       type: string
-      example: CSR
+      example: ACH
+      description: The method/form in which the redemption/withdrawal will be sent back to the user's external account.
       enum:
-      - CSR
-      - CSD
-    withdrawalStatusHistoryObject:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/withdrawalStatusNumber'
-        statusMessage:
-          $ref: '#/components/schemas/withdrawalStatus'
-        created:
-          $ref: '#/components/schemas/created'
-          description: The date and time the withdrawal move into this step.
-        updatedBy:
-          $ref: '#/components/schemas/updatedBy'
-        comment:
-          type: string
-          example: New redemption request from the back-office
-          description: A custom description that describes the current status of the redemption/withdrawal.
-    firstName:
-      type: string
-      example: Justin
-      description: The first name of the user.
+      - ACH
+      - WIRE
+      - CASH_TRANSFER
+      - BULK_FUNDING
     beneficiaryBankAddress:
       type: string
       example: 222 BROADWAY
       description: The user's external bank street address.
-    beneficiaryBankZip:
+    withdrawalAccountDetails:
+      type: object
+      properties:
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        accountType:
+          $ref: '#/components/schemas/accountTypeObject'
+        accountManagementType:
+          $ref: '#/components/schemas/accountManagementTypeObject'
+    email:
       type: string
-      example: '10038'
-      description: The user's external bank postal code.
+      example: jj@drivewealth.dev
+      description: The user's email address.
+    WithdrawalByRedemptionID:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/withdrawalID'
+        category:
+          $ref: '#/components/schemas/withdrawalCategories'
+        currency:
+          $ref: '#/components/schemas/currencyObject'
+        status:
+          $ref: '#/components/schemas/redemptionStatusObject'
+        created:
+          $ref: '#/components/schemas/created'
+          description: The date and time the redemption/withdrawal was created.
+        userDetails:
+          $ref: '#/components/schemas/withdrawalUserDetails'
+        accountDetails:
+          $ref: '#/components/schemas/withdrawalAccountDetails'
+        batch:
+          $ref: '#/components/schemas/batch'
+        transactionCode:
+          $ref: '#/components/schemas/transactionCodeObject'
+        statusHistory:
+          type: array
+          description: A list of the status history of the withdrawal.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/withdrawalStatusHistoryObject'
+        details:
+          $ref: '#/components/schemas/withdrawalDetailsObject'
+        wlpFinTranTypeID:
+          $ref: '#/components/schemas/wlpFinTranTypeID'
+        fees:
+          type: array
+          description: A list of fees associated to the withdrawal.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/feeObject'
+        note:
+          $ref: '#/components/schemas/note'
+        type:
+          $ref: '#/components/schemas/withdrawalTypes'
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    feeObject:
+      type: object
+      required:
+      - type
+      - amount
+      properties:
+        type:
+          type: string
+          example: FEE_ACH
+          description: The type of fee that is being applied.
+          enum:
+          - FEE_ACH
+          - FEE_FEDERAL_TAX
+          - FEE_STATE_TAX
+        description:
+          type: string
+          example: Fee - ACH
+          description: A custom description that describes the fee type.
+        amount:
+          type: number
+          example: -5.99
+          description: The amount of the fee that is being applied.
+        wlpFinTranTypeID:
+          $ref: '#/components/schemas/wlpFinTranTypeID'
+        transactionCode:
+          $ref: '#/components/schemas/transactionCode'
+        finTranReference:
+          $ref: '#/components/schemas/finTranReference'
+        created:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The timestamp of when the fee was charged.
+        currency:
+          $ref: '#/components/schemas/currency'
+        symbol:
+          $ref: '#/components/schemas/currencySymbol'
+    withdrawalID:
+      type: string
+      example: ZYNN000001-1672169822525-RIUIN
+      description: The unique identifier of the redemption/withdrawal.
+    WithdrawalFromUserAccount:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/withdrawalID'
+        accountNo:
+          $ref: '#/components/schemas/accountNo'
+        category:
+          type: string
+          example: REDEMPTION
+          description: The category of the withdrawal.
+        currency:
+          $ref: '#/components/schemas/currency'
+        amount:
+          type: number
+          example: -560.36
+          description: The amount of the withdrawal.
+        status:
+          $ref: '#/components/schemas/redemptionStatusObject'
+        source:
+          type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/withdrawalTypes'
+            meta_info:
+              $ref: '#/components/schemas/note'
+        paymentRef:
+          $ref: '#/components/schemas/withdrawalID'
+        created:
+          type: string
+          example: '2022-12-08T18:36:40.609Z'
+          description: The date and time the when the withdrawal was created.
+        accountID:
+          $ref: '#/components/schemas/accountID'
+        userID:
+          $ref: '#/components/schemas/userID'
+        transactionCode:
+          $ref: '#/components/schemas/transactionCode'
+        wlpFinTranTypeID:
+          $ref: '#/components/schemas/wlpFinTranTypeID'
+        batch:
+          type: boolean
+          example: true
+          description: True, if the withdrawal will be batched.
+        account_number:
+          $ref: '#/components/schemas/accountNo'
+    wlpFinTranTypeID:
+      type: string
+      example: c43bab85-2916-4831-a0db-66215150a6e4
+      description: A unique identifier to id different type of transactions.
+    withdrawalCategories:
+      type: string
+      example: REDEMPTION
+      description: The category of the withdrawal.
+    settlementProfileID:
+      type: string
+      example: settlement-profile-bank-account-1
+      description: A settlement profile identifier that links to a specific bank account for fund settlement.
+    currencySymbol:
+      type: string
+      example: $
+      description: The currency symbol.
+      enum:
+      - $
   securitySchemes:
     bearerAuth:
       type: http

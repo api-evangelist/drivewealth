@@ -128,14 +128,6 @@ components:
           type: string
           example: '2022-12-29T18:32:15.533Z'
           description: The when the beneficiary was added to the account.
-    accountID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
-    name:
-      type: string
-      example: Tom Ace
-      description: Full name or entity name of type.
     BeneficiaryReq:
       type: object
       properties:
@@ -151,6 +143,10 @@ components:
           items:
             oneOf:
             - $ref: '#/components/schemas/beneficiariesObject'
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
     BeneficiaryRes:
       type: object
       properties:
@@ -166,6 +162,10 @@ components:
           items:
             oneOf:
             - $ref: '#/components/schemas/beneficiariesObject'
+    name:
+      type: string
+      example: Tom Ace
+      description: Full name or entity name of type.
   securitySchemes:
     bearerAuth:
       type: http

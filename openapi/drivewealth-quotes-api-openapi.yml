@@ -196,147 +196,12 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    bidPrice:
-      type: number
-      example: 86.12
-      description: The current price buyers are prepared to pay for a security.
-    Referential:
-      type: array
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/EquityQuote'
-        - $ref: '#/components/schemas/FixedIncomeQuote'
-    EquityQuote:
-      type: object
-      properties:
-        symbol:
-          $ref: '#/components/schemas/instrumentSymbol'
-        bid:
-          $ref: '#/components/schemas/bidPrice'
-        ask:
-          $ref: '#/components/schemas/askPrice'
-        lastTrade:
-          type: number
-          example: 86.47
-          description: The NBBO quote of the most recent trade.
-        change:
-          type: number
-          example: -1.33
-          description: The percentage change in trade price relative to the previous days close.
-        open:
-          $ref: '#/components/schemas/openPrice'
-        high:
-          $ref: '#/components/schemas/highPrice'
-        low:
-          $ref: '#/components/schemas/lowPrice'
-        close:
-          type: number
-          example: 0
-          description: The close price populated after market close, price updates overnight if a corporate action occurs.
-        priorClose:
-          type: number
-          example: 86.86
-          description: The closing price of the current symbol for the prior trading day.
-        volume:
-          type: number
-          example: 2779731
-          description: The total trading volume of the security for the current day in quantity of shares.
-        marketCondition:
-          type: string
-          example: NORMAL
-          description: The trading status of the symbol.
-          enum:
-          - NORMAL
-          - TRADING_HALT
-          - UNKNOWN
-        dataProvider:
-          type: string
-          example: NYSE
-          description: The exchange venue providing the quote.
-    FixedIncomeQuote:
-      type: array
-      properties:
-        instrumentID:
-          type: string
-          example: 1179e8dd-2781-4ce9-842c-f05ded6a40d7
-          description: The unique identifier of the instrument.
-        isin:
-          type: string
-          example: US912810RC45
-          description: The International Securities Identification Number (ISIN) of the instrument.
-        bidYield:
-          type: number
-          example: 4.220776
-          description: The yield at which the buyer is willing to buy the security.
-        askYield:
-          type: number
-          example: 4.207803
-          description: The yield at which the seller is willing to sell the security.
-        bid:
-          type: number
-          example: 92.276
-          description: The price at which the buyer is willing to buy the security.
-        ask:
-          type: number
-          example: 92.436
-          description: The price at which the seller is willing to sell the security.
-        priorClose:
-          type: number
-          example: 92.3085938
-          description: The closing price of the current symbol for the prior trading day.
-        askSize:
-          type: number
-          example: 0
-          description: The ask size is the number of shares investors are trying to sell at a given price for a particular security.
-        bidSize:
-          type: number
-          example: 0
-          description: The bid size is the number of shares investors are trying to buy at a given price for a particular security.
-        lastTradeSize:
-          type: number
-          example: 0
-          description: The quantity of shares of the last trade.
-        tradeCount:
-          type: number
-          example: 0
-          description: The number of trades placed for the symbol during the current trading day.
-        marketCondition:
-          type: string
-          example: NORMAL
-          description: The trading status of the symbol.
-          enum:
-          - NORMAL
-          - TRADING_HALT
-          - UNKNOWN
-        dataProvider:
-          type: string
-          example: ICE BondPoint
-          description: The exchange venue providing the quote.
-        timeOffset:
-          type: number
-          example: 0
-    lowPrice:
-      type: number
-      example: 85.83
-      description: The lowest price in the current trading day.
-    askPrice:
-      type: number
-      example: 85.14
-      description: The current price sellers are prepared to sell a security.
-    highPrice:
-      type: number
-      example: 86.85
-      description: The highest price in the current trading day.
     instrumentSymbol:
       type:
       - string
       - 'null'
       example: MS
       description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
-    openPrice:
-      type: number
-      example: 86.53
-      description: Most recent opening price of the instrument.
     NBBO:
       type: object
       properties:
@@ -411,6 +276,141 @@ components:
           type: number
           example: 86.86
           description: The closing price of the current symbol for the prior trading day.
+    askPrice:
+      type: number
+      example: 85.14
+      description: The current price sellers are prepared to sell a security.
+    FixedIncomeQuote:
+      type: array
+      properties:
+        instrumentID:
+          type: string
+          example: 1179e8dd-2781-4ce9-842c-f05ded6a40d7
+          description: The unique identifier of the instrument.
+        isin:
+          type: string
+          example: US912810RC45
+          description: The International Securities Identification Number (ISIN) of the instrument.
+        bidYield:
+          type: number
+          example: 4.220776
+          description: The yield at which the buyer is willing to buy the security.
+        askYield:
+          type: number
+          example: 4.207803
+          description: The yield at which the seller is willing to sell the security.
+        bid:
+          type: number
+          example: 92.276
+          description: The price at which the buyer is willing to buy the security.
+        ask:
+          type: number
+          example: 92.436
+          description: The price at which the seller is willing to sell the security.
+        priorClose:
+          type: number
+          example: 92.3085938
+          description: The closing price of the current symbol for the prior trading day.
+        askSize:
+          type: number
+          example: 0
+          description: The ask size is the number of shares investors are trying to sell at a given price for a particular security.
+        bidSize:
+          type: number
+          example: 0
+          description: The bid size is the number of shares investors are trying to buy at a given price for a particular security.
+        lastTradeSize:
+          type: number
+          example: 0
+          description: The quantity of shares of the last trade.
+        tradeCount:
+          type: number
+          example: 0
+          description: The number of trades placed for the symbol during the current trading day.
+        marketCondition:
+          type: string
+          example: NORMAL
+          description: The trading status of the symbol.
+          enum:
+          - NORMAL
+          - TRADING_HALT
+          - UNKNOWN
+        dataProvider:
+          type: string
+          example: ICE BondPoint
+          description: The exchange venue providing the quote.
+        timeOffset:
+          type: number
+          example: 0
+    EquityQuote:
+      type: object
+      properties:
+        symbol:
+          $ref: '#/components/schemas/instrumentSymbol'
+        bid:
+          $ref: '#/components/schemas/bidPrice'
+        ask:
+          $ref: '#/components/schemas/askPrice'
+        lastTrade:
+          type: number
+          example: 86.47
+          description: The NBBO quote of the most recent trade.
+        change:
+          type: number
+          example: -1.33
+          description: The percentage change in trade price relative to the previous days close.
+        open:
+          $ref: '#/components/schemas/openPrice'
+        high:
+          $ref: '#/components/schemas/highPrice'
+        low:
+          $ref: '#/components/schemas/lowPrice'
+        close:
+          type: number
+          example: 0
+          description: The close price populated after market close, price updates overnight if a corporate action occurs.
+        priorClose:
+          type: number
+          example: 86.86
+          description: The closing price of the current symbol for the prior trading day.
+        volume:
+          type: number
+          example: 2779731
+          description: The total trading volume of the security for the current day in quantity of shares.
+        marketCondition:
+          type: string
+          example: NORMAL
+          description: The trading status of the symbol.
+          enum:
+          - NORMAL
+          - TRADING_HALT
+          - UNKNOWN
+        dataProvider:
+          type: string
+          example: NYSE
+          description: The exchange venue providing the quote.
+    highPrice:
+      type: number
+      example: 86.85
+      description: The highest price in the current trading day.
+    bidPrice:
+      type: number
+      example: 86.12
+      description: The current price buyers are prepared to pay for a security.
+    lowPrice:
+      type: number
+      example: 85.83
+      description: The lowest price in the current trading day.
+    Referential:
+      type: array
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/EquityQuote'
+        - $ref: '#/components/schemas/FixedIncomeQuote'
+    openPrice:
+      type: number
+      example: 86.53
+      description: Most recent opening price of the instrument.
   securitySchemes:
     bearerAuth:
       type: http

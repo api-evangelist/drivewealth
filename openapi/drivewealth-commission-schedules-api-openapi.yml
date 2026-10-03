@@ -39,23 +39,10 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    assignmentCriteria:
-      type: object
-      properties:
-        wplID:
-          $ref: '#/components/schemas/wlpID'
-        countries:
-          type: string
-          example: USA
-          description: Clients from this country will be assigned this commission.
-        defaultStatus:
-          type: boolean
-          example: true
-          description: The default commission to be applied if no other criteria matches.
-        accountMgmtType:
-          type: string
-          example: null
-          description: NEEDS DESCRIPTION
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
     CommissionObject:
       type: object
       properties:
@@ -87,10 +74,6 @@ components:
               properties:
                 schema:
                   $ref: '#/components/schemas/ratesObject'
-    accountID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
     CommissionsRes:
       type: array
       items:
@@ -99,6 +82,23 @@ components:
       type: string
       example: b3e985dd-9679-63dc-5dd5-9bd7982efecd
       description: The unique identifier associated with a specific commission related to the account.
+    assignmentCriteria:
+      type: object
+      properties:
+        wplID:
+          $ref: '#/components/schemas/wlpID'
+        countries:
+          type: string
+          example: USA
+          description: Clients from this country will be assigned this commission.
+        defaultStatus:
+          type: boolean
+          example: true
+          description: The default commission to be applied if no other criteria matches.
+        accountMgmtType:
+          type: string
+          example: null
+          description: NEEDS DESCRIPTION
     wlpID:
       type: string
       example: TTC
