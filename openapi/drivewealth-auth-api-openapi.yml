@@ -56,10 +56,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    userID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
-      description: A unique identifier created for each User on DriveWealth's platform.
     CreateAuthTokenReq:
       type: object
       required:
@@ -79,6 +75,31 @@ components:
           type: number
           example: 4
           description: The version type identifier.
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    CreateSessToken:
+      type: object
+      properties:
+        token_type:
+          type: string
+          example: Bearer
+          description: The type of token that was generated.
+          enum:
+          - Bearer
+        expires_in:
+          type: string
+          example: '3600'
+          description: The length of time in seconds for which the session token is valid.
+        access_token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+          description: The session token.
+        scope:
+          type: string
+          example: all_trading
+          description: The scope of permission set for the JSON Web Token (JWT).
     CreateSessTokenReq:
       type: object
       required:
@@ -141,27 +162,6 @@ components:
           description: The Firm Type.
         parentIBID:
           $ref: '#/components/schemas/userID'
-    CreateSessToken:
-      type: object
-      properties:
-        token_type:
-          type: string
-          example: Bearer
-          description: The type of token that was generated.
-          enum:
-          - Bearer
-        expires_in:
-          type: string
-          example: '3600'
-          description: The length of time in seconds for which the session token is valid.
-        access_token:
-          type: string
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-          description: The session token.
-        scope:
-          type: string
-          example: all_trading
-          description: The scope of permission set for the JSON Web Token (JWT).
   securitySchemes:
     bearerAuth:
       type: http

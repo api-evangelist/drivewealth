@@ -98,81 +98,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    fundMaxAllowed:
-      type: number
-      example: 0.05
-      description: The total drift amount for this instrument.
-    triggerTypes:
-      type: string
-      example: TOTAL_DRIFT
-      description: The type of trigger associated to the fund as a whole or an individual instrument.
-      enum:
-      - TOTAL_DRIFT
-      - RELATIVE_DRIFT
-      - ABSOLUTE_DRIFT
-    triggersObject:
-      type: object
-      description: An object that holds the details of when to trigger a rebalance of the Fund.
-      required:
-      - type
-      - child
-      - maxAllowed
-      - lowerBound
-      - upperBound
-      properties:
-        type:
-          type: string
-          example: TOTAL_DRIFT
-          description: The type of trigger specified to enable a rebalance.
-          enum:
-          - TOTAL_DRIFT
-          - RELATIVE_DRIFT
-          - ABSOLUTE_DRIFT
-        maxAllowed:
-          type: number
-          example: 0.05
-          description: The maximum allowed drift for the Fund.
-        child:
-          type: string
-          example: null
-        lowerBound:
-          type: number
-          example: 0.01
-          description: The lowest bound range of the drift parameters.
-        upperBound:
-          type: number
-          example: 0.02
-          description: The highest bound range of the drift parameter.
-    clientListID:
-      type: string
-      example: SUMS_CUSTOM_ALLOCATION_TEST
-      description: An advisor created identifier for a specific allocation.
-    FundsByUserID:
-      type: array
-      description: A list of individual funds holdings.
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/FundByUserID'
-    fundUpperLowerBound:
-      type: number
-      example: 0.25
-    fundDescription:
-      type: string
-      example: This fund is comprised of large cap stocks weight like the S&P 500.
-      description: A user defined description that describes the underlying fund.
-    FundByUserID.Triggers:
-      type: object
-      properties:
-        child:
-          $ref: '#/components/schemas/instrumentID'
-        maxAllowed:
-          $ref: '#/components/schemas/fundMaxAllowed'
-        lowerBound:
-          $ref: '#/components/schemas/fundLowerBound'
-        upperBound:
-          $ref: '#/components/schemas/fundUpperLowerBound'
-        type:
-          $ref: '#/components/schemas/triggerTypes'
     FundByUserID.Holdings:
       type: object
       properties:
@@ -180,13 +105,10 @@ components:
           $ref: '#/components/schemas/instrumentID'
         target:
           $ref: '#/components/schemas/fundTarget'
-    fundTarget:
-      type: number
-      example: 0.75
-      description: The individual targeted weight of the instrument.
-    fundLowerBound:
-      type: number
-      example: 0.1
+    fundDescription:
+      type: string
+      example: This fund is comprised of large cap stocks weight like the S&P 500.
+      description: A user defined description that describes the underlying fund.
     holdingsObject:
       type: object
       description: An object in the holdings array that holds the instrumentID and target.
@@ -199,22 +121,6 @@ components:
           type: number
           example: 0.5
           description: The target percentage for the specific instrumentID within a fund.
-    fundName:
-      type: string
-      example: Large Capitalization Fund
-      description: A user defined name that describes the underlying fund.
-    instrumentID:
-      type: string
-      format: uuid
-      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
-      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
-    fundType:
-      type: string
-      example: FUND
-      description: The type of fund.
-      enum:
-      - FUND
-      - CASH_RESERVE
     fundsRequest:
       type: object
       required:
@@ -249,14 +155,56 @@ components:
           description: An array of objects that hold information on when to trigger a rebalance in a Fund.
           items:
             $ref: '#/components/schemas/triggersObject'
-    userID:
+    FundsByUserID:
+      type: array
+      description: A list of individual funds holdings.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/FundByUserID'
+    triggersObject:
+      type: object
+      description: An object that holds the details of when to trigger a rebalance of the Fund.
+      required:
+      - type
+      - child
+      - maxAllowed
+      - lowerBound
+      - upperBound
+      properties:
+        type:
+          type: string
+          example: TOTAL_DRIFT
+          description: The type of trigger specified to enable a rebalance.
+          enum:
+          - TOTAL_DRIFT
+          - RELATIVE_DRIFT
+          - ABSOLUTE_DRIFT
+        maxAllowed:
+          type: number
+          example: 0.05
+          description: The maximum allowed drift for the Fund.
+        child:
+          type: string
+          example: null
+        lowerBound:
+          type: number
+          example: 0.01
+          description: The lowest bound range of the drift parameters.
+        upperBound:
+          type: number
+          example: 0.02
+          description: The highest bound range of the drift parameter.
+    fundName:
       type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
-      description: A unique identifier created for each User on DriveWealth's platform.
-    fundID:
-      type: string
-      example: fund_4c16152c-f8e7-4a5a-af6b-c36f4e5cc6e7
-      description: The unique identifier of a fund.
+      example: Large Capitalization Fund
+      description: A user defined name that describes the underlying fund.
+    fundTarget:
+      type: number
+      example: 0.75
+      description: The individual targeted weight of the instrument.
+    fundUpperLowerBound:
+      type: number
+      example: 0.25
     FundByUserID:
       type: object
       properties:
@@ -284,6 +232,62 @@ components:
           items:
             oneOf:
             - $ref: '#/components/schemas/FundByUserID.Triggers'
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    clientListID:
+      type: string
+      example: SUMS_CUSTOM_ALLOCATION_TEST
+      description: An advisor created identifier for a specific allocation.
+    fundID:
+      type: string
+      example: fund_4c16152c-f8e7-4a5a-af6b-c36f4e5cc6e7
+      description: The unique identifier of a fund.
+    fundType:
+      type: string
+      example: FUND
+      description: The type of fund.
+      enum:
+      - FUND
+      - CASH_RESERVE
+    fundLowerBound:
+      type: number
+      example: 0.1
+    FundByUserID.Triggers:
+      type: object
+      properties:
+        child:
+          $ref: '#/components/schemas/instrumentID'
+        maxAllowed:
+          $ref: '#/components/schemas/fundMaxAllowed'
+        lowerBound:
+          $ref: '#/components/schemas/fundLowerBound'
+        upperBound:
+          $ref: '#/components/schemas/fundUpperLowerBound'
+        type:
+          $ref: '#/components/schemas/triggerTypes'
+    clientFundID:
+      type: string
+      example: AAABBB-1222-3344.123456789
+      description: A user defined identifier attached to the fund.
+    fundMaxAllowed:
+      type: number
+      example: 0.05
+      description: The total drift amount for this instrument.
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    triggerTypes:
+      type: string
+      example: TOTAL_DRIFT
+      description: The type of trigger associated to the fund as a whole or an individual instrument.
+      enum:
+      - TOTAL_DRIFT
+      - RELATIVE_DRIFT
+      - ABSOLUTE_DRIFT
     fundsResponse:
       type: object
       properties:
@@ -322,10 +326,6 @@ components:
         instrumentTargetsChanged:
           type: boolean
           example: false
-    clientFundID:
-      type: string
-      example: AAABBB-1222-3344.123456789
-      description: A user defined identifier attached to the fund.
     managedAccountsUserID:
       type: string
       example: 66304da9-3h6f-2234-935f-ac6b7933d706

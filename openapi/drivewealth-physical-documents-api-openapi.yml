@@ -93,6 +93,62 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    GetUserPhysicalDocumentByID:
+      type: object
+      properties:
+        url:
+          $ref: '#/components/schemas/fileURL'
+    physicalDocumentBase64:
+      type: string
+      example: data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QCMR
+      description: The Base64 encoded string of the document.
+      maximum: 10
+    DocumentsArray:
+      type: array
+      description: An array of uploaded documents
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/schemas-Documents'
+    physicalDocumentTypes:
+      type: string
+      example: DRIVER_LICENSE
+      description: The type of physical document.
+      enum:
+      - DRIVER_LICENSE
+      - PASSPORT
+      - NATIONAL_ID_CARD
+      - VOTER_ID
+      - WORK_PERMIT
+      - VISA
+      - RESIDENCE_PERMIT
+      - ACATS_IN
+      - ACATS_OUT
+      - TRANSFER_ON_DEATH
+      - BENEFICIARY_DOCUMENT
+    physicalDocumentSides:
+      type: string
+      example: FRONT
+      description: The actual side of the physical document.
+    physicalDocumentStatus:
+      type: string
+      example: NOT_SUBMITTED
+      description: The current status of the physical document.
+      enum:
+      - NOT_SUBMITTED
+      - PENDING
+      - APPROVED
+      - REJECTED
+    UploadUserPhysicalDocument:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/physicalDocumentID'
+        type:
+          $ref: '#/components/schemas/physicalDocumentTypes'
+        status:
+          $ref: '#/components/schemas/physicalDocumentStatusObject'
+        side:
+          $ref: '#/components/schemas/physicalDocumentSides'
     schemas-Documents:
       type: object
       properties:
@@ -116,22 +172,14 @@ components:
               type: string
               example: The document has not been submitted for approval.
               description: A custom description to describe the status.
-    physicalDocumentTypes:
+    userID:
       type: string
-      example: DRIVER_LICENSE
-      description: The type of physical document.
-      enum:
-      - DRIVER_LICENSE
-      - PASSPORT
-      - NATIONAL_ID_CARD
-      - VOTER_ID
-      - WORK_PERMIT
-      - VISA
-      - RESIDENCE_PERMIT
-      - ACATS_IN
-      - ACATS_OUT
-      - TRANSFER_ON_DEATH
-      - BENEFICIARY_DOCUMENT
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    fileURL:
+      type: string
+      example: https://dzb6emi8pracf.cloudfront.net/5a013513-8af1-4078-be75-36a5250953f7.1488219178676/Stmt_DRVW_001_DWJM000019_Apr2017.pdf?Policy=eyJTdGF0ZW1lbnQiOiBbeyJSZXNvdXJjZSI6Imh0dHBzOi8vZHpiNmVtaThwcmFjZi5jbG91ZGZyb250Lm5ldC81YTAxMzUxMy04YWYxLTQwNzgtYmU3NS0zNmE1MjUwOTUzZjcuMTQ4ODIxOTE3ODY3Ni9TdG10X0RSVldfMDAxX0RXSk0wMDAwMTlfQXByMjAxNy5wZGYiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE0OTk3MTc1NDV9LCJJcEFkZHJlc3MiOnsiQVdTOlNvdXJjZUlwIjoiMC4wLjAuMC8wIn19fV19&Signature=UWZRPku4IWoqkp4fyQ179auFVrImZUYDXswjjO-zPGW9-XKno3-TG9O2OHxWG-j7NfEHMXtZbCha~lQwpjt~g58YpL1NYk9xhlp7~HR-skC3J3W8GFVWxbR5TQUXPFOdU-KNwYlTnlE1Wr81nUyoNWrrF-8afyiHVnfm2w35GpZavAKhOiKNDHn7kTorQz3rbkYDks9u1CGPU7TCeZ-GzupVqsUN7xDOxPUnH0KCVGY86PT8bEpPkhpc3jNmtLnB~WB3YdrFg0bSbrbU4M-sVyp49AqK~xq5uDu3Bx22vdyJlKUClEsVvKhQLOArkpMdHYwyPZC~Kz85sroGqnP3oQ__&Key-Pair-Id=APKAJP3MFGZ6DRA4CW4Q
+      description: A short-lived URL that can be accessed to download the file.
     UploadUserPhysicalDocumentReq:
       type: object
       required:
@@ -147,24 +195,6 @@ components:
           $ref: '#/components/schemas/physicalDocumentBase64'
         side:
           $ref: '#/components/schemas/physicalDocumentSides'
-    GetUserPhysicalDocumentByID:
-      type: object
-      properties:
-        url:
-          $ref: '#/components/schemas/fileURL'
-    userID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
-      description: A unique identifier created for each User on DriveWealth's platform.
-    physicalDocumentBase64:
-      type: string
-      example: data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QCMR
-      description: The Base64 encoded string of the document.
-      maximum: 10
-    physicalDocumentSides:
-      type: string
-      example: FRONT
-      description: The actual side of the physical document.
     physicalDocumentID:
       type: string
       example: 532e1b7d-09fd-4a1b-956f-d4e91ad71b4f
@@ -178,36 +208,6 @@ components:
           type: string
           example: Document has not been submitted for approval.
           description: A custom description that describes the document current status.
-    physicalDocumentStatus:
-      type: string
-      example: NOT_SUBMITTED
-      description: The current status of the physical document.
-      enum:
-      - NOT_SUBMITTED
-      - PENDING
-      - APPROVED
-      - REJECTED
-    UploadUserPhysicalDocument:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/physicalDocumentID'
-        type:
-          $ref: '#/components/schemas/physicalDocumentTypes'
-        status:
-          $ref: '#/components/schemas/physicalDocumentStatusObject'
-        side:
-          $ref: '#/components/schemas/physicalDocumentSides'
-    DocumentsArray:
-      type: array
-      description: An array of uploaded documents
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/schemas-Documents'
-    fileURL:
-      type: string
-      example: https://dzb6emi8pracf.cloudfront.net/5a013513-8af1-4078-be75-36a5250953f7.1488219178676/Stmt_DRVW_001_DWJM000019_Apr2017.pdf?Policy=eyJTdGF0ZW1lbnQiOiBbeyJSZXNvdXJjZSI6Imh0dHBzOi8vZHpiNmVtaThwcmFjZi5jbG91ZGZyb250Lm5ldC81YTAxMzUxMy04YWYxLTQwNzgtYmU3NS0zNmE1MjUwOTUzZjcuMTQ4ODIxOTE3ODY3Ni9TdG10X0RSVldfMDAxX0RXSk0wMDAwMTlfQXByMjAxNy5wZGYiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE0OTk3MTc1NDV9LCJJcEFkZHJlc3MiOnsiQVdTOlNvdXJjZUlwIjoiMC4wLjAuMC8wIn19fV19&Signature=UWZRPku4IWoqkp4fyQ179auFVrImZUYDXswjjO-zPGW9-XKno3-TG9O2OHxWG-j7NfEHMXtZbCha~lQwpjt~g58YpL1NYk9xhlp7~HR-skC3J3W8GFVWxbR5TQUXPFOdU-KNwYlTnlE1Wr81nUyoNWrrF-8afyiHVnfm2w35GpZavAKhOiKNDHn7kTorQz3rbkYDks9u1CGPU7TCeZ-GzupVqsUN7xDOxPUnH0KCVGY86PT8bEpPkhpc3jNmtLnB~WB3YdrFg0bSbrbU4M-sVyp49AqK~xq5uDu3Bx22vdyJlKUClEsVvKhQLOArkpMdHYwyPZC~Kz85sroGqnP3oQ__&Key-Pair-Id=APKAJP3MFGZ6DRA4CW4Q
-      description: A short-lived URL that can be accessed to download the file.
   securitySchemes:
     bearerAuth:
       type: http

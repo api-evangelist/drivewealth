@@ -196,12 +196,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    instrumentSymbol:
-      type:
-      - string
-      - 'null'
-      example: MS
-      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
+    lowPrice:
+      type: number
+      example: 85.83
+      description: The lowest price in the current trading day.
+    highPrice:
+      type: number
+      example: 86.85
+      description: The highest price in the current trading day.
+    openPrice:
+      type: number
+      example: 86.53
+      description: Most recent opening price of the instrument.
     NBBO:
       type: object
       properties:
@@ -276,10 +282,6 @@ components:
           type: number
           example: 86.86
           description: The closing price of the current symbol for the prior trading day.
-    askPrice:
-      type: number
-      example: 85.14
-      description: The current price sellers are prepared to sell a security.
     FixedIncomeQuote:
       type: array
       properties:
@@ -342,6 +344,12 @@ components:
         timeOffset:
           type: number
           example: 0
+    instrumentSymbol:
+      type:
+      - string
+      - 'null'
+      example: MS
+      description: The ticker symbol of the Instrument. Debt Instruments and Global Mutual Funds do not have symbols and are referred to buy their `instrumentID` or `ISIN`.
     EquityQuote:
       type: object
       properties:
@@ -389,28 +397,20 @@ components:
           type: string
           example: NYSE
           description: The exchange venue providing the quote.
-    highPrice:
+    askPrice:
       type: number
-      example: 86.85
-      description: The highest price in the current trading day.
+      example: 85.14
+      description: The current price sellers are prepared to sell a security.
     bidPrice:
       type: number
       example: 86.12
       description: The current price buyers are prepared to pay for a security.
-    lowPrice:
-      type: number
-      example: 85.83
-      description: The lowest price in the current trading day.
     Referential:
       type: array
       items:
         oneOf:
         - $ref: '#/components/schemas/EquityQuote'
         - $ref: '#/components/schemas/FixedIncomeQuote'
-    openPrice:
-      type: number
-      example: 86.53
-      description: Most recent opening price of the instrument.
   securitySchemes:
     bearerAuth:
       type: http

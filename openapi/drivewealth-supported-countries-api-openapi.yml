@@ -44,12 +44,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ListOfAllowedCountries:
-      type: array
-      description: A list of allowed countries.
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/ListOfAllowedCountry'
     ListOfAllowedCountry:
       type: object
       properties:
@@ -91,6 +85,12 @@ components:
           type: boolean
           example: false
           description: True, if the country has a tax treaty with the United States.
+    ListOfAllowedCountries:
+      type: array
+      description: A list of allowed countries.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/ListOfAllowedCountry'
   securitySchemes:
     bearerAuth:
       type: http
