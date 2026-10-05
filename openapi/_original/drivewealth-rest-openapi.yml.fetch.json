@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/drivewealth/dw-openapi/HEAD/dist/InvestingAPI.yaml",
+ "requested_url": "https://raw.githubusercontent.com/drivewealth/dw-openapi/HEAD/dist/InvestingAPI.yaml",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 603202,
+ "sha256": "217930d5d8ae9ff00d8deaa3c1cec80afbe1a105d2349e32e649e24a39d2ddb0",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
