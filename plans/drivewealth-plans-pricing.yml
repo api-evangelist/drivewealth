@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 name: DriveWealth Plans and Pricing
 description: >
   DriveWealth operates a B2B enterprise model and does not publish fixed public pricing tiers.
@@ -50,3 +54,21 @@ plans:
       - Dividend reinvestment
       - Tax documentation generation (W-9, W-8BEN)
       - Dedicated onboarding and support
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models: []
+  units: []
+  plans:
+  - name: Sandbox / UAT
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Production Partner
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
