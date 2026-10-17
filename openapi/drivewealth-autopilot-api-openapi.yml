@@ -162,6 +162,36 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    autopilotReq:
+      type: object
+      required:
+      - reviewOnly
+      - forceRebalance
+      properties:
+        reviewOnly:
+          type: boolean
+          example: true
+          description: True, if a review should occur without a forced rebalance.
+        forceRebalance:
+          type: boolean
+          example: true
+          description: True, if a forces rebalance should occur.
+        subAccounts:
+          type: array
+          description: A list of user's accountIDs to be rebalanced.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/accountID'
+    AutoPilotRunsByUserID:
+      type: array
+      description: A list of autopilot runs by userID.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/AutoPilotRunByUserID'
+    riaID:
+      type: string
+      example: 66304da9-3h6f-2234-935f-ac6b7933d706
+      description: This is the parentIBID or userID of the registered investment advisor creating the re-balance run.
     portfolioHoldings:
       type: object
       properties:
@@ -187,56 +217,58 @@ components:
           description: A flag that determines if a re-balance is required based on total drift.
         holdings:
           $ref: '#/components/schemas/holdings'
-    holdingsObject:
+    autopilotRes:
       type: object
-      description: An object in the holdings array that holds the instrumentID and target.
       properties:
-        instrumentID:
+        id:
           type: string
-          example: 5b85fabb-d57c-44e6-a7f6-a3efc760226c
-          description: A unique ID created by DriveWealth to identify a specific instrument.
-        target:
-          type: number
-          example: 0.5
-          description: The target percentage for the specific instrumentID within a fund.
-    riaID:
-      type: string
-      example: 66304da9-3h6f-2234-935f-ac6b7933d706
-      description: This is the parentIBID or userID of the registered investment advisor creating the re-balance run.
-    autopilotReq:
+          example: ria_rebalance_ebf7e764-e2d6-4b3d-a333-b8ff05b92b89
+          description: The unique re-balance run identifier `rebalanceRunID` associated with a specific re-balance.
+        created:
+          type: string
+          example: '2022-12-27T06:06:28.955Z'
+          description: A timestamp of when the re-balance run was created.
+        status:
+          type: string
+          example: REBALANCE_NOT_STARTED
+          description: Status of the re-balance run. See [Autopilot Run Status](https://developer.drivewealth.com/reference/get-autopilot-run-status) for status values.
+        riaID:
+          $ref: '#/components/schemas/riaID'
+    AutoPilotRunByUserID:
       type: object
-      required:
-      - reviewOnly
-      - forceRebalance
       properties:
-        reviewOnly:
-          type: boolean
+        id:
+          $ref: '#/components/schemas/autoPilotRebalanceID'
+        created:
+          type: string
+          example: '2022-12-11T22:28:21.810Z'
+          description: The date and time that the autopilot re-balance was created.
+        status:
+          $ref: '#/components/schemas/autoPilotStatus'
+        moneyMovement:
+          type: string
           example: true
-          description: True, if a review should occur without a forced rebalance.
-        forceRebalance:
-          type: boolean
-          example: true
-          description: True, if a forces rebalance should occur.
-        subAccounts:
-          type: array
-          description: A list of user's accountIDs to be rebalanced.
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/accountID'
-    holdings:
-      type: array
-      description: A list of the securities held in a Fund.
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/holdingsObject'
-    fundName:
+          description: True, if the re-balance was apart of a funding or withdrawal process.
+        regularRebalance:
+          type: string
+          example: false
+          description: True, if the re-balance was apart of the regularly scheduled re-balancing cycle.
+    accountID:
       type: string
-      example: Large Capitalization Fund
-      description: A user defined name that describes the underlying fund.
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
     fundTarget:
       type: number
       example: 0.75
       description: The individual targeted weight of the instrument.
+    userID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
+      description: A unique identifier created for each User on DriveWealth's platform.
+    portfolioID:
+      type: string
+      example: portfolio_87fec25f-c350-4a53-83a0-fc6be0c2989e
+      description: The unique identifier of a portfolio.
     PortfolioStatusRes:
       type: object
       properties:
@@ -267,27 +299,16 @@ components:
           items:
             oneOf:
             - $ref: '#/components/schemas/portfolioHoldings'
-    AutoPilotRunsByUserID:
-      type: array
-      description: A list of autopilot runs by userID.
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/AutoPilotRunByUserID'
     fundID:
       type: string
       example: fund_4c16152c-f8e7-4a5a-af6b-c36f4e5cc6e7
       description: The unique identifier of a fund.
-    fundType:
-      type: string
-      example: FUND
-      description: The type of fund.
-      enum:
-      - FUND
-      - CASH_RESERVE
-    autoPilotRebalanceID:
-      type: string
-      example: ria_rebalance_721ff5c3-f6f2-48d8-aaa3-41a49a044f2c
-      description: The unique identifier of the auto pilot re-balance run.
+    holdings:
+      type: array
+      description: A list of the securities held in a Fund.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/holdingsObject'
     autoPilotStatus:
       type: string
       example: REBALANCE_NOT_STARTED
@@ -349,23 +370,33 @@ components:
       - SUBACCOUNT_HOLDINGS_UPDATED
       - SUBACCOUNT_HOLDINGS_UPDATE_FAILED
       - SUCCESS
-    autopilotRes:
+    fundType:
+      type: string
+      example: FUND
+      description: The type of fund.
+      enum:
+      - FUND
+      - CASH_RESERVE
+    holdingsObject:
       type: object
+      description: An object in the holdings array that holds the instrumentID and target.
       properties:
-        id:
+        instrumentID:
           type: string
-          example: ria_rebalance_ebf7e764-e2d6-4b3d-a333-b8ff05b92b89
-          description: The unique re-balance run identifier `rebalanceRunID` associated with a specific re-balance.
-        created:
-          type: string
-          example: '2022-12-27T06:06:28.955Z'
-          description: A timestamp of when the re-balance run was created.
-        status:
-          type: string
-          example: REBALANCE_NOT_STARTED
-          description: Status of the re-balance run. See [Autopilot Run Status](https://developer.drivewealth.com/reference/get-autopilot-run-status) for status values.
-        riaID:
-          $ref: '#/components/schemas/riaID'
+          example: 5b85fabb-d57c-44e6-a7f6-a3efc760226c
+          description: A unique ID created by DriveWealth to identify a specific instrument.
+        target:
+          type: number
+          example: 0.5
+          description: The target percentage for the specific instrumentID within a fund.
+    autoPilotRebalanceID:
+      type: string
+      example: ria_rebalance_721ff5c3-f6f2-48d8-aaa3-41a49a044f2c
+      description: The unique identifier of the auto pilot re-balance run.
+    fundName:
+      type: string
+      example: Large Capitalization Fund
+      description: A user defined name that describes the underlying fund.
     runStatusRes:
       type: object
       properties:
@@ -459,37 +490,6 @@ components:
               type: string
               example: https://uat.drivewealth.autopilot.s3....
               description: Amazon S3 download containing the final outcome of the rebalance, includes users account details and their holdings.
-    accountID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
-    userID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
-      description: A unique identifier created for each User on DriveWealth's platform.
-    AutoPilotRunByUserID:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/autoPilotRebalanceID'
-        created:
-          type: string
-          example: '2022-12-11T22:28:21.810Z'
-          description: The date and time that the autopilot re-balance was created.
-        status:
-          $ref: '#/components/schemas/autoPilotStatus'
-        moneyMovement:
-          type: string
-          example: true
-          description: True, if the re-balance was apart of a funding or withdrawal process.
-        regularRebalance:
-          type: string
-          example: false
-          description: True, if the re-balance was apart of the regularly scheduled re-balancing cycle.
-    portfolioID:
-      type: string
-      example: portfolio_87fec25f-c350-4a53-83a0-fc6be0c2989e
-      description: The unique identifier of a portfolio.
   securitySchemes:
     bearerAuth:
       type: http

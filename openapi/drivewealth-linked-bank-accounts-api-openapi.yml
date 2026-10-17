@@ -41,6 +41,24 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    updated:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    bankAccountNickName:
+      type: string
+      example: PREFERRED CHECKING
+      description: The linked bank account nickname defined by the user.
+    bankRoutingNumber:
+      type: string
+      example: '110000000'
+      description: The routing number of the user's external bank.
+    BankAccountsArray:
+      type: array
+      description: A list of all the User's linked bank accounts.
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/BankAccount'
     BankAccount:
       type: object
       properties:
@@ -67,36 +85,6 @@ components:
         updated:
           $ref: '#/components/schemas/updated'
           description: The date and time the User's bank account was updated.
-    bankRoutingNumber:
-      type: string
-      example: '110000000'
-      description: The routing number of the user's external bank.
-    updated:
-      type: string
-      example: '2022-12-11T22:28:21.810Z'
-      description: ''
-    bankAccountID:
-      type: string
-      example: bank_a4656e60-321e-425b-aa0d-a2e75c38885f
-      description: The unique DriveWealth identifier that identifies each linked bank account.
-    created:
-      type: string
-      example: '2022-12-11T22:28:21.810Z'
-      description: ''
-    bankAccountNumberLastFour:
-      type: string
-      example: '****3174'
-      description: The last four digits of the user's external bank account number.
-    BankAccountsArray:
-      type: array
-      description: A list of all the User's linked bank accounts.
-      items:
-        oneOf:
-        - $ref: '#/components/schemas/BankAccount'
-    bankAccountNickName:
-      type: string
-      example: PREFERRED CHECKING
-      description: The linked bank account nickname defined by the user.
     bankAccountStatus:
       type: string
       example: ACTIVE
@@ -105,6 +93,18 @@ components:
       - ACTIVE
       - DELETED
       - DISABLED
+    created:
+      type: string
+      example: '2022-12-11T22:28:21.810Z'
+      description: ''
+    bankAccountID:
+      type: string
+      example: bank_a4656e60-321e-425b-aa0d-a2e75c38885f
+      description: The unique DriveWealth identifier that identifies each linked bank account.
+    bankAccountNumberLastFour:
+      type: string
+      example: '****3174'
+      description: The last four digits of the user's external bank account number.
   securitySchemes:
     bearerAuth:
       type: http

@@ -537,6 +537,10 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    accountID:
+      type: string
+      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
+      description: The user's unique account identifier.
     Exchange:
       type: object
       required:
@@ -635,10 +639,6 @@ components:
       type: string
       example: cc07f91b-7ee1-4868-b8fc-823c70a1b932
       description: A unique identifier created for each User on DriveWealth's platform.
-    accountID:
-      type: string
-      example: cc07f91b-7ee1-4868-b8fc-823c70a1b932.1407775317759
-      description: The user's unique account identifier.
     accountNo:
       type: string
       example: DWBG000052

@@ -99,6 +99,16 @@ paths:
         dwAppKey: []
 components:
   schemas:
+    SalesCredit:
+      type: object
+      description: If set, the unit price will be marked up or marked down based on the prescribed amount. Only applicable to Orders for Debt Instruments.
+      properties:
+        currency:
+          $ref: '#/components/schemas/currency'
+        amount:
+          type: integer
+          example: 14
+          description: The sales credit amount in cents.
     AskPrice:
       type: object
       description: Ask Price
@@ -132,87 +142,24 @@ components:
           example: 150
           description: Minimum quantity
           readOnly: true
-    RecentTrade:
-      type: object
-      description: Recent Trade
-      properties:
-        price:
-          type: number
-          format: double
-          example: 98.884
-          description: Trade price
-        quantity:
-          type: number
-          format: double
-          example: 150
-          description: Trade size/quantity
-        yield:
-          type: number
-          format: double
-          example: 4.793
-          description: Trade yield
-        date:
-          type: string
-          format: date-time
-          description: Asset's trade time.
-          example: '2017-07-21T17:32:28Z'
-        side:
-          type: string
-          example: sell
-          description: The side of order that is being placed.
-          enum:
-          - buy
-          - sell
-      example:
-        price: 98.992
-        size: 10000
-        yield: 4.799
-        side: buy
-        dateTime: '2017-07-21T17:32:28Z'
-    currency:
+    instrumentCUSIP:
+      description: 'CUSIP stands for `Committee on Uniform Securities Identification Procedures`.
+
+        A CUSIP number identifies most financial instruments, including: stocks of all registered U.S. and Canadian companies, commercial paper, and U.S. government and municipal bonds.
+
+        The CUSIP system facilitates the clearance and settlement process of securities.
+
+        CUSIP numbers consist of nine characters (including letters and numbers) that uniquely identify a company or issuer and the type of financial instrument.
+
+        A similar system is used to identify foreign securities (`CUSIP International Numbering System or CINS`).
+
+        CINS employs the same nine character identifier as CUSIP, but also contains a letter in the first position to signify the issuer''s country or geographic region.
+
+        '
       type: string
-      example: USD
-      description: The name of the currency in abbreviation form.
-      enum:
-      - USD
-    BidPrice:
-      type: object
-      description: Bid Price
-      example:
-        bidPrice: 98.992
-        bidSize: 10000
-        bidYield: 4.799
-        minQty: 150
-      properties:
-        bidPrice:
-          type: number
-          format: double
-          example: 130.529
-          description: Bid value
-          readOnly: true
-        bidSize:
-          type: number
-          format: double
-          example: 150
-          description: Bid size
-          readOnly: true
-        bidYield:
-          type: number
-          format: double
-          example: 4.799
-          description: Bid yield
-          readOnly: true
-        minQty:
-          type: number
-          format: double
-          example: 150
-          description: Minimum quantity
-          readOnly: true
-    instrumentID:
-      type: string
-      format: uuid
-      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
-      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+      minLength: 9
+      maxLength: 9
+      example: E09876AA7
     MarketQuoteResponse:
       type: object
       description: Trade Quote Response for Fixed Income Orders
@@ -297,12 +244,43 @@ components:
           description: Recent Trades
           items:
             $ref: '#/components/schemas/RecentTrade'
-    instrumentISIN:
-      description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
-      type: string
-      minLength: 12
-      maxLength: 14
-      example: US023135BX34
+    RecentTrade:
+      type: object
+      description: Recent Trade
+      properties:
+        price:
+          type: number
+          format: double
+          example: 98.884
+          description: Trade price
+        quantity:
+          type: number
+          format: double
+          example: 150
+          description: Trade size/quantity
+        yield:
+          type: number
+          format: double
+          example: 4.793
+          description: Trade yield
+        date:
+          type: string
+          format: date-time
+          description: Asset's trade time.
+          example: '2017-07-21T17:32:28Z'
+        side:
+          type: string
+          example: sell
+          description: The side of order that is being placed.
+          enum:
+          - buy
+          - sell
+      example:
+        price: 98.992
+        size: 10000
+        yield: 4.799
+        side: buy
+        dateTime: '2017-07-21T17:32:28Z'
     MarketQuoteRequest:
       type: object
       description: Trade Quote Request for Fixed Income Securities
@@ -320,34 +298,56 @@ components:
           minimum: 0
         salesCredit:
           $ref: '#/components/schemas/SalesCredit'
-    SalesCredit:
-      type: object
-      description: If set, the unit price will be marked up or marked down based on the prescribed amount. Only applicable to Orders for Debt Instruments.
-      properties:
-        currency:
-          $ref: '#/components/schemas/currency'
-        amount:
-          type: integer
-          example: 14
-          description: The sales credit amount in cents.
-    instrumentCUSIP:
-      description: 'CUSIP stands for `Committee on Uniform Securities Identification Procedures`.
-
-        A CUSIP number identifies most financial instruments, including: stocks of all registered U.S. and Canadian companies, commercial paper, and U.S. government and municipal bonds.
-
-        The CUSIP system facilitates the clearance and settlement process of securities.
-
-        CUSIP numbers consist of nine characters (including letters and numbers) that uniquely identify a company or issuer and the type of financial instrument.
-
-        A similar system is used to identify foreign securities (`CUSIP International Numbering System or CINS`).
-
-        CINS employs the same nine character identifier as CUSIP, but also contains a letter in the first position to signify the issuer''s country or geographic region.
-
-        '
+    instrumentISIN:
+      description: An `International Securities Identification Number` (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. ISINs are commonly used when an Instrument does not have a `symbol`, such as Debt Instruments and Global Mutual Funds.
       type: string
-      minLength: 9
-      maxLength: 9
-      example: E09876AA7
+      minLength: 12
+      maxLength: 14
+      example: US023135BX34
+    currency:
+      type: string
+      example: USD
+      description: The name of the currency in abbreviation form.
+      enum:
+      - USD
+    instrumentID:
+      type: string
+      format: uuid
+      example: 3fb1e8a9-f7d5-4d90-95e2-43e7326b5636
+      description: 'A unique ID created by DriveWealth to identify a specific instrument. '
+    BidPrice:
+      type: object
+      description: Bid Price
+      example:
+        bidPrice: 98.992
+        bidSize: 10000
+        bidYield: 4.799
+        minQty: 150
+      properties:
+        bidPrice:
+          type: number
+          format: double
+          example: 130.529
+          description: Bid value
+          readOnly: true
+        bidSize:
+          type: number
+          format: double
+          example: 150
+          description: Bid size
+          readOnly: true
+        bidYield:
+          type: number
+          format: double
+          example: 4.799
+          description: Bid yield
+          readOnly: true
+        minQty:
+          type: number
+          format: double
+          example: 150
+          description: Minimum quantity
+          readOnly: true
   securitySchemes:
     bearerAuth:
       type: http
