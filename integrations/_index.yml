@@ -32,6 +32,39 @@
       legal_name: DRIVEWEALTH INSTITUTIONAL LLC
       country: US
     detected_by: sweep-capital-markets.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: drivewealth-finra-broker-dealer-registration
+  label: FINRA (broker-dealer registration)
+  partner_name: FINRA (broker-dealer registration)
+  category: Broker-dealer
+  type: contract
+  channel: regulator-register
+  evidence: https://brokercheck.finra.org/firm/summary/165429
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: FINRA BrokerCheck (api.brokercheck.finra.org firm search, the page's own public JSON)
+    standard: Securities Exchange Act of 1934 broker-dealer registration (FINRA member firm)
+    spec_file: null
+    role: finra-registered-broker-dealer
+    registered_name: DRIVEWEALTH, LLC
+    other_names:
+    - MYSOLOMEO, LLC
+    register_id: CRD 165429
+    sec_file_number: 8-69161
+    registration_status: ACTIVE
+    main_office: NEW YORK, NY, USA
+    matched_domain: null
+    matched_by: register-name
+    register_name_note: BrokerCheck firm name 'DRIVEWEALTH, LLC' normalises to drivewealth's apis.yml name 'DriveWealth'
+    signal_note: 'participation only: broker-dealer registration is not a certification; disclosures and branch
+      counts are not recorded (breadth is not credit)'
+    detected_by: sweep-private-markets-fund-admin.py
+    detected: '2026-10-20'
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
   status: not-a-workflow
   arazzo: null
