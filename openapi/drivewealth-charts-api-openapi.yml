@@ -216,3 +216,9 @@ components:
       type: apiKey
       in: header
       name: dw-auth-token
+x-provenance:
+  method: harvested
+  publisher: DriveWealth
+  source: https://raw.githubusercontent.com/drivewealth/dw-openapi/HEAD/dist/InvestingAPI.yaml
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
