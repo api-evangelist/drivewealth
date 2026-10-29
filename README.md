@@ -1,4 +1,4 @@
-# DriveWealth (drivewealth)
+# DriveWealth
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,53 +64,208 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-DriveWealth is a global B2B financial technology platform providing Brokerage-as-a-Service via a REST API, enabling fintechs, banks, broker-dealers, asset managers, and consumer brands to embed investing and trading experiences into their applications. The platform supports US equities, ETFs, mutual funds, fixed income, options, and fractional share trading starting at $1. DriveWealth powers account opening, KYC/AML compliance, portfolio management, order execution, funding operations, and reporting for 100+ partners worldwide including Revolut, MoneyLion, Navy Federal, and Stake. A FIX API is also available alongside the primary REST API for institutional connectivity.
+DriveWealth is a global B2B financial technology platform providing Brokerage-as-a-Service via a REST API, enabling fintechs, banks, broker-dealers, asset managers, and consumer brands to embed investing and trading experiences into their applications. The platform supports US equities, ETFs, mutual funds, fixed income, options, and fractional share trading starting at $1. DriveWealth powers account opening, KYC/AML compliance, portfolio management, order execution, funding operations, and reporting for 100+ partners worldwide. A FIX API is also available alongside the primary REST API for institutional connectivity.
 
-**APIs.json:** https://raw.githubusercontent.com/api-evangelist/drivewealth/refs/heads/main/apis.yml
+**Areas:** Brokerage-as-a-Service · Embedded Investing · Fractional Shares · Trading · Fintech · Stocks · ETFs · Options · Fixed Income · Mutual Funds · Portfolio Management · Account Opening
 
-**Naftiko:** https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=drivewealth-api-evangelist&utm_content=repo
+## DriveWealth on APIs.io
 
-## Tags
+Everything profiled for DriveWealth is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/drivewealth/](https://apis.io/providers/drivewealth/)** — or go straight to one of the APIs or properties below.
 
-Brokerage-as-a-Service, Embedded Investing, Fractional Shares, Trading, Fintech, Equities, ETFs, Options, Fixed Income, Mutual Funds, Portfolio Management, Account Opening, KYC, Financial Services
+### APIs (31)
 
-## APIs
+- [DriveWealth FIX API](https://apis.io/apis/drivewealth/drivewealth-fix-api/) — Financial Information Exchange (FIX) protocol API for institutional-grade connectivity to DriveWealth's trading infrastructure.
+- [DriveWealth Accounts API](https://apis.io/apis/drivewealth/drivewealth-accounts-api/) — The Accounts API from DriveWealth — 8 operation(s) for accounts.
+- [DriveWealth Advisor Reports API](https://apis.io/apis/drivewealth/drivewealth-advisor-reports-api/) — The Advisor Reports API from DriveWealth — 3 operation(s) for advisor reports.
+- [DriveWealth Asset Transfer API](https://apis.io/apis/drivewealth/drivewealth-asset-transfer-api/) — The Asset Transfer API from DriveWealth — 4 operation(s) for asset transfer.
+- [DriveWealth Auth API](https://apis.io/apis/drivewealth/drivewealth-auth-api/) — The Auth API from DriveWealth — 2 operation(s) for auth.
+- [DriveWealth AutoPilot API](https://apis.io/apis/drivewealth/drivewealth-autopilot-api/) — The AutoPilot API from DriveWealth — 4 operation(s) for autopilot.
+- [DriveWealth Beneficiaries API](https://apis.io/apis/drivewealth/drivewealth-beneficiaries-api/) — The Beneficiaries API from DriveWealth — 1 operation(s) for beneficiaries.
+- [DriveWealth Charts API](https://apis.io/apis/drivewealth/drivewealth-charts-api/) — The Charts API from DriveWealth — 1 operation(s) for charts.
+- [DriveWealth Commission Schedules API](https://apis.io/apis/drivewealth/drivewealth-commission-schedules-api/) — The Commission Schedules API from DriveWealth — 1 operation(s) for commission schedules.
+- [DriveWealth Correspondent Reports API](https://apis.io/apis/drivewealth/drivewealth-correspondent-reports-api/) — The Correspondent Reports API from DriveWealth — 1 operation(s) for correspondent reports.
+- [DriveWealth Deposits API](https://apis.io/apis/drivewealth/drivewealth-deposits-api/) — The Deposits API from DriveWealth — 6 operation(s) for deposits.
+- [DriveWealth Depth of Book API](https://apis.io/apis/drivewealth/drivewealth-depth-of-book-api/) — The Depth of Book API from DriveWealth — 1 operation(s) for depth of book.
+- [DriveWealth Exchanges API](https://apis.io/apis/drivewealth/drivewealth-exchanges-api/) — The Exchanges API from DriveWealth — 4 operation(s) for exchanges.
+- [DriveWealth Funds API](https://apis.io/apis/drivewealth/drivewealth-funds-api/) — The Funds API from DriveWealth — 3 operation(s) for funds.
+- [DriveWealth Instruments API](https://apis.io/apis/drivewealth/drivewealth-instruments-api/) — The Instruments API from DriveWealth — 5 operation(s) for instruments.
+- [DriveWealth Linked Bank Accounts API](https://apis.io/apis/drivewealth/drivewealth-linked-bank-accounts-api/) — The Linked Bank Accounts API from DriveWealth — 1 operation(s) for linked bank accounts.
+- [DriveWealth Orders API](https://apis.io/apis/drivewealth/drivewealth-orders-api/) — The Orders API from DriveWealth — 6 operation(s) for orders.
+- [DriveWealth Physical Documents API](https://apis.io/apis/drivewealth/drivewealth-physical-documents-api/) — The Physical Documents API from DriveWealth — 3 operation(s) for physical documents.
+- [DriveWealth Portfolios API](https://apis.io/apis/drivewealth/drivewealth-portfolios-api/) — The Portfolios API from DriveWealth — 3 operation(s) for portfolios.
+- [DriveWealth Positions API](https://apis.io/apis/drivewealth/drivewealth-positions-api/) — The Positions API from DriveWealth — 2 operation(s) for positions.
+- [DriveWealth Quotes API](https://apis.io/apis/drivewealth/drivewealth-quotes-api/) — The Quotes API from DriveWealth — 2 operation(s) for quotes.
+- [DriveWealth Settlements API](https://apis.io/apis/drivewealth/drivewealth-settlements-api/) — The Settlements API from DriveWealth — 6 operation(s) for settlements.
+- [DriveWealth Statements API](https://apis.io/apis/drivewealth/drivewealth-statements-api/) — The Statements API from DriveWealth — 4 operation(s) for statements.
+- [DriveWealth Subscriptions API](https://apis.io/apis/drivewealth/drivewealth-subscriptions-api/) — The Subscriptions API from DriveWealth — 3 operation(s) for subscriptions.
+- [DriveWealth Supported Countries API](https://apis.io/apis/drivewealth/drivewealth-supported-countries-api/) — The Supported Countries API from DriveWealth — 1 operation(s) for supported countries.
+- [DriveWealth Trade Allocations API](https://apis.io/apis/drivewealth/drivewealth-trade-allocations-api/) — The Trade Allocations API from DriveWealth — 3 operation(s) for trade allocations.
+- [DriveWealth Transactions API](https://apis.io/apis/drivewealth/drivewealth-transactions-api/) — The Transactions API from DriveWealth — 2 operation(s) for transactions.
+- [DriveWealth Users API](https://apis.io/apis/drivewealth/drivewealth-users-api/) — The Users API from DriveWealth — 3 operation(s) for users.
+- [DriveWealth Violations API](https://apis.io/apis/drivewealth/drivewealth-violations-api/) — The Violations API from DriveWealth — 2 operation(s) for violations.
+- [DriveWealth Virtual Bank Accounts API](https://apis.io/apis/drivewealth/drivewealth-virtual-bank-accounts-api/) — The Virtual Bank Accounts API from DriveWealth — 1 operation(s) for virtual bank accounts.
+- [DriveWealth Withdrawals API](https://apis.io/apis/drivewealth/drivewealth-withdrawals-api/) — The Withdrawals API from DriveWealth — 4 operation(s) for withdrawals.
 
-| Name | Description | URL |
-|------|-------------|-----|
-| DriveWealth REST API | Primary REST API for account opening, trading, funding, and portfolio management | https://developer.drivewealth.com/apis/reference/introduction |
-| DriveWealth FIX API | Financial Information Exchange protocol API for institutional connectivity | https://developer.drivewealth.com/ |
+### Published properties
 
-## Plans / Rate Limits / FinOps
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-| Resource | File |
-|----------|------|
-| Plans & Pricing | [plans/drivewealth-plans-pricing.yml](plans/drivewealth-plans-pricing.yml) |
-| Rate Limits | [rate-limits/drivewealth-rate-limits.yml](rate-limits/drivewealth-rate-limits.yml) |
-| FinOps | [finops/drivewealth-finops.yml](finops/drivewealth-finops.yml) |
+#### Agentic access (1)
 
-DriveWealth uses an enterprise partnership pricing model with no published public rate card. Sandbox access is free; production pricing is negotiated based on trading volume, account count, and asset classes. The sandbox environment enforces a limit of 5 requests per second.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-## Timestamps
+- [Drivewealth Agentic Access](https://apis.io/agentic-access/drivewealth/drivewealth-agentic-access/)
 
-- **Created:** 2026-06-12
-- **Modified:** 2026-06-12
+#### JSON Schema (3)
 
-## Common Properties
+The data models the API reads and writes.
 
-| Type | URL |
-|------|-----|
-| Website | https://drivewealth.com |
-| Documentation | https://developer.drivewealth.com/ |
-| API Reference | https://developer.drivewealth.com/apis/reference/introduction |
-| OpenAPI Spec | https://github.com/DriveWealth/dw-openapi |
-| GitHub Organization | https://github.com/DriveWealth |
-| LinkedIn | https://www.linkedin.com/company/drivewealth/ |
-| X (Twitter) | https://twitter.com/DriveWealth |
-| Blog / News | https://drivewealth.com/news/ |
-| Pricing / Contact | https://drivewealth.com/contact/ |
-| Status Page | https://status.drivewealth.com/ |
+- [DriveWealth Account](https://apis.io/schemas/drivewealth/drivewealth-account/)
+- [DriveWealth Instrument](https://apis.io/schemas/drivewealth/drivewealth-instrument/)
+- [DriveWealth Order](https://apis.io/schemas/drivewealth/drivewealth-order/)
 
-## Maintainers
+#### JSON-LD (1)
 
-- **Kin Lane** — kin@apievangelist.com
+Linked-data contexts for the provider's vocabulary.
+
+- [Drivewealth Context](https://apis.io/jsonld/drivewealth/drivewealth-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [DriveWealth API Vocabulary](https://apis.io/vocabularies/drivewealth/drivewealth-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Drivewealth Create Account Example](https://apis.io/examples/drivewealth/drivewealth-create-account-example/)
+- [Drivewealth Deposit Example](https://apis.io/examples/drivewealth/drivewealth-deposit-example/)
+- [Drivewealth Place Order Example](https://apis.io/examples/drivewealth/drivewealth-place-order-example/)
+
+#### Collections (30)
+
+Postman and Open Collection request collections.
+
+- [DriveWealth Accounts API](https://apis.io/collections/drivewealth/open-drivewealth-accounts-api/)
+- [DriveWealth Accounts Advisor Reports API](https://apis.io/collections/drivewealth/open-drivewealth-advisor-reports-api/)
+- [DriveWealth Accounts Asset Transfer API](https://apis.io/collections/drivewealth/open-drivewealth-asset-transfer-api/)
+- [DriveWealth Accounts Auth API](https://apis.io/collections/drivewealth/open-drivewealth-auth-api/)
+- [DriveWealth Accounts AutoPilot API](https://apis.io/collections/drivewealth/open-drivewealth-autopilot-api/)
+- [DriveWealth Accounts Beneficiaries API](https://apis.io/collections/drivewealth/open-drivewealth-beneficiaries-api/)
+- [DriveWealth Accounts Charts API](https://apis.io/collections/drivewealth/open-drivewealth-charts-api/)
+- [DriveWealth Accounts Commission Schedules API](https://apis.io/collections/drivewealth/open-drivewealth-commission-schedules-api/)
+- [DriveWealth Accounts Correspondent Reports API](https://apis.io/collections/drivewealth/open-drivewealth-correspondent-reports-api/)
+- [DriveWealth Accounts Deposits API](https://apis.io/collections/drivewealth/open-drivewealth-deposits-api/)
+- [DriveWealth Accounts Depth of Book API](https://apis.io/collections/drivewealth/open-drivewealth-depth-of-book-api/)
+- [DriveWealth Accounts Exchanges API](https://apis.io/collections/drivewealth/open-drivewealth-exchanges-api/)
+- [DriveWealth Accounts Funds API](https://apis.io/collections/drivewealth/open-drivewealth-funds-api/)
+- [DriveWealth Accounts Instruments API](https://apis.io/collections/drivewealth/open-drivewealth-instruments-api/)
+- [DriveWealth Accounts Linked Bank Accounts API](https://apis.io/collections/drivewealth/open-drivewealth-linked-bank-accounts-api/)
+- [DriveWealth Accounts Orders API](https://apis.io/collections/drivewealth/open-drivewealth-orders-api/)
+- [DriveWealth Accounts Physical Documents API](https://apis.io/collections/drivewealth/open-drivewealth-physical-documents-api/)
+- [DriveWealth Accounts Portfolios API](https://apis.io/collections/drivewealth/open-drivewealth-portfolios-api/)
+- [DriveWealth Accounts Positions API](https://apis.io/collections/drivewealth/open-drivewealth-positions-api/)
+- [DriveWealth Accounts Quotes API](https://apis.io/collections/drivewealth/open-drivewealth-quotes-api/)
+- [DriveWealth Accounts Settlements API](https://apis.io/collections/drivewealth/open-drivewealth-settlements-api/)
+- [DriveWealth Accounts Statements API](https://apis.io/collections/drivewealth/open-drivewealth-statements-api/)
+- [DriveWealth Accounts Subscriptions API](https://apis.io/collections/drivewealth/open-drivewealth-subscriptions-api/)
+- [DriveWealth Accounts Supported Countries API](https://apis.io/collections/drivewealth/open-drivewealth-supported-countries-api/)
+- [DriveWealth Accounts Trade Allocations API](https://apis.io/collections/drivewealth/open-drivewealth-trade-allocations-api/)
+- …and 5 more published on APIs.io
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [DriveWealth — jsonschema rules](https://apis.io/rules/drivewealth/drivewealth-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Drivewealth Authentication](https://apis.io/security/drivewealth/drivewealth-authentication/)
+- [Drivewealth Domain Security](https://apis.io/security/drivewealth/drivewealth-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Drivewealth Plans Pricing](https://apis.io/plans/drivewealth/drivewealth-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Drivewealth Rate Limits](https://apis.io/rate-limits/drivewealth/drivewealth-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Drivewealth Finops](https://apis.io/finops/drivewealth/drivewealth-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://drivewealth.com)
+- [Documentation](https://developer.drivewealth.com/)
+- [Pricing](https://drivewealth.com/contact/)
+- [Blog](https://drivewealth.com/news/)
+- [GitHub](https://github.com/DriveWealth)
+- [Status](https://status.drivewealth.com/)
+
+## API Evangelist rating
+
+**Kin Score 33.6** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 58.9 |
+| Contract governance | 23.5 |
+| Operational transparency | 23.7 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 15.8 |
+
+**Agent readiness 35.2** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | verified |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 21.3** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/drivewealth/](https://apis.io/providers/drivewealth/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for DriveWealth: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/drivewealth/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
